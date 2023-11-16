@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import functions.DBConector;
 import main.Almoxarifado;
+import main.UserInterface;
 
 public class PartsList {
 	
@@ -140,7 +141,7 @@ public class PartsList {
 		if(isOnTheRightState) {
 			
 			g.setFont(new Font("arial", 1, 15));
-			int auxHeight = 120 + ofsetHeight;
+			int auxHeight = UserInterface.bttnY + UserInterface.boxHeight + 32 + ofsetHeight;
 			int auxWidth = 70;
 			
 			finalPartsTable[0][0] = "ID";
