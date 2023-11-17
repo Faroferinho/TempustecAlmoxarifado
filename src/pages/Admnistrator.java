@@ -1,6 +1,9 @@
 package pages;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
@@ -19,9 +22,18 @@ public class Admnistrator extends Profile {
 	public int toDrawIndex = 0;
 	public int listHeight = 0;
 	
+	public BufferedImage editButton;
+	public BufferedImage editDoneButton;
+	public BufferedImage listButton;
+	public BufferedImage signInButton;
+	
 	public Admnistrator(String Name, String RdF, String CPF) {
 		super(Name, RdF, CPF);
 		
+		editButton = Almoxarifado.imgManag.getSprite(128, 128, 128, 64);
+		editDoneButton = Almoxarifado.imgManag.getSprite(128, 128 + 64, 128, 64);
+		listButton = Almoxarifado.imgManag.getSprite(64*4, 128, 128, 64);
+		signInButton = Almoxarifado.imgManag.getSprite(0, 128, 128, 64);
 	}
 	
 	public void tick() {	
@@ -240,29 +252,14 @@ public class Admnistrator extends Profile {
 		
 			if(isEditing == false && isListing == false) {
 				firstRendering(g);
-				g.setColor(Color.darkGray);
-				g.fillRect(Almoxarifado.WIDTH / 2 - 125, Almoxarifado.HEIGHT / 2 + 120, 250, 60);
-				g.setColor(Color.white);
-				g.setFont(new Font("arial", 1, 22));
-				g.drawString("Editar Perfil", Almoxarifado.WIDTH / 2 - g.getFontMetrics().stringWidth("Editar Perfil") / 2, Almoxarifado.HEIGHT/ 2 + 157);
 				
-				g.setColor(Color.darkGray);
-				g.fillRect(Almoxarifado.WIDTH / 2 - (125 + 18 + 250), Almoxarifado.HEIGHT / 2 + 120, 250, 60);
-				g.setColor(Color.white);
-				g.drawString("Listar Funcionarios",Almoxarifado.WIDTH / 2 - (250 + 18) - g.getFontMetrics().stringWidth("Listar Funcionarios") / 2, Almoxarifado.HEIGHT/ 2 + 157);
-				
-				g.setColor(Color.darkGray);
-				g.fillRect(Almoxarifado.WIDTH / 2  + (18 + 125), Almoxarifado.HEIGHT / 2 + 120, 250, 60);
-				g.setColor(Color.white);
-				g.drawString("Cadastrar Funcionarios", Almoxarifado.WIDTH / 2 + (250 + 18) - g.getFontMetrics().stringWidth("Cadastrar Funcionarios") / 2, Almoxarifado.HEIGHT/ 2 + 157);
+				g.drawImage(editButton, Almoxarifado.WIDTH / 2 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
+				g.drawImage(listButton, Almoxarifado.WIDTH / 2 - (125 + 18 + 250), Almoxarifado.HEIGHT / 2 + 120, null);
+				g.drawImage(signInButton, Almoxarifado.WIDTH / 2 + (125 + 18 + 250 - 128), Almoxarifado.HEIGHT / 2 + 120, null);
+
 			}else if(isEditing == true){
 				firstRendering(g);
-				g.setColor(Color.yellow);
-				g.fillRect(Almoxarifado.WIDTH / 2 - 125, Almoxarifado.HEIGHT / 2 + 120, 250, 60);
-				g.setColor(Color.white);
-				g.setFont(new Font("arial", 1, 22));
-				g.drawString("Concluir Edição", Almoxarifado.WIDTH / 2 - g.getFontMetrics().stringWidth("Concluir Edição") / 2, Almoxarifado.HEIGHT/ 2 + 157);
-				
+				g.drawImage(editDoneButton, Almoxarifado.WIDTH / 2 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
 			}else if(isListing == true) {
 				g.setFont(new Font("arial", 1, 18));
 				Color nC;

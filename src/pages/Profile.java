@@ -43,22 +43,22 @@ public class Profile {
 	public byte buttonClick(int mx, int my, boolean type) {
 		
 		if(type == false) {
-			if(my > Almoxarifado.HEIGHT / 2 + 120 && my < Almoxarifado.HEIGHT / 2 + 180) {
-				if(mx > Almoxarifado.WIDTH / 2 - 150 && mx < Almoxarifado.WIDTH / 2 + 150) {
+			if(my > Almoxarifado.HEIGHT / 2 + 105 && my < Almoxarifado.HEIGHT / 2 + 190) {
+				if(mx > Almoxarifado.WIDTH / 2 - 80 && mx < Almoxarifado.WIDTH / 2 + 80) {
 					//Editar Perfil
 					return 1;
 				}
 			}
 		}else {
-			if(my > Almoxarifado.HEIGHT / 2 + 120 && my < Almoxarifado.HEIGHT / 2 + 180) {
-				if(mx > Almoxarifado.WIDTH / 2 - 150 && mx < Almoxarifado.WIDTH / 2 + 150) {
+			if(my > Almoxarifado.HEIGHT / 2 + 105 && my < Almoxarifado.HEIGHT / 2 + 190) {
+				if(mx > Almoxarifado.WIDTH / 2 - 80 && mx < Almoxarifado.WIDTH / 2 + 80) {
 					//Editar Perfil;
 					System.out.println("Botão Clicado");
 					return 1;
-				}else if(mx > Almoxarifado.WIDTH / 2 - (125 + 18 + 250) && mx < Almoxarifado.WIDTH / 2 - (125 + 18 + 250) + 250 && isEditing == false) {
+				}else if(mx > Almoxarifado.WIDTH / 2 - (125 + 18 + 250) - 15 && mx < Almoxarifado.WIDTH / 2 - (125 + 18 + 250) + 135 && isEditing == false) {
 					//Listar Pessoas;
 					return 2;
-				}else if(mx > Almoxarifado.WIDTH / 2  + (18 + 125) && mx < Almoxarifado.WIDTH / 2  + (18 + 125) + 250 && isEditing == false) {
+				}else if(mx > Almoxarifado.WIDTH / 2 + (125 + 18 + 250 - 128) - 15 && mx < Almoxarifado.WIDTH / 2 + (125 + 18 + 250) + 15 && isEditing == false) {
 					//Cadastro de Funcionarios;
 					return 3;
 				}
