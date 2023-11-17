@@ -19,8 +19,9 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 import functions.DBConector;
-import functions.Login;
 import functions.ImageManager;
+import functions.Log;
+import functions.Login;
 import pages.Admnistrator;
 import pages.Employee;
 import pages.PartsList;
@@ -40,6 +41,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static DBConector cnctr;
 	public static PartsList partsList;
 	public static ImageManager imgManag;
+	public static Log history;
 	
 	public static String name = "";
 	public static String cpf = "";
@@ -80,6 +82,9 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			workProfile = new Employee(name, rdf, cpf);
 		}
 		partsList = new PartsList();
+		history = new Log();
+		
+		history.writeOnLog("Conrado", "o Log");
 		
 		
 		inicializarTela(almox);
