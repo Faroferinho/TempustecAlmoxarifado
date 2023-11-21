@@ -21,7 +21,7 @@ import javax.swing.JFrame;
 import functions.DBConector;
 import functions.ImageManager;
 import functions.Log;
-import functions.Login;
+import pages.Login;
 import pages.Admnistrator;
 import pages.Employee;
 import pages.PartsList;
@@ -32,7 +32,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 1;
+	public static byte state = 0;
 	
 	public static Login login;
 	public static UserInterface ui;
@@ -121,11 +121,12 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	
 	public void tick() {
 		
-		ui.tick();
 		switch(state) {
 		case 0:
+			login.tick();
 			break;
 		case 1:
+			ui.tick();
 			if(type.equals("1\n")) {
 				admProfile.tick();
 			}else {
@@ -133,15 +134,28 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			}
 			break;
 		case 2:
+			ui.tick();
 			partsList.tick();
 			break;
 		case 3:
+			ui.tick();
 			break;
 		case 4:
+			ui.tick();
 			break;
 		}
 		
 		//System.out.println("Estado: " + state);
+	}
+	
+	public void backgroundRender(Graphics g) {
+		g.setColor(Color.black);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		g.setColor(Color.lightGray);
+		g.fillRect(10, 10, WIDTH-20, HEIGHT-20);
+		g.setColor(Color.gray);
+		g.fillRect(20, 20, WIDTH-40, HEIGHT-40);
 	}
 	
 	public void render() {
@@ -157,25 +171,24 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		Graphics g = bs.getDrawGraphics();
 		
 		//Basicamente desenho o esqueleto da UI;
-		g.setColor(Color.black);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		g.setColor(Color.lightGray);
-		g.fillRect(10, 10, WIDTH-20, HEIGHT-20);
-		g.setColor(Color.gray);
-		g.fillRect(20, 20, WIDTH-40, HEIGHT-40);
 		
 		
 		ui.render(g);
 		switch(state) {
+		case 0:
+			login.render(g);
+			break;
 		case 1:
+			backgroundRender(g);
 			if(type.equals("1\n")) {
 				admProfile.render(g);
 			}else {
 				workProfile.render(g);
 			}
 			break;
-		case 2: 
+		case 2:
+			backgroundRender(g);
 			partsList.render(g);
 			break;
 		}

@@ -13,14 +13,15 @@ public class Login {
 			String acount = "";
 			String password = "";
 			
-			do{
-				System.out.println("Conta: " + acount);
-				acount += JOptionPane.showInputDialog("Preencha seu Registro");
-			}while(acount.isEmpty() || acount.isBlank() || acount.equals("null"));
+			acount += JOptionPane.showInputDialog(null, "Preencha seu Registro", "Entrada", JOptionPane.PLAIN_MESSAGE);
+			if(acount.equals("") || acount.equals("null")) {
+				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				System.exit(0);
+			}
 			
-			password += JOptionPane.showInputDialog("Insira sua senha");
+			password += JOptionPane.showInputDialog(null, "Insira sua senha", "Senha", JOptionPane.PLAIN_MESSAGE);
 			if(password.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Operação Cancelada");
+				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				System.exit(0);
 			}
 			
@@ -54,14 +55,19 @@ public class Login {
 			
 			Almoxarifado.name = DBConector.findInDB("name", "funcionarios", "RdF", acount);
 			//System.out.println("O nome é: " + Almoxarifado.name);
+			
 			Almoxarifado.rdf = acount;
 			System.out.println("O RdF é: " + Almoxarifado.rdf);
+			
 			Almoxarifado.cpf = DBConector.findInDB("cpf", "funcionarios", "RdF", acount);
 			System.out.println("O CPF é: " + Almoxarifado.cpf);
+			
 			Almoxarifado.type = DBConector.findInDB("type", "funcionarios", "RdF", acount);
 			System.out.println("O tipo é: " + Almoxarifado.type);
+			
 			Almoxarifado.state = 1;
 		}else {
+			JOptionPane.showMessageDialog(null, "Conta ou Senha Incorretos", "Erro no Login", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
 	}

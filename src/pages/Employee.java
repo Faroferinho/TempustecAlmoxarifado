@@ -8,13 +8,15 @@ import main.Almoxarifado;
 public class Employee extends Profile{
 
 	public BufferedImage editButton;
-	public BufferedImage editDoneButton;
+	public BufferedImage doneButton;
+	public BufferedImage passwordButton;
 	
 	public Employee(String Name, String RdF, String CPF) {
 		super(Name, RdF, CPF);
 		
 		editButton = Almoxarifado.imgManag.getSprite(128, 128, 128, 64);
-		editDoneButton = Almoxarifado.imgManag.getSprite(128, 128 + 64, 128, 64);
+		doneButton = Almoxarifado.imgManag.getSprite(128, 128 + 64, 128, 64);
+		passwordButton = Almoxarifado.imgManag.getSprite(64*6, 64*2, 128, 64);
 	}
 	
 	public void tick() {	
@@ -55,9 +57,7 @@ public class Employee extends Profile{
 					}
 					break;
 				case 2:
-					
-					break;
-				case 3:
+					editInfo(4);
 					
 				default:
 					break;
@@ -77,16 +77,15 @@ public class Employee extends Profile{
 		
 			if(isEditing == false) {
 				firstRendering(g);
-
 				
-				g.drawImage(editButton, Almoxarifado.WIDTH / 2 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
+				g.drawImage(editButton, Almoxarifado.WIDTH / 4 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
+				g.drawImage(passwordButton, Almoxarifado.WIDTH / 4*3 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
 				
 			}else if(isEditing == true){
 				firstRendering(g);
 				
-				
-				g.drawImage(editDoneButton, Almoxarifado.WIDTH / 2 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
-				
+				g.drawImage(doneButton, Almoxarifado.WIDTH / 4 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
+				g.drawImage(passwordButton, Almoxarifado.WIDTH / 4*3 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
 			}
 		}
 	}

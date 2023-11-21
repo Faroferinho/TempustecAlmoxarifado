@@ -14,7 +14,7 @@ public class Log {
 	
 	public void writeOnLog(String name, String action) {
 		LocalDateTime currentTime = LocalDateTime.now();
-		String textToWrite = name + " fez " + action + " at " + currentTime + "/ln";
+		String textToWrite = name + " fez " + action + " at " + currentTime + "\r";
 		try {
 			history.setReadable(true);
 			history.setWritable(true);

@@ -91,6 +91,10 @@ public class UserInterface {
 		}
 	}
 	
+	public void drawTableBorders(Graphics g) {
+		
+	}
+	
 	public void tick() {
 		if(Almoxarifado.mPressed) {
 			//System.out.println("Mouse Clicado UI");

@@ -2,6 +2,8 @@ package functions;
 
 import java.sql.*;
 
+import javax.swing.JOptionPane;
+
 public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
@@ -21,6 +23,8 @@ public class DBConector {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 		
 		try {
@@ -54,6 +58,8 @@ public class DBConector {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 		
 
@@ -90,6 +96,8 @@ public class DBConector {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 		
 		try {
@@ -112,6 +120,8 @@ public class DBConector {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 		
 		String query = "UPDATE " + Table + " SET " + objective + " = '" + newInfo + "' WHERE RdF = " + PrimaryKey;
@@ -127,6 +137,7 @@ public class DBConector {
 			con.close();
 		} catch(SQLException e){
 			e.printStackTrace();
+			
 		}
 	}
 	
@@ -135,6 +146,8 @@ public class DBConector {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 		
 		String query = "SELECT " + objective + " FROM " + table + " WHERE " + column + " = " + key;

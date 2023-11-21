@@ -44,24 +44,44 @@ public class Profile {
 		
 		if(type == false) {
 			if(my > Almoxarifado.HEIGHT / 2 + 105 && my < Almoxarifado.HEIGHT / 2 + 190) {
-				if(mx > Almoxarifado.WIDTH / 2 - 80 && mx < Almoxarifado.WIDTH / 2 + 80) {
+				if(mx > Almoxarifado.WIDTH / 4 - 80 && mx < Almoxarifado.WIDTH / 4 + 80) {
 					//Editar Perfil
+					System.out.println("Botão Clicado");
 					return 1;
+				}else if(mx > (Almoxarifado.WIDTH / 4) * 3 - 80 && mx < (Almoxarifado.WIDTH / 4)*3 + 80) {
+					System.out.println("Botão Clicado");
+					return 2;
 				}
 			}
 		}else {
 			if(my > Almoxarifado.HEIGHT / 2 + 105 && my < Almoxarifado.HEIGHT / 2 + 190) {
-				if(mx > Almoxarifado.WIDTH / 2 - 80 && mx < Almoxarifado.WIDTH / 2 + 80) {
-					//Editar Perfil;
-					System.out.println("Botão Clicado");
-					return 1;
-				}else if(mx > Almoxarifado.WIDTH / 2 - (125 + 18 + 250) - 15 && mx < Almoxarifado.WIDTH / 2 - (125 + 18 + 250) + 135 && isEditing == false) {
-					//Listar Pessoas;
-					return 2;
-				}else if(mx > Almoxarifado.WIDTH / 2 + (125 + 18 + 250 - 128) - 15 && mx < Almoxarifado.WIDTH / 2 + (125 + 18 + 250) + 15 && isEditing == false) {
-					//Cadastro de Funcionarios;
-					return 3;
+				if(isEditing == false) {
+					if(mx > (Almoxarifado.WIDTH / 5) - 80 && mx < (Almoxarifado.WIDTH / 5) + 80) {
+						//Editar Perfil;
+						//System.out.println("Botão Clicado");
+						return 1;
+					}else if(mx > (Almoxarifado.WIDTH / 5) * 2 - 80 && mx < (Almoxarifado.WIDTH / 5) * 2 + 80) {
+						//Listar Pessoas;
+						return 2;
+					}else if(mx > (Almoxarifado.WIDTH / 5) * 3 - 80 && mx < (Almoxarifado.WIDTH / 5) * 3 + 80) {
+						//Cadastro de Funcionarios;
+						return 3;
+					}else if(mx > (Almoxarifado.WIDTH / 5) * 4 - 80 && mx < (Almoxarifado.WIDTH / 5) * 4 + 80) {
+						//Cadastro de Funcionarios;
+						return 4;
+					}
 				}
+				
+				if(isEditing == true) {
+					if(mx > (Almoxarifado.WIDTH / 3) - 80 && mx < (Almoxarifado.WIDTH / 3) + 80) {
+						System.out.println("Botão Clicado");
+						return 1;
+					}else if(mx > (Almoxarifado.WIDTH / 4) * 3 - 80 && mx < (Almoxarifado.WIDTH / 3) * 2 + 80) {
+						System.out.println("Botão Clicado");
+						return 4;
+					}
+				}
+				
 			}
 		}
 		
@@ -119,7 +139,7 @@ public class Profile {
 			break;
 		case 2:
 			String newRdF = "";
-			newRdF += JOptionPane.showInputDialog("Insira o Novo Nome");
+			newRdF += JOptionPane.showInputDialog("Insira o Novo Registro de Funcionario");
 			System.out.println("O Novo nome é: " + newRdF);
 			
 			if(!(newRdF.isBlank()) || !(newRdF.isEmpty())) {
@@ -129,12 +149,32 @@ public class Profile {
 			break;
 		case 3:
 			String newCPF = "";
-			newCPF += JOptionPane.showInputDialog("Insira o Novo Nome");
+			newCPF += JOptionPane.showInputDialog("Insira o Novo CPF");
 			System.out.println("O Novo nome é: " + newCPF);
 			
 			if(!(newCPF.isBlank()) || !(newCPF.isEmpty())) {
 				DBConector.editLine("funcionarios", "CPF", newCPF, RdF);
 				RdF = newCPF;
+			}
+			break;
+		case 4:
+			String newPassword = "";
+			
+			newPassword += JOptionPane.showInputDialog(null, "Qual Será a nova senha?", "Insira a nova Senha", JOptionPane.PLAIN_MESSAGE);
+			
+			System.out.println("Valor da Nova Senha: " + newPassword);
+			
+			if(newPassword.equals("") || newPassword.equals("null")) {
+				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+			}else {
+				int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a Mudança?", "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				System.out.println("Confirmação: " + confirmation);
+				if(confirmation == 0) {
+					DBConector.editLine("funcionarios", "password", newPassword, RdF);
+				}else {
+					JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				}
+				
 			}
 			break;
 		}
