@@ -8,7 +8,7 @@ public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
 	public static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempustec";
-	public static String user = "Conras";
+	public static String user = "root";
 	public static String password = "1234";
 	
 	public int qnttWrks = 0;
