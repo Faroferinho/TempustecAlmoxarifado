@@ -43,8 +43,11 @@ public class UserInterface {
 	}
 	
 	public void clearBox(Graphics g) {
+		g.setColor(Color.orange);
+		g.fillRect(bttnX[0] + 30, bttnY + boxHeight + 12, Almoxarifado.WIDTH - 30*2, 430);
+		
 		g.setColor(Color.black);
-		g.fillRect(spaceBetween[0] + bttnX[0]+6, 100 +6, spaceBetween[4] + bttnX[4] + boxWidth - 45-12, 430-12);
+		g.fillRect(bttnX[0]+ 36, bttnY + boxHeight + 18, Almoxarifado.WIDTH - 36*2, 430-12);
 	}
 	
 	public byte setFunction(int mx, int my){
@@ -94,7 +97,7 @@ public class UserInterface {
 	public void drawTableBorders(Graphics g) {
 		
 	}
-	
+
 	public void tick() {
 		if(Almoxarifado.mPressed) {
 			//System.out.println("Mouse Clicado UI");
@@ -125,13 +128,6 @@ public class UserInterface {
 			g.drawImage(iconArchiveActivated, spaceBetween[3] + bttnX[3], bttnY, null);
 			break;
 		}
-		
-		g.setColor(Color.orange);
-		g.fillRect(bttnX[0] + 30, bttnY + boxHeight + 12, Almoxarifado.WIDTH - 30*2, 430);
-		
-		g.setColor(Color.black);
-		g.fillRect(bttnX[0]+ 36, bttnY + boxHeight + 18, Almoxarifado.WIDTH - 36*2, 430-12);
-		
 		
 	}
 

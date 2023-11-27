@@ -8,14 +8,14 @@ import javax.swing.JOptionPane;
 
 import functions.DBConector;
 import main.Almoxarifado;
-import main.UserInterface;
 
 public class PartsList {
 	
 	private boolean isOnTheRightState = false;
 	
-	public String toSplit = DBConector.readDB("*", "pecas", 9);
+	public String toSplit = DBConector.readDB("*", "pecas", 10);
 	public String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][9];
+	private static String ProjectsList[] = new String[Almoxarifado.quantityParts];
 	
 	private int ofsetHeight;
 	public static int scroll;
@@ -28,6 +28,10 @@ public class PartsList {
 
 	public PartsList() {
 		finalPartsTable = listBreaker(toSplit);
+		for(int i = 1; i < Almoxarifado.quantityParts+1; i++) {
+			ProjectsList[i-1] = finalPartsTable[i][1];
+			finalPartsTable[i][1] = DBConector.findInDB("ISO", "Montagem", "ID_Montagem", ProjectsList[i-1]);
+		}
 	}
 	
 	private String[][] listBreaker(String toSplit){
@@ -38,68 +42,104 @@ public class PartsList {
 		String returnString[][] = new String[Almoxarifado.quantityParts+1][9];
 		
 		for(int i = 1; i < Almoxarifado.quantityParts+1; i++) {
-			for(int j = 0; j < 7; j++) {
+			for(int j = 0; j < 9; j++) {
 				returnString[i] = internalString[i-1].split(" . ");
-				String aux = " . ";
+				/*String aux = " . ";
 				if(j == 8) {
 					aux = "\n";
 				}
-				System.out.print(returnString[i][j] + aux);
+				System.out.print(returnString[i][j] + aux);*/
 			}
 		}
 		
 		return returnString;
+	}
+
+	private static String newTextReapiting() {
+		String nT = "newText";
+		do {
+			nT += JOptionPane.showInputDialog("Escreva o novo texto");
+		}while(nT.equals("newText"));
+		
+		return nT;
+	}
+	
+	private static String[] getNames() {
+		
+		String auxListOfNames = "";
+		String listOfNames[] = new String[Almoxarifado.quantityParts];
+		
+		for(int i = 0; i < Almoxarifado.quantityParts; i++) {
+			auxListOfNames += DBConector.findInDB("ISO", "Montagem", "ID_Montagem", String.valueOf(i));
+
+		}
+		
+		listOfNames = auxListOfNames.split("\n");
+		
+		return listOfNames;
 	}
 	
 	private static void changePart(String index,int column) {
 		System.out.println("Coluna: " + column);
 		String newText = "newText";
 		
-		do {
-			newText += JOptionPane.showInputDialog("Escreva o novo texto");
-		}while(newText.equals("newText"));
-		
-		
-		
-		System.out.println("newText: " + newText);
-		if(newText.equals("newTextnull")) {
-			System.out.println("texto está nulo");
-			return;
+		String columnName =  "";
+		String auxString = "";
+		switch(column) {
+		case 1:
+			columnName += "Montagem";
+			auxString += "'";
+			
+			Object[] possibilities = getNames();
+			newText += (String) JOptionPane.showInputDialog(null, "Qual o Tipo do Funcionario", "", JOptionPane.PLAIN_MESSAGE, null, possibilities, possibilities[1]);
+			
+			break;
+		case 2:
+			columnName += "Description";
+			auxString += "'";
+			newText = newTextReapiting();
+			break;
+		case 3:
+			columnName += "Quantity";
+			newText = newTextReapiting();
+			break;
+		case 4:
+			columnName += ", Quantity_Type";
+			newText += " " + newTextReapiting();
+			break;
+		case 5:
+			columnName += "Price";
+			newText = newTextReapiting();
+			break;
+		case 6:
+			columnName += "Supplier";
+			auxString += "'";
+			newText = newTextReapiting();
+			break;
+		case 7:
+			columnName += "Status";
+			newText = newTextReapiting();
+			break;
+		case 8:
+			columnName += "Aplication";
+			auxString += "'";
+			newText = newTextReapiting();
+			break;
 		}
 		
 		newText = newText.substring(7);
 		System.out.println("newText: " + newText);
 		
-		String columnName =  "";
-		switch(column) {
-		case 1:
-			columnName += "Montagem";
-			break;
-		case 2:
-			columnName += "Description";
-			break;
-		case 3:
-			columnName += "Quantity";
+
+		
+		if(newText.equals("null")) {
+			System.out.println("texto está nulo");
+			return;
+		}else if(newText.equals("Nova Montagem")) {
 			
-			break;
-		case 4:
-			columnName += "Quantity_Type";
-			break;
-		case 5:
-			columnName += "Price";
-			break;
-		case 6:
-			columnName += "Supplier";
-			break;
-		case 7:
-			columnName += "Status";
-			break;
-		case 8:
-			columnName += "Aplication";
-			break;
 		}
 		
-		String query = "UPDATE pecas Set " + columnName + " = " + newText + " WHERE ID_Parts = " + index;
+		String query = "UPDATE pecas Set " + columnName + " = " + auxString + newText + auxString  + " WHERE ID_Parts = " + index;
 		System.out.println(query);
 		
 		DBConector.writeDB(query);
@@ -141,7 +181,8 @@ public class PartsList {
 		if(isOnTheRightState) {
 			
 			g.setFont(new Font("arial", 1, 15));
-			int auxHeight = UserInterface.bttnY + UserInterface.boxHeight + 32 + ofsetHeight;
+
+			int auxHeight = 120 + ofsetHeight;
 			int auxWidth = 70;
 			
 			finalPartsTable[0][0] = "ID";
@@ -159,8 +200,8 @@ public class PartsList {
 			
 			
 			for(int i = 0; i < Almoxarifado.quantityParts+1; i++) {
-				
-				for(int j = 0; j < 7; j++) {
+
+				for(int j = 0; j < 9; j++) {
 					
 					switch(j) {
 					case 1:
@@ -188,16 +229,16 @@ public class PartsList {
 						auxWidth += g.getFontMetrics().stringWidth(finalPartsTable[0][7]) + 30;
 						break;
 					}
-					
-					
-					
-					
-					
+
 					int aux = 0;
 					if(i == 0 && (j == 1 || j == 7 || j == 8)) {
 						aux = (g.getFontMetrics().stringWidth(finalPartsTable[0][j]) / 2) - 7;
 					}else if(i == 0 && j == 3) {
 						aux = (g.getFontMetrics().stringWidth(finalPartsTable[0][j]) / 2) - 15;
+					}
+
+					if(i != 0 && (j == 1 || j == 8)) {
+						aux = g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / 2 - 15;
 					}
 					
 					
@@ -207,11 +248,8 @@ public class PartsList {
 						nC = Color.orange;
 					}
 					
-					if(auxHeight < 120 || auxHeight + g.getFontMetrics().getHeight() > 540) {
-						nC = new Color(0,0,0,0);
-					}
-					
-					if(Almoxarifado.mX > auxWidth - 15 && Almoxarifado.mX < auxWidth + g.getFontMetrics().stringWidth(finalPartsTable[i][j]) + 15 
+				if(Almoxarifado.mX > auxWidth - 15 - aux && Almoxarifado.mX < auxWidth + g.getFontMetrics().stringWidth(finalPartsTable[i][j]) + 15 - aux
+
 							&& Almoxarifado.mY > auxHeight - 15 && Almoxarifado.mY < auxHeight + 20 && i != 0 && auxHeight > 120 && j != 0) {
 						nC = Color.red;
 						if(mouseStatus) {
@@ -221,7 +259,9 @@ public class PartsList {
 							
 						}
 					}
-					
+					if(auxHeight < 120 || auxHeight + g.getFontMetrics().getHeight() > 540) {
+						nC = new Color(0,0,0,0);
+					}
 					g.setColor(nC);
 					
 					

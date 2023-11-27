@@ -20,7 +20,6 @@ import javax.swing.JFrame;
 
 import functions.DBConector;
 import functions.ImageManager;
-import functions.Log;
 import pages.Login;
 import pages.Admnistrator;
 import pages.Employee;
@@ -32,7 +31,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 0;
+	public static byte state = 1;
 	
 	public static Login login;
 	public static UserInterface ui;
@@ -41,20 +40,20 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static DBConector cnctr;
 	public static PartsList partsList;
 	public static ImageManager imgManag;
-	public static Log history;
+	public static Projects project;
 	
 	public static String name = "";
 	public static String cpf = "";
 	public static String rdf = "";
-	public static String type = "";
+	public static String type = "1\n";
 	
 	public static int mX;
 	public static int mY;
 	public static boolean mPressed = false;
+	
 	public static int quantityWorkers = 0;
 	public static int quantityParts = 0;
-	
-	//public static int workerQuantity = DBConector;
+	public static int quantityAssembly = 0;
 	
 	
 	public static void main(String args[]) {
@@ -64,10 +63,12 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		imgManag = new ImageManager("spritesheet.png");
 		ui = new UserInterface();
 		//profile = new Admnistrator("Marcelinho Rubsheck da Silva Sauro", "1970", "16700");
-		
+
 		cnctr = new DBConector();
 		quantityWorkers = cnctr.qnttWrks;
 		quantityParts = cnctr.qnttPrts;
+		quantityAssembly = cnctr.qnttAssbly;
+		
 		System.out.println("Quantidade de Funcionarios: " + quantityWorkers);
 		if(state == 0) {
 			login = new Login();
@@ -79,13 +80,11 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			admProfile = new Admnistrator(name, rdf, cpf);
 		}else {
 			System.out.println("é Funcionario");
-			workProfile = new Employee(name, rdf, cpf);
+
+			workProfile = new Employee(name,rdf, cpf);
 		}
 		partsList = new PartsList();
-		history = new Log();
-		
-		history.writeOnLog("Conrado", "o Log");
-		
+		project = new Projects();
 		
 		inicializarTela(almox);
 		
@@ -121,12 +120,12 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	
 	public void tick() {
 		
+		ui.tick();
 		switch(state) {
 		case 0:
-			login.tick();
 			break;
 		case 1:
-			ui.tick();
+
 			if(type.equals("1\n")) {
 				admProfile.tick();
 			}else {
@@ -134,14 +133,12 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			}
 			break;
 		case 2:
-			ui.tick();
 			partsList.tick();
 			break;
 		case 3:
-			ui.tick();
+			project.tick();
 			break;
 		case 4:
-			ui.tick();
 			break;
 		}
 		
@@ -172,27 +169,29 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 		//Basicamente desenho o esqueleto da UI;
 		
-		
-		
-		ui.render(g);
+		backgroundRender(g);
+		ui.clearBox(g);
 		switch(state) {
 		case 0:
 			login.render(g);
 			break;
 		case 1:
-			backgroundRender(g);
 			if(type.equals("1\n")) {
+				//System.out.println("Admnistrador");
 				admProfile.render(g);
 			}else {
+				//System.out.println("Colaborador");
 				workProfile.render(g);
 			}
 			break;
-		case 2:
-			backgroundRender(g);
+		case 2: 
 			partsList.render(g);
 			break;
+		case 3:
+			project.render(g);
+			break;
 		}
-		
+		ui.render(g);
 		
 		
 		bs.show();

@@ -12,7 +12,8 @@ public class ImageManager {
 	
 	public ImageManager(String imgFile) {
 		try {
-			spritesheet = ImageIO.read(new File("res/" + imgFile));
+
+			spritesheet = ImageIO.read(new File("C:/Users/User/eclipse-workspace/AlmoxarifadoTempustec/res/Spritesheet.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

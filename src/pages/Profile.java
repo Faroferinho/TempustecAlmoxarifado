@@ -81,7 +81,6 @@ public class Profile {
 						return 4;
 					}
 				}
-				
 			}
 		}
 		

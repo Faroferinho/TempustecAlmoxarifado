@@ -24,7 +24,6 @@ public class Login {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				System.exit(0);
 			}
-			
 			entering(acount, password, auxLogin);
 		}
 	}
@@ -36,7 +35,8 @@ public class Login {
 		String psswrds[] = new String[Almoxarifado.quantityWorkers];
 		
 		String toSplit = "";
-		toSplit += DBConector.readDB("RdF", "funcionarios", 2);
+
+		toSplit += DBConector.readDB("CPF", "funcionarios", 2);
 		accnts = toSplit.split("\n");
 		
 		
@@ -52,17 +52,17 @@ public class Login {
 			}
 		}
 		if(auxLogin) {
+
+			Almoxarifado.name = DBConector.findInDB("name", "funcionarios", "CPF", acount);
+			System.out.println("O nome é: " + Almoxarifado.name);
 			
-			Almoxarifado.name = DBConector.findInDB("name", "funcionarios", "RdF", acount);
-			//System.out.println("O nome é: " + Almoxarifado.name);
-			
-			Almoxarifado.rdf = acount;
+			Almoxarifado.rdf = DBConector.findInDB("RdF", "funcionarios", "CPF", acount);
 			System.out.println("O RdF é: " + Almoxarifado.rdf);
 			
-			Almoxarifado.cpf = DBConector.findInDB("cpf", "funcionarios", "RdF", acount);
+			Almoxarifado.cpf = acount;
 			System.out.println("O CPF é: " + Almoxarifado.cpf);
 			
-			Almoxarifado.type = DBConector.findInDB("type", "funcionarios", "RdF", acount);
+			Almoxarifado.type = DBConector.findInDB("type", "funcionarios", "CPF", acount);
 			System.out.println("O tipo é: " + Almoxarifado.type);
 			
 			Almoxarifado.state = 1;

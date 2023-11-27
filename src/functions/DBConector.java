@@ -13,10 +13,12 @@ public class DBConector {
 	
 	public int qnttWrks = 0;
 	public int qnttPrts = 0;
+	public int qnttAssbly = 0;
 	
 	public DBConector() {
 		String workers = "select * from funcionarios";
 		String parts = "select * from pecas";
+		String assemblies = "select * from Montagem";
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -41,7 +43,11 @@ public class DBConector {
 			while(queryPartsResult.next()) {
 				qnttPrts++;
 			}
+			ResultSet queryAssembliesResult = statement.executeQuery(assemblies);
 			
+			while(queryAssembliesResult.next()) {
+				qnttAssbly++;
+			}
 			con.close();
 		} catch(SQLException e){
 			e.printStackTrace();
@@ -137,7 +143,6 @@ public class DBConector {
 			con.close();
 		} catch(SQLException e){
 			e.printStackTrace();
-			
 		}
 	}
 	
@@ -177,5 +182,4 @@ public class DBConector {
 		}
 		return answer;
 	}
-	
 }

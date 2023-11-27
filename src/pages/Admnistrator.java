@@ -21,7 +21,7 @@ public class Admnistrator extends Profile {
 	public String toDraw[] = new String[Almoxarifado.quantityWorkers];
 	public int toDrawIndex = 0;
 	public int listHeight = 0;
-	
+
 	public BufferedImage editButton;
 	public BufferedImage editDoneButton;
 	public BufferedImage listButton;
@@ -36,7 +36,6 @@ public class Admnistrator extends Profile {
 		listButton = Almoxarifado.imgManag.getSprite(64*4, 128, 128, 64);
 		signInButton = Almoxarifado.imgManag.getSprite(0, 128, 128, 64);
 		passwordButton = Almoxarifado.imgManag.getSprite(64*6, 64*2, 128, 64);
-
 	}
 	
 	public void tick() {	
@@ -269,6 +268,7 @@ public class Admnistrator extends Profile {
 				
 				g.drawImage(editDoneButton, Almoxarifado.WIDTH / 3 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
 				g.drawImage(passwordButton, (Almoxarifado.WIDTH / 3) * 2 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
+
 				
 			}else if(isListing == true) {
 				g.setFont(new Font("arial", 1, 18));

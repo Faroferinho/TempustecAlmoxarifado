@@ -10,6 +10,7 @@ public class Employee extends Profile{
 	public BufferedImage editButton;
 	public BufferedImage doneButton;
 	public BufferedImage passwordButton;
+
 	
 	public Employee(String Name, String RdF, String CPF) {
 		super(Name, RdF, CPF);
@@ -58,6 +59,8 @@ public class Employee extends Profile{
 					break;
 				case 2:
 					editInfo(4);
+					break;
+				case 3:
 					
 				default:
 					break;
@@ -72,12 +75,12 @@ public class Employee extends Profile{
 	}
 	
 	public void render(Graphics g) {
-		
+
 		if(isOnTheRightState) {
 		
 			if(isEditing == false) {
 				firstRendering(g);
-				
+
 				g.drawImage(editButton, Almoxarifado.WIDTH / 4 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
 				g.drawImage(passwordButton, Almoxarifado.WIDTH / 4*3 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
 				
