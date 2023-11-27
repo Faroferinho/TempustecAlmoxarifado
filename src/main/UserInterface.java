@@ -1,23 +1,46 @@
 package main;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.awt.Font;
 
 public class UserInterface {
 	
 	public static int bttnX[] = new int[5];
-	public static int bttnY = 35;
+	public static int bttnY = 30;
 	public static int spaceBetween[] = new int[5];
 	
-	public static int boxWidth = 170;
-	public static int boxHeight = 40;
+	public static int boxWidth = 128;
+	public static int boxHeight = 64;
+	
+	public BufferedImage iconProfile;
+	public BufferedImage iconParts;
+	public BufferedImage iconAssembly;
+	public BufferedImage iconArchive;
+	public BufferedImage iconExit;
+	public BufferedImage iconProfileActivated;
+	public BufferedImage iconPartsActivated;
+	public BufferedImage iconAssemblyActivated;
+	public BufferedImage iconArchiveActivated;
 
 	public UserInterface() {
 		for(int i = 0; i < 5; i++) {
 			bttnX[i] = + i * boxWidth;
-			spaceBetween[i] = 45 + 20*i;
+			spaceBetween[i] = 128 + 32*i;
 		}
+		
+		iconProfile = Almoxarifado.imgManag.getSprite(384, 0, 128, 64);
+		iconParts = Almoxarifado.imgManag.getSprite(256, 0, 128, 64);
+		iconAssembly = Almoxarifado.imgManag.getSprite(128, 0, 128, 64);
+		iconArchive = Almoxarifado.imgManag.getSprite(0, 0, 128, 64);
+		iconExit = Almoxarifado.imgManag.getSprite(512, 0, 128, 64);
+
+		iconProfileActivated = Almoxarifado.imgManag.getSprite(384, 64, 128, 64);
+		iconPartsActivated = Almoxarifado.imgManag.getSprite(256, 64, 128, 64);
+		iconAssemblyActivated = Almoxarifado.imgManag.getSprite(128, 64, 128, 64);
+		iconArchiveActivated = Almoxarifado.imgManag.getSprite(0, 64, 128, 64);
+		
 	}
 	
 	public void clearBox(Graphics g) {
@@ -69,6 +92,10 @@ public class UserInterface {
 		}
 	}
 	
+	public void drawTableBorders(Graphics g) {
+		
+	}
+
 	public void tick() {
 		if(Almoxarifado.mPressed) {
 			//System.out.println("Mouse Clicado UI");
@@ -78,29 +105,34 @@ public class UserInterface {
 	}
 	
 	public void render(Graphics g) {
+		//TODO: Criar eventos Customizados para mudar a imagem com Interface;
+		System.out.println("UI Renderizada");
+		g.drawImage(iconProfile, spaceBetween[0] + bttnX[0], bttnY, null);
+		g.drawImage(iconParts, spaceBetween[1] + bttnX[1], bttnY, null);
+		g.drawImage(iconAssembly, spaceBetween[2] + bttnX[2], bttnY, null);
+		g.drawImage(iconArchive, spaceBetween[3] + bttnX[3], bttnY, null);
+		g.drawImage(iconExit, spaceBetween[4] + bttnX[4], bttnY, null);
+		
+		switch(Almoxarifado.state) {
+		case 1:
+			g.drawImage(iconProfileActivated, spaceBetween[0] + bttnX[0], bttnY, null);
+			break;
+		case 2:
+			g.drawImage(iconPartsActivated, spaceBetween[1] + bttnX[1], bttnY, null);
+			break;
+		case 3:
+			g.drawImage(iconAssemblyActivated, spaceBetween[2] + bttnX[2], bttnY, null);
+			break;
+		case 4:
+			g.drawImage(iconArchiveActivated, spaceBetween[3] + bttnX[3], bttnY, null);
+			break;
+		}
+		
 		g.setColor(Color.orange);
-		
-		g.fillRect(spaceBetween[0] + bttnX[0], bttnY, boxWidth, boxHeight);
-		g.fillRect(spaceBetween[1] + bttnX[1], bttnY, boxWidth, boxHeight);
-		g.fillRect(spaceBetween[2] + bttnX[2], bttnY, boxWidth, boxHeight);
-		g.fillRect(spaceBetween[3] + bttnX[3], bttnY, boxWidth, boxHeight);
-		g.setColor(Color.red);
-		g.fillRect(spaceBetween[4] + bttnX[4], bttnY, boxWidth, boxHeight);
-		
-		g.setColor(Color.white);
-		g.setFont(new Font("arial", 1, 22));
-		g.drawString("Perfil", spaceBetween[0] + bttnX[0] + boxWidth / 2 - g.getFontMetrics().stringWidth("Perfil") / 2, bttnY + g.getFontMetrics().getHeight());
-		g.drawString("Peças", spaceBetween[1] + bttnX[1] + boxWidth / 2 - g.getFontMetrics().stringWidth("Peças") / 2, bttnY + g.getFontMetrics().getHeight());
-		g.drawString("Projeto", spaceBetween[2] + bttnX[2] + boxWidth / 2 - g.getFontMetrics().stringWidth("Projeto") / 2, bttnY + g.getFontMetrics().getHeight());
-		g.drawString("Arquivo", spaceBetween[3] + bttnX[3] + boxWidth / 2 - g.getFontMetrics().stringWidth("Arquivo") / 2, bttnY + g.getFontMetrics().getHeight());
-		g.drawString("Sair", spaceBetween[4] + bttnX[4] + boxWidth / 2 - g.getFontMetrics().stringWidth("Sair") / 2, bttnY + g.getFontMetrics().getHeight());
-		
-		
-		g.setColor(Color.orange);
-		g.fillRect(spaceBetween[0] + bttnX[0], 100, spaceBetween[4] + bttnX[4] + boxWidth - 45, 430);
+		g.fillRect(bttnX[0] + 30, bttnY + boxHeight + 12, Almoxarifado.WIDTH - 30*2, 430);
 		
 		g.setColor(Color.black);
-		g.fillRect(spaceBetween[0] + bttnX[0]+6, 100 +6, spaceBetween[4] + bttnX[4] + boxWidth - 45-12, 430-12);
+		g.fillRect(bttnX[0]+ 36, bttnY + boxHeight + 18, Almoxarifado.WIDTH - 36*2, 430-12);
 		
 		
 	}

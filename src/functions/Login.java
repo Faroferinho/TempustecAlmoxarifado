@@ -10,27 +10,20 @@ public class Login {
 		
 		boolean auxLogin = false;
 		if(Almoxarifado.state == 0) {
-			String acount = "conta";
-			String password = "senha";
+			String acount = "";
+			String password = "";
 			
-			do{
-				System.out.println("Conta: " + acount);
-				acount += JOptionPane.showInputDialog("Preencha seu CPF");
-			}while(acount.equals("conta"));
-			
-			if(acount.equals("contanull")) {
+			acount += JOptionPane.showInputDialog(null, "Preencha seu Registro", "Entrada", JOptionPane.PLAIN_MESSAGE);
+			if(acount.equals("") || acount.equals("null")) {
+				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				System.exit(0);
 			}
 			
-			password += JOptionPane.showInputDialog("Insira sua senha");
-			if(password.equals("senha")) {
-				JOptionPane.showMessageDialog(null, "Operação Cancelada");
+			password += JOptionPane.showInputDialog(null, "Insira sua senha", "Senha", JOptionPane.PLAIN_MESSAGE);
+			if(password.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				System.exit(0);
 			}
-			
-			acount = acount.substring(5);
-			password = password.substring(5);
-			
 			entering(acount, password, auxLogin);
 		}
 	}
@@ -51,14 +44,15 @@ public class Login {
 		psswrds = toSplit.split("\n");
 		
 		for(int i = 0; i < Almoxarifado.quantityWorkers; i++) {
-			System.out.println("Conta Escrita: " + acount + ", Conta no Index " + (i + 1) + ": " + accnts[i]);
+			//System.out.println("Conta Escrita: " + acount + ", Conta no Index " + (i + 1) + ": " + accnts[i]);
 			if(acount.equals(accnts[i]) && password.equals(psswrds[i])) {
-				System.out.println("Conta e Senha Escritas batem com a Conta e Respectiva Senha no DataBase, CPF: " + accnts[i] +  " Senha: " + psswrds[i]);
+				System.out.println("Conta e Senha Escritas batem com a Conta e Respectiva Senha no DataBase, RdF: " + accnts[i] +  " Senha: " + psswrds[i]);
 				auxLogin = true;
 			}
 		}
 		if(auxLogin) {
 			
+
 			Almoxarifado.name = DBConector.findInDB("name", "funcionarios", "CPF", acount);
 			System.out.println("O nome é: " + Almoxarifado.name);
 			
@@ -73,6 +67,7 @@ public class Login {
 			
 			Almoxarifado.state = 1;
 		}else {
+			JOptionPane.showMessageDialog(null, "Conta ou Senha Incorretos", "Erro no Login", JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
 	}

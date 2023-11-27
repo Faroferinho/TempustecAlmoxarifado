@@ -1,5 +1,7 @@
 package pages;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -8,11 +10,17 @@ import main.Almoxarifado;
 
 public class Employee extends Profile{
 
-	
+	public BufferedImage editButton;
+	public BufferedImage doneButton;
+	public BufferedImage passwordButton;
+
 	
 	public Employee(String Name, String RdF, String CPF) {
 		super(Name, RdF, CPF);
 		
+		editButton = Almoxarifado.imgManag.getSprite(128, 128, 128, 64);
+		doneButton = Almoxarifado.imgManag.getSprite(128, 128 + 64, 128, 64);
+		passwordButton = Almoxarifado.imgManag.getSprite(64*6, 64*2, 128, 64);
 	}
 	
 	public void tick() {	
@@ -53,7 +61,7 @@ public class Employee extends Profile{
 					}
 					break;
 				case 2:
-					
+					editInfo(4);
 					break;
 				case 3:
 					
@@ -75,20 +83,15 @@ public class Employee extends Profile{
 		
 			if(isEditing == false) {
 				firstRendering(g);
-				g.setColor(Color.darkGray);
-				g.fillRect(Almoxarifado.WIDTH / 2 - 125, Almoxarifado.HEIGHT / 2 + 120, 250, 60);
-				g.setColor(Color.white);
-				g.setFont(new Font("arial", 1, 22));
-				g.drawString("Editar Perfil", Almoxarifado.WIDTH / 2 - g.getFontMetrics().stringWidth("Editar Perfil") / 2, Almoxarifado.HEIGHT/ 2 + 157);
+
+				g.drawImage(editButton, Almoxarifado.WIDTH / 4 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
+				g.drawImage(passwordButton, Almoxarifado.WIDTH / 4*3 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
 				
 			}else if(isEditing == true){
 				firstRendering(g);
-				g.setColor(Color.yellow);
-				g.fillRect(Almoxarifado.WIDTH / 2 - 125, Almoxarifado.HEIGHT / 2 + 120, 250, 60);
-				g.setColor(Color.white);
-				g.setFont(new Font("arial", 1, 22));
-				g.drawString("Concluir Edição", Almoxarifado.WIDTH / 2 - g.getFontMetrics().stringWidth("Concluir Edição") / 2, Almoxarifado.HEIGHT/ 2 + 157);
 				
+				g.drawImage(doneButton, Almoxarifado.WIDTH / 4 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
+				g.drawImage(passwordButton, Almoxarifado.WIDTH / 4*3 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
 			}
 		}
 	}

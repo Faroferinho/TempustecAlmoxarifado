@@ -1,8 +1,7 @@
 package functions;
 
 import java.sql.*;
-
-//import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class DBConector {
 	
@@ -25,6 +24,8 @@ public class DBConector {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 		
 		try {
@@ -41,13 +42,11 @@ public class DBConector {
 			while(queryPartsResult.next()) {
 				qnttPrts++;
 			}
-			
 			ResultSet queryAssembliesResult = statement.executeQuery(assemblies);
 			
 			while(queryAssembliesResult.next()) {
 				qnttAssbly++;
 			}
-			
 			con.close();
 		} catch(SQLException e){
 			e.printStackTrace();
@@ -64,6 +63,8 @@ public class DBConector {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 		
 
@@ -100,6 +101,8 @@ public class DBConector {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 		
 		try {
@@ -122,6 +125,8 @@ public class DBConector {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 		
 		String query = "UPDATE " + Table + " SET " + objective + " = '" + newInfo + "' WHERE RdF = " + PrimaryKey;
@@ -145,6 +150,8 @@ public class DBConector {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 		
 		String query = "SELECT " + objective + " FROM " + table + " WHERE " + column + " = " + key;

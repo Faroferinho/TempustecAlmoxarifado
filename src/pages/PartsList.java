@@ -8,12 +8,14 @@ import javax.swing.JOptionPane;
 
 import functions.DBConector;
 import main.Almoxarifado;
+import main.UserInterface;
 
 public class PartsList {
 	
 	private boolean isOnTheRightState = false;
 	
-	public String toSplit = DBConector.readDB("*", "pecas", 10);
+
+	public String toSplit = DBConector.readDB("*", "pecas", Almoxarifado.quantityParts+1);
 	public String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][9];
 	private static String ProjectsList[] = new String[Almoxarifado.quantityParts];
 	
@@ -42,7 +44,8 @@ public class PartsList {
 		String returnString[][] = new String[Almoxarifado.quantityParts+1][9];
 		
 		for(int i = 1; i < Almoxarifado.quantityParts+1; i++) {
-			for(int j = 0; j < 9; j++) {
+
+			for(int j = 0; j < Almoxarifado.quantityParts; j++) {
 				returnString[i] = internalString[i-1].split(" . ");
 				/*String aux = " . ";
 				if(j == 8) {
@@ -78,7 +81,6 @@ public class PartsList {
 		
 		return listOfNames;
 	}
-	
 	private static void changePart(String index,int column) {
 		System.out.println("Coluna: " + column);
 		String newText = "newText";
@@ -130,6 +132,7 @@ public class PartsList {
 		newText = newText.substring(7);
 		System.out.println("newText: " + newText);
 		
+
 		
 		if(newText.equals("null")) {
 			System.out.println("texto está nulo");
@@ -180,7 +183,7 @@ public class PartsList {
 		if(isOnTheRightState) {
 			
 			g.setFont(new Font("arial", 1, 15));
-			int auxHeight = 120 + ofsetHeight;
+			int auxHeight = UserInterface.bttnY + UserInterface.boxHeight + 32 + ofsetHeight;
 			int auxWidth = 70;
 			
 			finalPartsTable[0][0] = "ID";
@@ -199,7 +202,7 @@ public class PartsList {
 			
 			for(int i = 0; i < Almoxarifado.quantityParts+1; i++) {
 				
-				for(int j = 0; j < 9; j++) {
+				for(int j = 0; j < Almoxarifado.quantityParts+1; j++) {
 					
 					switch(j) {
 					case 1:
@@ -227,7 +230,7 @@ public class PartsList {
 						auxWidth += g.getFontMetrics().stringWidth(finalPartsTable[0][7]) + 30;
 						break;
 					}
-					
+
 					
 					int aux = 0;
 					if(i == 0 && (j == 1 || j == 7 || j == 8)) {
@@ -236,11 +239,10 @@ public class PartsList {
 						aux = (g.getFontMetrics().stringWidth(finalPartsTable[0][j]) / 2) - 15;
 					}
 					
+					
 					if(i != 0 && (j == 1 || j == 8)) {
 						aux = g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / 2 - 15;
 					}
-					
-					
 					
 					
 					Color nC = Color.white;
@@ -249,9 +251,11 @@ public class PartsList {
 						nC = Color.orange;
 					}
 					
+					if(auxHeight < 120 || auxHeight + g.getFontMetrics().getHeight() > 540) {
+						nC = new Color(0,0,0,0);
+					}
 					
-					
-					if(Almoxarifado.mX > auxWidth - 15 - aux && Almoxarifado.mX < auxWidth + g.getFontMetrics().stringWidth(finalPartsTable[i][j]) + 15 - aux
+					if(Almoxarifado.mX > auxWidth - 15 && Almoxarifado.mX < auxWidth + g.getFontMetrics().stringWidth(finalPartsTable[i][j]) + 15 
 							&& Almoxarifado.mY > auxHeight - 15 && Almoxarifado.mY < auxHeight + 20 && i != 0 && auxHeight > 120 && j != 0) {
 						nC = Color.red;
 						if(mouseStatus) {
@@ -265,7 +269,7 @@ public class PartsList {
 					if(auxHeight < 120 || auxHeight + g.getFontMetrics().getHeight() > 540) {
 						nC = new Color(0,0,0,0);
 					}
-					
+
 					g.setColor(nC);
 					
 					

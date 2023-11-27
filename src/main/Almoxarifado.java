@@ -19,7 +19,11 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 import functions.DBConector;
-import functions.Login;
+import functions.ImageManager;
+import pages.Login;
+import pages.Admnistrator;
+import pages.Employee;
+import pages.PartsList;
 import pages.Admnistrator;
 import pages.Employee;
 import pages.PartsList;
@@ -39,17 +43,18 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static Employee workProfile;
 	public static DBConector cnctr;
 	public static PartsList partsList;
+	public static ImageManager imgManag;
 	public static Projects project;
 	
 	public static String name = "";
 	public static String cpf = "";
 	public static String rdf = "";
-	public static String type = "1";
+	public static String type = "1\n";
 	
 	public static int mX;
 	public static int mY;
 	public static boolean mPressed = false;
-	
+
 	public static int quantityWorkers = 0;
 	public static int quantityParts = 0;
 	public static int quantityAssembly = 0;
@@ -61,14 +66,15 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 		Almoxarifado almox = new Almoxarifado();
 		
+		imgManag = new ImageManager("spritesheet.png");
 		ui = new UserInterface();
 		//profile = new Admnistrator("Marcelinho Rubsheck da Silva Sauro", "1970", "16700");
-		
 		cnctr = new DBConector();
 		quantityWorkers = cnctr.qnttWrks;
 		quantityParts = cnctr.qnttPrts;
 		quantityAssembly = cnctr.qnttAssbly;
 		
+
 		System.out.println("Quantidade de Funcionarios: " + quantityWorkers);
 		if(state == 0) {
 			login = new Login();
@@ -84,7 +90,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		}
 		partsList = new PartsList();
 		project = new Projects();
-		
 		
 		
 		inicializarTela(almox);
@@ -121,6 +126,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	
 	public void tick() {
 		
+
 		ui.tick();
 		switch(state) {
 		case 0:
@@ -145,6 +151,17 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		//System.out.println("Estado: " + state);
 	}
 	
+
+	public void backgroundRender(Graphics g) {
+		g.setColor(Color.black);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		g.setColor(Color.lightGray);
+		g.fillRect(10, 10, WIDTH-20, HEIGHT-20);
+		g.setColor(Color.gray);
+		g.fillRect(20, 20, WIDTH-40, HEIGHT-40);
+	}
+	
 	public void render() {
 		// Eu crio uma BufferStrategy, ou seja, guardo memória para poder mostrar a prox. imagem;
 		BufferStrategy bs = this.getBufferStrategy();
@@ -157,18 +174,14 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		//Crio um grafico usando os graficos do bs;
 		Graphics g = bs.getDrawGraphics();
 		
-		//Basicamente desenho o esqueleto da UI;
-		g.setColor(Color.black);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		//Basicamente desenho o esqueleto da UI;		
+		backgroundRender(g);
 		
-		g.setColor(Color.lightGray);
-		g.fillRect(10, 10, WIDTH-20, HEIGHT-20);
-		g.setColor(Color.gray);
-		g.fillRect(20, 20, WIDTH-40, HEIGHT-40);
-		
-		
-		ui.render(g);
 		switch(state) {
+		case 0:
+			login.render(g);
+			break;
+
 		case 1:
 			if(type.equals("1\n")) {
 				admProfile.render(g);
@@ -183,6 +196,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			project.render(g);
 			break;
 		}
+		ui.render(g);
 		
 		
 		bs.show();
