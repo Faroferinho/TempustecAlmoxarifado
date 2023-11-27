@@ -24,6 +24,7 @@ import pages.Login;
 import pages.Admnistrator;
 import pages.Employee;
 import pages.PartsList;
+import pages.Projects;
 
 public class Almoxarifado extends Canvas implements Runnable, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener, ActionListener{
 	private static final long serialVersionUID = 1L;
@@ -31,7 +32,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 1;
+	public static byte state = 0;
 	
 	public static Login login;
 	public static UserInterface ui;
@@ -120,12 +121,12 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	
 	public void tick() {
 		
-		ui.tick();
 		switch(state) {
 		case 0:
+			login.tick();
 			break;
 		case 1:
-
+			ui.tick();
 			if(type.equals("1\n")) {
 				admProfile.tick();
 			}else {
@@ -133,12 +134,15 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			}
 			break;
 		case 2:
+			ui.tick();
 			partsList.tick();
 			break;
 		case 3:
+			ui.tick();
 			project.tick();
 			break;
 		case 4:
+			ui.tick();
 			break;
 		}
 		
@@ -183,15 +187,17 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 				//System.out.println("Colaborador");
 				workProfile.render(g);
 			}
+			ui.render(g);
 			break;
 		case 2: 
 			partsList.render(g);
+			ui.render(g);
 			break;
 		case 3:
 			project.render(g);
+			ui.render(g);
 			break;
 		}
-		ui.render(g);
 		
 		
 		bs.show();
@@ -229,7 +235,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			workProfile.mouseStatus = true;
 		}
 		partsList.mouseStatus = true;
-		
+		login.click = true;
 		//System.out.println("Status do Mouse: " + profile.mouseStatus);
 		//System.out.println("X: " + e.getX() + ", Y: " + e.getY());
 	}
@@ -244,6 +250,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			workProfile.mouseStatus = false;
 		}
 		partsList.mouseStatus = false;
+		login.click = false;
 	}
 
 	@Override
