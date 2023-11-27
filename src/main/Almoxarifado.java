@@ -24,9 +24,6 @@ import pages.Login;
 import pages.Admnistrator;
 import pages.Employee;
 import pages.PartsList;
-import pages.Admnistrator;
-import pages.Employee;
-import pages.PartsList;
 import pages.Projects;
 
 public class Almoxarifado extends Canvas implements Runnable, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener, ActionListener{
@@ -59,7 +56,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int quantityParts = 0;
 	public static int quantityAssembly = 0;
 	
-	//public static int workerQuantity = DBConector;
 	
 	
 	public static void main(String args[]) {
@@ -174,9 +170,11 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		//Crio um grafico usando os graficos do bs;
 		Graphics g = bs.getDrawGraphics();
 		
-		//Basicamente desenho o esqueleto da UI;		
-		backgroundRender(g);
+		//Basicamente desenho o esqueleto da UI;
 		
+
+		backgroundRender(g);
+		ui.clearBox(g);
 		switch(state) {
 		case 0:
 			login.render(g);
@@ -184,8 +182,10 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 
 		case 1:
 			if(type.equals("1\n")) {
+				//System.out.println("Admnistrador");
 				admProfile.render(g);
 			}else {
+				//System.out.println("Colaborador");
 				workProfile.render(g);
 			}
 			break;

@@ -2,9 +2,6 @@ package pages;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
 
 import main.Almoxarifado;
 
@@ -78,7 +75,6 @@ public class Employee extends Profile{
 	}
 	
 	public void render(Graphics g) {
-		
 		if(isOnTheRightState) {
 		
 			if(isEditing == false) {

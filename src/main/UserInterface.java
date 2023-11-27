@@ -3,7 +3,6 @@ package main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.awt.Font;
 
 public class UserInterface {
 	
@@ -44,8 +43,11 @@ public class UserInterface {
 	}
 	
 	public void clearBox(Graphics g) {
+		g.setColor(Color.orange);
+		g.fillRect(bttnX[0] + 30, bttnY + boxHeight + 12, Almoxarifado.WIDTH - 30*2, 430);
+		
 		g.setColor(Color.black);
-		g.fillRect(spaceBetween[0] + bttnX[0]+6, 100 +6, spaceBetween[4] + bttnX[4] + boxWidth - 45-12, 430-12);
+		g.fillRect(bttnX[0]+ 36, bttnY + boxHeight + 18, Almoxarifado.WIDTH - 36*2, 430-12);
 	}
 	
 	public byte setFunction(int mx, int my){
@@ -106,7 +108,6 @@ public class UserInterface {
 	
 	public void render(Graphics g) {
 		//TODO: Criar eventos Customizados para mudar a imagem com Interface;
-		System.out.println("UI Renderizada");
 		g.drawImage(iconProfile, spaceBetween[0] + bttnX[0], bttnY, null);
 		g.drawImage(iconParts, spaceBetween[1] + bttnX[1], bttnY, null);
 		g.drawImage(iconAssembly, spaceBetween[2] + bttnX[2], bttnY, null);
@@ -127,13 +128,7 @@ public class UserInterface {
 			g.drawImage(iconArchiveActivated, spaceBetween[3] + bttnX[3], bttnY, null);
 			break;
 		}
-		
-		g.setColor(Color.orange);
-		g.fillRect(bttnX[0] + 30, bttnY + boxHeight + 12, Almoxarifado.WIDTH - 30*2, 430);
-		
-		g.setColor(Color.black);
-		g.fillRect(bttnX[0]+ 36, bttnY + boxHeight + 18, Almoxarifado.WIDTH - 36*2, 430-12);
-		
+			
 		
 	}
 
