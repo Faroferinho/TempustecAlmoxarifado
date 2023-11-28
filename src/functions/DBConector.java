@@ -90,6 +90,8 @@ public class DBConector {
 			con.close();
 		} catch(SQLException e){
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao Efetuar Ação", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 		return returnData;
 	}

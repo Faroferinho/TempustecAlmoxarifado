@@ -32,7 +32,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 0;
+	public static byte state = 2;
 	
 	public static Login login;
 	public static UserInterface ui;
@@ -71,6 +71,8 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		quantityAssembly = cnctr.qnttAssbly;
 		
 		System.out.println("Quantidade de Funcionarios: " + quantityWorkers);
+		System.out.println("Quantidade de Peças: " + quantityParts);
+		System.out.println("Quantidade de Montagens: " + quantityAssembly);
 		if(state == 0) {
 			login = new Login();
 		}
@@ -197,6 +199,8 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			project.render(g);
 			ui.render(g);
 			break;
+		case 4:
+			ui.render(g);
 		}
 		
 		
@@ -205,14 +209,12 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		while(true) {
 			tick();
 			render();
 			try {
 				Thread.sleep(1000/60);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -225,9 +227,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mousePressed(MouseEvent e) {		
 		mPressed = true;
 		if(type.equals("1\n")) {
 			admProfile.mouseStatus = true;
@@ -235,14 +235,13 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			workProfile.mouseStatus = true;
 		}
 		partsList.mouseStatus = true;
-		login.click = true;
+		//TODO remover comentarios - login.click = true;
 		//System.out.println("Status do Mouse: " + profile.mouseStatus);
 		//System.out.println("X: " + e.getX() + ", Y: " + e.getY());
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		mPressed = false;
 		if(type.equals("1\n")) {
 			admProfile.mouseStatus = false;
@@ -250,7 +249,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			workProfile.mouseStatus = false;
 		}
 		partsList.mouseStatus = false;
-		login.click = false;
+		//TODO remover comentarios - login.click = false;
 	}
 
 	@Override
@@ -281,7 +280,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		// TODO Auto-generated method stub
 		//System.out.println("Rolagem do mouse: " + e.getUnitsToScroll());
 		PartsList.scroll = e.getUnitsToScroll();
 	}
@@ -295,12 +293,16 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		
+		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Caracter escrito foi: " + e.getKeyChar() + " e seu Código é: " + e.getKeyCode());
+		if(login.isWriting != 0) {
+			login.writingOnCanvas(e);
+		}
 	}
 
 	@Override

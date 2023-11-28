@@ -13,8 +13,8 @@ public class PartsList {
 	
 	private boolean isOnTheRightState = false;
 	
-	public String toSplit = DBConector.readDB("*", "pecas", 10);
-	public String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][9];
+	public String toSplit = DBConector.readDB("*", "pecas", 9);
+	public String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][10];
 	private static String ProjectsList[] = new String[Almoxarifado.quantityParts];
 	
 	private int ofsetHeight;
@@ -27,11 +27,22 @@ public class PartsList {
 	
 
 	public PartsList() {
+		System.out.println("To Split: \n" + toSplit);
 		finalPartsTable = listBreaker(toSplit);
 		for(int i = 1; i < Almoxarifado.quantityParts+1; i++) {
 			ProjectsList[i-1] = finalPartsTable[i][1];
 			finalPartsTable[i][1] = DBConector.findInDB("ISO", "Montagem", "ID_Montagem", ProjectsList[i-1]);
 		}
+		
+		finalPartsTable[0][0] = "ID";
+		finalPartsTable[0][1] = "Montagem";
+		finalPartsTable[0][2] = "Descrição";
+		finalPartsTable[0][3] = "Quantidade";
+		finalPartsTable[0][4] = "";
+		finalPartsTable[0][5] = "Preço";
+		finalPartsTable[0][6] = "Fornecedor";
+		finalPartsTable[0][7] = "Status";
+		finalPartsTable[0][8] = "Aplicação";
 	}
 	
 	private String[][] listBreaker(String toSplit){
@@ -170,8 +181,19 @@ public class PartsList {
 			//System.out.println("Status do Scroll: " + scroll);
 			if(wasChanged == true) {
 				System.out.println("Foi feita uma mudança");
-				toSplit = DBConector.readDB("*", "pecas", 10);
+				toSplit = DBConector.readDB("*", "pecas", 9);
 				finalPartsTable = listBreaker(toSplit);
+				
+				finalPartsTable[0][0] = "ID";
+				finalPartsTable[0][1] = "Montagem";
+				finalPartsTable[0][2] = "Descrição";
+				finalPartsTable[0][3] = "Quantidade";
+				finalPartsTable[0][4] = "";
+				finalPartsTable[0][5] = "Preço";
+				finalPartsTable[0][6] = "Fornecedor";
+				finalPartsTable[0][7] = "Status";
+				finalPartsTable[0][8] = "Aplicação";
+				
 				wasChanged = false;
 			}
 		}
@@ -180,32 +202,19 @@ public class PartsList {
 	public void render(Graphics g) {
 		if(isOnTheRightState) {
 			
-			g.setFont(new Font("arial", 1, 15));
+			g.setFont(new Font("arial", 1, 12));
 
-			int auxHeight = 120 + ofsetHeight;
-			int auxWidth = 70;
-			
-			finalPartsTable[0][0] = "ID";
-			finalPartsTable[0][1] = "Montagem";
-			finalPartsTable[0][2] = "Descrição";
-			finalPartsTable[0][3] = "Quantidade";
-			finalPartsTable[0][4] = "";
-			finalPartsTable[0][5] = "Preço";
-			finalPartsTable[0][6] = "Fornecedor";
-			finalPartsTable[0][7] = "Status";
-			finalPartsTable[0][8] = "Aplicação";
-			
-			
-			
+			int auxHeight = 125 + ofsetHeight;
+			int auxWidth = 50;			
 			
 			
 			for(int i = 0; i < Almoxarifado.quantityParts+1; i++) {
 
-				for(int j = 0; j < 9; j++) {
+				for(int j = 0; j < 8; j++) {
 					
 					switch(j) {
 					case 1:
-						auxWidth += g.getFontMetrics().stringWidth(finalPartsTable[0][0]) * 4 ;
+						auxWidth += g.getFontMetrics().stringWidth(finalPartsTable[0][0]) * 5;
 						break;
 					case 2:
 						auxWidth += 70;
@@ -249,7 +258,6 @@ public class PartsList {
 					}
 					
 				if(Almoxarifado.mX > auxWidth - 15 - aux && Almoxarifado.mX < auxWidth + g.getFontMetrics().stringWidth(finalPartsTable[i][j]) + 15 - aux
-
 							&& Almoxarifado.mY > auxHeight - 15 && Almoxarifado.mY < auxHeight + 20 && i != 0 && auxHeight > 120 && j != 0) {
 						nC = Color.red;
 						if(mouseStatus) {
@@ -272,7 +280,7 @@ public class PartsList {
 					
 				}
 				
-				auxWidth = 70;
+				auxWidth = 50;
 				auxHeight += 50;
 			}
 			
