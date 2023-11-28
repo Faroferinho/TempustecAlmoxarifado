@@ -131,7 +131,7 @@ public class Profile {
 			System.out.println("O Novo nome é: " + newName);
 			
 			if(newName != "null" && newName != "") {
-				DBConector.editLine("funcionarios", "name", newName, RdF);
+				DBConector.editLine("funcionarios", "name", newName, "RdF", RdF);
 				name = newName;
 			}
 			
@@ -142,7 +142,7 @@ public class Profile {
 			System.out.println("O Novo nome é: " + newRdF);
 			
 			if(!(newRdF.isBlank()) || !(newRdF.isEmpty())) {
-				DBConector.editLine("funcionarios", "RdF", newRdF, RdF);
+				DBConector.editLine("funcionarios", "RdF", newRdF, "RdF", RdF);
 				RdF = newRdF;
 			}
 			break;
@@ -152,7 +152,7 @@ public class Profile {
 			System.out.println("O Novo nome é: " + newCPF);
 			
 			if(!(newCPF.isBlank()) || !(newCPF.isEmpty())) {
-				DBConector.editLine("funcionarios", "CPF", newCPF, RdF);
+				DBConector.editLine("funcionarios", "CPF", newCPF, "RdF", RdF);
 				RdF = newCPF;
 			}
 			break;
@@ -169,7 +169,7 @@ public class Profile {
 				int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a Mudança?", "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				System.out.println("Confirmação: " + confirmation);
 				if(confirmation == 0) {
-					DBConector.editLine("funcionarios", "password", newPassword, RdF);
+					DBConector.editLine("funcionarios", "password", newPassword, "RdF", RdF);
 				}else {
 					JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				}

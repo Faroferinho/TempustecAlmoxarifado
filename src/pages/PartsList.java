@@ -14,7 +14,7 @@ public class PartsList {
 	private boolean isOnTheRightState = false;
 	
 	public String toSplit = DBConector.readDB("*", "pecas", 9);
-	public String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][10];
+	public static String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][10];
 	private static String ProjectsList[] = new String[Almoxarifado.quantityParts];
 	
 	private int ofsetHeight;
@@ -65,97 +65,165 @@ public class PartsList {
 		
 		return returnString;
 	}
-
-	private static String newTextReapiting() {
-		String nT = "newText";
-		do {
-			nT += JOptionPane.showInputDialog("Escreva o novo texto");
-		}while(nT.equals("newText"));
-		
-		return nT;
-	}
-	
-	private static String[] getNames() {
-		
-		String auxListOfNames = "";
-		String listOfNames[] = new String[Almoxarifado.quantityParts];
-		
-		for(int i = 0; i < Almoxarifado.quantityParts; i++) {
-			auxListOfNames += DBConector.findInDB("ISO", "Montagem", "ID_Montagem", String.valueOf(i));
-
-		}
-		
-		listOfNames = auxListOfNames.split("\n");
-		
-		return listOfNames;
-	}
 	
 	private static void changePart(String index,int column) {
 		System.out.println("Coluna: " + column);
-		String newText = "newText";
+		System.out.println("Index: " + index);
 		
 		String columnName =  "";
 		String auxString = "";
-		switch(column) {
+		int aux = 0;
+		
+		switch(column){
 		case 1:
 			columnName += "Montagem";
-			auxString += "'";
+			String[] assemblies = fillAssembliesName();
+			auxString += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE, null, assemblies, 0);
 			
-			Object[] possibilities = getNames();
-			newText += (String) JOptionPane.showInputDialog(null, "Qual o Tipo do Funcionario", "", JOptionPane.PLAIN_MESSAGE, null, possibilities, possibilities[1]);
+			for(int i = 0; i < Almoxarifado.quantityAssembly; i++) {
+				if(assemblies[i].equals(auxString)) {
+					aux = i;
+				}
+			}
 			
+			auxString = Integer.toString(aux);
 			break;
 		case 2:
 			columnName += "Description";
-			auxString += "'";
-			newText = newTextReapiting();
+			auxString = JOptionPane.showInputDialog(null, "Insira a Descrição:", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
 			break;
 		case 3:
 			columnName += "Quantity";
-			newText = newTextReapiting();
+			auxString += JOptionPane.showInputDialog(null, "Insira a quantidade de Peças (apenas numeros)", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
 			break;
 		case 4:
-			columnName += ", Quantity_Type";
-			newText += " " + newTextReapiting();
+			columnName += "Quantity_type";
+			String[] quantityTypes = {"Peça", "Metro","Quilo", "Litro", "Barra", "Unidades"};
+			auxString += JOptionPane.showInputDialog(null, "Selecione um tipo de quantidade", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE, null, quantityTypes, 0);
+			aux = 0;
+			for(int i = 0; i < quantityTypes.length; i++) {
+				//System.out.println("Array[i]: " + quantityTypes[i] + " aux: " + aux);
+				if(quantityTypes[i].equals(auxString)) {
+					aux = i;
+				}
+			}
+			auxString = Integer.toString(aux);
 			break;
 		case 5:
 			columnName += "Price";
-			newText = newTextReapiting();
+			auxString += JOptionPane.showInputDialog(null, "Insira o Valor da Peça (apenas numeros)", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
 			break;
 		case 6:
 			columnName += "Supplier";
-			auxString += "'";
-			newText = newTextReapiting();
+			auxString += JOptionPane.showInputDialog(null, "Insira o Fornecedor:", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
 			break;
 		case 7:
 			columnName += "Status";
-			newText = newTextReapiting();
-			break;
-		case 8:
-			columnName += "Aplication";
-			auxString += "'";
-			newText = newTextReapiting();
+			if(finalPartsTable[Integer.parseInt(index)][column].equals("1")) {
+				auxString = "0";
+			}else {
+				auxString = "1";
+			}
 			break;
 		}
 		
-		newText = newText.substring(7);
-		System.out.println("newText: " + newText);
 		
-
-		
-		if(newText.equals("null")) {
-			System.out.println("texto está nulo");
-			return;
-		}else if(newText.equals("Nova Montagem")) {
-			
-		}
-		
-		String query = "UPDATE pecas Set " + columnName + " = " + auxString + newText + auxString  + " WHERE ID_Parts = " + index;
-		System.out.println(query);
-		
-		DBConector.writeDB(query);
+		DBConector.editLine("pecas", columnName, auxString, "ID_Parts", index);
 		
 		wasChanged = true;
+	}
+	
+	private static String[] fillAssembliesName() {
+		String[] returnArray = new String[Almoxarifado.quantityAssembly];
+		
+		for(int i = 1; i < Almoxarifado.quantityAssembly+1; i++) {
+			returnArray[i-1] = DBConector.findInDB("ISO", "Montagem", "ID_Montagem", Integer.toString(i));
+		}
+		
+		return returnArray;
+	}
+	
+	private boolean verifyString(String toVerif) {
+		if(toVerif.equals("") || toVerif.equals("null") || toVerif.equals(" ")) {
+			return true;
+		}
+		return false;
+	}
+
+	public void addPart() {
+		String querry = "INSERT INTO pecas VALUES( " + (Almoxarifado.quantityParts + 1) + ", ";
+		
+		String aux = "";
+		String[] assemblies = new String[Almoxarifado.quantityAssembly];
+		assemblies = fillAssembliesName();
+		aux += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null, assemblies, 0);
+		int auxInt = 0;
+		System.out.println("aux: " + aux);
+		for(int i = 1; i < Almoxarifado.quantityAssembly + 1; i++) {
+			if(assemblies[i-1].equals(aux)) {
+				auxInt = i;
+			}
+		}
+		if(verifyString(aux)) {
+			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		querry += auxInt + ", '";
+		
+		aux = "";
+		aux += JOptionPane.showInputDialog(null, "Insira a Descrição:", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
+		if(verifyString(aux)) {
+			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		querry += aux + "', ";
+		
+		aux = "";
+		aux += JOptionPane.showInputDialog(null, "Insira a quantidade de Peças (apenas numeros)", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
+		if(verifyString(aux)) {
+			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		querry += aux + ", ";
+		//TODO: insira uma forma de limitar o usuário a apenas usar numeros aqui;
+		
+		aux = "";
+		String[] quantityTypes = {"Peça", "Metro","Quilo", "Litro", "Barra", "Unidades"};
+		aux += JOptionPane.showInputDialog(null, "Selecione um tipo de quantidade", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null, quantityTypes, 0);
+		auxInt = 0;
+		for(int i = 0; i < quantityTypes.length; i++) {
+			//System.out.println("Array[i]: " + quantityTypes[i] + " aux: " + aux);
+			if(quantityTypes[i].equals(aux)) {
+				auxInt = i;
+			}
+		}
+		if(verifyString(aux)) {
+			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		querry += auxInt + ", ";
+		
+		aux = "";
+		aux += JOptionPane.showInputDialog(null, "Insira o Valor da Peça (apenas numeros)", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
+		if(verifyString(aux)) {
+			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		querry += aux + ", '";
+		//TODO: insira uma forma de limitar o usuário a apenas usar numeros aqui;
+		
+		aux = "";
+		aux += JOptionPane.showInputDialog(null, "Insira o Fornecedor:", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
+		if(verifyString(aux)) {
+			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		querry += aux + "', 0)";
+		
+		System.out.println(querry);
+		DBConector.writeDB(querry);
+		wasChanged = true;
+		Almoxarifado.quantityParts++;
 	}
 	
 	public void tick() {
@@ -166,19 +234,6 @@ public class PartsList {
 		}
 		
 		if(isOnTheRightState) {
-			
-			if(scroll > 1 && ofsetHeight > -Almoxarifado.quantityParts*7 ) {
-				ofsetHeight -= spd;
-				scroll = 0;
-			}else if(scroll < -1 && ofsetHeight < 0) {
-				ofsetHeight += spd;
-				scroll = 0;
-			}
-			else {
-				
-			}
-			//System.out.println(ofsetHeight);
-			//System.out.println("Status do Scroll: " + scroll);
 			if(wasChanged == true) {
 				System.out.println("Foi feita uma mudança");
 				toSplit = DBConector.readDB("*", "pecas", 9);
@@ -194,8 +249,27 @@ public class PartsList {
 				finalPartsTable[0][7] = "Status";
 				finalPartsTable[0][8] = "Aplicação";
 				
+				for(int i = 1; i < Almoxarifado.quantityParts+1; i++) {
+					finalPartsTable[i][1] = DBConector.findInDB("ISO", "Montagem", "ID_Montagem", ProjectsList[i-1]);
+				}
+				
 				wasChanged = false;
 			}
+			
+			if(scroll > 1 && ofsetHeight > -(Almoxarifado.quantityParts*21)) {
+				System.out.println("ofsetHeight: " + ofsetHeight);
+				ofsetHeight -= spd;
+				scroll = 0;
+			}else if(scroll < -1 && ofsetHeight < 0) {
+				ofsetHeight += spd;
+				scroll = 0;
+			}
+			else {
+				
+			}
+			//System.out.println(ofsetHeight);
+			//System.out.println("Status do Scroll: " + scroll);
+			
 		}
 	}
 	
@@ -281,8 +355,25 @@ public class PartsList {
 				}
 				
 				auxWidth = 50;
-				auxHeight += 50;
+				auxHeight += 30;
 			}
+			
+			g.setFont(new Font("arial", 1, 15));
+			g.setColor(Color.pink);
+			
+			if(Almoxarifado.mX > Almoxarifado.WIDTH/2 - g.getFontMetrics().stringWidth("Adicionar Peça")/2 - 5 
+					&& Almoxarifado.mX < Almoxarifado.WIDTH/2 + g.getFontMetrics().stringWidth("Adicionar Peça")/2 + 5
+					&& Almoxarifado.mY > auxHeight - 20 && Almoxarifado.mY < auxHeight + 5) {
+				g.setColor(Color.yellow);
+				if(mouseStatus) {
+					System.out.println("Você Clicou para Adicionar Peça");
+					addPart();
+					mouseStatus = false;
+					
+				}
+			}
+			
+			g.drawString("Adicionar Peça", Almoxarifado.WIDTH/2 - g.getFontMetrics().stringWidth("Adicionar Peça")/2, auxHeight);
 			
 			
 			

@@ -244,7 +244,7 @@ public class Admnistrator extends Profile {
 				return;
 		}
 		
-		DBConector.editLine("funcionarios", query, newInfo, editRdF);
+		DBConector.editLine("funcionarios", query, newInfo, "RdF",editRdF);
 		
 		isListing = false;
 		

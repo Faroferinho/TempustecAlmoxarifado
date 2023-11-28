@@ -122,7 +122,7 @@ public class DBConector {
 		}
 	}
 	
-	public static void editLine(String Table, String objective, String newInfo, String PrimaryKey) {
+	public static void editLine(String Table, String objective, String newInfo, String PK,String PrimaryKey) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -132,7 +132,7 @@ public class DBConector {
 			System.exit(1);
 		}
 		
-		String query = "UPDATE " + Table + " SET " + objective + " = '" + newInfo + "' WHERE RdF = " + PrimaryKey;
+		String query = "UPDATE " + Table + " SET " + objective + " = '" + newInfo + "' WHERE " + PK + " = " + PrimaryKey;
 		
 		System.out.println(query);
 		
