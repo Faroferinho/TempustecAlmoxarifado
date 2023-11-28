@@ -79,27 +79,46 @@ public class PartsList {
 			columnName += "Montagem";
 			String[] assemblies = fillAssembliesName();
 			auxString += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE, null, assemblies, 0);
-			
+			if(verifyString(auxString)) {
+				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			for(int i = 0; i < Almoxarifado.quantityAssembly; i++) {
 				if(assemblies[i].equals(auxString)) {
-					aux = i;
+					aux = i+1;
 				}
 			}
 			
 			auxString = Integer.toString(aux);
+			if(verifyString(auxString)) {
+				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			break;
 		case 2:
 			columnName += "Description";
-			auxString = JOptionPane.showInputDialog(null, "Insira a Descrição:", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
+			auxString += JOptionPane.showInputDialog(null, "Insira a Descrição:", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
+			if(verifyString(auxString)) {
+				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			break;
 		case 3:
 			columnName += "Quantity";
 			auxString += JOptionPane.showInputDialog(null, "Insira a quantidade de Peças (apenas numeros)", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
+			if(verifyString(auxString)) {
+				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			break;
 		case 4:
 			columnName += "Quantity_type";
 			String[] quantityTypes = {"Peça", "Metro","Quilo", "Litro", "Barra", "Unidades"};
 			auxString += JOptionPane.showInputDialog(null, "Selecione um tipo de quantidade", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE, null, quantityTypes, 0);
+			if(verifyString(auxString)) {
+				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			aux = 0;
 			for(int i = 0; i < quantityTypes.length; i++) {
 				//System.out.println("Array[i]: " + quantityTypes[i] + " aux: " + aux);
@@ -112,10 +131,18 @@ public class PartsList {
 		case 5:
 			columnName += "Price";
 			auxString += JOptionPane.showInputDialog(null, "Insira o Valor da Peça (apenas numeros)", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
+			if(verifyString(auxString)) {
+				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			break;
 		case 6:
 			columnName += "Supplier";
 			auxString += JOptionPane.showInputDialog(null, "Insira o Fornecedor:", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
+			if(verifyString(auxString)) {
+				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			break;
 		case 7:
 			columnName += "Status";
@@ -143,7 +170,7 @@ public class PartsList {
 		return returnArray;
 	}
 	
-	private boolean verifyString(String toVerif) {
+	private static boolean verifyString(String toVerif) {
 		if(toVerif.equals("") || toVerif.equals("null") || toVerif.equals(" ")) {
 			return true;
 		}
@@ -250,6 +277,7 @@ public class PartsList {
 				finalPartsTable[0][8] = "Aplicação";
 				
 				for(int i = 1; i < Almoxarifado.quantityParts+1; i++) {
+					String aux = ProjectsList[i-1];
 					finalPartsTable[i][1] = DBConector.findInDB("ISO", "Montagem", "ID_Montagem", ProjectsList[i-1]);
 				}
 				
@@ -291,22 +319,22 @@ public class PartsList {
 						auxWidth += g.getFontMetrics().stringWidth(finalPartsTable[0][0]) * 5;
 						break;
 					case 2:
-						auxWidth += 70;
+						auxWidth += 105;
 						break;
 					case 3:
-						auxWidth += 275;
+						auxWidth += 323;
 						break;
 					case 4:
-						auxWidth += 25;
+						auxWidth += 83;
 						break;
 					case 5:
 						auxWidth += g.getFontMetrics().stringWidth("9999.99") + 30;
 						break;
 					case 6:
-						auxWidth += 80;
+						auxWidth += 110;
 						break;
 					case 7:
-						auxWidth += g.getFontMetrics().stringWidth(finalPartsTable[0][7]) + 80;
+						auxWidth += g.getFontMetrics().stringWidth(finalPartsTable[0][7]) + 110;
 						break;
 					case 8:
 						auxWidth += g.getFontMetrics().stringWidth(finalPartsTable[0][7]) + 30;

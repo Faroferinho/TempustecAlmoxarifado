@@ -1,5 +1,6 @@
 package pages;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Projects {
@@ -13,6 +14,7 @@ public class Projects {
 	}
 	
 	public void render(Graphics g) {
+		g.setColor(Color.blue);
 		
 	}
 
