@@ -7,9 +7,9 @@ import javax.swing.JOptionPane;
 public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
-	public static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempustec";
-	public static String user = "root";
-	public static String password = "1234";
+	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempustec";
+	private static String user = "root";
+	private static String password = "1234";
 	
 	public int qnttWrks = 0;
 	public int qnttPrts = 0;
@@ -82,7 +82,7 @@ public class DBConector {
 					if(maxIndex == 2) {
 						returnData += result.getString(i);
 					}else {
-						returnData += result.getString(i) + " . ";
+						returnData += result.getString(i) + " § ";
 					}
 				}
 				returnData += "\n";

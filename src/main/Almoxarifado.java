@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -26,7 +24,7 @@ import pages.Employee;
 import pages.PartsList;
 import pages.Projects;
 
-public class Almoxarifado extends Canvas implements Runnable, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener, ActionListener{
+public class Almoxarifado extends Canvas implements Runnable, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener{
 	private static final long serialVersionUID = 1L;
 	
 	public static int WIDTH;
@@ -89,7 +87,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		partsList = new PartsList();
 		project = new Projects();
 		
-		inicializarTela(almox);
+		screenManager(almox);
 		
 		new Thread(almox).start();
 	}
@@ -109,7 +107,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		System.out.println("Largura: " + WIDTH + " Altura: " + HEIGHT);
 	}
 	
-	public static void inicializarTela(Almoxarifado tp) {
+	public static void screenManager(Almoxarifado tp) {
 		JFrame frame = new JFrame("Tela Java");
 		
 		frame.add(tp);
@@ -282,12 +280,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		//System.out.println("Rolagem do mouse: " + e.getUnitsToScroll());
 		PartsList.scroll = e.getUnitsToScroll();
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

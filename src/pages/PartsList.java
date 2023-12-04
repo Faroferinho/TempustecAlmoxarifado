@@ -14,7 +14,7 @@ public class PartsList {
 	private boolean isOnTheRightState = false;
 	
 	public String toSplit = DBConector.readDB("*", "pecas", 9);
-	public static String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][10];
+	public static String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][8];
 	public static String partsValues[] = new String[Almoxarifado.quantityParts];
 	
 	private int ofsetHeight;
@@ -25,45 +25,30 @@ public class PartsList {
 	
 	private static boolean wasChanged = false;
 	
+	int characterLimitPerLine = 218;
+	boolean multipleDescriptionLinesMark = false;
 
 	public PartsList() {
 		System.out.println("To Split: \n" + toSplit);
 		finalPartsTable = listBreaker(toSplit);
-		
-		
-		finalPartsTable[0][0] = "ID";
-		finalPartsTable[0][1] = "Montagem";
-		finalPartsTable[0][2] = "Descrição";
-		finalPartsTable[0][3] = "Quantidade";
-		finalPartsTable[0][4] = "";
-		finalPartsTable[0][5] = "Preço";
-		finalPartsTable[0][6] = "Fornecedor";
-		finalPartsTable[0][7] = "Status";
-		finalPartsTable[0][8] = "Aplicação";
 	}
 	
 	private String[][] listBreaker(String toSplit){
+		String linesToBreakdown[] = toSplit.split("\n");
+		String returnString[][] = new String[Almoxarifado.quantityParts+1][8];
 		
-		String internalString[] = new String[Almoxarifado.quantityParts];
-		internalString = toSplit.split("\n");
-		
-		String returnString[][] = new String[Almoxarifado.quantityParts+1][9];
-		
-		for(int i = 1; i < Almoxarifado.quantityParts+1; i++) {
-			for(int j = 0; j < 9; j++) {
-				returnString[i] = internalString[i-1].split(" . ");
-				/*String aux = " . ";
-				if(j == 8) {
-					aux = "\n";
-				}
-				System.out.print(returnString[i][j] + aux);*/
-			}
-		}
+		returnString[0][0] = "ID";
+		returnString[0][1] = "Montagem";
+		returnString[0][2] = "Descrição";
+		returnString[0][3] = "Quantidade";
+		returnString[0][4] = "";
+		returnString[0][5] = "Preço";
+		returnString[0][6] = "Fornecedor";
+		returnString[0][7] = "Status";
 		
 		for(int i = 0; i < Almoxarifado.quantityParts; i++) {
-			
+			returnString[i+1] = linesToBreakdown[i].split(" § ");
 		}
-		
 		return returnString;
 	}
 	
@@ -275,7 +260,6 @@ public class PartsList {
 				finalPartsTable[0][5] = "Preço";
 				finalPartsTable[0][6] = "Fornecedor";
 				finalPartsTable[0][7] = "Status";
-				finalPartsTable[0][8] = "Aplicação";
 				
 				
 				
@@ -307,8 +291,6 @@ public class PartsList {
 			int auxHeight = 125 + ofsetHeight;
 			int auxWidth = 50;		
 			int descriptionOfsetHeight = 1;
-			
-			boolean multipleDescriptionLinesMark = false;
 			
 			
 			for(int i = 0; i < Almoxarifado.quantityParts+1; i++) {
@@ -354,14 +336,10 @@ public class PartsList {
 					}
 					
 					if(i != 0 && j == 2) {
-						if(g.getFontMetrics().stringWidth(finalPartsTable[i][j]) > 218) {
-							System.out.println("EU NÃO SEI MAIS AAAAAAAAAAAA: " + g.getFontMetrics().stringWidth(finalPartsTable[i][j]));
-							descriptionOfsetHeight += g.getFontMetrics().stringWidth(finalPartsTable[i][j])/218;
+						if(g.getFontMetrics().stringWidth(finalPartsTable[i][j]) > 323) {
+							//System.out.println("O Texto é grande demais para o Espaço delimitado");
 							multipleDescriptionLinesMark = true;
-						}else {
-							descriptionOfsetHeight = 1;
 						}
-							
 					}
 						
 						
@@ -372,7 +350,7 @@ public class PartsList {
 					}
 					
 					if(Almoxarifado.mX > auxWidth - 15 - aux && Almoxarifado.mX < auxWidth + g.getFontMetrics().stringWidth(finalPartsTable[i][j]) + 15 - aux
-						&& Almoxarifado.mY > auxHeight - 15 && Almoxarifado.mY < auxHeight + 20 && i != 0 && auxHeight > 120 && j != 0) {
+						&& Almoxarifado.mY > auxHeight - 15 && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j])/280) * 30 && i != 0 && auxHeight > 120 && j != 0) {
 						nC = Color.red;
 						if(mouseStatus) {
 							System.out.println("Você Clicou em " + finalPartsTable[i][j]);
@@ -387,25 +365,53 @@ public class PartsList {
 					
 					
 					g.setColor(nC);
-					if(multipleDescriptionLinesMark == false) {
+					
+					if(!multipleDescriptionLinesMark) {
 						g.drawString(finalPartsTable[i][j], 0 + auxWidth - aux, 0 + auxHeight);
 					}else {
-						String newText = "";
-						int incrementable = g.getFontMetrics().stringWidth(finalPartsTable[i][j])/218;
-						for(int k = 0; k < descriptionOfsetHeight; k++) {
-							newText = finalPartsTable[i][j].substring(incrementable*(k), incrementable*(k+1));
-							g.drawString(newText, 0 + auxWidth - aux, 0 + auxHeight);
+						String auxText = "";
+						int quantityOfLines = g.getFontMetrics().stringWidth(finalPartsTable[i][j])/280;
+						descriptionOfsetHeight += quantityOfLines;
+						double quantityOfCharacters = finalPartsTable[i][j].length()/quantityOfLines;
+						
+						/*System.out.print("Informações: \n"
+								+ "Tamanho do Texto: " + g.getFontMetrics().stringWidth(finalPartsTable[i][j]) + " / 323 = " + quantityOfLines + "\n"
+								+ "quantityOfCharacters: " + quantityOfCharacters + "\n\n\n");
+						*/
+						for(int inc = 0; inc < quantityOfLines+1; inc++) {
+							int start = (int) (quantityOfCharacters*(inc));
+							int end = (int) (quantityOfCharacters*(inc+1));
+							
+							System.out.println("Start: " + start + ", End: " + end);
+							
+							if(end > finalPartsTable[i][j].length()) {
+								end = finalPartsTable[i][j].length();
+							}
+
+							auxText = finalPartsTable[i][j].substring(start, end);
+							System.out.println(auxText);
+							
+							
+							char verifFormat = finalPartsTable[i][j].charAt(end-1);
+							if(verifFormat != ' ' && verifFormat != ',' && verifFormat != '.' && verifFormat != '-'){
+								verifFormat = '-';
+							}else {
+								verifFormat = ' ';
+							}
+							
+							g.drawString(auxText + verifFormat, 0 + auxWidth - aux, 0 + auxHeight + 30 * (inc));
 						}
 					}
+					
 					multipleDescriptionLinesMark = false;
 					//System.out.println("Largura Auxiliar: " + auxWidth + ", Altura Auxiliar: " + auxHeight);
 					//System.out.println(finalPartsTable[i][j]);
 					
 					
 				}
-				
 				auxWidth = 50;
 				auxHeight += 30*descriptionOfsetHeight;
+				descriptionOfsetHeight = 1;
 			}
 			
 			g.setFont(new Font("arial", 1, 15));
