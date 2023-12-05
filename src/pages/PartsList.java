@@ -246,8 +246,10 @@ public class PartsList {
 		Almoxarifado.quantityParts++;
 	}
 	
-	private void eliminatePart(){
-		
+	private void eliminatePart(int index){
+		DBConector.writeDB("DELETE FROM pecas WHERE ID_Parts = " + index);
+		Almoxarifado.quantityParts--;
+		wasChanged = true;
 	}
 	
 	private String changeAsseblyName(String assemblyID){
@@ -291,7 +293,6 @@ public class PartsList {
 				assemblies = fillAssembliesName();
 				restartAssemblyList = false;
 			}
-			
 		}
 	}
 	
@@ -373,7 +374,8 @@ public class PartsList {
 						}else {
 							indexToEliminate = i;
 							if(mouseStatus) {
-								
+								eliminatePart(indexToEliminate);
+								isEliminating = false;
 							}
 						}
 							
