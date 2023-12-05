@@ -3,6 +3,7 @@ package pages;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JOptionPane;
 
@@ -30,6 +31,12 @@ public class PartsList {
 	
 	int characterLimitPerLine = 218;
 	boolean multipleDescriptionLinesMark = false;
+	
+	boolean isEliminating = false;
+	int indexToEliminate = -1;
+	
+	BufferedImage adicionar = Almoxarifado.imgManag.getSprite(0, 2*64, 128, 64);
+	BufferedImage excluir = Almoxarifado.imgManag.getSprite(640-128, 2*64, 128, 64);
 
 	public PartsList() {
 		System.out.println("To Split: \n" + toSplit);
@@ -239,6 +246,10 @@ public class PartsList {
 		Almoxarifado.quantityParts++;
 	}
 	
+	private void eliminatePart(){
+		
+	}
+	
 	private String changeAsseblyName(String assemblyID){
 		//System.out.println("assembly id: " + assemblyID);
 		String toReturn = "";
@@ -352,12 +363,21 @@ public class PartsList {
 					
 					if(Almoxarifado.mX > auxWidth - 15 - aux && Almoxarifado.mX < auxWidth + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 30 + 15 - aux
 						&& Almoxarifado.mY > auxHeight - 15 && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 30 && i != 0 && auxHeight > 120 && j != 0) {
-						nC = Color.red;
-						if(mouseStatus) {
-							System.out.println("Você Clicou em " + finalPartsTable[i][j]);
-							changePart(finalPartsTable[i][0], j);
-							mouseStatus = false;
+						if(!isEliminating) {
+							nC = Color.red;
+							if(mouseStatus) {
+								System.out.println("Você Clicou em " + finalPartsTable[i][j]);
+								changePart(finalPartsTable[i][0], j);
+								mouseStatus = false;
+							}
+						}else {
+							indexToEliminate = i;
+							if(mouseStatus) {
+								
+							}
 						}
+							
+						
 					}
 					
 					String auxTextToWrite = (finalPartsTable[i][j]);
@@ -367,6 +387,9 @@ public class PartsList {
 						aux = g.getFontMetrics().stringWidth(auxTextToWrite)/2 - 20;
 					}
 					
+					if(i == indexToEliminate) {
+						nC = Color.yellow;
+					}
 					g.setColor(nC);
 					
 					if(!multipleDescriptionLinesMark) {
@@ -418,23 +441,23 @@ public class PartsList {
 				auxHeight += 30*descriptionOfsetHeight;
 				descriptionOfsetHeight = 1;
 			}
-			
-			g.setFont(new Font("arial", 1, 15));
-			g.setColor(Color.pink);
-			
-			if(Almoxarifado.mX > Almoxarifado.WIDTH/2 - g.getFontMetrics().stringWidth("Adicionar Peça")/2 - 5 
-					&& Almoxarifado.mX < Almoxarifado.WIDTH/2 + g.getFontMetrics().stringWidth("Adicionar Peça")/2 + 5
-					&& Almoxarifado.mY > auxHeight - 20 && Almoxarifado.mY < auxHeight + 5) {
-				g.setColor(Color.yellow);
-				if(mouseStatus) {
+
+			if(mouseStatus) {
+				if(Almoxarifado.mX > Almoxarifado.WIDTH/3 - adicionar.getWidth()/2	&& Almoxarifado.mX < Almoxarifado.WIDTH/3 + adicionar.getWidth()/2
+						&& Almoxarifado.mY > auxHeight - 5 && Almoxarifado.mY < auxHeight + 69) {
 					System.out.println("Você Clicou para Adicionar Peça");
 					addPart();
 					mouseStatus = false;
-					
+				}else if(Almoxarifado.mX > Almoxarifado.WIDTH/3*2 - excluir.getWidth()/2	&& Almoxarifado.mX < Almoxarifado.WIDTH/3*2 + excluir.getWidth()/2
+						&& Almoxarifado.mY > auxHeight - 5 && Almoxarifado.mY < auxHeight + 69) {
+					System.out.println("Você Clicou para Excluir Peça");
+					isEliminating = true;
+					mouseStatus = false;
 				}
 			}
 			
-			g.drawString("Adicionar Peça", Almoxarifado.WIDTH/2 - g.getFontMetrics().stringWidth("Adicionar Peça")/2, auxHeight);
+			g.drawImage(adicionar, Almoxarifado.WIDTH/3 - adicionar.getWidth()/2, auxHeight, null);
+			g.drawImage(excluir, Almoxarifado.WIDTH/3*2 - excluir.getWidth()/2, auxHeight, null);
 			
 			maximumHeight = (Almoxarifado.quantityParts + auxExtraLineCounter) * -30;
 			auxExtraLineCounter = 0;
