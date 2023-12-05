@@ -22,6 +22,8 @@ public class UserInterface {
 	public BufferedImage iconPartsActivated;
 	public BufferedImage iconAssemblyActivated;
 	public BufferedImage iconArchiveActivated;
+	
+	public static int spd = 24;
 
 	public UserInterface() {
 		for(int i = 0; i < 5; i++) {
@@ -48,6 +50,24 @@ public class UserInterface {
 		
 		g.setColor(Color.black);
 		g.fillRect(bttnX[0]+ 36, bttnY + boxHeight + 18, Almoxarifado.WIDTH - 36*2, 430-12);
+	}
+	
+	public void limitScrollToWorkspaceArea(Graphics g) {
+		g.setColor(Color.black);
+		g.fillRect(0, 0, Almoxarifado.WIDTH, 10);
+		g.fillRect(0, Almoxarifado.HEIGHT - 10, Almoxarifado.WIDTH, 10);
+		
+		g.setColor(Color.lightGray);
+		g.fillRect(10, 10, Almoxarifado.WIDTH-20, 20);
+		g.fillRect(10, Almoxarifado.HEIGHT-20, Almoxarifado.WIDTH-20, 10);
+		
+		g.setColor(Color.gray);
+		g.fillRect(20, 20, Almoxarifado.WIDTH-40, 25 + boxHeight);
+		g.fillRect(20, bttnY + boxHeight + 442, Almoxarifado.WIDTH-40, 20);
+		
+		g.setColor(Color.orange);
+		g.fillRect(bttnX[0] + 30, bttnY + boxHeight + 12, Almoxarifado.WIDTH - 30*2, 6);
+		g.fillRect(bttnX[0] + 30, bttnY + boxHeight + 436, Almoxarifado.WIDTH - 30*2, 6);
 	}
 	
 	public byte setFunction(int mx, int my){

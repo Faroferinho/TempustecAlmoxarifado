@@ -22,7 +22,7 @@ import pages.Login;
 import pages.Admnistrator;
 import pages.Employee;
 import pages.PartsList;
-import pages.Projects;
+import pages.ProjectList;
 
 public class Almoxarifado extends Canvas implements Runnable, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener{
 	private static final long serialVersionUID = 1L;
@@ -39,7 +39,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static DBConector cnctr;
 	public static PartsList partsList;
 	public static ImageManager imgManag;
-	public static Projects project;
+	public static ProjectList projectList;
 	
 	public static String name = "";
 	public static String cpf = "";
@@ -85,7 +85,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			workProfile = new Employee(name,rdf, cpf);
 		}
 		partsList = new PartsList();
-		project = new Projects();
+		projectList = new ProjectList();
 		
 		screenManager(almox);
 		
@@ -139,7 +139,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			break;
 		case 3:
 			ui.tick();
-			project.tick();
+			projectList.tick();
 			break;
 		case 4:
 			ui.tick();
@@ -174,6 +174,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		//Basicamente desenho o esqueleto da UI;
 		
 		backgroundRender(g);
+		
 		ui.clearBox(g);
 		switch(state) {
 		case 0:
@@ -187,20 +188,23 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 				//System.out.println("Colaborador");
 				workProfile.render(g);
 			}
+			ui.limitScrollToWorkspaceArea(g);
 			ui.render(g);
 			break;
 		case 2: 
 			partsList.render(g);
+			ui.limitScrollToWorkspaceArea(g);
 			ui.render(g);
 			break;
 		case 3:
-			project.render(g);
+			projectList.render(g);
+			ui.limitScrollToWorkspaceArea(g);
 			ui.render(g);
 			break;
 		case 4:
+			ui.limitScrollToWorkspaceArea(g);
 			ui.render(g);
 		}
-		
 		
 		bs.show();
 	}
@@ -279,7 +283,23 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		//System.out.println("Rolagem do mouse: " + e.getUnitsToScroll());
-		PartsList.scroll = e.getUnitsToScroll();
+		
+		switch(state) {
+		case 1:
+			//TODO: Perfil, verificação de "está listando";
+			break;
+		case 2:
+			PartsList.scroll = e.getUnitsToScroll();
+			break;
+		case 3:
+			ProjectList.scroll = e.getUnitsToScroll();
+			break;
+		case 4:
+			//TODO: Arquivo;
+			break;
+		}
+		
+		//System.out.println("ProjectList.scroll: " + ProjectList.scroll + "\ne.getUnitsToScroll(): " + e.getUnitsToScroll());
 	}
 
 	@Override

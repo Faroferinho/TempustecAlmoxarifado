@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import functions.DBConector;
 import main.Almoxarifado;
+import main.UserInterface;
 
 public class PartsList {
 	
@@ -15,11 +16,13 @@ public class PartsList {
 	
 	public String toSplit = DBConector.readDB("*", "pecas", 9);
 	public static String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][8];
-	public static String partsValues[] = new String[Almoxarifado.quantityParts];
+	static String assemblies[] = fillAssembliesName();
+	public boolean restartAssemblyList = false;
 	
 	private int ofsetHeight;
 	public static int scroll;
-	private static int spd = 8;
+	private static int maximumHeight = 0;
+	private static int auxExtraLineCounter = 0;
 	
 	public boolean mouseStatus = false;
 	
@@ -63,7 +66,6 @@ public class PartsList {
 		switch(column){
 		case 1:
 			columnName += "Montagem";
-			String[] assemblies = fillAssembliesName();
 			auxString += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE, null, assemblies, 0);
 			if(verifyString(auxString)) {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
@@ -167,8 +169,6 @@ public class PartsList {
 		String querry = "INSERT INTO pecas VALUES( " + (Almoxarifado.quantityParts + 1) + ", ";
 		
 		String aux = "";
-		String[] assemblies = new String[Almoxarifado.quantityAssembly];
-		assemblies = fillAssembliesName();
 		aux += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null, assemblies, 0);
 		int auxInt = 0;
 		System.out.println("aux: " + aux);
@@ -239,6 +239,16 @@ public class PartsList {
 		Almoxarifado.quantityParts++;
 	}
 	
+	private String changeAsseblyName(String assemblyID){
+		//System.out.println("assembly id: " + assemblyID);
+		String toReturn = "";
+		
+		int aux = Integer.parseInt(assemblyID);
+		toReturn = assemblies[aux-1];
+		
+		return toReturn;
+	}
+	
 	public void tick() {
 		if(Almoxarifado.state == 2) {
 			isOnTheRightState = true;
@@ -252,33 +262,24 @@ public class PartsList {
 				toSplit = DBConector.readDB("*", "pecas", 9);
 				finalPartsTable = listBreaker(toSplit);
 				
-				finalPartsTable[0][0] = "ID";
-				finalPartsTable[0][1] = "Montagem";
-				finalPartsTable[0][2] = "Descrição";
-				finalPartsTable[0][3] = "Quantidade";
-				finalPartsTable[0][4] = "";
-				finalPartsTable[0][5] = "Preço";
-				finalPartsTable[0][6] = "Fornecedor";
-				finalPartsTable[0][7] = "Status";
-				
-				
-				
 				wasChanged = false;
 			}
 			
-			if(scroll > 1 && ofsetHeight > -(Almoxarifado.quantityParts*21)) {
+			if(scroll > 1 && ofsetHeight > maximumHeight) {
 				System.out.println("ofsetHeight: " + ofsetHeight);
-				ofsetHeight -= spd;
+				ofsetHeight -= UserInterface.spd;
 				scroll = 0;
 			}else if(scroll < -1 && ofsetHeight < 0) {
-				ofsetHeight += spd;
+				ofsetHeight += UserInterface.spd;
 				scroll = 0;
-			}
-			else {
-				
 			}
 			//System.out.println(ofsetHeight);
 			//System.out.println("Status do Scroll: " + scroll);
+			
+			if(restartAssemblyList) {
+				assemblies = fillAssembliesName();
+				restartAssemblyList = false;
+			}
 			
 		}
 	}
@@ -336,7 +337,7 @@ public class PartsList {
 					}
 					
 					if(i != 0 && j == 2) {
-						if(g.getFontMetrics().stringWidth(finalPartsTable[i][j]) > 323) {
+						if(g.getFontMetrics().stringWidth(finalPartsTable[i][j]) > characterLimitPerLine) {
 							//System.out.println("O Texto é grande demais para o Espaço delimitado");
 							multipleDescriptionLinesMark = true;
 						}
@@ -349,8 +350,8 @@ public class PartsList {
 						nC = Color.orange;
 					}
 					
-					if(Almoxarifado.mX > auxWidth - 15 - aux && Almoxarifado.mX < auxWidth + g.getFontMetrics().stringWidth(finalPartsTable[i][j]) + 15 - aux
-						&& Almoxarifado.mY > auxHeight - 15 && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j])/280) * 30 && i != 0 && auxHeight > 120 && j != 0) {
+					if(Almoxarifado.mX > auxWidth - 15 - aux && Almoxarifado.mX < auxWidth + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 30 + 15 - aux
+						&& Almoxarifado.mY > auxHeight - 15 && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 30 && i != 0 && auxHeight > 120 && j != 0) {
 						nC = Color.red;
 						if(mouseStatus) {
 							System.out.println("Você Clicou em " + finalPartsTable[i][j]);
@@ -358,19 +359,21 @@ public class PartsList {
 							mouseStatus = false;
 						}
 					}
-					if(auxHeight < 120 || auxHeight + g.getFontMetrics().getHeight() > 540) {
-						nC = new Color(0,0,0,0);
+					
+					String auxTextToWrite = (finalPartsTable[i][j]);
+					
+					if(i > 0 && j == 1) {
+						auxTextToWrite = changeAsseblyName(finalPartsTable[i][j]);
+						aux = g.getFontMetrics().stringWidth(auxTextToWrite)/2 - 20;
 					}
-					
-					
 					
 					g.setColor(nC);
 					
 					if(!multipleDescriptionLinesMark) {
-						g.drawString(finalPartsTable[i][j], 0 + auxWidth - aux, 0 + auxHeight);
+						g.drawString(auxTextToWrite, 0 + auxWidth - aux, 0 + auxHeight);
 					}else {
 						String auxText = "";
-						int quantityOfLines = g.getFontMetrics().stringWidth(finalPartsTable[i][j])/280;
+						int quantityOfLines = g.getFontMetrics().stringWidth(finalPartsTable[i][j])/characterLimitPerLine;
 						descriptionOfsetHeight += quantityOfLines;
 						double quantityOfCharacters = finalPartsTable[i][j].length()/quantityOfLines;
 						
@@ -382,14 +385,14 @@ public class PartsList {
 							int start = (int) (quantityOfCharacters*(inc));
 							int end = (int) (quantityOfCharacters*(inc+1));
 							
-							System.out.println("Start: " + start + ", End: " + end);
+							//System.out.println("Start: " + start + ", End: " + end);
 							
 							if(end > finalPartsTable[i][j].length()) {
 								end = finalPartsTable[i][j].length();
 							}
 
 							auxText = finalPartsTable[i][j].substring(start, end);
-							System.out.println(auxText);
+							//System.out.println(auxText);
 							
 							
 							char verifFormat = finalPartsTable[i][j].charAt(end-1);
@@ -399,8 +402,10 @@ public class PartsList {
 								verifFormat = ' ';
 							}
 							
+							
 							g.drawString(auxText + verifFormat, 0 + auxWidth - aux, 0 + auxHeight + 30 * (inc));
 						}
+						auxExtraLineCounter += descriptionOfsetHeight;
 					}
 					
 					multipleDescriptionLinesMark = false;
@@ -431,8 +436,8 @@ public class PartsList {
 			
 			g.drawString("Adicionar Peça", Almoxarifado.WIDTH/2 - g.getFontMetrics().stringWidth("Adicionar Peça")/2, auxHeight);
 			
-			
-			
+			maximumHeight = (Almoxarifado.quantityParts + auxExtraLineCounter) * -30;
+			auxExtraLineCounter = 0;
 		}
 	}
 }
