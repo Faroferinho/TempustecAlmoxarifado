@@ -30,7 +30,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 2;
+	public static byte state = 3;
 	
 	public static Login login;
 	public static UserInterface ui;
@@ -237,6 +237,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			workProfile.mouseStatus = true;
 		}
 		partsList.mouseStatus = true;
+		projectList.mouseStatus = true;
 		//TODO remover comentarios - login.click = true;
 		//System.out.println("Status do Mouse: " + profile.mouseStatus);
 		//System.out.println("X: " + e.getX() + ", Y: " + e.getY());
@@ -251,6 +252,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			workProfile.mouseStatus = false;
 		}
 		partsList.mouseStatus = false;
+		projectList.mouseStatus = false;
 		//TODO remover comentarios - login.click = false;
 	}
 
