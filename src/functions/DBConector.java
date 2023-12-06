@@ -158,8 +158,11 @@ public class DBConector {
 		}
 		
 		String query = "SELECT " + objective + " FROM " + table + " WHERE " + column + " = " + key;
-		
 		String answer = "";
+		int max = 6;
+		if(table.equals("montagem")) {
+			max++;
+		}
 		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
@@ -169,8 +172,8 @@ public class DBConector {
 			
 			while(rslt.next()) {
 				if(objective == "*") {
-					for(int i = 0; i < 6; i++) {
-						answer += rslt.getString(i) + " . ";
+					for(int i = 1; i < max; i++) {
+						answer += rslt.getString(i) + " § ";
 					}
 				}else {
 					answer += rslt.getString(1) + "\n";

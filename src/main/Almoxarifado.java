@@ -18,10 +18,11 @@ import javax.swing.JFrame;
 
 import functions.DBConector;
 import functions.ImageManager;
-import pages.Login;
 import pages.Admnistrator;
 import pages.Employee;
+import pages.Login;
 import pages.PartsList;
+import pages.Project;
 import pages.ProjectList;
 
 public class Almoxarifado extends Canvas implements Runnable, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener{
@@ -30,7 +31,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 3;
+	public static byte state = 5;
 	
 	public static Login login;
 	public static UserInterface ui;
@@ -40,6 +41,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static PartsList partsList;
 	public static ImageManager imgManag;
 	public static ProjectList projectList;
+	public static Project project;
 	
 	public static String name = "";
 	public static String cpf = "";
@@ -86,6 +88,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		}
 		partsList = new PartsList();
 		projectList = new ProjectList();
+		project = new Project();
 		
 		screenManager(almox);
 		
@@ -143,6 +146,10 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			break;
 		case 4:
 			ui.tick();
+			break;
+		case 5:
+			ui.tick();
+			project.tick();
 			break;
 		}
 		
@@ -204,6 +211,11 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		case 4:
 			ui.limitScrollToWorkspaceArea(g);
 			ui.render(g);
+		case 5:
+			ui.limitScrollToWorkspaceArea(g);
+			project.render(g);
+			ui.render(g);
+			break;
 		}
 		
 		bs.show();

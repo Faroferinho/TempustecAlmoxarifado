@@ -39,6 +39,9 @@ public class ProjectList {
 	private boolean configState;
 	private int configStateIndex = 0;
 	
+	private static boolean updateProjectList;
+	public static boolean updateProjectListPL;
+	
 	BufferedImage img = Almoxarifado.imgManag.getSprite(256, 192, boxWidth, boxHeight);
 	BufferedImage moreOptions = Almoxarifado.imgManag.getSprite(407, 193, 6, 20);
 	
@@ -58,8 +61,52 @@ public class ProjectList {
 		return auxSpliting;
 	}
 	
+	private static boolean verifyString(String toVerif) {
+		if(toVerif.equals("") || toVerif.equals("null") || toVerif.equals(" ")) {
+			return true;
+		}
+		return false;
+	}
+	
 	private void createNewAssembly(){
+		mouseStatus = false;
+		String querry = "INSERT INTO montagem (ID_Montagem, ISO, description, company) VALUES(" + (Almoxarifado.quantityAssembly+1) + ", '";
+		String newAssemblyInfo = "";
 		
+		newAssemblyInfo += JOptionPane.showInputDialog(null, "Qual o Nome", "Cadastro de Nova Montagem", JOptionPane.PLAIN_MESSAGE);
+		if(verifyString(newAssemblyInfo)) {
+			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		querry += newAssemblyInfo + "', '";
+		newAssemblyInfo = "";
+		
+		newAssemblyInfo += JOptionPane.showInputDialog(null, "Insira uma descrição", "Cadastro de Nova Montagem", JOptionPane.PLAIN_MESSAGE);
+		if(verifyString(newAssemblyInfo)) {
+			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		querry += newAssemblyInfo + "', '";
+		newAssemblyInfo = "";
+		
+		newAssemblyInfo += JOptionPane.showInputDialog(null, "De Qual Empresa?", "Cadastro de Nova Montagem", JOptionPane.PLAIN_MESSAGE);
+		if(verifyString(newAssemblyInfo)) {
+			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		querry += newAssemblyInfo + "')";
+		newAssemblyInfo = "";
+		
+		JOptionPane.showMessageDialog(null, "Cadastro Efetuado Com sucesso", "Cadastro Concluido", JOptionPane.INFORMATION_MESSAGE, null);
+		
+		System.out.println("Feito o Castro");
+		
+		DBConector.writeDB(querry);
+		Almoxarifado.quantityAssembly++;
+		updateProjectList = true;
 	}
 	
 	public void tick() {
@@ -84,10 +131,10 @@ public class ProjectList {
 			}
 			
 			if(changeState == true) {
-				System.out.println("Mudar para o Perfil " + changeStateIndex);
+				//System.out.println("Mudar para o Perfil " + changeStateIndex);
 				if(changeStateIndex != Almoxarifado.quantityAssembly) {
 					int confirmationOfChangeState = JOptionPane.showConfirmDialog(null, "Realmente deseja mudar de Pagina", "Confirmação de Mudança de Pagina", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null);
-					System.out.println(confirmationOfChangeState );
+					//System.out.println(confirmationOfChangeState );
 					
 					if(confirmationOfChangeState == 0) {
 						Almoxarifado.state = 5;
@@ -114,6 +161,17 @@ public class ProjectList {
 				configState = false;
 			}
 			
+			if(updateProjectList) {
+				namesToSplit = DBConector.readDB("ISO", "montagem", 2);
+				descriptionsToSplit = DBConector.readDB("description", "montagem", 2);
+				
+				names = spliting(namesToSplit);
+				descriptions = spliting(descriptionsToSplit);
+				
+				PartsList.restartAssemblyList = true;
+				updateProjectList = false;
+			}
+			
 		}
 	}
 	
@@ -131,22 +189,27 @@ public class ProjectList {
 			imgY = initY + auxY + ofsetHeight;
 			
 			if(mouseStatus) {
-				if(i != Almoxarifado.quantityAssembly) {
-					//System.out.println("Cliclou em qualquer coisa que não seja o ultimo indice");
-					if(Almoxarifado.mX > imgX + boxWidth - boxBorder && Almoxarifado.mX < imgX + boxWidth - boxBorder + 12
-					&& Almoxarifado.mY > imgY + boxBorder - boxBorder/3 && Almoxarifado.mY < imgX + boxWidth - boxBorder/3 + 40
-					&& imgY > 0) {
-						System.out.println("Cliclou em Configurações, indice: " + i);
-						configState = true;
-						configStateIndex = i;
+				//System.out.println("Clique");
+				if(Almoxarifado.mY > boxHeight
+				&& Almoxarifado.mY < UserInterface.maximunHeight) {
+					//System.out.println("dentro do quadrado");
+					if(i != Almoxarifado.quantityAssembly) {
+						//System.out.println("Cliclou em qualquer coisa que não seja o ultimo indice");
+						if(Almoxarifado.mX > imgX + boxWidth - boxBorder && Almoxarifado.mX < imgX + boxWidth - boxBorder + 12
+						&& Almoxarifado.mY > imgY + boxBorder - boxBorder/3 && Almoxarifado.mY < imgX + boxWidth - boxBorder/3 + 25
+						&& imgY > 0) {
+							System.out.println("Cliclou em Configurações, indice: " + i);
+							configState = true;
+							configStateIndex = i;
+						}
 					}
-				}
-				if(Almoxarifado.mX > imgX && Almoxarifado.mX < imgX + boxWidth
-				&& Almoxarifado.mY > imgY && Almoxarifado.mY < imgY + boxHeight) {
-					if(!configState) {
-						System.out.println("Você clicou em: " + i);
-						changeState = true;
-						changeStateIndex = i;
+					if(Almoxarifado.mX > imgX && Almoxarifado.mX < imgX + boxWidth
+					&& Almoxarifado.mY > imgY && Almoxarifado.mY < imgY + boxHeight) {
+						if(!configState) {
+							System.out.println("Você clicou em: " + i);
+							changeState = true;
+							changeStateIndex = i;
+						}
 					}
 				}
 			}
@@ -155,7 +218,7 @@ public class ProjectList {
 			
 			if(auxX == 3) {
 				auxX = 0;
-				auxY += boxHeight*2 + spaceBetween;
+				auxY += boxHeight + spaceBetween;
 				//System.out.println("Index: " + i);
 			}
 			

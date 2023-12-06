@@ -24,6 +24,8 @@ public class UserInterface {
 	public BufferedImage iconArchiveActivated;
 	
 	public static int spd = 24;
+	
+	public static int maximunHeight = Almoxarifado.HEIGHT - (bttnY + boxHeight + 12) - 40;
 
 	public UserInterface() {
 		for(int i = 0; i < 5; i++) {
@@ -46,10 +48,10 @@ public class UserInterface {
 	
 	public void clearBox(Graphics g) {
 		g.setColor(Color.orange);
-		g.fillRect(bttnX[0] + 30, bttnY + boxHeight + 12, Almoxarifado.WIDTH - 30*2, 430);
+		g.fillRect(bttnX[0] + 30, bttnY + boxHeight + 12, Almoxarifado.WIDTH - 30*2, maximunHeight);
 		
 		g.setColor(Color.black);
-		g.fillRect(bttnX[0]+ 36, bttnY + boxHeight + 18, Almoxarifado.WIDTH - 36*2, 430-12);
+		g.fillRect(bttnX[0]+ 36, bttnY + boxHeight + 18, Almoxarifado.WIDTH - 36*2, maximunHeight-12);
 	}
 	
 	public void limitScrollToWorkspaceArea(Graphics g) {
@@ -142,6 +144,7 @@ public class UserInterface {
 			g.drawImage(iconPartsActivated, spaceBetween[1] + bttnX[1], bttnY, null);
 			break;
 		case 3:
+		case 5:
 			g.drawImage(iconAssemblyActivated, spaceBetween[2] + bttnX[2], bttnY, null);
 			break;
 		case 4:

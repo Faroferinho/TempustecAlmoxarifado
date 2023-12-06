@@ -18,7 +18,7 @@ public class PartsList {
 	public String toSplit = DBConector.readDB("*", "pecas", 9);
 	public static String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][8];
 	static String assemblies[] = fillAssembliesName();
-	public boolean restartAssemblyList = false;
+	public static boolean restartAssemblyList = false;
 	
 	private int ofsetHeight;
 	public static int scroll;
@@ -247,6 +247,13 @@ public class PartsList {
 	}
 	
 	private void eliminatePart(int index){
+		
+		int confirmation = JOptionPane.showConfirmDialog(null, "Você tem *CERTEZA* que você deseja deletar essa peça?", "Confirma a Eliminação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		
+		if(confirmation != 0) {
+			return;
+		}
+		
 		DBConector.writeDB("DELETE FROM pecas WHERE ID_Parts = " + index);
 		Almoxarifado.quantityParts--;
 		wasChanged = true;
@@ -389,6 +396,7 @@ public class PartsList {
 							if(mouseStatus) {
 								eliminatePart(indexToEliminate);
 								isEliminating = false;
+								return;
 							}
 						}
 					}

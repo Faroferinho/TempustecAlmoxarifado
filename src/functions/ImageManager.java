@@ -28,4 +28,10 @@ public class ImageManager {
 		
 	}
 	
+	public BufferedImage getProjectImage() {
+		BufferedImage returnImg;
+		
+		return returnImg;
+	}
+	
 }
