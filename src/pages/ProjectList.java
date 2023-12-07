@@ -137,6 +137,8 @@ public class ProjectList {
 					//System.out.println(confirmationOfChangeState );
 					
 					if(confirmationOfChangeState == 0) {
+						Project.ID = changeStateIndex+1;
+						Project.updateProject = true;
 						Almoxarifado.state = 5;
 					}else {
 						mouseStatus = false;

@@ -178,6 +178,7 @@ public class DBConector {
 				}else {
 					answer += rslt.getString(1) + "\n";
 				}
+				answer += "\n";
 			}
 			
 			con.close();

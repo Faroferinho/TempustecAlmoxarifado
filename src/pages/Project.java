@@ -11,11 +11,15 @@ import main.UserInterface;
 
 public class Project {
 	
-	int ID = 1;
-	String name = "";
-	String description = "";
-	String company = "";
-	String imgAdress = "";
+	static int ID = 1;
+	static String name = "";
+	static String description = "";
+	static String company = "";
+	static String imgAdress = "";
+	
+	private String rawPartsList = "";
+	private String[][] brokenApartPartsList;
+	private int quantityParts;
 	
 	BufferedImage img;
 	BufferedImage editProfile = Almoxarifado.imgManag.getSprite(128, 64*2, 128, 64);
@@ -24,7 +28,7 @@ public class Project {
 	double price = 0.0;
 	int partsList[];
 	
-	boolean updateProject = true;
+	public static boolean updateProject = true;
 	
 	public Project() {
 		// TODO Auto-generated constructor stub
@@ -32,6 +36,7 @@ public class Project {
 	}
 	
 	public void tick() {
+		
 		if(updateProject) {
 			String brokenApartInfo[];
 			System.out.println("Atualizando a Pagina de Projeto");
@@ -52,20 +57,50 @@ public class Project {
 			
 			img = Almoxarifado.imgManag.getProjectImage(imgAdress);
 			
+			rawPartsList = DBConector.findInDB("*", "pecas", "Montagem", "" + ID);
+			System.out.println("rawPartsList: \n" + rawPartsList);
+			
 			updateProject = false;
 		}
 	}
 	
-	public void render(Graphics g) {
-		g.setColor(Color.white);
-		g.setFont(new Font("arial", 0, 20));
+	public String[][] breakingList(String toSplit){
+		String separetedMatix[][] = null;
 		
-		g.drawImage(img, UserInterface.bttnX[0] + 50, Almoxarifado.HEIGHT - UserInterface.maximunHeight - 20, null);
-		g.drawString(name, UserInterface.bttnX[0] + 65 + img.getWidth(), Almoxarifado.HEIGHT - UserInterface.maximunHeight + 10);
-		g.drawString(company, UserInterface.bttnX[0] + 65 + img.getWidth(), Almoxarifado.HEIGHT - UserInterface.maximunHeight + 50);
-		g.drawString(description, UserInterface.bttnX[0] + 65 + img.getWidth(), Almoxarifado.HEIGHT - UserInterface.maximunHeight + 90);
-		g.drawImage(editProfile, Almoxarifado.WIDTH - 128 - 60, Almoxarifado.HEIGHT - UserInterface.maximunHeight - 20, null);
-		g.drawImage(ArchiveProfile, Almoxarifado.WIDTH - 128 - 60, Almoxarifado.HEIGHT - UserInterface.maximunHeight - 20 + 64*2, null);
+		for(int i = 0; i < 1; i++) {
+			for(int j = 0; j < 8; j++) {
+				
+			}
+		}
+		
+		return separetedMatix;
+	}
+	
+	public void drawPartsList(Graphics g) {
+		
+	}
+	
+	public void render(Graphics g) {
+		if(!updateProject) {
+			g.setColor(Color.white);
+			g.setFont(new Font("arial", 0, 20));
+			
+			int imgX = UserInterface.bttnX[0] + 50;
+			int imgY = Almoxarifado.HEIGHT - UserInterface.maximunHeight - 20;
+			g.drawImage(img, imgX, imgY, null);
+			g.drawString(name, imgX + 15 + img.getWidth(), imgY + 20);
+			g.drawString(company, imgX + 15 + img.getWidth(), imgY + 80);
+			g.drawString(description, imgX + 15 + img.getWidth(), imgY + 140);
+			
+			g.drawImage(editProfile, Almoxarifado.WIDTH - 128 - 60, imgY, null);
+			g.drawImage(ArchiveProfile, Almoxarifado.WIDTH - 128 - 60, imgY + 64 + (img.getHeight() - 64*2), null);
+			
+			g.setColor(Color.yellow);
+			g.setFont(new Font("arial", 1, 18));
+			g.drawString("Lista de Peças: ", imgX + 25, img.getHeight() + imgY + 18*2);
+			
+			drawPartsList(g);
+		}
 	}
 
 }

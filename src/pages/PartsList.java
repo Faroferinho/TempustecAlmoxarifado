@@ -18,6 +18,7 @@ public class PartsList {
 	public String toSplit = DBConector.readDB("*", "pecas", 9);
 	public static String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][8];
 	static String assemblies[] = fillAssembliesName();
+	String[] quantityTypes = {"Peça", "Metro","Quilo", "Litro", "Barra", "Unidades"};
 	public static boolean restartAssemblyList = false;
 	
 	private int ofsetHeight;
@@ -208,7 +209,6 @@ public class PartsList {
 		//TODO: insira uma forma de limitar o usuário a apenas usar numeros aqui;
 		
 		aux = "";
-		String[] quantityTypes = {"Peça", "Metro","Quilo", "Litro", "Barra", "Unidades"};
 		aux += JOptionPane.showInputDialog(null, "Selecione um tipo de quantidade", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null, quantityTypes, 0);
 		auxInt = 0;
 		for(int i = 0; i < quantityTypes.length; i++) {
@@ -255,7 +255,16 @@ public class PartsList {
 		}
 		
 		DBConector.writeDB("DELETE FROM pecas WHERE ID_Parts = " + index);
+		
+		for(int i = 1; i < Almoxarifado.quantityParts+1; i++) {
+			int auxVerifID = Integer.parseInt(finalPartsTable[i][0]);
+			if(auxVerifID > index) {
+				DBConector.writeDB("UPDATE pecas SET ID_Parts = " + (auxVerifID - 1) + " WHERE ID_Parts = " + auxVerifID);
+			}
+		}
+		
 		Almoxarifado.quantityParts--;
+		
 		wasChanged = true;
 	}
 	
@@ -265,6 +274,15 @@ public class PartsList {
 		
 		int aux = Integer.parseInt(assemblyID);
 		toReturn = assemblies[aux-1];
+		
+		return toReturn;
+	}
+	
+	private String changeQuantityType(String quantityType){
+		String toReturn = "";
+		
+		int aux = Integer.parseInt(quantityType);
+		toReturn = quantityTypes[aux];
 		
 		return toReturn;
 	}
@@ -406,6 +424,11 @@ public class PartsList {
 					if(i > 0 && j == 1) {
 						auxTextToWrite = changeAsseblyName(finalPartsTable[i][j]);
 						aux = g.getFontMetrics().stringWidth(auxTextToWrite)/2 - 20;
+					}
+					
+					if(i > 0 && j == 4) {
+						auxTextToWrite = changeQuantityType(finalPartsTable[i][j]);
+						aux = g.getFontMetrics().stringWidth(auxTextToWrite)/2 + 25;
 					}
 					
 					g.setColor(nC);

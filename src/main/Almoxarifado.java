@@ -211,6 +211,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		case 4:
 			ui.limitScrollToWorkspaceArea(g);
 			ui.render(g);
+			break;
 		case 5:
 			ui.limitScrollToWorkspaceArea(g);
 			project.render(g);
@@ -311,6 +312,9 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		case 4:
 			//TODO: Arquivo;
 			break;
+		case 5:
+			//TODO: Projeto;
+			break;
 		}
 		
 		//System.out.println("ProjectList.scroll: " + ProjectList.scroll + "\ne.getUnitsToScroll(): " + e.getUnitsToScroll());
@@ -319,8 +323,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
-		
 	}
 
 	@Override

@@ -83,6 +83,7 @@ public class Admnistrator extends Profile {
 				case 2:
 					if(isListing == false) {
 						isListing = true;
+						//TODO: mudar isso para o sitema de listagem da pagina de lista de peças
 						
 						Object[] possibilities = {"Nome", "Registro de Funcionario", "CPF", "Tipo de Funcionario", "*"};
 						
