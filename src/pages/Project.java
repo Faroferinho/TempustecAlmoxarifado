@@ -19,7 +19,6 @@ public class Project {
 	
 	private String rawPartsList = "";
 	private String[][] brokenApartPartsList;
-	private int quantityParts;
 	
 	BufferedImage img;
 	BufferedImage editProfile = Almoxarifado.imgManag.getSprite(128, 64*2, 128, 64);
@@ -57,23 +56,44 @@ public class Project {
 			
 			img = Almoxarifado.imgManag.getProjectImage(imgAdress);
 			
-			rawPartsList = DBConector.findInDB("*", "pecas", "Montagem", "" + ID);
+			rawPartsList = DBConector.readDB("*", "pecas", 9);
 			System.out.println("rawPartsList: \n" + rawPartsList);
+			
+			breakingList(rawPartsList);
 			
 			updateProject = false;
 		}
 	}
 	
 	public String[][] breakingList(String toSplit){
-		String separetedMatix[][] = null;
+		String textAux[] = toSplit.split(" § ");
+		System.out.println("Tamanho do Arry Auxiliar: " + (textAux.length-1));
+		String separetedMatrix[][] = new String[8][(textAux.length-1)/8];
 		
-		for(int i = 0; i < 1; i++) {
-			for(int j = 0; j < 8; j++) {
-				
+		int incremX = 0;
+		int incremY = 0;
+		for(int i = 1; i < textAux.length; i++) {
+			if((i) % 8 == 0) {
+				System.out.println("O Numero " + i + " é multiplo de 8");
+				incremX = 0;
+				incremY++;
 			}
+			separetedMatrix[incremX][incremY] = textAux[i-1];
+			
+			System.out.println("================================================================");
+			System.out.println("separetedMatrix: " + separetedMatrix[incremX][incremY]);
+			System.out.println("Posição X: " + incremX);
+			System.out.println("Posição Y: " + incremY);
+			System.out.println("================================================================");
+			
+			incremX++;
+			
+			
+			
 		}
 		
-		return separetedMatix;
+		
+		return separetedMatrix;
 	}
 	
 	public void drawPartsList(Graphics g) {
