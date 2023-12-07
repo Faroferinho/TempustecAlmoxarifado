@@ -247,7 +247,7 @@ public class PartsList {
 	}
 	
 	private void eliminatePart(int index){
-		
+		//TODO: Colocar uma função para verificar se existem outras entradas depois dessa e caso exista, mude o ID das peças depois dessa para o indice anterior
 		int confirmation = JOptionPane.showConfirmDialog(null, "Você tem *CERTEZA* que você deseja deletar essa peça?", "Confirma a Eliminação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		
 		if(confirmation != 0) {

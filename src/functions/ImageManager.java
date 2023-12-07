@@ -28,8 +28,16 @@ public class ImageManager {
 		
 	}
 	
-	public BufferedImage getProjectImage() {
-		BufferedImage returnImg;
+	public BufferedImage getProjectImage(String fileName) {
+		BufferedImage returnImg = null;
+		
+		try {
+			returnImg = ImageIO.read(new File("C:/Users/User/eclipse-workspace/AlmoxarifadoTempustec/res/" + fileName + ".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Não pude pegar o arquivo");
+			e.printStackTrace();
+		}
 		
 		return returnImg;
 	}

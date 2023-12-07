@@ -46,7 +46,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static String name = "";
 	public static String cpf = "";
 	public static String rdf = "";
-	public static String type = "1\n";
+	public static String type = "";
 	
 	public static int mX;
 	public static int mY;
