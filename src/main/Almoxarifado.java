@@ -251,7 +251,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		}
 		partsList.mouseStatus = true;
 		projectList.mouseStatus = true;
-		project.click = true;
+		project.mouseStatus = true;
 		//TODO remover comentarios - login.click = true;
 		//System.out.println("Status do Mouse: " + profile.mouseStatus);
 		//System.out.println("X: " + e.getX() + ", Y: " + e.getY());
@@ -267,7 +267,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		}
 		partsList.mouseStatus = false;
 		projectList.mouseStatus = false;
-		project.click = false;
+		project.mouseStatus = false;
 		//TODO remover comentarios - login.click = false;
 	}
 

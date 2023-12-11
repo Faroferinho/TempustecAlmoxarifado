@@ -116,6 +116,7 @@ public class ProjectList {
 			isOnTheRightState = true;
 		}else {
 			isOnTheRightState = false;
+			ofsetHeight = 0;
 		}
 		
 		if(isOnTheRightState == true) {

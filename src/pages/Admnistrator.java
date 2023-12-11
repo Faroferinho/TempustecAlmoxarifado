@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import functions.DBConector;
 import main.Almoxarifado;
+import main.UserInterface;
 
 public class Admnistrator extends Profile {
 
@@ -262,6 +263,10 @@ public class Admnistrator extends Profile {
 				g.drawImage(listButton, (Almoxarifado.WIDTH / 5) * 2 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
 				g.drawImage(signInButton, (Almoxarifado.WIDTH / 5) * 3 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
 				g.drawImage(passwordButton, (Almoxarifado.WIDTH / 5) * 4 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
+				UserInterface.isOnButton(g, Almoxarifado.WIDTH / 5 - 64, Almoxarifado.HEIGHT / 2 + 120);
+				UserInterface.isOnButton(g, (Almoxarifado.WIDTH / 5) * 2 - 64, Almoxarifado.HEIGHT / 2 + 120);
+				UserInterface.isOnButton(g, (Almoxarifado.WIDTH / 5) * 3 - 64, Almoxarifado.HEIGHT / 2 + 120);
+				UserInterface.isOnButton(g, (Almoxarifado.WIDTH / 5) * 4 - 64, Almoxarifado.HEIGHT / 2 + 120);
 
 			}else if(isEditing == true){
 				
@@ -269,6 +274,8 @@ public class Admnistrator extends Profile {
 				
 				g.drawImage(editDoneButton, Almoxarifado.WIDTH / 3 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
 				g.drawImage(passwordButton, (Almoxarifado.WIDTH / 3) * 2 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
+				UserInterface.isOnButton(g, Almoxarifado.WIDTH / 3 - 64, Almoxarifado.HEIGHT / 2 + 120);
+				UserInterface.isOnButton(g, (Almoxarifado.WIDTH / 3) * 2 - 64, Almoxarifado.HEIGHT / 2 + 120);
 
 				
 			}else if(isListing == true) {

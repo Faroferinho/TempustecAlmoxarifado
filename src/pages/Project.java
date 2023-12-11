@@ -23,6 +23,7 @@ public class Project {
 	BufferedImage img;
 	BufferedImage editProfile = Almoxarifado.imgManag.getSprite(128, 64*2, 128, 64);
 	BufferedImage archiveProfile = Almoxarifado.imgManag.getSprite(0, 64*4, 128, 64);
+	BufferedImage isEditingProfile = Almoxarifado.imgManag.getSprite(128, 64*3, 128, 64);
 	
 	double price = 0.0;
 	int partsList[];
@@ -33,10 +34,17 @@ public class Project {
 	public static int scroll;
 	private int ofsetHeight = 0;
 	
-	public boolean click = false;
+	public boolean mouseStatus = false;
 	
 	int imgX = UserInterface.bttnX[0] + 50;
 	int imgY = Almoxarifado.HEIGHT - UserInterface.maximunHeight - 20;
+	
+	boolean isEditing = false;
+	boolean isArchiving = false;
+	
+	int nameSize = 0;
+	int descriptionSize = 0;
+	int companySize = 0;
 	
 	public Project() {
 		// TODO Auto-generated constructor stub
@@ -49,9 +57,11 @@ public class Project {
 			isOnTheRightState = true;
 		}else {
 			isOnTheRightState = false;
+			ofsetHeight = 0;
 		}
 		
 		if(updateProject) {
+			ofsetHeight = 0;
 			String brokenApartInfo[];
 			System.out.println("Atualizando a Pagina de Projeto");
 			String aux = DBConector.findInDB("*", "montagem", "ID_Montagem", "" + ID);
@@ -89,6 +99,39 @@ public class Project {
 			}else if(scroll < 0 && ofsetHeight < 0) {
 				ofsetHeight += UserInterface.spd;
 				scroll = 0;
+			}
+			
+			if(isEditing) {
+				if(Almoxarifado.mX > imgX + 15 + img.getWidth() && Almoxarifado.mX < imgX + 15 + img.getWidth() + nameSize) {
+					System.out.println("sobre a ISO");
+				}if(Almoxarifado.mX > imgX + 15 + img.getWidth() && Almoxarifado.mX < imgX + 15 + img.getWidth() + descriptionSize) {
+					System.out.println("sobre a Descrição");
+				}if(Almoxarifado.mX > imgX + 15 + img.getWidth() && Almoxarifado.mX < imgX + 15 + img.getWidth() + companySize) {
+					System.out.println("sobre a Empresa");
+				}
+				
+			}
+			
+			if(isArchiving) {
+				isArchiving = false;
+			}
+			
+			if(mouseStatus) {
+				if(Almoxarifado.mX > Almoxarifado.WIDTH - 128 - 60 && Almoxarifado.mX < Almoxarifado.WIDTH - 60) {
+					if(Almoxarifado.mY >  imgY + ofsetHeight && Almoxarifado.mY <  imgY + ofsetHeight + 64) {
+						System.out.println("Clique foi efetuado no Editar");
+						if(isEditing) {
+							isEditing = false;
+						}else {
+							isEditing = true;
+						}
+						mouseStatus = false;
+					}else if(Almoxarifado.mY > imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight && Almoxarifado.mY < imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight + 64) {
+						System.out.println("Clique foi efetuado no Arquivar");
+						isArchiving = true;
+						mouseStatus = false;
+					}
+				}
 			}
 		}
 	}
@@ -206,11 +249,11 @@ public class Project {
 					if(Almoxarifado.mY > textInitPositY + auxHeight + ofsetHeight - g.getFontMetrics().getHeight() - 2 
 							&& Almoxarifado.mY < textInitPositY + auxHeight + ofsetHeight + 2) {
 						nC = Color.red;
-						if(click) {
+						if(mouseStatus) {
 							//System.out.println("Clique em: " + toDrawString);
 							PartsList.changePart(brokenApartPartsList[nextY][0], nextX);
 							updateProject = true;
-							click = false;
+							mouseStatus = false;
 						}
 					}
 				}
@@ -248,8 +291,17 @@ public class Project {
 			g.drawString(company, imgX + 15 + img.getWidth(), imgY + 80 + ofsetHeight);
 			g.drawString(description, imgX + 15 + img.getWidth(), imgY + 140 + ofsetHeight);
 			
-			g.drawImage(editProfile, Almoxarifado.WIDTH - 128 - 60, imgY + ofsetHeight, null);
+			
+			if(!isEditing) {
+				g.drawImage(editProfile, Almoxarifado.WIDTH - 128 - 60, imgY + ofsetHeight, null);
+			}else {
+				g.drawImage(isEditingProfile, Almoxarifado.WIDTH - 128 - 60, imgY + ofsetHeight, null);
+			}
+			
 			g.drawImage(archiveProfile, Almoxarifado.WIDTH - 128 - 60, imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight, null);
+			
+			UserInterface.isOnButton(g, Almoxarifado.WIDTH - 128 - 60, imgY + ofsetHeight);
+			UserInterface.isOnButton(g, Almoxarifado.WIDTH - 128 - 60, imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight);
 			
 			if(brokenApartPartsList.length > 1) {
 				g.setColor(Color.yellow);
@@ -258,6 +310,10 @@ public class Project {
 				
 				drawPartsList(g);
 			}
+		}else {
+			nameSize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(name);
+			descriptionSize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(description);
+			companySize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(company);
 		}
 	}
 

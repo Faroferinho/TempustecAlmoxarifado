@@ -22,6 +22,7 @@ public class UserInterface {
 	public BufferedImage iconPartsActivated;
 	public BufferedImage iconAssemblyActivated;
 	public BufferedImage iconArchiveActivated;
+	public static BufferedImage overButton;
 	
 	public static int spd = 24;
 	
@@ -33,16 +34,18 @@ public class UserInterface {
 			spaceBetween[i] = 128 + 32*i;
 		}
 		
-		iconProfile = Almoxarifado.imgManag.getSprite(384, 0, 128, 64);
-		iconParts = Almoxarifado.imgManag.getSprite(256, 0, 128, 64);
-		iconAssembly = Almoxarifado.imgManag.getSprite(128, 0, 128, 64);
-		iconArchive = Almoxarifado.imgManag.getSprite(0, 0, 128, 64);
-		iconExit = Almoxarifado.imgManag.getSprite(512, 0, 128, 64);
+		iconProfile = Almoxarifado.imgManag.getSprite(384, 0, boxWidth, boxHeight);
+		iconParts = Almoxarifado.imgManag.getSprite(256, 0, boxWidth, boxHeight);
+		iconAssembly = Almoxarifado.imgManag.getSprite(128, 0, boxWidth, boxHeight);
+		iconArchive = Almoxarifado.imgManag.getSprite(0, 0, boxWidth, boxHeight);
+		iconExit = Almoxarifado.imgManag.getSprite(512, 0, boxWidth, boxHeight);
 
-		iconProfileActivated = Almoxarifado.imgManag.getSprite(384, 64, 128, 64);
-		iconPartsActivated = Almoxarifado.imgManag.getSprite(256, 64, 128, 64);
-		iconAssemblyActivated = Almoxarifado.imgManag.getSprite(128, 64, 128, 64);
-		iconArchiveActivated = Almoxarifado.imgManag.getSprite(0, 64, 128, 64);
+		iconProfileActivated = Almoxarifado.imgManag.getSprite(384, 64, boxWidth, boxHeight);
+		iconPartsActivated = Almoxarifado.imgManag.getSprite(256, 64, boxWidth, boxHeight);
+		iconAssemblyActivated = Almoxarifado.imgManag.getSprite(128, 64, boxWidth, boxHeight);
+		iconArchiveActivated = Almoxarifado.imgManag.getSprite(0, 64, boxWidth, boxHeight);
+		
+		overButton = Almoxarifado.imgManag.getSprite(0, 64*3, boxWidth, boxHeight);
 		
 	}
 	
@@ -102,6 +105,14 @@ public class UserInterface {
 		
 		}
 	
+	public static void isOnButton(Graphics g, int pX, int pY) {
+		if(Almoxarifado.mX > pX && Almoxarifado.mX < pX + boxWidth) {
+			if(Almoxarifado.mY > pY && Almoxarifado.mY < pY + boxHeight) {
+				g.drawImage(overButton, pX, pY, null);
+			}
+		}
+	}
+	
 	public void checkMouse() {
 		if(setFunction(Almoxarifado.mX, Almoxarifado.mY) == 1) {
 			Almoxarifado.state = 1;
@@ -151,6 +162,12 @@ public class UserInterface {
 			g.drawImage(iconArchiveActivated, spaceBetween[3] + bttnX[3], bttnY, null);
 			break;
 		}
+		
+		isOnButton(g, spaceBetween[0] + bttnX[0], bttnY);
+		isOnButton(g, spaceBetween[1] + bttnX[1], bttnY);
+		isOnButton(g, spaceBetween[2] + bttnX[2], bttnY);
+		isOnButton(g, spaceBetween[3] + bttnX[3], bttnY);
+		isOnButton(g, spaceBetween[4] + bttnX[4], bttnY);
 		
 	}
 

@@ -293,6 +293,7 @@ public class PartsList {
 			isOnTheRightState = true;
 		}else {
 			isOnTheRightState = false;
+			ofsetHeight = 0;
 		}
 		
 		if(isOnTheRightState) {
@@ -517,6 +518,9 @@ public class PartsList {
 			g.drawImage(adicionar, Almoxarifado.WIDTH/3 - adicionar.getWidth()/2, auxHeight, null);
 			//TODO: Adicionar Sistema de mudança de imagem, para alterara imagem sendo renderiazada utilizando a variavel isEliminating
 			g.drawImage(excluir, Almoxarifado.WIDTH/3*2 - excluir.getWidth()/2, auxHeight, null);
+			
+			UserInterface.isOnButton(g, Almoxarifado.WIDTH/3 - adicionar.getWidth()/2, auxHeight);
+			UserInterface.isOnButton(g, Almoxarifado.WIDTH/3*2 - excluir.getWidth()/2, auxHeight);
 			
 			maximumHeight = (Almoxarifado.quantityParts + auxExtraLineCounter) * -30;
 			auxExtraLineCounter = 0;
