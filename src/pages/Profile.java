@@ -180,29 +180,7 @@ public class Profile {
 		
 	}
 	
-	public String drawTable(String objective) {
-		
-		switch(objective) {
-		case "Nome":
-			System.out.println("é nome");
-			objective = "name";
-			break;
-		case "Tipo de Funcionario":
-			objective = "type";
-			break;
-		case "Registro de Funcionario":
-			objective = "RdF";
-			break;
-		}
-		
-		String toDraw = "";
-				
-		toDraw += DBConector.readDB(objective, "funcionarios");
-		
-		System.out.println(toDraw);
-		
-		return toDraw;
-	}
+	
 	
 	public static void firstRendering(Graphics g) {
 		g.setColor(Color.green);

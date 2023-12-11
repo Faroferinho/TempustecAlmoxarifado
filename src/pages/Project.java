@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JOptionPane;
+
 import functions.DBConector;
 import main.Almoxarifado;
 import main.UserInterface;
@@ -29,6 +31,7 @@ public class Project {
 	int partsList[];
 	
 	public static boolean updateProject = true;
+	boolean updateProjectAux = true;
 	private boolean isOnTheRightState = false;
 	
 	public static int scroll;
@@ -45,10 +48,20 @@ public class Project {
 	int nameSize = 0;
 	int descriptionSize = 0;
 	int companySize = 0;
+	boolean isOverName = true;
+	boolean isOverDescription = false;
+	boolean isOverCompany = false;
 	
 	public Project() {
 		// TODO Auto-generated constructor stub
 		
+	}
+	
+	private boolean checkDialog(String toVerif) {
+		if(toVerif.equals("") || toVerif.equals("null") || toVerif.equals(" ")) {
+			return true;
+		}
+		return false;
 	}
 	
 	public void tick() {
@@ -89,6 +102,7 @@ public class Project {
 			
 			brokenApartPartsList = breakingList(rawPartsList);
 			
+			updateProjectAux = true;
 			updateProject = false;
 		}
 		
@@ -102,12 +116,85 @@ public class Project {
 			}
 			
 			if(isEditing) {
-				if(Almoxarifado.mX > imgX + 15 + img.getWidth() && Almoxarifado.mX < imgX + 15 + img.getWidth() + nameSize) {
-					System.out.println("sobre a ISO");
-				}if(Almoxarifado.mX > imgX + 15 + img.getWidth() && Almoxarifado.mX < imgX + 15 + img.getWidth() + descriptionSize) {
-					System.out.println("sobre a Descrição");
-				}if(Almoxarifado.mX > imgX + 15 + img.getWidth() && Almoxarifado.mX < imgX + 15 + img.getWidth() + companySize) {
-					System.out.println("sobre a Empresa");
+				//TODO: Sistema de distancia dinamico pro limite da largura do quadrado
+				if(Almoxarifado.mX > imgX + 15 + img.getWidth() && Almoxarifado.mX < Almoxarifado.WIDTH/2) {
+					if(Almoxarifado.mY > imgY - 10 + ofsetHeight && Almoxarifado.mY < imgY + 30 + ofsetHeight) {
+						//System.out.println("sobre o Nome");
+						isOverName = true;
+						isOverDescription = false;
+						isOverCompany = false;
+					}
+					else if(Almoxarifado.mY > imgY + 50 + ofsetHeight && Almoxarifado.mY < imgY + 90 + ofsetHeight) {
+						//System.out.println("sobre a Descrição");
+						isOverName = false;
+						isOverDescription = false;
+						isOverCompany = true;
+					}else if(Almoxarifado.mY > imgY + 110 + ofsetHeight && Almoxarifado.mY < imgY + 150 + ofsetHeight) {
+						//System.out.println("sobre a Empresa");
+						isOverName = false;
+						isOverDescription = true;
+						isOverCompany = false;
+					}
+				}else {
+					isOverName = false;
+					isOverDescription = false;
+					isOverCompany = false;
+				}
+				
+				if(mouseStatus) {
+					if(isOverName) {
+						
+						String newName = "";
+						newName += JOptionPane.showInputDialog(null, "Insira um novo nome", "Atualizar dados da Montagem", JOptionPane.PLAIN_MESSAGE);
+						
+						if(checkDialog(newName)) {
+							
+							JOptionPane.showInternalMessageDialog(null, "Erro ao Atualizar nome", "Erro", JOptionPane.ERROR_MESSAGE);
+							mouseStatus = false;
+							
+						}else {
+							
+							DBConector.writeDB("UPDATE montagem SET ISO = '" + newName + "' WHERE ID_Montagem = " + ID);
+							JOptionPane.showInternalMessageDialog(null, "Nome Atualizado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+							updateProject = true;
+							mouseStatus = false;
+							
+						}
+						
+					}else if(isOverDescription) {
+						
+						String newDescription = "";
+						
+						newDescription += JOptionPane.showInputDialog(null, "Insira uma nova descrição", "Atualizar dados da Montagem", JOptionPane.PLAIN_MESSAGE);
+						if(checkDialog(newDescription)) {
+							
+							JOptionPane.showInternalMessageDialog(null, "Erro ao Atualizar nome", "Erro", JOptionPane.ERROR_MESSAGE);
+							mouseStatus = false;
+							
+						}else {
+							
+							DBConector.writeDB("UPDATE montagem SET Description = '" + newDescription + "' WHERE ID_Montagem = " + ID);
+							JOptionPane.showInternalMessageDialog(null, "Nome Atualizado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+							updateProject = true;
+							mouseStatus = false;
+							
+						}
+						
+						
+					}else if(isOverCompany) {
+						String newCompany = "";
+						newCompany += JOptionPane.showInputDialog(null, "Insira o novo nome da Empresa", "Atualizar dados da Montagem", JOptionPane.PLAIN_MESSAGE);
+						if(checkDialog(newCompany)) {
+							JOptionPane.showInternalMessageDialog(null, "Erro ao Atualizar o Nome da Empresa", "Erro", JOptionPane.ERROR_MESSAGE);
+							mouseStatus = false;
+						}else {
+							DBConector.writeDB("UPDATE montagem SET Company = '" + newCompany + "' WHERE ID_Montagem = " + ID);
+							JOptionPane.showInternalMessageDialog(null, "Nome Atualizado", "Erro", JOptionPane.INFORMATION_MESSAGE);
+							updateProject = true;
+							mouseStatus = false;
+						}
+					}
+				
 				}
 				
 			}
@@ -122,11 +209,14 @@ public class Project {
 						System.out.println("Clique foi efetuado no Editar");
 						if(isEditing) {
 							isEditing = false;
+							mouseStatus = false;
 						}else {
 							isEditing = true;
+							mouseStatus = false;
 						}
-						mouseStatus = false;
-					}else if(Almoxarifado.mY > imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight && Almoxarifado.mY < imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight + 64) {
+						
+					}else if(Almoxarifado.mY > imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight &&
+							Almoxarifado.mY < imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight + 64) {
 						System.out.println("Clique foi efetuado no Arquivar");
 						isArchiving = true;
 						mouseStatus = false;
@@ -138,7 +228,7 @@ public class Project {
 	
 	public String[][] breakingList(String toSplit){
 		String linesToBreakdown[] = toSplit.split("\n");
-		String returnString[][] = new String[linesToBreakdown.length][8];
+		String returnString[][] = new String[linesToBreakdown.length+1][8];
 		
 		returnString[0][0] = "ID";
 		returnString[0][1] = "Montagem";
@@ -183,7 +273,7 @@ public class Project {
 		g.setFont(new Font("arial", 0, sizeOfFont));
 		
 		//System.out.println((brokenApartPartsList.length*brokenApartPartsList[0].length));
-		for(int i = 0; i < (brokenApartPartsList.length*brokenApartPartsList[0].length); i++) {
+		for(int i = 0; i < (brokenApartPartsList.length*brokenApartPartsList[0].length)+1; i++) {
 			//System.out.println(brokenApartPartsList[0][nextX] + " no indice " + (nextY) + " é: " + brokenApartPartsList[nextY][nextX]);
 			
 			if(i < 8){
@@ -283,12 +373,32 @@ public class Project {
 	
 	public void render(Graphics g) {
 		if(!updateProject) {
-			g.setColor(Color.white);
 			g.setFont(new Font("arial", 0, 20));
 			
 			g.drawImage(img, imgX, imgY + ofsetHeight, null);
+			
+			if(isOverName) {
+				g.setColor(Color.darkGray);
+				isOverName = false;
+			}else {
+				g.setColor(Color.white);
+			}
 			g.drawString(name, imgX + 15 + img.getWidth(), imgY + 20 + ofsetHeight);
+			
+			if(isOverCompany) {
+				g.setColor(Color.darkGray);
+				isOverCompany = false;
+			}else {
+				g.setColor(Color.white);
+			}
 			g.drawString(company, imgX + 15 + img.getWidth(), imgY + 80 + ofsetHeight);
+			
+			if(isOverDescription) {
+				g.setColor(Color.darkGray);
+				isOverDescription = false;
+			}else {
+				g.setColor(Color.white);
+			}
 			g.drawString(description, imgX + 15 + img.getWidth(), imgY + 140 + ofsetHeight);
 			
 			
@@ -303,6 +413,10 @@ public class Project {
 			UserInterface.isOnButton(g, Almoxarifado.WIDTH - 128 - 60, imgY + ofsetHeight);
 			UserInterface.isOnButton(g, Almoxarifado.WIDTH - 128 - 60, imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight);
 			
+			nameSize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(name);
+			descriptionSize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(description);
+			companySize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(company);
+			
 			if(brokenApartPartsList.length > 1) {
 				g.setColor(Color.yellow);
 				g.setFont(new Font("arial", 1, 18));
@@ -310,10 +424,6 @@ public class Project {
 				
 				drawPartsList(g);
 			}
-		}else {
-			nameSize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(name);
-			descriptionSize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(description);
-			companySize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(company);
 		}
 	}
 

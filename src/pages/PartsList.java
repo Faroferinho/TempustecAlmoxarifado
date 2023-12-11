@@ -402,7 +402,7 @@ public class PartsList {
 					}
 					if(!isEliminating) {
 						if(Almoxarifado.mX > auxWidth - 45 - aux && Almoxarifado.mX < auxWidth + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 30 + 30 - aux
-						&& Almoxarifado.mY > auxHeight - 15 && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 30 
+						&& Almoxarifado.mY > auxHeight - 25 && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 50 
 						&& i != 0 && auxHeight > 120 && j != 0) {
 						
 							nC = Color.red;

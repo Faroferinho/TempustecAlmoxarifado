@@ -17,17 +17,13 @@ public class Admnistrator extends Profile {
 	public boolean isListing = false;
 	public boolean isSigning = false;
 	
-	public String getString = "";
-	public String auxToDraw[] = new String[Almoxarifado.quantityWorkers];
-	public String toDraw[] = new String[Almoxarifado.quantityWorkers];
-	public int toDrawIndex = 0;
-	public int listHeight = 0;
-
 	public BufferedImage editButton;
 	public BufferedImage editDoneButton;
 	public BufferedImage listButton;
 	public BufferedImage signInButton;
 	public BufferedImage passwordButton;
+	
+	String separetedInfo[][];
 	
 	public Admnistrator(String Name, String RdF, String CPF) {
 		super(Name, RdF, CPF);
@@ -84,22 +80,21 @@ public class Admnistrator extends Profile {
 				case 2:
 					if(isListing == false) {
 						isListing = true;
-						//TODO: mudar isso para o sitema de listagem da pagina de lista de peças
+						System.out.println("Clicou em Listar");
 						
-						Object[] possibilities = {"Nome", "Registro de Funcionario", "CPF", "Tipo de Funcionario", "*"};
+						String getPersonalInfo = "";
+						getPersonalInfo += DBConector.readDB("*", "funcionarios");
+						System.out.println("Informações dos Colaboradores: \n" + getPersonalInfo);
 						
-						String s = (String) JOptionPane.showInputDialog(null, "Deseja listar com base em qual index", "", JOptionPane.PLAIN_MESSAGE, null, possibilities, possibilities[4]);
-											
-						if(s != null) {
-							System.out.println("Opção: " + s);
-							getString = drawTable(s);
-							auxToDraw = getString.split("\n");
-						}else {
-							System.out.println("não tem s");
-							isListing = false;
+						separetedInfo = informationSorter(getPersonalInfo);
+						
+						System.out.println("==================================================================");
+						
+						for(int i = 0; i < separetedInfo.length; i++) {
+							for(int j = 0; j < 5; j++) {
+								System.out.println(separetedInfo[i][j]);
+							}
 						}
-
-						
 					}
 					break;
 				case 3:
@@ -170,7 +165,7 @@ public class Admnistrator extends Profile {
 		Random rand = new Random();	
 		int newRdF = rand.nextInt(0, 9999);
 		
-		String getRdF = drawTable("RdF");
+		String getRdF = DBConector.readDB("RdF", "funcionarios");
 		String auxComparator[] = new String[Almoxarifado.quantityWorkers];
 		int toCompare[] = new int[Almoxarifado.quantityWorkers];
 		
@@ -207,48 +202,23 @@ public class Admnistrator extends Profile {
 		return query;
 	}
 	
-	private void editInfoFromList(int i) {
-		String[] auxReadRdF = new String[Almoxarifado.quantityWorkers];
-		String auxToSplit = drawTable("RdF");
+	public String[][] informationSorter(String toSplit){
+		String linesToBreakdown[] = toSplit.split("\n");
+		String returnString[][] = new String[linesToBreakdown.length + 1][5];
 		
-		auxReadRdF = auxToSplit.split("\n");
+		returnString[0][0] = "Registro";
+		returnString[0][1] = "Nome";
+		returnString[0][2] = "CPF";
+		returnString[0][3] = "Senha";
+		returnString[0][4] = "Tipo";
 		
-		String editRdF = auxReadRdF[i];
-		System.out.println("RdF: " + editRdF);
-		
-		Object[] possibilities = {"Nome", "Registro de Funcionario", "CPF", "Senha", "Tipo de Funcionario", "Tudo"};
-		String query = "";
-		query += (String) JOptionPane.showInputDialog(null, "O que Deseja Alterar?", "", JOptionPane.PLAIN_MESSAGE, null, possibilities, possibilities[5]);
-		switch(query) {
-		case "Nome":
-			query = "name";
-			break;
-		case "Registro de Funcionario":
-			query = "RdF";
-			break;
-		case "Senha":
-			query = "Password";
-			break;
-		case "Tipo de Funcionario":
-			query = "type";
-			break;
-		case "Tudo":
-			query = "*";
-			break;
-		case "null":
-			return;
+		for(int i = 0; i < linesToBreakdown.length-1; i++) {
+			returnString[i+1] = linesToBreakdown[i].split(" § ");
 		}
-		
-		
-		String newInfo = "";
-		newInfo = JOptionPane.showInputDialog("Deseja Sobrescrever com qual informação?");
-		if(newInfo == null || newInfo == ""){
-				return;
-		}
-		
-		DBConector.editLine("funcionarios", query, newInfo, "RdF",editRdF);
-		
-		isListing = false;
+		return returnString;
+	}
+	
+	private void listPeople(Graphics g) {
 		
 	}
 	
@@ -279,23 +249,7 @@ public class Admnistrator extends Profile {
 
 				
 			}else if(isListing == true) {
-				g.setFont(new Font("arial", 1, 18));
-				Color nC;
-				
-				for(int i = 0; i < Almoxarifado.quantityWorkers; i++) {
-					if(Almoxarifado.mX > 60 && Almoxarifado.mX < 60 + g.getFontMetrics().stringWidth(auxToDraw[i]) && Almoxarifado.mY > (110 + 30*i) && Almoxarifado.mY < (130 + 30*i) + 10) {
-						nC = new Color(100, 100, 100);
-						if(mouseAuxRead) {
-							//System.out.println("Indice Selecionado é: " + i);
-							editInfoFromList(i);
-						}
-					}else {
-						nC = Color.white;
-					}
-					g.setColor(nC);
-					g.drawString(auxToDraw[i], 60, (130 + 30*i));
-				}
-				
+				listPeople(g);
 			}
 		}
 	}

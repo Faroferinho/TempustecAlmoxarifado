@@ -31,7 +31,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 5;
+	public static byte state = 1;
 	
 	public static Login login;
 	public static UserInterface ui;
@@ -111,7 +111,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	}
 	
 	public static void screenManager(Almoxarifado tp) {
-		JFrame frame = new JFrame("Tela Java");
+		JFrame frame = new JFrame();
 		
 		frame.add(tp);
 		frame.pack();
