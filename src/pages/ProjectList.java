@@ -24,9 +24,9 @@ public class ProjectList {
 	int initY = UserInterface.bttnY*2 + UserInterface.boxHeight*2;
 	int boxBorder = 15;
 	
-	String namesToSplit = DBConector.readDB("ISO", "montagem", 2);
+	String namesToSplit = DBConector.readDB("ISO", "montagem");
 	String names[];
-	String descriptionsToSplit = DBConector.readDB("description", "montagem", 2);
+	String descriptionsToSplit = DBConector.readDB("description", "montagem");
 	String descriptions[];
 	
 	public static int scroll;
@@ -51,7 +51,7 @@ public class ProjectList {
 	}
 	
 	private String[] spliting(String toSplit) {
-		System.out.println("Quebrando a String: \n" + toSplit);
+		//System.out.println("Quebrando a String: \n" + toSplit);
 		
 		String[] auxSpliting = new String[Almoxarifado.quantityAssembly];
 		auxSpliting = toSplit.split("\n");
@@ -164,8 +164,8 @@ public class ProjectList {
 			}
 			
 			if(updateProjectList) {
-				namesToSplit = DBConector.readDB("ISO", "montagem", 2);
-				descriptionsToSplit = DBConector.readDB("description", "montagem", 2);
+				namesToSplit = DBConector.readDB("ISO", "montagem");
+				descriptionsToSplit = DBConector.readDB("description", "montagem");
 				
 				names = spliting(namesToSplit);
 				descriptions = spliting(descriptionsToSplit);

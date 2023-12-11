@@ -54,7 +54,7 @@ public class DBConector {
 		}
 	}
 	
-	public static String readDB(String objective, String table, int maxIndex){
+	public static String readDB(String objective, String table){
 		
 		String query = "select " + objective + " from " + table;
 		
@@ -70,6 +70,8 @@ public class DBConector {
 		
 
 		String returnData = "";
+		
+		int maxIndex = checkSize(objective, table);
 		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
@@ -159,10 +161,7 @@ public class DBConector {
 		
 		String query = "SELECT " + objective + " FROM " + table + " WHERE " + column + " = " + key;
 		String answer = "";
-		int max = 6;
-		if(table.equals("montagem")) {
-			max++;
-		}
+		int max = checkSize(objective, table);
 		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
@@ -171,13 +170,10 @@ public class DBConector {
 			
 			
 			while(rslt.next()) {
-				if(objective == "*") {
-					for(int i = 1; i < max; i++) {
-						answer += rslt.getString(i) + " § ";
-					}
-				}else {
-					answer += rslt.getString(1) + "\n";
+				for(int i = 1; i < max; i++) {
+					answer += rslt.getString(i) + " § ";
 				}
+				answer += "\n";
 			}
 			
 			con.close();
@@ -186,5 +182,23 @@ public class DBConector {
 			e.printStackTrace();
 		}
 		return answer;
+	}
+	
+	private static int checkSize(String objective, String table) {
+		int max = 0;
+		
+		if(table.equals("funcionarios") || table.equals("Funcionarios") || table.equals("FUNCIONARIOS")) {
+			max = 6;
+		}else if(table.equals("montagem") || table.equals("Montagem") || table.equals("MONTAGEM")) {
+			max = 7;
+		}else if(table.equals("pecas") || table.equals("Pecas") || table.equals("PECAS")) {
+			max = 9;
+		}
+		
+		if(!objective.equals("*")) {
+			max  = 2;
+		}
+		
+		return max;
 	}
 }

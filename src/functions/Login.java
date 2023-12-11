@@ -36,12 +36,12 @@ public class Login {
 		
 		String toSplit = "";
 
-		toSplit += DBConector.readDB("CPF", "funcionarios", 2);
+		toSplit += DBConector.readDB("CPF", "funcionarios");
 		accnts = toSplit.split("\n");
 		
 		
 		toSplit = "";
-		toSplit += DBConector.readDB("password", "funcionarios", 2);
+		toSplit += DBConector.readDB("password", "funcionarios");
 		psswrds = toSplit.split("\n");
 		
 		for(int i = 0; i < Almoxarifado.quantityWorkers; i++) {

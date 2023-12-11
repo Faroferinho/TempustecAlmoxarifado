@@ -196,15 +196,8 @@ public class Profile {
 		}
 		
 		String toDraw = "";
-		
-		int index = 0;
-		if(objective != "*") {
-			index = 2;
-		}else {
-			index = 6;
-		}
 				
-		toDraw += DBConector.readDB(objective, "funcionarios", index);
+		toDraw += DBConector.readDB(objective, "funcionarios");
 		
 		System.out.println(toDraw);
 		

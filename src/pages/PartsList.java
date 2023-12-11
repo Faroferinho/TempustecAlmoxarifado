@@ -15,10 +15,10 @@ public class PartsList {
 	
 	private boolean isOnTheRightState = false;
 	
-	public String toSplit = DBConector.readDB("*", "pecas", 9);
+	public String toSplit = DBConector.readDB("*", "pecas");
 	public static String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][8];
 	static String assemblies[] = fillAssembliesName();
-	String[] quantityTypes = {"Peça", "Metro","Quilo", "Litro", "Barra", "Unidades"};
+	public String[] quantityTypes = {"Peça", "Metro","Quilo", "Litro", "Barra", "Unidades"};
 	public static boolean restartAssemblyList = false;
 	
 	private int ofsetHeight;
@@ -63,7 +63,7 @@ public class PartsList {
 		return returnString;
 	}
 	
-	private static void changePart(String index,int column) {
+	public static void changePart(String index,int column) {
 		System.out.println("Coluna: " + column);
 		System.out.println("Index: " + index);
 		
@@ -161,6 +161,7 @@ public class PartsList {
 		
 		for(int i = 1; i < Almoxarifado.quantityAssembly+1; i++) {
 			returnArray[i-1] = DBConector.findInDB("ISO", "Montagem", "ID_Montagem", Integer.toString(i));
+			returnArray[i-1] = returnArray[i-1].substring(0, returnArray[i-1].length()-3);
 		}
 		
 		return returnArray;
@@ -297,7 +298,7 @@ public class PartsList {
 		if(isOnTheRightState) {
 			if(wasChanged == true) {
 				System.out.println("Foi feita uma mudança");
-				toSplit = DBConector.readDB("*", "pecas", 9);
+				toSplit = DBConector.readDB("*", "pecas");
 				finalPartsTable = listBreaker(toSplit);
 				
 				wasChanged = false;
@@ -322,6 +323,7 @@ public class PartsList {
 	}
 	
 	public void render(Graphics g) {
+		
 		if(isOnTheRightState) {
 			
 			g.setFont(new Font("arial", 1, 12));
@@ -329,6 +331,7 @@ public class PartsList {
 			int auxHeight = 125 + ofsetHeight;
 			int auxWidth = 50;		
 			int descriptionOfsetHeight = 1;
+			int total = Almoxarifado.WIDTH - auxWidth*2;
 			
 			
 			for(int i = 0; i < Almoxarifado.quantityParts+1; i++) {
@@ -337,28 +340,38 @@ public class PartsList {
 					
 					switch(j) {
 					case 1:
-						auxWidth += g.getFontMetrics().stringWidth(finalPartsTable[0][0]) * 5;
+						//System.out.println("1");
+						auxWidth += (total*5)/100;
+						//System.out.println("1, AuxWidth: " + auxWidth);
 						break;
 					case 2:
-						auxWidth += 105;
+						//System.out.println("2");
+						auxWidth += (total*13.9)/100;
+						//System.out.println("2, AuxWidth: " + auxWidth);
 						break;
 					case 3:
-						auxWidth += 323;
+						//System.out.println("3");
+						auxWidth += (total*33.2)/100;
+						//System.out.println("3, AuxWidth: " + auxWidth);
 						break;
 					case 4:
-						auxWidth += 83;
+						//System.out.println("4, AuxWidth: " + auxWidth);
+						auxWidth += (total*9.5)/100;
 						break;
 					case 5:
-						auxWidth += g.getFontMetrics().stringWidth("9999.99") + 30;
+						//System.out.println("5");
+						auxWidth += (total*9.5)/100;
+						//System.out.println("5, AuxWidth: " + auxWidth);
 						break;
 					case 6:
-						auxWidth += 110;
+						//System.out.println("6");
+						auxWidth += (total*11.8)/100;
+						//System.out.println("6, AuxWidth: " + auxWidth);
 						break;
 					case 7:
-						auxWidth += g.getFontMetrics().stringWidth(finalPartsTable[0][7]) + 110;
-						break;
-					case 8:
-						auxWidth += g.getFontMetrics().stringWidth(finalPartsTable[0][7]) + 30;
+						//System.out.println("7");
+						auxWidth += (total*14.6)/100;
+						//System.out.println("7, AuxWidth: " + auxWidth);
 						break;
 					}
 
