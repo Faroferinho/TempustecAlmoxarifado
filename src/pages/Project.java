@@ -273,7 +273,7 @@ public class Project {
 		g.setFont(new Font("arial", 0, sizeOfFont));
 		
 		//System.out.println((brokenApartPartsList.length*brokenApartPartsList[0].length));
-		for(int i = 0; i < (brokenApartPartsList.length*brokenApartPartsList[0].length)+1; i++) {
+		for(int i = 0; i < ((brokenApartPartsList.length-1)*8); i++) {
 			//System.out.println(brokenApartPartsList[0][nextX] + " no indice " + (nextY) + " é: " + brokenApartPartsList[nextY][nextX]);
 			
 			if(i < 8){
@@ -330,6 +330,11 @@ public class Project {
 			}
 			
 			String toDrawString = brokenApartPartsList[nextY][nextX];
+			
+			System.out.println("toDrawString: " + toDrawString + " | brokenApartPartsList: " + brokenApartPartsList[nextY][nextX]);
+			System.out.println("nextX: " + nextX + " | nextY: " + nextY);
+			System.out.println("Coluna: " + brokenApartPartsList[0][nextX]);
+			
 			if(nextY > 0 && nextX > 0) {
 				if(nextX == 1 || nextX == 4) {
 					toDrawString = translateText(brokenApartPartsList[nextY][nextX], nextX);
@@ -358,7 +363,7 @@ public class Project {
 			nextX++;
 			
 			if(nextX == 8) {
-				//System.out.println("================================================================================");
+				System.out.println("================================================================================");
 				nextY += 1;
 				nextX = 0;
 				auxWidth = 0;
