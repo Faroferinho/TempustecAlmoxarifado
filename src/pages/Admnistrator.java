@@ -28,6 +28,7 @@ public class Admnistrator extends Profile {
 	String separetedInfo[][];
 	
 	public int scroll = 0;
+	private int auxHeight = 0;
 	
 	public Admnistrator(String Name, String RdF, String CPF) {
 		super(Name, RdF, CPF);
@@ -146,6 +147,14 @@ public class Admnistrator extends Profile {
 				Almoxarifado.quantityWorkers++;
 				
 				isSigning = false;
+			}
+			
+			if(scroll > 0) {
+				auxHeight -= UserInterface.spd;
+				scroll = 0;
+			}else if(scroll < 0 && auxHeight < 0) {
+				auxHeight += UserInterface.spd;
+				scroll = 0;
 			}
 		}
 	}
@@ -369,7 +378,7 @@ public class Admnistrator extends Profile {
 				}
 			}
 			
-			g.drawString(auxTextToDraw, initialX + auxX, initialY + auxY);
+			g.drawString(auxTextToDraw, initialX + auxX, initialY + auxY + auxHeight);
 			
 			x++;
 			

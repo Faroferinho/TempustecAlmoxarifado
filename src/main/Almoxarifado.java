@@ -304,6 +304,9 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		switch(state) {
 		case 1:
 			//TODO: Perfil, verificação de "está listando";
+			if(type.equals("1\n")) {
+				admProfile.scroll = e.getUnitsToScroll();
+			}
 			break;
 		case 2:
 			PartsList.scroll = e.getUnitsToScroll();
