@@ -76,26 +76,30 @@ public class Admnistrator extends Profile {
 					if(isEditing == false) {
 						isEditing = true;
 						System.out.println("Está Editando");
-						
 					}else {
 						isEditing = false;
 					}
+					mouseStatus = false;
 					break;
 				case 2:
 					if(isListing == false) {
 						isListing = true;
 						getInfo();		
 					}
+					mouseStatus = false;
 					break;
 				case 3:
 					if(isSigning == false) {
 						isSigning = true;
 					}
+					mouseStatus = false;
 					break;
 				case 4:
 					editInfo(4);
+					mouseStatus = false;
 					break;
 				default:
+					mouseStatus = false;
 					break;
 				}
 			}
@@ -365,6 +369,7 @@ public class Admnistrator extends Profile {
 			if(x > 0 && y > 0) {
 				if(Almoxarifado.mX > initialX + auxX && Almoxarifado.mX < initialX + auxX + g.getFontMetrics().stringWidth(auxTextToDraw)
 						&& Almoxarifado.mY > initialY + auxY - g.getFontMetrics().getHeight() && Almoxarifado.mY < initialY + auxY) {
+					//TODO: aumentar a Hitbox do Type;
 					g.setColor(Color.gray);
 					if(mouseStatus) {
 						//System.out.println("Você cliclou em: " + auxTextToDraw);

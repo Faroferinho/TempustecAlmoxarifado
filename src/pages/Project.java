@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -20,7 +21,7 @@ public class Project {
 	static String imgAdress = "";
 	
 	private String rawPartsList = "";
-	private String[][] brokenApartPartsList;
+	private ArrayList<String> separetedList = new ArrayList<>();
 	
 	BufferedImage img;
 	BufferedImage editProfile = Almoxarifado.imgManag.getSprite(128, 64*2, 128, 64);
@@ -28,7 +29,6 @@ public class Project {
 	BufferedImage isEditingProfile = Almoxarifado.imgManag.getSprite(128, 64*3, 128, 64);
 	
 	double price = 0.0;
-	int partsList[];
 	
 	public static boolean updateProject = true;
 	boolean updateProjectAux = true;
@@ -96,11 +96,9 @@ public class Project {
 			
 			img = Almoxarifado.imgManag.getProjectImage(imgAdress);
 			
-			rawPartsList = DBConector.findInDB("*", "Pecas", "Montagem", "" + ID);
-			System.out.println("rawPartsList: \n" + rawPartsList);
-			
-			
-			brokenApartPartsList = breakingList(rawPartsList);
+			rawPartsList += DBConector.findInDB("*", "pecas", "montagem", "" + ID);
+			System.out.println("RawPartsList: \n" + rawPartsList);
+			separetedList = toArrayList(rawPartsList);
 			
 			updateProjectAux = true;
 			updateProject = false;
@@ -226,23 +224,32 @@ public class Project {
 		}
 	}
 	
-	public String[][] breakingList(String toSplit){
-		String linesToBreakdown[] = toSplit.split("\n");
-		String returnString[][] = new String[linesToBreakdown.length+1][8];
+	private ArrayList<String> toArrayList(String toSplit){
+		String[] brokenList = toSplit.split("\n");
+		ArrayList<String> returnArrayList = new ArrayList<>();
 		
-		returnString[0][0] = "ID";
-		returnString[0][1] = "Montagem";
-		returnString[0][2] = "Descrição";
-		returnString[0][3] = "Quantidade";
-		returnString[0][4] = "";
-		returnString[0][5] = "Preço";
-		returnString[0][6] = "Fornecedor";
-		returnString[0][7] = "Status";
+		returnArrayList.add("ID");
+		returnArrayList.add("Montagem");
+		returnArrayList.add("Descrição");
+		returnArrayList.add("Quantidade");
+		returnArrayList.add("");
+		returnArrayList.add("Preço");
+		returnArrayList.add("Fornecedor");
+		returnArrayList.add("Status");
 		
-		for(int i = 0; i < linesToBreakdown.length-1; i++) {
-			returnString[i+1] = linesToBreakdown[i].split(" § ");
+		for(int i = 0; i < brokenList.length; i++) {
+			System.out.println("Lista no Indice" + (i+1) + ": " + brokenList[i]);
+			
+			String[] aux = brokenList[i].split(" § ");
+			
+			for(int j = 0; j < aux.length; j++) {
+				returnArrayList.add(aux[j]);
+			}
 		}
-		return returnString;
+		
+				
+		return returnArrayList;
+		
 	}
 	
 	public String translateText(String toTranslate, int index) {
@@ -259,121 +266,72 @@ public class Project {
 	}
 	
 	public void drawPartsList(Graphics g) {
-		int nextX = 0;
-		int nextY = 0;
+		int positionerX = 52;
+		int positionerY = imgY + 224;
+		int auxTextWidth = 0;
+		int auxTextHeight = 0;
+		int total = Almoxarifado.WIDTH - (positionerX*2);
 		
-		int textInitPositX = (imgX + 50);
-		int textInitPositY = img.getHeight() + imgY + 18*2;
-		int auxWidth = 0;
-		int auxHeight = 30;
-		int sizeOfFont = auxHeight/2;
-		int total = (Almoxarifado.WIDTH - (textInitPositX*2));
-		
-		Color nC;
-		g.setFont(new Font("arial", 0, sizeOfFont));
-		
-		//System.out.println((brokenApartPartsList.length*brokenApartPartsList[0].length));
-		for(int i = 0; i < ((brokenApartPartsList.length-1)*8); i++) {
-			//System.out.println(brokenApartPartsList[0][nextX] + " no indice " + (nextY) + " é: " + brokenApartPartsList[nextY][nextX]);
+		System.out.println("=================================================================");
+		for(int i = 0; i < separetedList.size(); i++) {
+			System.out.println("Valor da lista no Indice " + i + ": " + separetedList.get(i));
 			
-			if(i < 8){
-				nC = Color.orange;
+			g.setFont(new Font("arial", 0, 12));
+			
+			if(i < 8) {
+				g.setColor(Color.orange);
 			}else {
-				nC = Color.white;
+				g.setColor(Color.white);
 			}
 			
-			switch(brokenApartPartsList[0][nextX]) {
-			case "Montagem":
+			switch(i % 8) {
+			case 1:
 				//System.out.println("1");
-				auxWidth += (total*3.8)/100;
-				
+				auxTextWidth += (total*5)/100;
 				//System.out.println("1, AuxWidth: " + auxWidth);
 				break;
-			case "Descrição":
+			case 2:
 				//System.out.println("2");
-				auxWidth += (total*13.9)/100;
+				auxTextWidth += (total*13.9)/100;
 				//System.out.println("2, AuxWidth: " + auxWidth);
 				break;
-			case "Quantidade":
+			case 3:
 				//System.out.println("3");
-				auxWidth += (total*33.2)/100;
+				auxTextWidth += (total*33.2)/100;
 				//System.out.println("3, AuxWidth: " + auxWidth);
 				break;
-			case "":
+			case 4:
 				//System.out.println("4, AuxWidth: " + auxWidth);
-				if(nextY > 0) {
-					auxWidth += g.getFontMetrics().stringWidth(" " + brokenApartPartsList[nextY][nextX-1]);
-				}else {
-					auxWidth += (total*9.5)/100;
-				}
+				auxTextWidth += (total*9.5)/100;
 				break;
-			case "Preço":
+			case 5:
 				//System.out.println("5");
-				if(nextY > 0) {
-					auxWidth -= g.getFontMetrics().stringWidth(" " + brokenApartPartsList[nextY][nextX-2]);
-					auxWidth += ((total*9.5)/100)*2;
-				}else {
-					auxWidth += (total*9.5)/100;
-				}
+				auxTextWidth += (total*9.5)/100;
 				//System.out.println("5, AuxWidth: " + auxWidth);
 				break;
-			case "Fornecedor":
+			case 6:
 				//System.out.println("6");
-				auxWidth += (total*11.8)/100;
+				auxTextWidth += (total*11.8)/100;
 				//System.out.println("6, AuxWidth: " + auxWidth);
 				break;
-			case "Status":
+			case 7:
 				//System.out.println("7");
-				auxWidth += (total*14.6)/100;
+				auxTextWidth += (total*14.6)/100;
 				//System.out.println("7, AuxWidth: " + auxWidth);
 				break;
 			}
 			
-			String toDrawString = brokenApartPartsList[nextY][nextX];
-			
-			System.out.println("toDrawString: " + toDrawString + " | brokenApartPartsList: " + brokenApartPartsList[nextY][nextX]);
-			System.out.println("nextX: " + nextX + " | nextY: " + nextY);
-			System.out.println("Coluna: " + brokenApartPartsList[0][nextX]);
-			
-			if(nextY > 0 && nextX > 0) {
-				if(nextX == 1 || nextX == 4) {
-					toDrawString = translateText(brokenApartPartsList[nextY][nextX], nextX);
-				}
-				if(Almoxarifado.mX > textInitPositX + auxWidth - 5 
-						&& Almoxarifado.mX < textInitPositX + auxWidth + g.getFontMetrics().stringWidth(toDrawString) + 5) {
-					if(Almoxarifado.mY > textInitPositY + auxHeight + ofsetHeight - g.getFontMetrics().getHeight() - 2 
-							&& Almoxarifado.mY < textInitPositY + auxHeight + ofsetHeight + 2) {
-						nC = Color.red;
-						if(mouseStatus) {
-							//System.out.println("Clique em: " + toDrawString);
-							PartsList.changePart(brokenApartPartsList[nextY][0], nextX);
-							updateProject = true;
-							mouseStatus = false;
-						}
-					}
-				}
-				
-				
+			if(i != 0 && i % 8 == 0) {
+				auxTextHeight += 50;
+				auxTextWidth = 0;
+				//System.out.println("--------------------------------------------------------");
 			}
 			
-			g.setColor(nC);
+			g.drawString(separetedList.get(i), positionerX + auxTextWidth, positionerY + auxTextHeight + ofsetHeight);
 			
-			g.drawString(toDrawString, textInitPositX + auxWidth, textInitPositY + auxHeight + ofsetHeight);
-			
-			nextX++;
-			
-			if(nextX == 8) {
-				System.out.println("================================================================================");
-				nextY += 1;
-				nextX = 0;
-				auxWidth = 0;
-				auxHeight += 20;
-			}
 			
 		}
-		
-		
-		//System.out.println("Saiu do Loop");
+		//System.out.println("=================================================================");
 	}
 	
 	public void render(Graphics g) {
@@ -422,13 +380,7 @@ public class Project {
 			descriptionSize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(description);
 			companySize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(company);
 			
-			if(brokenApartPartsList.length > 1) {
-				g.setColor(Color.yellow);
-				g.setFont(new Font("arial", 1, 18));
-				g.drawString("Lista de Peças: ", imgX + 25, img.getHeight() + imgY + 18*2 + ofsetHeight);
-				
-				drawPartsList(g);
-			}
+			drawPartsList(g);
 		}
 	}
 
