@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import functions.DBConector;
 import functions.ImageManager;
 import pages.Admnistrator;
+import pages.Archive;
 import pages.Employee;
 import pages.Login;
 import pages.PartsList;
@@ -42,6 +43,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static ImageManager imgManag;
 	public static ProjectList projectList;
 	public static Project project;
+	public static Archive archive;
 	
 	public static String name = "";
 	public static String cpf = "";
@@ -92,6 +94,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		partsList = new PartsList();
 		projectList = new ProjectList();
 		project = new Project();
+		archive = new Archive();
 		
 		screenManager(almox);
 		
@@ -149,6 +152,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			break;
 		case 4:
 			ui.tick();
+			archive.tick();
 			break;
 		case 5:
 			ui.tick();
@@ -213,6 +217,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			break;
 		case 4:
 			ui.limitScrollToWorkspaceArea(g);
+			archive.render(g);
 			ui.render(g);
 			break;
 		case 5:
