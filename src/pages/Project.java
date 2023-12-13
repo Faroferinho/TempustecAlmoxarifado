@@ -96,6 +96,7 @@ public class Project {
 			
 			img = Almoxarifado.imgManag.getProjectImage(imgAdress);
 			
+			rawPartsList = "";
 			rawPartsList += DBConector.findInDB("*", "pecas", "montagem", "" + ID);
 			System.out.println("RawPartsList: \n" + rawPartsList);
 			separetedList = toArrayList(rawPartsList);
@@ -264,6 +265,7 @@ public class Project {
 		return toReturn;
 		
 	}
+
 	
 	public void drawPartsList(Graphics g) {
 		int positionerX = 52;
@@ -272,54 +274,62 @@ public class Project {
 		int auxTextHeight = 0;
 		int total = Almoxarifado.WIDTH - (positionerX*2);
 		
-		System.out.println("=================================================================");
+		Color newColor;
+		
+		String toDraw = "";
+		
+		//System.out.println("=================================================================");
 		for(int i = 0; i < separetedList.size(); i++) {
-			System.out.println("Valor da lista no Indice " + i + ": " + separetedList.get(i));
+			//System.out.println("Valor da lista no Indice " + i + ": " + separetedList.get(i));
 			
 			g.setFont(new Font("arial", 0, 12));
 			
 			if(i < 8) {
-				g.setColor(Color.orange);
+				newColor = Color.orange;
 			}else {
-				g.setColor(Color.white);
+				newColor = Color.white;
 			}
 			
 			switch(i % 8) {
+			// 0 -> ID;
 			case 1:
-				//System.out.println("1");
+				//System.out.println("1 -> Montagem");
 				auxTextWidth += (total*5)/100;
 				//System.out.println("1, AuxWidth: " + auxWidth);
 				break;
 			case 2:
-				//System.out.println("2");
+				//System.out.println("2 -> Descrição");
 				auxTextWidth += (total*13.9)/100;
 				//System.out.println("2, AuxWidth: " + auxWidth);
 				break;
 			case 3:
-				//System.out.println("3");
+				//System.out.println("3 -> Quantidade");
 				auxTextWidth += (total*33.2)/100;
 				//System.out.println("3, AuxWidth: " + auxWidth);
 				break;
 			case 4:
-				//System.out.println("4, AuxWidth: " + auxWidth);
-				auxTextWidth += (total*9.5)/100;
+				//System.out.println("4 -> Tipo de Quantidade, AuxWidth: " + auxWidth);
+				auxTextWidth += g.getFontMetrics().stringWidth(" " + separetedList.get(i-1));
 				break;
 			case 5:
-				//System.out.println("5");
-				auxTextWidth += (total*9.5)/100;
+				//System.out.println("5 -> Preço");
+				auxTextWidth -= g.getFontMetrics().stringWidth(" " + separetedList.get(i-2));
+				auxTextWidth += (total*19)/100;
 				//System.out.println("5, AuxWidth: " + auxWidth);
 				break;
 			case 6:
-				//System.out.println("6");
+				//System.out.println("6 -> Fornecedor");
 				auxTextWidth += (total*11.8)/100;
 				//System.out.println("6, AuxWidth: " + auxWidth);
 				break;
 			case 7:
-				//System.out.println("7");
+				//System.out.println("7 -> Status");
 				auxTextWidth += (total*14.6)/100;
 				//System.out.println("7, AuxWidth: " + auxWidth);
 				break;
 			}
+			
+			
 			
 			if(i != 0 && i % 8 == 0) {
 				auxTextHeight += 50;
@@ -327,7 +337,31 @@ public class Project {
 				//System.out.println("--------------------------------------------------------");
 			}
 			
-			g.drawString(separetedList.get(i), positionerX + auxTextWidth, positionerY + auxTextHeight + ofsetHeight);
+			toDraw = separetedList.get(i);
+			if(i > 8 ) {
+				if(i % 8 == 1 || i % 8 == 4) {
+					//System.out.println(separetedList.get(i));
+					toDraw = translateText(separetedList.get(i), i % 8);
+				}
+				if(Almoxarifado.mX > positionerX + auxTextWidth &&
+				Almoxarifado.mX < positionerX + auxTextWidth + g.getFontMetrics().stringWidth(toDraw) &&
+				Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - g.getFontMetrics().getHeight() &&
+				Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight) {
+					newColor = Color.gray;
+					if(mouseStatus) {
+						//System.out.println("Clicou em: " + toDraw);
+						PartsList.changePart(separetedList.get((auxTextHeight/50)*8), i % 8);
+						updateProject = true;
+						mouseStatus = false;
+					}
+				}
+			}
+			
+			
+			
+			g.setColor(newColor);
+			
+			g.drawString(toDraw, positionerX + auxTextWidth, positionerY + auxTextHeight + ofsetHeight);
 			
 			
 		}
@@ -379,8 +413,9 @@ public class Project {
 			nameSize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(name);
 			descriptionSize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(description);
 			companySize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(company);
-			
-			drawPartsList(g);
+			if(separetedList.size() > 9) {
+				drawPartsList(g);
+			}
 		}
 	}
 

@@ -63,7 +63,7 @@ public class PartsList {
 		return returnString;
 	}
 	
-	public static void changePart(String index,int column) {
+	public static void changePart(String index, int column) {
 		System.out.println("Coluna: " + column);
 		System.out.println("Index: " + index);
 		
