@@ -4,6 +4,8 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 
+import main.Almoxarifado;
+
 public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
@@ -25,7 +27,6 @@ public class DBConector {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
@@ -70,7 +71,6 @@ public class DBConector {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
@@ -112,7 +112,6 @@ public class DBConector {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
@@ -136,7 +135,6 @@ public class DBConector {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
@@ -186,14 +184,69 @@ public class DBConector {
 			
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return answer;
 	}
 	
-	public static void ArchivingProject() {
+	public static void ArchivingProject(String ID) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
 		
+		String query = "SELECT * FROM Montagem WHERE ID_Montagem = " + ID;
+		String textToQuery = "";
+		
+		try {
+			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
+			Statement statement = con.createStatement();
+			ResultSet rslt = statement.executeQuery(query);
+			
+			while(rslt.next()) {
+				String aux = "";
+				
+				for(int i = 1; i < 7; i++) {
+					switch(i) {
+					case 1:
+						aux = ", \"";
+						break;
+					case 3:
+					case 2:
+						aux = "\", \"";
+						break;
+					case 4:
+						aux = "\", ";
+						break;
+					case 5:
+						aux = ", ";
+						break;
+					case 6:
+						aux = "";
+					}
+					
+					textToQuery += rslt.getString(i) + aux;
+					
+				}
+				
+			}
+			
+			query = "INSERT INTO Arquivo(ID_Arquivo, ID_Montagem, ISO, Description, Company, image, cost, Archiver_RdF) VALUES (" + 
+			(Almoxarifado.quantityArchives+1) + ", " + textToQuery + ", 8523)";
+			
+			System.out.println("Texto Pego Por Hora: \n" + query);
+			
+			statement.executeUpdate(query);
+			
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		Almoxarifado.quantityArchives++;
 	}
 	
 	private static int checkSize(String objective, String table) {

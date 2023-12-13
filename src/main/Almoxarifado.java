@@ -245,19 +245,34 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {		
-		mPressed = true;
-		if(type.equals("1\n")) {
-			admProfile.mouseStatus = true;
-		}else {
-			workProfile.mouseStatus = true;
-		}
-		partsList.mouseStatus = true;
-		projectList.mouseStatus = true;
-		project.mouseStatus = true;
+	public void mousePressed(MouseEvent e) {
 		//TODO remover comentarios - login.click = true;
 		//System.out.println("Status do Mouse: " + profile.mouseStatus);
 		//System.out.println("X: " + e.getX() + ", Y: " + e.getY());
+		mPressed = true;
+		switch(state) {
+		case 1:
+			//TODO: Perfil, verificação de "está listando";
+			if(type.equals("1\n")) {
+				admProfile.mouseStatus = true;
+			}else {
+				workProfile.mouseStatus = true;
+			}
+			break;
+		case 2:
+			partsList.mouseStatus = true;
+			break;
+		case 3:
+			projectList.mouseStatus = true;
+			break;
+		case 4:
+			//TODO: Arquivo;
+			break;
+		case 5:
+			project.mouseStatus = true;
+			break;
+		}
+		
 	}
 
 	@Override
@@ -321,7 +336,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			//TODO: Arquivo;
 			break;
 		case 5:
-			//TODO: Projeto;
 			Project.scroll = e.getUnitsToScroll();
 			break;
 		}

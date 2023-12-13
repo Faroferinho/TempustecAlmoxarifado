@@ -14,7 +14,7 @@ import main.UserInterface;
 
 public class Project {
 	
-	static int ID = 1;
+	static int ID = 2;
 	static String name = "";
 	static String description = "";
 	static String company = "";
@@ -203,8 +203,16 @@ public class Project {
 			}
 			
 			if(isArchiving) {
+				int toVerif = JOptionPane.showConfirmDialog(null, "Realmente deseja Arquivar o Projeto", "Arquivo do Projeto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				
+				if(toVerif != 0) {
+					JOptionPane.showMessageDialog(null, "Arquivo Cancelado", "", JOptionPane.PLAIN_MESSAGE);
+					isArchiving = false;
+					return;
+				}
+				
+				DBConector.ArchivingProject("" + ID);
 				isArchiving = false;
-				System.out.println("Funcionalidade Pendente");
 			}
 			
 			if(mouseStatus) {
@@ -287,7 +295,7 @@ public class Project {
 			for(int i = 0; i < separetedList.size(); i++) {
 				//System.out.println("Valor da lista no Indice " + i + ": " + separetedList.get(i));
 				
-				g.setFont(new Font("arial", 0, 12));
+				g.setFont(new Font("arial", 0, 13));
 				
 				if(i < 8) {
 					newColor = Color.orange;
