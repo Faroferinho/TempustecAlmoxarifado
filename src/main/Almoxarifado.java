@@ -55,6 +55,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int quantityWorkers = 0;
 	public static int quantityParts = 0;
 	public static int quantityAssembly = 0;
+	public static int quantityArchives = 0;
 	
 	
 	public static void main(String args[]) {
@@ -69,14 +70,16 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		quantityWorkers = cnctr.qnttWrks;
 		quantityParts = cnctr.qnttPrts;
 		quantityAssembly = cnctr.qnttAssbly;
+		quantityArchives = cnctr.qnttArchvs;
 		
 		System.out.println("Quantidade de Funcionarios: " + quantityWorkers);
 		System.out.println("Quantidade de Peças: " + quantityParts);
 		System.out.println("Quantidade de Montagens: " + quantityAssembly);
+		System.out.println("Quantidade de Montagens Arquivadas: " + quantityArchives + "\n");
+		
 		if(state == 0) {
 			login = new Login();
 		}
-		System.out.println("type: " + type);
 		
 		if(type.equals("1\n")) {
 			System.out.println("é Administrador");

@@ -14,11 +14,13 @@ public class DBConector {
 	public int qnttWrks = 0;
 	public int qnttPrts = 0;
 	public int qnttAssbly = 0;
+	public int qnttArchvs = 0;
 	
 	public DBConector() {
 		String workers = "select * from funcionarios";
 		String parts = "select * from pecas";
 		String assemblies = "select * from Montagem";
+		String archives = "select * from Arquivo";
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -48,6 +50,12 @@ public class DBConector {
 			while(queryAssembliesResult.next()) {
 				qnttAssbly++;
 			}
+			
+			ResultSet queryArchivesResult = statement.executeQuery(archives);
+			while(queryArchivesResult.next()) {
+				qnttArchvs++;
+			}
+			
 			con.close();
 		} catch(SQLException e){
 			e.printStackTrace();

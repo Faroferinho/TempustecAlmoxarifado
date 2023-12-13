@@ -38,6 +38,8 @@ public class PartsList {
 	
 	BufferedImage adicionar = Almoxarifado.imgManag.getSprite(0, 2*64, 128, 64);
 	BufferedImage excluir = Almoxarifado.imgManag.getSprite(640-128, 2*64, 128, 64);
+	
+	public static int auxAddingFromMontagem = 0;
 
 	public PartsList() {
 		System.out.println("To Split: \n" + toSplit);
@@ -142,7 +144,7 @@ public class PartsList {
 			break;
 		case 7:
 			columnName += "Status";
-			if(finalPartsTable[Integer.parseInt(index)][column].equals("1")) {
+			if(DBConector.findInDB("Status", "pecas", "ID_Parts", index).equals("1 § \n")) {
 				auxString = "0";
 			}else {
 				auxString = "1";
@@ -176,20 +178,26 @@ public class PartsList {
 
 	public void addPart() {
 		String querry = "INSERT INTO pecas VALUES( " + (Almoxarifado.quantityParts + 1) + ", ";
-		
+
 		String aux = "";
-		aux += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null, assemblies, 0);
 		int auxInt = 0;
-		System.out.println("aux: " + aux);
-		for(int i = 1; i < Almoxarifado.quantityAssembly + 1; i++) {
-			if(assemblies[i-1].equals(aux)) {
-				auxInt = i;
+		if(auxAddingFromMontagem == 0) {
+			aux += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null, assemblies, 0);
+			if(verifyString(aux)) {
+				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				return;
 			}
+			System.out.println("aux: " + aux);
+			for(int i = 1; i < Almoxarifado.quantityAssembly + 1; i++) {
+				if(assemblies[i-1].equals(aux)) {
+					auxInt = i;
+				}
+			}
+			
+		}else {
+			auxInt = auxAddingFromMontagem;
 		}
-		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
-			return;
-		}
+		
 		querry += auxInt + ", '";
 		
 		aux = "";
@@ -247,8 +255,8 @@ public class PartsList {
 		Almoxarifado.quantityParts++;
 	}
 	
-	private void eliminatePart(int index){
-		//TODO: Colocar uma função para verificar se existem outras entradas depois dessa e caso exista, mude o ID das peças depois dessa para o indice anterior
+	public void eliminatePart(int index){
+		//TODO: OTIMIZAR ESSA DESGRAÇA, POR DEUS
 		int confirmation = JOptionPane.showConfirmDialog(null, "Você tem *CERTEZA* que você deseja deletar essa peça?", "Confirma a Eliminação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		
 		if(confirmation != 0) {
@@ -256,6 +264,7 @@ public class PartsList {
 		}
 		
 		DBConector.writeDB("DELETE FROM pecas WHERE ID_Parts = " + index);
+		Almoxarifado.quantityParts--;
 		
 		for(int i = 1; i < Almoxarifado.quantityParts+1; i++) {
 			int auxVerifID = Integer.parseInt(finalPartsTable[i][0]);
@@ -263,9 +272,6 @@ public class PartsList {
 				DBConector.writeDB("UPDATE pecas SET ID_Parts = " + (auxVerifID - 1) + " WHERE ID_Parts = " + auxVerifID);
 			}
 		}
-		
-		Almoxarifado.quantityParts--;
-		
 		wasChanged = true;
 	}
 	

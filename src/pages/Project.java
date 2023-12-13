@@ -27,6 +27,8 @@ public class Project {
 	BufferedImage editProfile = Almoxarifado.imgManag.getSprite(128, 64*2, 128, 64);
 	BufferedImage archiveProfile = Almoxarifado.imgManag.getSprite(0, 64*4, 128, 64);
 	BufferedImage isEditingProfile = Almoxarifado.imgManag.getSprite(128, 64*3, 128, 64);
+	BufferedImage add = Almoxarifado.imgManag.getSprite(0, 128, 128, 64);
+	BufferedImage remove = Almoxarifado.imgManag.getSprite(512, 128, 128, 64);
 	
 	double price = 0.0;
 	
@@ -51,6 +53,8 @@ public class Project {
 	boolean isOverName = true;
 	boolean isOverDescription = false;
 	boolean isOverCompany = false;
+	
+	boolean isEliminating = false;
 	
 	public Project() {
 		// TODO Auto-generated constructor stub
@@ -200,6 +204,7 @@ public class Project {
 			
 			if(isArchiving) {
 				isArchiving = false;
+				System.out.println("Funcionalidade Pendente");
 			}
 			
 			if(mouseStatus) {
@@ -239,7 +244,7 @@ public class Project {
 		returnArrayList.add("Status");
 		
 		for(int i = 0; i < brokenList.length; i++) {
-			System.out.println("Lista no Indice" + (i+1) + ": " + brokenList[i]);
+			//System.out.println("Lista no Indice " + (i+1) + ": " + brokenList[i]);
 			
 			String[] aux = brokenList[i].split(" § ");
 			
@@ -277,95 +282,140 @@ public class Project {
 		Color newColor;
 		
 		String toDraw = "";
-		
+		if(separetedList.size() > 12) {
 		//System.out.println("=================================================================");
-		for(int i = 0; i < separetedList.size(); i++) {
-			//System.out.println("Valor da lista no Indice " + i + ": " + separetedList.get(i));
-			
-			g.setFont(new Font("arial", 0, 12));
-			
-			if(i < 8) {
-				newColor = Color.orange;
-			}else {
-				newColor = Color.white;
-			}
-			
-			switch(i % 8) {
-			// 0 -> ID;
-			case 1:
-				//System.out.println("1 -> Montagem");
-				auxTextWidth += (total*5)/100;
-				//System.out.println("1, AuxWidth: " + auxWidth);
-				break;
-			case 2:
-				//System.out.println("2 -> Descrição");
-				auxTextWidth += (total*13.9)/100;
-				//System.out.println("2, AuxWidth: " + auxWidth);
-				break;
-			case 3:
-				//System.out.println("3 -> Quantidade");
-				auxTextWidth += (total*33.2)/100;
-				//System.out.println("3, AuxWidth: " + auxWidth);
-				break;
-			case 4:
-				//System.out.println("4 -> Tipo de Quantidade, AuxWidth: " + auxWidth);
-				auxTextWidth += g.getFontMetrics().stringWidth(" " + separetedList.get(i-1));
-				break;
-			case 5:
-				//System.out.println("5 -> Preço");
-				auxTextWidth -= g.getFontMetrics().stringWidth(" " + separetedList.get(i-2));
-				auxTextWidth += (total*19)/100;
-				//System.out.println("5, AuxWidth: " + auxWidth);
-				break;
-			case 6:
-				//System.out.println("6 -> Fornecedor");
-				auxTextWidth += (total*11.8)/100;
-				//System.out.println("6, AuxWidth: " + auxWidth);
-				break;
-			case 7:
-				//System.out.println("7 -> Status");
-				auxTextWidth += (total*14.6)/100;
-				//System.out.println("7, AuxWidth: " + auxWidth);
-				break;
-			}
-			
-			
-			
-			if(i != 0 && i % 8 == 0) {
-				auxTextHeight += 50;
-				auxTextWidth = 0;
-				//System.out.println("--------------------------------------------------------");
-			}
-			
-			toDraw = separetedList.get(i);
-			if(i > 8 ) {
-				if(i % 8 == 1 || i % 8 == 4) {
-					//System.out.println(separetedList.get(i));
-					toDraw = translateText(separetedList.get(i), i % 8);
+			for(int i = 0; i < separetedList.size(); i++) {
+				//System.out.println("Valor da lista no Indice " + i + ": " + separetedList.get(i));
+				
+				g.setFont(new Font("arial", 0, 12));
+				
+				if(i < 8) {
+					newColor = Color.orange;
+				}else {
+					newColor = Color.white;
 				}
-				if(Almoxarifado.mX > positionerX + auxTextWidth &&
-				Almoxarifado.mX < positionerX + auxTextWidth + g.getFontMetrics().stringWidth(toDraw) &&
-				Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - g.getFontMetrics().getHeight() &&
-				Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight) {
-					newColor = Color.gray;
-					if(mouseStatus) {
-						//System.out.println("Clicou em: " + toDraw);
-						PartsList.changePart(separetedList.get((auxTextHeight/50)*8), i % 8);
-						updateProject = true;
-						mouseStatus = false;
+				
+				switch(i % 8) {
+				// 0 -> ID;
+				case 1:
+					//System.out.println("1 -> Montagem");
+					auxTextWidth += (total*5)/100;
+					//System.out.println("1, AuxWidth: " + auxWidth);
+					break;
+				case 2:
+					//System.out.println("2 -> Descrição");
+					auxTextWidth += (total*13.9)/100;
+					//System.out.println("2, AuxWidth: " + auxWidth);
+					break;
+				case 3:
+					//System.out.println("3 -> Quantidade");
+					auxTextWidth += (total*33.2)/100;
+					//System.out.println("3, AuxWidth: " + auxWidth);
+					break;
+				case 4:
+					//System.out.println("4 -> Tipo de Quantidade, AuxWidth: " + auxWidth);
+					auxTextWidth += g.getFontMetrics().stringWidth(" " + separetedList.get(i-1));
+					break;
+				case 5:
+					//System.out.println("5 -> Preço");
+					auxTextWidth -= g.getFontMetrics().stringWidth(" " + separetedList.get(i-2));
+					auxTextWidth += (total*19)/100;
+					//System.out.println("5, AuxWidth: " + auxWidth);
+					break;
+				case 6:
+					//System.out.println("6 -> Fornecedor");
+					auxTextWidth += (total*11.8)/100;
+					//System.out.println("6, AuxWidth: " + auxWidth);
+					break;
+				case 7:
+					//System.out.println("7 -> Status");
+					auxTextWidth += (total*14.6)/100;
+					//System.out.println("7, AuxWidth: " + auxWidth);
+					break;
+				}
+				
+				if(i != 0 && i % 8 == 0) {
+					auxTextHeight += 50;
+					auxTextWidth = 0;
+					//System.out.println("--------------------------------------------------------");
+				}
+				
+				toDraw = separetedList.get(i);
+				if(i > 8 ) {
+					if(i % 8 == 1 || i % 8 == 4) {
+						//System.out.println(separetedList.get(i));
+						toDraw = translateText(separetedList.get(i), i % 8);
+					}
+					if(!isEliminating) {
+						if(Almoxarifado.mX > positionerX + auxTextWidth &&
+						Almoxarifado.mX < positionerX + auxTextWidth + g.getFontMetrics().stringWidth(toDraw) &&
+						Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - g.getFontMetrics().getHeight() &&
+						Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight) {
+							newColor = Color.gray;
+							if(mouseStatus) {
+								System.out.println("Clicou em: " + toDraw);
+								PartsList.changePart(separetedList.get((auxTextHeight/50)*8), i % 8);
+								updateProject = true;
+								mouseStatus = false;
+							}
+						}
 					}
 				}
+				
+				if(isEliminating) {
+					System.out.println("Está eliminando ;>");
+					if(i > 7) {
+						if(Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - (g.getFontMetrics().getHeight() + 15) && 
+						Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight + 15) {
+							newColor = Color.yellow;
+							if(mouseStatus) {
+								Almoxarifado.partsList.eliminatePart(Integer.parseInt(separetedList.get((auxTextHeight/50)*8)));
+								updateProject = true;
+								mouseStatus = false;
+							}
+						}
+					}
+				}
+				
+				
+				
+				g.setColor(newColor);
+				
+				g.drawString(toDraw, positionerX + auxTextWidth, positionerY + auxTextHeight + ofsetHeight);
+				
 			}
 			
-			
-			
-			g.setColor(newColor);
-			
-			g.drawString(toDraw, positionerX + auxTextWidth, positionerY + auxTextHeight + ofsetHeight);
-			
+			//System.out.println("=================================================================");
+		}
+		g.drawImage(add, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30, null);
+		g.drawImage(remove, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30, null);
+		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30);
+		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30);
+		
+		if(mouseStatus) {
+			//System.out.println("Clicado Haha");
+			if(Almoxarifado.mY > positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30 &&
+			Almoxarifado.mY < positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30 + add.getHeight()) {
+				//System.out.println("Está na Altura");
+				if(Almoxarifado.mX > (Almoxarifado.WIDTH/3) - (add.getWidth()/2) && Almoxarifado.mX < (Almoxarifado.WIDTH/3) + (add.getWidth()/2)) {
+					//System.out.println("Clicou em Add");
+					PartsList.auxAddingFromMontagem = ID;
+					Almoxarifado.partsList.addPart();
+					PartsList.auxAddingFromMontagem = 0;
+					updateProject = true;
+					mouseStatus = false;
+				}else if(Almoxarifado.mX > (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2) && Almoxarifado.mX < (Almoxarifado.WIDTH/3)*2 + (add.getWidth()/2)) {
+					//System.out.println("Clicou em Add");
+					if(isEliminating == true) {
+						isEliminating = false;
+					}else {
+						isEliminating = true;
+					}
+					mouseStatus = false;
+				}
+			}
 			
 		}
-		//System.out.println("=================================================================");
 	}
 	
 	public void render(Graphics g) {
@@ -413,9 +463,8 @@ public class Project {
 			nameSize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(name);
 			descriptionSize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(description);
 			companySize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(company);
-			if(separetedList.size() > 9) {
-				drawPartsList(g);
-			}
+			
+			drawPartsList(g);
 		}
 	}
 
