@@ -192,6 +192,10 @@ public class DBConector {
 		return answer;
 	}
 	
+	public static void ArchivingProject() {
+		
+	}
+	
 	private static int checkSize(String objective, String table) {
 		int max = 0;
 		
@@ -200,6 +204,8 @@ public class DBConector {
 		}else if(table.equals("montagem") || table.equals("Montagem") || table.equals("MONTAGEM")) {
 			max = 7;
 		}else if(table.equals("pecas") || table.equals("Pecas") || table.equals("PECAS")) {
+			max = 9;
+		}else if(table.equals("arquivo") || table.equals("Arquivo") || table.equals("ARQUIVO")) {
 			max = 9;
 		}
 		
