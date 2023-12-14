@@ -32,7 +32,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 5;
+	public static byte state = 4;
 	
 	public static Login login;
 	public static UserInterface ui;
@@ -216,8 +216,8 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			ui.render(g);
 			break;
 		case 4:
-			ui.limitScrollToWorkspaceArea(g);
 			archive.render(g);
+			ui.limitScrollToWorkspaceArea(g);
 			ui.render(g);
 			break;
 		case 5:
@@ -338,7 +338,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			ProjectList.scroll = e.getUnitsToScroll();
 			break;
 		case 4:
-			//TODO: Arquivo;
+			Archive.scroll = e.getUnitsToScroll();
 			break;
 		case 5:
 			Project.scroll = e.getUnitsToScroll();
@@ -356,7 +356,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	@Override
 	public void keyPressed(KeyEvent e) {
 		System.out.println("Caracter escrito foi: " + e.getKeyChar() + " e seu Código é: " + e.getKeyCode());
-		if(login.isWriting != 0) {
+		if(state == 0 && login.isWriting != 0) {
 			login.writingOnCanvas(e);
 		}
 	}

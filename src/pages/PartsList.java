@@ -312,7 +312,6 @@ public class PartsList {
 			}
 			
 			if(scroll > 1 && ofsetHeight > maximumHeight) {
-				System.out.println("ofsetHeight: " + ofsetHeight);
 				ofsetHeight -= UserInterface.spd;
 				scroll = 0;
 			}else if(scroll < -1 && ofsetHeight < 0) {
