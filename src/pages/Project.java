@@ -106,6 +106,9 @@ public class Project {
 			separetedList = toArrayList(rawPartsList);
 			
 			updateProjectAux = true;
+			
+			Almoxarifado.frame.setTitle(Project.name);
+			
 			updateProject = false;
 		}
 		
@@ -208,11 +211,13 @@ public class Project {
 				if(toVerif != 0) {
 					JOptionPane.showMessageDialog(null, "Arquivo Cancelado", "", JOptionPane.PLAIN_MESSAGE);
 					isArchiving = false;
+					
 					return;
 				}
 				
-				DBConector.ArchivingProject("" + ID);
+				DBConector.Archive("" + ID);
 				isArchiving = false;
+				Almoxarifado.state = 3;
 			}
 			
 			if(mouseStatus) {

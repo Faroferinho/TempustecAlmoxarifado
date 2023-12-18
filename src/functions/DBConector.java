@@ -1,10 +1,17 @@
 package functions;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
 import main.Almoxarifado;
+import pages.Employee;
 
 public class DBConector {
 	
@@ -28,7 +35,8 @@ public class DBConector {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", 
+			"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		
@@ -72,7 +80,8 @@ public class DBConector {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", 
+			"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		
@@ -113,7 +122,8 @@ public class DBConector {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente",
+			"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		
@@ -136,7 +146,8 @@ public class DBConector {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", 
+					JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		
@@ -188,8 +199,8 @@ public class DBConector {
 		}
 		return answer;
 	}
-	
-	public static void ArchivingProject(String ID) {
+
+	public static void Archive(String ID) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		}catch(ClassNotFoundException e){
@@ -198,13 +209,26 @@ public class DBConector {
 			System.exit(1);
 		}
 		
-		String query = "SELECT * FROM Montagem WHERE ID_Montagem = " + ID;
-		String textToQuery = "";
+		String moment = "" + LocalDateTime.now();
 		
+		moment = moment.substring(0, 19);
+		moment.replaceAll("-", "");
+		moment.replaceAll("T", " ");
+		
+		System.out.println("data e Hora: " + LocalDateTime.now());
+		
+		String getInfo = "SELECT * FROM Montagem WHERE ID_Montagem = " + ID;
+		String textToQuery = "";
+		String passToArchive = "INSERT INTO Arquivo(ID_Arquivo, ID_Montagem, ISO, Description, Company, image, cost, Archive_Moment, Archiver_RdF) "
+				+ "VALUES (" + (Almoxarifado.quantityArchives+1) + ", ";
+		String deleteProject = "DELETE FROM Montagem WHERE ID_Montagem = " + ID;
+		String getParts = "SELECT * FROM Pecas WHERE Montagem = " + ID;
+		String copyParts = "";
+		String deleteParts = "DELETE * FROM Pecas WHERE Montagem = " + ID;
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
 			Statement statement = con.createStatement();
-			ResultSet rslt = statement.executeQuery(query);
+			ResultSet rslt = statement.executeQuery(getInfo);
 			
 			while(rslt.next()) {
 				String aux = "";
@@ -234,12 +258,55 @@ public class DBConector {
 				
 			}
 			
-			query = "INSERT INTO Arquivo(ID_Arquivo, ID_Montagem, ISO, Description, Company, image, cost, Archiver_RdF) VALUES (" + 
-			(Almoxarifado.quantityArchives+1) + ", " + textToQuery + ", 8523)";
+			passToArchive += textToQuery + ", '" + moment + "', " + Employee.RdF + ")";
 			
-			System.out.println("Texto Pego Por Hora: \n" + query);
+			System.out.println("Texto Pego Por Hora: \n" + passToArchive);
 			
-			statement.executeUpdate(query);
+			statement.executeUpdate(passToArchive);
+			
+			statement.executeUpdate(deleteProject);
+			
+			
+			rslt = statement.executeQuery(getParts);
+			
+			
+			while(rslt.next()) {
+				textToQuery = "";
+				copyParts += "INSERT INTO Arquivo_Pecas(ID_Arquivo_Pecas, ID_Parts, Montagem, Description, Quantity, Quantity_Type, Price, "
+				+ "Supplier, Status, Archive_Moment, ArchiverRdF) VALUES( ";
+						
+				
+				for(int i = 1; i < 9; i++) {
+					String aux = "";
+					
+					switch(i) {
+					case 1:
+					case 4:
+					case 5:
+						aux = ", ";
+						break;
+					case 2:
+					case 6:
+						aux = ", \"";
+						break;
+					case 3:
+					case 7:
+						aux = "\", ";
+						break;
+					}
+					
+					textToQuery += rslt.getString(i) + aux;
+				}
+				
+				copyParts += textToQuery + ", '" + moment + "', " + Almoxarifado.rdf + ");\n";
+				
+			}
+			
+			System.out.println("Prompt copiar a lista de peças: \n" + copyParts);
+			if(copyParts.length() < 4) {
+				statement.executeUpdate(copyParts);
+			}
+			statement.executeUpdate(deleteParts);
 			
 			con.close();
 		} catch (SQLException e) {

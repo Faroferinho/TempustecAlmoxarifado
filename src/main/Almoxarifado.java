@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -32,8 +34,10 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 4;
+	public static byte state = 1;
 	
+	public static JFrame frame;
+	public static Toolkit tk;
 	public static Login login;
 	public static UserInterface ui;
 	public static Admnistrator admProfile;
@@ -45,9 +49,9 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static Project project;
 	public static Archive archive;
 	
-	public static String name = "";
-	public static String cpf = "";
-	public static String rdf = "";
+	public static String name = "Marcelinho";
+	public static String cpf = "Rubsheck";
+	public static String rdf = "8523";
 	public static String type = "1\n";
 	
 	public static int mX;
@@ -96,13 +100,21 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		project = new Project();
 		archive = new Archive();
 		
-		screenManager(almox);
+		frame = new JFrame();
+		
+		frame.add(almox);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setBackground(Color.black);
+		frame.setVisible(true);
 		
 		new Thread(almox).start();
 	}
 	
 	public Almoxarifado() {
-		Toolkit tk = Toolkit.getDefaultToolkit();
+		tk = Toolkit.getDefaultToolkit();
 		
 		WIDTH = (tk.getScreenSize().width / 4) * 3;
 		HEIGHT = (tk.getScreenSize().height / 4) * 3;
@@ -114,18 +126,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		this.addKeyListener(this);
 		
 		System.out.println("Largura: " + WIDTH + " Altura: " + HEIGHT);
-	}
-	
-	public static void screenManager(Almoxarifado tp) {
-		JFrame frame = new JFrame();
-		
-		frame.add(tp);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setBackground(Color.black);
-		frame.setVisible(true);
 	}
 	
 	public void tick() {
@@ -184,6 +184,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 		//Crio um grafico usando os graficos do bs;
 		Graphics g = bs.getDrawGraphics();
+		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
 		//Basicamente desenho o esqueleto da UI;
 		
@@ -271,7 +272,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			projectList.mouseStatus = true;
 			break;
 		case 4:
-			//TODO: Arquivo;
+			archive.mouseStatus = true;
 			break;
 		case 5:
 			project.mouseStatus = true;
@@ -291,6 +292,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		partsList.mouseStatus = false;
 		projectList.mouseStatus = false;
 		project.mouseStatus = false;
+		archive.mouseStatus = false;
 		//TODO remover comentarios - login.click = false;
 	}
 
@@ -327,7 +329,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		switch(state) {
 		case 1:
 			//TODO: Perfil, verificação de "está listando";
-			if(type.equals("1\n")) {
+			if(type.equals("1\n") && admProfile.isListing) {
 				admProfile.scroll = e.getUnitsToScroll();
 			}
 			break;

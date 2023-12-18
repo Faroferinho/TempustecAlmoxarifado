@@ -24,6 +24,7 @@ public class Admnistrator extends Profile {
 	public BufferedImage listButton;
 	public BufferedImage signInButton;
 	public BufferedImage passwordButton;
+	public BufferedImage deleteButton;
 	
 	String separetedInfo[][];
 	
@@ -38,6 +39,7 @@ public class Admnistrator extends Profile {
 		listButton = Almoxarifado.imgManag.getSprite(64*4, 128, 128, 64);
 		signInButton = Almoxarifado.imgManag.getSprite(0, 128, 128, 64);
 		passwordButton = Almoxarifado.imgManag.getSprite(64*6, 64*2, 128, 64);
+		deleteButton = Almoxarifado.imgManag.getSprite(64*8, 64*2, 128, 64);
 	}
 	
 	public void tick() {	
@@ -50,6 +52,7 @@ public class Admnistrator extends Profile {
 		
 		if(Almoxarifado.state == 1) {
 			isOnTheRightState = true;
+			Almoxarifado.frame.setTitle("Perfil de " + Profile.name);
 		}else {
 			reset = true;
 			isOnTheRightState = false;
@@ -267,9 +270,9 @@ public class Admnistrator extends Profile {
 			String verificator = "";
 			while(i < 3) {
 				if(i == 0) {
-					verificator = JOptionPane.showInputDialog(null, "Insira a Senha", "Confirmação de Identidade", JOptionPane.PLAIN_MESSAGE);
+					verificator += JOptionPane.showInputDialog(null, "Insira a Senha", "Confirmação de Identidade", JOptionPane.PLAIN_MESSAGE);
 				}else {
-					verificator = JOptionPane.showInputDialog(null, "Senha Incorreta, Numero de Tentativas: " + (3-i), "Confirmação de Identidade", JOptionPane.PLAIN_MESSAGE);
+					verificator += JOptionPane.showInputDialog(null, "Senha Incorreta, Numero de Tentativas: " + (3-i), "Confirmação de Identidade", JOptionPane.PLAIN_MESSAGE);
 				}
 				
 				System.out.println("Senha Incerida: " + verificator + "Senha Correta: " + separetedInfo[index][column]);
@@ -277,6 +280,8 @@ public class Admnistrator extends Profile {
 				if(verificator.equals(separetedInfo[index][column])) {
 					infoChanger += JOptionPane.showInputDialog(null, "Você deseja Alterar " + columnName, "Alteração de Perfil", JOptionPane.WARNING_MESSAGE);
 					i = 4;
+				}else if(verificator.equals("null")){
+					return;
 				}else {
 					i++;
 				}
@@ -368,7 +373,7 @@ public class Admnistrator extends Profile {
 			
 			if(x > 0 && y > 0) {
 				if(Almoxarifado.mX > initialX + auxX && Almoxarifado.mX < initialX + auxX + g.getFontMetrics().stringWidth(auxTextToDraw)
-						&& Almoxarifado.mY > initialY + auxY - g.getFontMetrics().getHeight() && Almoxarifado.mY < initialY + auxY) {
+				&& Almoxarifado.mY > initialY + auxY - g.getFontMetrics().getHeight() && Almoxarifado.mY < initialY + auxY) {
 					//TODO: aumentar a Hitbox do Type;
 					g.setColor(Color.gray);
 					if(mouseStatus) {
@@ -393,6 +398,17 @@ public class Admnistrator extends Profile {
 				y++;
 				auxY += g.getFontMetrics().getHeight() + 5;
 				auxX = 0;
+			}
+		}
+		
+		g.drawImage(deleteButton, ((Almoxarifado.WIDTH / 2) - (deleteButton.getWidth() / 2)), initialY + auxY + auxHeight, null);
+		UserInterface.isOnButton(g, ((Almoxarifado.WIDTH / 2) - (deleteButton.getWidth() / 2)), initialY + auxY + auxHeight);
+		
+		if(Almoxarifado.mX > (Almoxarifado.WIDTH / 2) - (deleteButton.getWidth() / 2)
+		&& Almoxarifado.mX < (Almoxarifado.WIDTH / 2) + (deleteButton.getWidth() / 2)
+		&& Almoxarifado.mY > initialY + auxY + auxHeight && Almoxarifado.mY < initialY + auxY + auxHeight + 64) {
+			if(mouseStatus) {
+				System.out.println("Clicado em Excluir");
 			}
 		}
 	}

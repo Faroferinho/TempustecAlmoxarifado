@@ -28,6 +28,7 @@ public class Employee extends Profile{
 		
 		if(Almoxarifado.state == 1) {
 			isOnTheRightState = true;
+			Almoxarifado.frame.setTitle("Perfil de " + Profile.name);
 		}else {
 			reset = true;
 			isOnTheRightState = false;

@@ -53,16 +53,19 @@ public class Login {
 		}
 		if(auxLogin) {
 
-			Almoxarifado.name = DBConector.findInDB("name", "funcionarios", "CPF", acount);
+			Almoxarifado.name = "";
+			Almoxarifado.name += DBConector.findInDB("name", "funcionarios", "CPF", acount);
 			System.out.println("O nome é: " + Almoxarifado.name);
 			
-			Almoxarifado.rdf = DBConector.findInDB("RdF", "funcionarios", "CPF", acount);
+			Almoxarifado.rdf = "";
+			Almoxarifado.rdf += DBConector.findInDB("RdF", "funcionarios", "CPF", acount);
 			System.out.println("O RdF é: " + Almoxarifado.rdf);
 			
 			Almoxarifado.cpf = acount;
 			System.out.println("O CPF é: " + Almoxarifado.cpf);
 			
-			Almoxarifado.type = DBConector.findInDB("type", "funcionarios", "CPF", acount);
+			Almoxarifado.rdf = "";
+			Almoxarifado.type += DBConector.findInDB("type", "funcionarios", "CPF", acount);
 			System.out.println("O tipo é: " + Almoxarifado.type);
 			
 			Almoxarifado.state = 1;

@@ -162,6 +162,7 @@ public class PartsList {
 		String[] returnArray = new String[Almoxarifado.quantityAssembly];
 		
 		for(int i = 1; i < Almoxarifado.quantityAssembly+1; i++) {
+			System.out.println("A: " + i);
 			returnArray[i-1] = DBConector.findInDB("ISO", "Montagem", "ID_Montagem", Integer.toString(i));
 			returnArray[i-1] = returnArray[i-1].substring(0, returnArray[i-1].length()-3);
 		}
@@ -280,6 +281,11 @@ public class PartsList {
 		String toReturn = "";
 		
 		int aux = Integer.parseInt(assemblyID);
+		
+		if(aux > assemblies.length) {
+			return "";
+		}
+		
 		toReturn = assemblies[aux-1];
 		
 		return toReturn;
@@ -297,6 +303,7 @@ public class PartsList {
 	public void tick() {
 		if(Almoxarifado.state == 2) {
 			isOnTheRightState = true;
+			Almoxarifado.frame.setTitle("Lista de Peças");
 		}else {
 			isOnTheRightState = false;
 			ofsetHeight = 0;

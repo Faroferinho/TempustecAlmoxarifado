@@ -114,6 +114,7 @@ public class ProjectList {
 		
 		if(Almoxarifado.state == 3) {
 			isOnTheRightState = true;
+			Almoxarifado.frame.setTitle("Lista de Projetos");
 		}else {
 			isOnTheRightState = false;
 			ofsetHeight = 0;
@@ -122,11 +123,11 @@ public class ProjectList {
 		if(isOnTheRightState == true) {
 		
 			if(scroll > 1) {
-				System.out.println("Scroll pra baixo, ofsetHeight: " + ofsetHeight);
+				//System.out.println("Scroll pra baixo, ofsetHeight: " + ofsetHeight);
 				ofsetHeight -= UserInterface.spd;
 				scroll = 0;
 			}else if(scroll < -1 && ofsetHeight < 0) {
-				System.out.println("Scroll pra cima, ofsetHeight: " + ofsetHeight);
+				//System.out.println("Scroll pra cima, ofsetHeight: " + ofsetHeight);
 				ofsetHeight += UserInterface.spd;
 				scroll = 0;
 			}
