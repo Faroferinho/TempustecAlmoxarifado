@@ -30,7 +30,8 @@ public class PartsList {
 	
 	private static boolean wasChanged = false;
 	
-	int characterLimitPerLine = 218;
+	int total = 0;
+	int characterLimitPerLine = 0;
 	boolean multipleDescriptionLinesMark = false;
 	
 	boolean isEliminating = false;
@@ -204,7 +205,7 @@ public class PartsList {
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira a Descrição:", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
 		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		querry += aux + "', ";
@@ -212,7 +213,7 @@ public class PartsList {
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira a quantidade de Peças (apenas numeros)", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
 		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		querry += aux + ", ";
@@ -228,7 +229,7 @@ public class PartsList {
 			}
 		}
 		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		querry += auxInt + ", ";
@@ -236,8 +237,8 @@ public class PartsList {
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira o Valor da Peça (apenas numeros)", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
 		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
-			return;
+			JOptionPane.showMessageDialog(null, "Valor Agora será nulo", "", JOptionPane.WARNING_MESSAGE);
+			aux = "null";
 		}
 		querry += aux + ", '";
 		//TODO: insira uma forma de limitar o usuário a apenas usar numeros aqui;
@@ -245,8 +246,8 @@ public class PartsList {
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira o Fornecedor:", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
 		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
-			return;
+			JOptionPane.showMessageDialog(null, "Valor Agora será nulo", "", JOptionPane.WARNING_MESSAGE);
+			aux = "null";
 		}
 		querry += aux + "', 0)";
 		
@@ -344,59 +345,58 @@ public class PartsList {
 			int auxHeight = 125 + ofsetHeight;
 			int auxWidth = 50;		
 			int descriptionOfsetHeight = 1;
-			int total = Almoxarifado.WIDTH - auxWidth*2;
-			
+			total = Almoxarifado.WIDTH - auxWidth*2;
+			characterLimitPerLine = (int) ((total*28)/100);
 			
 			for(int i = 0; i < Almoxarifado.quantityParts+1; i++) {
 
 				for(int j = 0; j < 8; j++) {
 					
+					int maxMouse = 0;
+					
 					switch(j) {
 					case 1:
 						//System.out.println("1");
 						auxWidth += (total*5)/100;
+						maxMouse = g.getFontMetrics().stringWidth(finalPartsTable[i][j]);
 						//System.out.println("1, AuxWidth: " + auxWidth);
 						break;
 					case 2:
 						//System.out.println("2");
 						auxWidth += (total*13.9)/100;
+						maxMouse = characterLimitPerLine;
 						//System.out.println("2, AuxWidth: " + auxWidth);
 						break;
 					case 3:
 						//System.out.println("3");
 						auxWidth += (total*33.2)/100;
+						maxMouse = g.getFontMetrics().stringWidth(finalPartsTable[i][j]);
 						//System.out.println("3, AuxWidth: " + auxWidth);
 						break;
 					case 4:
 						//System.out.println("4, AuxWidth: " + auxWidth);
-						auxWidth += (total*9.5)/100;
+						auxWidth += g.getFontMetrics().stringWidth(" " + finalPartsTable[i][j-1]);
+						maxMouse = g.getFontMetrics().stringWidth(finalPartsTable[i][j]);
 						break;
 					case 5:
 						//System.out.println("5");
-						auxWidth += (total*9.5)/100;
+						auxWidth -= g.getFontMetrics().stringWidth(" " + finalPartsTable[i][j-2]);
+						auxWidth += (total*19)/100;
+						maxMouse = g.getFontMetrics().stringWidth(finalPartsTable[i][j]);
 						//System.out.println("5, AuxWidth: " + auxWidth);
 						break;
 					case 6:
 						//System.out.println("6");
 						auxWidth += (total*11.8)/100;
+						maxMouse = g.getFontMetrics().stringWidth(finalPartsTable[i][j]);
 						//System.out.println("6, AuxWidth: " + auxWidth);
 						break;
 					case 7:
 						//System.out.println("7");
 						auxWidth += (total*14.6)/100;
+						maxMouse = g.getFontMetrics().stringWidth(finalPartsTable[i][j]);
 						//System.out.println("7, AuxWidth: " + auxWidth);
 						break;
-					}
-
-					int aux = 0;
-					if(i == 0 && (j == 1 || j == 7 || j == 8)) {
-						aux = (g.getFontMetrics().stringWidth(finalPartsTable[0][j]) / 2) - 7;
-					}else if(i == 0 && j == 3) {
-						aux = (g.getFontMetrics().stringWidth(finalPartsTable[0][j]) / 2) - 15;
-					}
-	
-					if(i != 0 && (j == 1 || j == 8)) {
-						aux = g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / 2 - 15;
 					}
 					
 					if(i != 0 && j == 2) {
@@ -413,8 +413,8 @@ public class PartsList {
 						nC = Color.orange;
 					}
 					if(!isEliminating) {
-						if(Almoxarifado.mX > auxWidth - 45 - aux && Almoxarifado.mX < auxWidth + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 30 + 30 - aux
-						&& Almoxarifado.mY > auxHeight - 25 && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 50 
+						if(Almoxarifado.mX > auxWidth - 15 && Almoxarifado.mX < auxWidth + maxMouse + 15
+						&& Almoxarifado.mY > auxHeight - 15 && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 50 
 						&& i != 0 && auxHeight > 120 && j != 0) {
 						
 							nC = Color.red;
@@ -449,18 +449,16 @@ public class PartsList {
 					
 					if(i > 0 && j == 1) {
 						auxTextToWrite = changeAsseblyName(finalPartsTable[i][j]);
-						aux = g.getFontMetrics().stringWidth(auxTextToWrite)/2 - 20;
 					}
 					
 					if(i > 0 && j == 4) {
 						auxTextToWrite = changeQuantityType(finalPartsTable[i][j]);
-						aux = g.getFontMetrics().stringWidth(auxTextToWrite)/2 + 25;
 					}
 					
 					g.setColor(nC);
 					
 					if(!multipleDescriptionLinesMark) {
-						g.drawString(auxTextToWrite, 0 + auxWidth - aux, 0 + auxHeight);
+						g.drawString(auxTextToWrite, 0 + auxWidth, 0 + auxHeight);
 					}else {
 						String auxText = "";
 						int quantityOfLines = g.getFontMetrics().stringWidth(finalPartsTable[i][j])/characterLimitPerLine;
@@ -493,7 +491,7 @@ public class PartsList {
 							}
 							
 							
-							g.drawString(auxText + verifFormat, 0 + auxWidth - aux, 0 + auxHeight + 30 * (inc));
+							g.drawString(auxText + verifFormat, 0 + auxWidth, 0 + auxHeight + 30 * (inc));
 						}
 						auxExtraLineCounter += descriptionOfsetHeight;
 					}

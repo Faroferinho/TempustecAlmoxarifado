@@ -10,6 +10,8 @@ public class ImageManager {
 	
 	private BufferedImage spritesheet;
 	
+	public BufferedImage TempustecIcon = this.getProjectImage("Tempustec Logo Icone 1");
+	
 	public ImageManager(String imgFile) {
 		try {
 
