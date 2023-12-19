@@ -29,6 +29,8 @@ public class Project {
 	BufferedImage isEditingProfile = Almoxarifado.imgManag.getSprite(128, 64*3, 128, 64);
 	BufferedImage add = Almoxarifado.imgManag.getSprite(0, 128, 128, 64);
 	BufferedImage remove = Almoxarifado.imgManag.getSprite(512, 128, 128, 64);
+	BufferedImage checkBox = Almoxarifado.imgManag.getSprite(414, 193, 32, 32);
+	BufferedImage check = Almoxarifado.imgManag.getSprite(406, 226, 41, 39);
 	
 	double price = 0.0;
 	
@@ -290,7 +292,6 @@ public class Project {
 		return toReturn;
 		
 	}
-
 	
 	public void drawPartsList(Graphics g) {
 		int positionerX = 52;
@@ -306,6 +307,8 @@ public class Project {
 		//System.out.println("=================================================================");
 			for(int i = 0; i < separetedList.size(); i++) {
 				//System.out.println("Valor da lista no Indice " + i + ": " + separetedList.get(i));
+				
+				int auxCheckBox = 0; 
 				
 				g.setFont(new Font("arial", 0, 13));
 				
@@ -367,10 +370,10 @@ public class Project {
 						toDraw = translateText(separetedList.get(i), i % 8);
 					}
 					if(!isEliminating) {
-						if(Almoxarifado.mX > positionerX + auxTextWidth &&
-						Almoxarifado.mX < positionerX + auxTextWidth + g.getFontMetrics().stringWidth(toDraw) &&
-						Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - g.getFontMetrics().getHeight() &&
-						Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight) {
+						if(Almoxarifado.mX > positionerX + auxTextWidth - auxCheckBox &&
+						Almoxarifado.mX < positionerX + auxTextWidth + g.getFontMetrics().stringWidth(toDraw) + auxCheckBox &&
+						Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - g.getFontMetrics().getHeight() - auxCheckBox &&
+						Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight + auxCheckBox) {
 							newColor = Color.darkGray;
 							if(mouseStatus) {
 								System.out.println("Clicou em: " + toDraw);
@@ -379,6 +382,10 @@ public class Project {
 								mouseStatus = false;
 							}
 						}
+					}
+					
+					if(i % 8 == 7) {
+						auxCheckBox = 15;
 					}
 				}
 				
@@ -403,6 +410,12 @@ public class Project {
 				
 				g.drawString(toDraw, positionerX + auxTextWidth, positionerY + auxTextHeight + ofsetHeight);
 				
+				if(i > 10 && i % 8 == 7) {
+					g.drawImage(checkBox, positionerX + auxTextWidth - g.getFontMetrics().stringWidth(toDraw), positionerY + auxTextHeight + ofsetHeight + (g.getFontMetrics().getHeight() - checkBox.getHeight()), 20, 20, null);
+					if(toDraw.equals("1")) {
+						g.drawImage(check, positionerX + auxTextWidth - g.getFontMetrics().stringWidth(toDraw), positionerY + auxTextHeight + ofsetHeight + (g.getFontMetrics().getHeight() - checkBox.getHeight()), 20, 20, null);
+					}
+				}
 			}
 			
 			//System.out.println("=================================================================");
@@ -411,16 +424,16 @@ public class Project {
 		g.drawImage(remove, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight, null);
 		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight);
 		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight);
-		
 		if(mouseStatus) {
 			//System.out.println("Clicado Haha");
 			if(Almoxarifado.mY > positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30 &&
 			Almoxarifado.mY < positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30 + add.getHeight()) {
 				//System.out.println("Está na Altura");
+				
 				if(Almoxarifado.mX > (Almoxarifado.WIDTH/3) - (add.getWidth()/2) && Almoxarifado.mX < (Almoxarifado.WIDTH/3) + (add.getWidth()/2)) {
 					//System.out.println("Clicou em Add");
 					PartsList.auxAddingFromMontagem = ID;
-					Almoxarifado.partsList.addPart();
+					//Almoxarifado.partsList.addPart();
 					PartsList.auxAddingFromMontagem = 0;
 					updateProject = true;
 					mouseStatus = false;

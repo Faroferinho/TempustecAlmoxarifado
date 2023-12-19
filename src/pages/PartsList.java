@@ -402,6 +402,7 @@ public class PartsList {
 
 				for(int j = 0; j < 8; j++) {
 					
+					int auxCheckBox = 0;
 					int maxMouse = 0;
 					
 					String auxTextToWrite = (finalPartsTable[i][j]);
@@ -465,16 +466,19 @@ public class PartsList {
 							multipleDescriptionLinesMark = true;
 						}
 					}
-						
-						
+					
+					if(j == 7) {
+						auxCheckBox = 15;
+					}
+					
 					Color nC = Color.white;
 						
 					if(i == 0) {
 						nC = Color.orange;
 					}
 					if(!isEliminating) {
-						if(Almoxarifado.mX > auxWidth - 15 && Almoxarifado.mX < auxWidth + maxMouse + 15
-						&& Almoxarifado.mY > auxHeight - 15 && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 50 
+						if(Almoxarifado.mX > auxWidth - 15 - auxCheckBox && Almoxarifado.mX < auxWidth + maxMouse + 15 + auxCheckBox
+						&& Almoxarifado.mY > auxHeight - 15 - auxCheckBox && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 50 + auxCheckBox 
 						&& i != 0 && auxHeight > 120 && j != 0) {
 						
 							nC = Color.red;
