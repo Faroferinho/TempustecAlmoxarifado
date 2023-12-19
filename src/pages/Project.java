@@ -33,7 +33,6 @@ public class Project {
 	double price = 0.0;
 	
 	public static boolean updateProject = true;
-	boolean updateProjectAux = true;
 	private boolean isOnTheRightState = false;
 	
 	public static int scroll;
@@ -80,9 +79,9 @@ public class Project {
 		if(updateProject) {
 			ofsetHeight = 0;
 			String brokenApartInfo[];
-			System.out.println("Atualizando a Pagina de Projeto");
+			//System.out.println("Atualizando a Pagina de Projeto");
 			String aux = DBConector.findInDB("*", "montagem", "ID_Montagem", "" + ID);
-			System.out.println("aux: " + aux);
+			//System.out.println("aux: " + aux);
 			
 			brokenApartInfo = aux.split(" § ");
 			
@@ -92,20 +91,26 @@ public class Project {
 			imgAdress = brokenApartInfo[4];
 			
 			if(imgAdress.equals(null) || imgAdress.equals("null") || imgAdress.equals("")) {
-				System.out.println("a imagem está vazia");
+				//System.out.println("a imagem está vazia");
 				imgAdress = "ProjetoBetaImg";
 			}else {
-				System.out.println("O nome do arquivo de imagem é: " + imgAdress);
+				//System.out.println("O nome do arquivo de imagem é: " + imgAdress);
 			}
 			
 			img = Almoxarifado.imgManag.getProjectImage(imgAdress);
 			
 			rawPartsList = "";
 			rawPartsList += DBConector.findInDB("*", "pecas", "montagem", "" + ID);
-			System.out.println("RawPartsList: \n" + rawPartsList);
+			//System.out.println("RawPartsList: \n" + rawPartsList);
 			separetedList = toArrayList(rawPartsList);
 			
-			updateProjectAux = true;
+			price = 0;
+			
+			for(int i = 10; i < separetedList.size(); i++) {
+				if(i % 8 == 5) {
+					price += Double.parseDouble(separetedList.get(i));
+				}
+			}
 			
 			Almoxarifado.frame.setTitle(Project.name);
 			
@@ -130,12 +135,12 @@ public class Project {
 						isOverDescription = false;
 						isOverCompany = false;
 					}
-					else if(Almoxarifado.mY > imgY + 50 + ofsetHeight && Almoxarifado.mY < imgY + 90 + ofsetHeight) {
+					else if(Almoxarifado.mY > imgY + 30 + ofsetHeight && Almoxarifado.mY < imgY + 50 + ofsetHeight) {
 						//System.out.println("sobre a Descrição");
 						isOverName = false;
 						isOverDescription = false;
 						isOverCompany = true;
-					}else if(Almoxarifado.mY > imgY + 110 + ofsetHeight && Almoxarifado.mY < imgY + 150 + ofsetHeight) {
+					}else if(Almoxarifado.mY > imgY + 70 + ofsetHeight && Almoxarifado.mY < imgY + 100 + ofsetHeight) {
 						//System.out.println("sobre a Empresa");
 						isOverName = false;
 						isOverDescription = true;
@@ -223,7 +228,7 @@ public class Project {
 			if(mouseStatus) {
 				if(Almoxarifado.mX > Almoxarifado.WIDTH - 128 - 60 && Almoxarifado.mX < Almoxarifado.WIDTH - 60) {
 					if(Almoxarifado.mY >  imgY + ofsetHeight && Almoxarifado.mY <  imgY + ofsetHeight + 64) {
-						System.out.println("Clique foi efetuado no Editar");
+						//System.out.println("Clique foi efetuado no Editar");
 						if(isEditing) {
 							isEditing = false;
 							mouseStatus = false;
@@ -234,7 +239,7 @@ public class Project {
 						
 					}else if(Almoxarifado.mY > imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight &&
 							Almoxarifado.mY < imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight + 64) {
-						System.out.println("Clique foi efetuado no Arquivar");
+						//System.out.println("Clique foi efetuado no Arquivar");
 						isArchiving = true;
 						mouseStatus = false;
 					}
@@ -255,6 +260,8 @@ public class Project {
 		returnArrayList.add("Preço");
 		returnArrayList.add("Fornecedor");
 		returnArrayList.add("Status");
+		
+		price = 0;
 		
 		for(int i = 0; i < brokenList.length; i++) {
 			//System.out.println("Lista no Indice " + (i+1) + ": " + brokenList[i]);
@@ -277,7 +284,7 @@ public class Project {
 		if(index == 1) {
 			toReturn = name;
 		}else {
-			toReturn = Almoxarifado.partsList.quantityTypes[Integer.parseInt(toTranslate)];
+			toReturn = PartsList.quantityTypes[Integer.parseInt(toTranslate)];
 		}
 		
 		return toReturn;
@@ -348,7 +355,7 @@ public class Project {
 				}
 				
 				if(i != 0 && i % 8 == 0) {
-					auxTextHeight += 50;
+					auxTextHeight += 30;
 					auxTextWidth = 0;
 					//System.out.println("--------------------------------------------------------");
 				}
@@ -364,10 +371,10 @@ public class Project {
 						Almoxarifado.mX < positionerX + auxTextWidth + g.getFontMetrics().stringWidth(toDraw) &&
 						Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - g.getFontMetrics().getHeight() &&
 						Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight) {
-							newColor = Color.gray;
+							newColor = Color.darkGray;
 							if(mouseStatus) {
 								System.out.println("Clicou em: " + toDraw);
-								PartsList.changePart(separetedList.get((auxTextHeight/50)*8), i % 8);
+								PartsList.changePart(separetedList.get((auxTextHeight/30)*8), i % 8);
 								updateProject = true;
 								mouseStatus = false;
 							}
@@ -400,10 +407,10 @@ public class Project {
 			
 			//System.out.println("=================================================================");
 		}
-		g.drawImage(add, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30, null);
-		g.drawImage(remove, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30, null);
-		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30);
-		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30);
+		g.drawImage(add, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight, null);
+		g.drawImage(remove, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight, null);
+		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight);
+		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight);
 		
 		if(mouseStatus) {
 			//System.out.println("Clicado Haha");
@@ -433,7 +440,7 @@ public class Project {
 	
 	public void render(Graphics g) {
 		if(!updateProject) {
-			g.setFont(new Font("arial", 0, 20));
+			g.setFont(new Font("arial", 0, 17));
 			
 			g.drawImage(img, imgX, imgY + ofsetHeight, null);
 			
@@ -451,7 +458,7 @@ public class Project {
 			}else {
 				g.setColor(Color.white);
 			}
-			g.drawString(company, imgX + 15 + img.getWidth(), imgY + 80 + ofsetHeight);
+			g.drawString(company, imgX + 15 + img.getWidth(), imgY + 60 + ofsetHeight);
 			
 			if(isOverDescription) {
 				g.setColor(Color.darkGray);
@@ -459,7 +466,10 @@ public class Project {
 			}else {
 				g.setColor(Color.white);
 			}
-			g.drawString(description, imgX + 15 + img.getWidth(), imgY + 140 + ofsetHeight);
+			g.drawString(description, imgX + 15 + img.getWidth(), imgY + 100 + ofsetHeight);
+			
+			g.setColor(Color.white);
+			g.drawString("Valor da Montagem: " + String.format("%.2f", price), Almoxarifado.WIDTH/2 + 15, imgY + 20 + ofsetHeight);
 			
 			
 			if(!isEditing) {

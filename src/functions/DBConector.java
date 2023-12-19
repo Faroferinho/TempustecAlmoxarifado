@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
@@ -24,12 +23,14 @@ public class DBConector {
 	public int qnttPrts = 0;
 	public int qnttAssbly = 0;
 	public int qnttArchvs = 0;
+	public int qnttTyps = 0;
 	
 	public DBConector() {
 		String workers = "select * from funcionarios";
 		String parts = "select * from pecas";
 		String assemblies = "select * from Montagem";
 		String archives = "select * from Arquivo";
+		String types = "select * from Tipo_Quantidade";
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -65,6 +66,11 @@ public class DBConector {
 				qnttArchvs++;
 			}
 			
+			ResultSet queryQTResult = statement.executeQuery(types);
+			while(queryQTResult.next()) {
+				qnttTyps++;
+			}
+			
 			con.close();
 		} catch(SQLException e){
 			e.printStackTrace();
@@ -75,6 +81,7 @@ public class DBConector {
 		
 		String query = "select " + objective + " from " + table;
 		
+		//System.out.println(query);
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -97,12 +104,9 @@ public class DBConector {
 			
 			while(result.next()) {
 				for(int i = 1; i < maxIndex; i++) {
-					
-					if(maxIndex == 2) {
-						returnData += result.getString(i);
-					}else {
-						returnData += result.getString(i) + " § ";
-					}
+
+					returnData += result.getString(i) + " § ";
+
 				}
 				returnData += "\n";
 			}
@@ -112,6 +116,9 @@ public class DBConector {
 			JOptionPane.showMessageDialog(null, "Erro ao Efetuar Ação", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
+		
+		//System.out.println(returnData);
+		
 		return returnData;
 	}
 	
@@ -215,7 +222,7 @@ public class DBConector {
 		moment.replaceAll("-", "");
 		moment.replaceAll("T", " ");
 		
-		System.out.println("data e Hora: " + LocalDateTime.now());
+		//System.out.println("data e Hora: " + LocalDateTime.now());
 		
 		String getInfo = "SELECT * FROM Montagem WHERE ID_Montagem = " + ID;
 		String textToQuery = "";
@@ -260,7 +267,7 @@ public class DBConector {
 			
 			passToArchive += textToQuery + ", '" + moment + "', " + Employee.RdF + ")";
 			
-			System.out.println("Texto Pego Por Hora: \n" + passToArchive);
+			//System.out.println("Texto Pego Por Hora: \n" + passToArchive);
 			
 			statement.executeUpdate(passToArchive);
 			

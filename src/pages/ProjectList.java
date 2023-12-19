@@ -54,7 +54,7 @@ public class ProjectList {
 		//System.out.println("Quebrando a String: \n" + toSplit);
 		
 		String[] auxSpliting = new String[Almoxarifado.quantityAssembly];
-		auxSpliting = toSplit.split("\n");
+		auxSpliting = toSplit.split(" § \n");
 		
 		
 		
@@ -184,7 +184,7 @@ public class ProjectList {
 		g.setFont(new Font("calibri", 1, 40));
 		g.drawString("Lista de Projetos: ", Almoxarifado.WIDTH/8 - 30, initY - (25) + ofsetHeight);
 		
-		g.setFont(new Font("arial", 0, 15));
+		g.setFont(new Font("arial", 0, 12));
 		
 		int auxX = 0;
 		int auxY = 0;

@@ -34,7 +34,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 2;
+	public static byte state = 5;
 	
 	public static JFrame frame;
 	public static Toolkit tk;
@@ -77,21 +77,21 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		quantityParts = cnctr.qnttPrts;
 		quantityAssembly = cnctr.qnttAssbly;
 		quantityArchives = cnctr.qnttArchvs;
-		
+		/*
 		System.out.println("Quantidade de Funcionarios: " + quantityWorkers);
 		System.out.println("Quantidade de Peças: " + quantityParts);
 		System.out.println("Quantidade de Montagens: " + quantityAssembly);
 		System.out.println("Quantidade de Montagens Arquivadas: " + quantityArchives + "\n");
-		
+		*/
 		if(state == 0) {
 			login = new Login();
 		}
 		
 		if(type.equals("1\n")) {
-			System.out.println("é Administrador");
+			//System.out.println("é Administrador");
 			admProfile = new Admnistrator(name, rdf, cpf);
 		}else {
-			System.out.println("é Funcionario");
+			//System.out.println("é Funcionario");
 
 			workProfile = new Employee(name,rdf, cpf);
 		}
@@ -129,7 +129,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		this.addMouseWheelListener(this);
 		this.addKeyListener(this);
 		
-		System.out.println("Largura: " + WIDTH + " Altura: " + HEIGHT);
+		//System.out.println("Largura: " + WIDTH + " Altura: " + HEIGHT);
 	}
 	
 	public void tick() {

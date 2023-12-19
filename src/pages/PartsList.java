@@ -18,7 +18,7 @@ public class PartsList {
 	public String toSplit = DBConector.readDB("*", "pecas");
 	public static String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][8];
 	static String assemblies[] = fillAssembliesName();
-	public String[] quantityTypes = {"Peça", "Metro","Quilo", "Litro", "Barra", "Unidades"};
+	public static String quantityTypes[] = fillQuantityTypes();
 	public static boolean restartAssemblyList = false;
 	
 	private int ofsetHeight;
@@ -30,6 +30,8 @@ public class PartsList {
 	
 	private static boolean wasChanged = false;
 	
+	private static int maximumIndexQT = 0;
+	
 	int total = 0;
 	int characterLimitPerLine = 0;
 	boolean multipleDescriptionLinesMark = false;
@@ -39,12 +41,27 @@ public class PartsList {
 	
 	BufferedImage adicionar = Almoxarifado.imgManag.getSprite(0, 2*64, 128, 64);
 	BufferedImage excluir = Almoxarifado.imgManag.getSprite(640-128, 2*64, 128, 64);
+	BufferedImage checkBox = Almoxarifado.imgManag.getSprite(414, 193, 32, 32);
+	BufferedImage check = Almoxarifado.imgManag.getSprite(406, 226, 41, 39);
 	
 	public static int auxAddingFromMontagem = 0;
 
 	public PartsList() {
-		System.out.println("To Split: \n" + toSplit);
+		//System.out.println("To Split: \n" + toSplit);
 		finalPartsTable = listBreaker(toSplit);
+	}
+	
+	private static String newQuantityType(){
+		
+		String newName = JOptionPane.showInputDialog(null, "Qual o Nome do Novo tipo de Unidade?", "Cadastro de novo tipo de Medida", JOptionPane.PLAIN_MESSAGE);
+		
+		DBConector.writeDB("INSERT INTO Tipo_Quantidade VALUES(" + (quantityTypes.length - 1) + ", '" + newName + "')");
+		
+		Almoxarifado.cnctr.qnttTyps++;
+		
+		wasChanged = true;
+		
+		return "" + (quantityTypes.length-1);
 	}
 	
 	private String[][] listBreaker(String toSplit){
@@ -98,8 +115,8 @@ public class PartsList {
 			columnName += "Description";
 			auxString += JOptionPane.showInputDialog(null, "Insira a Descrição:", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
 			if(verifyString(auxString)) {
-				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
-				return;
+				JOptionPane.showMessageDialog(null, "Valor Agora é Nulo", "", JOptionPane.WARNING_MESSAGE);
+				auxString = "---------------";
 			}
 			break;
 		case 3:
@@ -112,13 +129,18 @@ public class PartsList {
 			break;
 		case 4:
 			columnName += "Quantity_type";
-			String[] quantityTypes = {"Peça", "Metro","Quilo", "Litro", "Barra", "Unidades"};
 			auxString += JOptionPane.showInputDialog(null, "Selecione um tipo de quantidade", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE, null, quantityTypes, 0);
 			if(verifyString(auxString)) {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
 			aux = 0;
+			
+			if(auxString.equals(quantityTypes[quantityTypes.length-1])) {
+				auxString = newQuantityType();
+				break;
+			}
+			
 			for(int i = 0; i < quantityTypes.length; i++) {
 				//System.out.println("Array[i]: " + quantityTypes[i] + " aux: " + aux);
 				if(quantityTypes[i].equals(auxString)) {
@@ -134,13 +156,21 @@ public class PartsList {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
+			
+			System.out.println("auxString: " + auxString);
+			
+			auxString = auxString.replaceFirst("[,]", ".");
+			auxString = auxString.replaceAll("[,]", "");
+			
+			System.out.println("auxString: " + auxString);
+			
 			break;
 		case 6:
 			columnName += "Supplier";
 			auxString += JOptionPane.showInputDialog(null, "Insira o Fornecedor:", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
 			if(verifyString(auxString)) {
-				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
-				return;
+				JOptionPane.showMessageDialog(null, "Valor Agora é Nulo", "", JOptionPane.WARNING_MESSAGE);
+				auxString = "---------------";
 			}
 			break;
 		case 7:
@@ -163,12 +193,23 @@ public class PartsList {
 		String[] returnArray = new String[Almoxarifado.quantityAssembly];
 		
 		for(int i = 1; i < Almoxarifado.quantityAssembly+1; i++) {
-			System.out.println("A: " + i);
 			returnArray[i-1] = DBConector.findInDB("ISO", "Montagem", "ID_Montagem", Integer.toString(i));
 			returnArray[i-1] = returnArray[i-1].substring(0, returnArray[i-1].length()-3);
 		}
 		
 		return returnArray;
+	}
+	
+	private static String[] fillQuantityTypes() {
+		maximumIndexQT = Almoxarifado.cnctr.qnttTyps;
+		
+		String returnArrayString[] = new String[maximumIndexQT + 1];
+		String auxText = DBConector.readDB("Value_Tipo_Quantidade", "Tipo_Quantidade");
+		
+		returnArrayString = auxText.split(" § ");
+		returnArrayString[maximumIndexQT] = "Adicionar Outro...";
+		
+		return returnArrayString;
 	}
 	
 	private static boolean verifyString(String toVerif) {
@@ -205,8 +246,8 @@ public class PartsList {
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira a Descrição:", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
 		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.ERROR_MESSAGE);
-			return;
+			JOptionPane.showMessageDialog(null, "O Valor Agora é Nulo", "", JOptionPane.WARNING_MESSAGE);
+			aux = "---------------";
 		}
 		querry += aux + "', ";
 		
@@ -238,7 +279,7 @@ public class PartsList {
 		aux += JOptionPane.showInputDialog(null, "Insira o Valor da Peça (apenas numeros)", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
 		if(verifyString(aux)) {
 			JOptionPane.showMessageDialog(null, "Valor Agora será nulo", "", JOptionPane.WARNING_MESSAGE);
-			aux = "null";
+			aux = "0";
 		}
 		querry += aux + ", '";
 		//TODO: insira uma forma de limitar o usuário a apenas usar numeros aqui;
@@ -247,7 +288,7 @@ public class PartsList {
 		aux += JOptionPane.showInputDialog(null, "Insira o Fornecedor:", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
 		if(verifyString(aux)) {
 			JOptionPane.showMessageDialog(null, "Valor Agora será nulo", "", JOptionPane.WARNING_MESSAGE);
-			aux = "null";
+			aux = "---------------";
 		}
 		querry += aux + "', 0)";
 		
@@ -294,9 +335,13 @@ public class PartsList {
 	
 	private String changeQuantityType(String quantityType){
 		String toReturn = "";
-		
 		int aux = Integer.parseInt(quantityType);
-		toReturn = quantityTypes[aux];
+		if(aux < quantityTypes.length + 1) {
+			toReturn = quantityTypes[aux];
+		}else {
+			return toReturn;
+		}
+		
 		
 		return toReturn;
 	}
@@ -315,6 +360,11 @@ public class PartsList {
 				System.out.println("Foi feita uma mudança");
 				toSplit = DBConector.readDB("*", "pecas");
 				finalPartsTable = listBreaker(toSplit);
+				
+				assemblies = fillAssembliesName();
+				quantityTypes = fillQuantityTypes();
+				
+				maximumIndexQT = Almoxarifado.cnctr.qnttTyps;
 				
 				wasChanged = false;
 			}
@@ -354,11 +404,21 @@ public class PartsList {
 					
 					int maxMouse = 0;
 					
+					String auxTextToWrite = (finalPartsTable[i][j]);
+					
+					if(i > 0 && j == 1) {
+						auxTextToWrite = changeAsseblyName(finalPartsTable[i][j]);
+					}
+					
+					if(i > 0 && j == 4) {
+						auxTextToWrite = changeQuantityType(finalPartsTable[i][j]);
+					}
+					
 					switch(j) {
 					case 1:
 						//System.out.println("1");
 						auxWidth += (total*5)/100;
-						maxMouse = g.getFontMetrics().stringWidth(finalPartsTable[i][j]);
+						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						//System.out.println("1, AuxWidth: " + auxWidth);
 						break;
 					case 2:
@@ -370,31 +430,31 @@ public class PartsList {
 					case 3:
 						//System.out.println("3");
 						auxWidth += (total*33.2)/100;
-						maxMouse = g.getFontMetrics().stringWidth(finalPartsTable[i][j]);
+						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						//System.out.println("3, AuxWidth: " + auxWidth);
 						break;
 					case 4:
 						//System.out.println("4, AuxWidth: " + auxWidth);
 						auxWidth += g.getFontMetrics().stringWidth(" " + finalPartsTable[i][j-1]);
-						maxMouse = g.getFontMetrics().stringWidth(finalPartsTable[i][j]);
+						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
 					case 5:
 						//System.out.println("5");
 						auxWidth -= g.getFontMetrics().stringWidth(" " + finalPartsTable[i][j-2]);
 						auxWidth += (total*19)/100;
-						maxMouse = g.getFontMetrics().stringWidth(finalPartsTable[i][j]);
+						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						//System.out.println("5, AuxWidth: " + auxWidth);
 						break;
 					case 6:
 						//System.out.println("6");
 						auxWidth += (total*11.8)/100;
-						maxMouse = g.getFontMetrics().stringWidth(finalPartsTable[i][j]);
+						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						//System.out.println("6, AuxWidth: " + auxWidth);
 						break;
 					case 7:
 						//System.out.println("7");
 						auxWidth += (total*14.6)/100;
-						maxMouse = g.getFontMetrics().stringWidth(finalPartsTable[i][j]);
+						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						//System.out.println("7, AuxWidth: " + auxWidth);
 						break;
 					}
@@ -445,16 +505,6 @@ public class PartsList {
 						}
 					}
 					
-					String auxTextToWrite = (finalPartsTable[i][j]);
-					
-					if(i > 0 && j == 1) {
-						auxTextToWrite = changeAsseblyName(finalPartsTable[i][j]);
-					}
-					
-					if(i > 0 && j == 4) {
-						auxTextToWrite = changeQuantityType(finalPartsTable[i][j]);
-					}
-					
 					g.setColor(nC);
 					
 					if(!multipleDescriptionLinesMark) {
@@ -492,6 +542,7 @@ public class PartsList {
 							
 							
 							g.drawString(auxText + verifFormat, 0 + auxWidth, 0 + auxHeight + 30 * (inc));
+							
 						}
 						auxExtraLineCounter += descriptionOfsetHeight;
 					}
@@ -500,6 +551,13 @@ public class PartsList {
 					//System.out.println("Largura Auxiliar: " + auxWidth + ", Altura Auxiliar: " + auxHeight);
 					//System.out.println(finalPartsTable[i][j]);
 					
+
+					if(i > 0 && j == 7) {
+						g.drawImage(checkBox, auxWidth, auxHeight + ofsetHeight + (g.getFontMetrics().getHeight() - checkBox.getHeight()), null);
+						if(auxTextToWrite.equals("1")) {
+							g.drawImage(check, auxWidth, auxHeight + ofsetHeight + (g.getFontMetrics().getHeight() - check.getHeight()), null);
+						}
+					}
 					
 				}
 				auxWidth = 50;
