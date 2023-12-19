@@ -454,7 +454,7 @@ public class PartsList {
 						break;
 					case 7:
 						//System.out.println("7");
-						auxWidth += (total*14.6)/100;
+						auxWidth += (total*13)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						//System.out.println("7, AuxWidth: " + auxWidth);
 						break;
@@ -475,9 +475,12 @@ public class PartsList {
 						
 					if(i == 0) {
 						nC = Color.orange;
+						if(j == 7) {
+							auxWidth -= 5;
+						}
 					}
 					if(!isEliminating) {
-						if(Almoxarifado.mX > auxWidth - 15 - auxCheckBox && Almoxarifado.mX < auxWidth + maxMouse + 15 + auxCheckBox
+						if(Almoxarifado.mX > auxWidth - auxCheckBox && Almoxarifado.mX < auxWidth + maxMouse + auxCheckBox
 						&& Almoxarifado.mY > auxHeight - 15 - auxCheckBox && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 50 + auxCheckBox 
 						&& i != 0 && auxHeight > 120 && j != 0) {
 						
@@ -512,7 +515,7 @@ public class PartsList {
 					g.setColor(nC);
 					
 					if(!multipleDescriptionLinesMark) {
-						g.drawString(auxTextToWrite, 0 + auxWidth, 0 + auxHeight);
+						g.drawString(auxTextToWrite, auxWidth, auxHeight);
 					}else {
 						String auxText = "";
 						int quantityOfLines = g.getFontMetrics().stringWidth(finalPartsTable[i][j])/characterLimitPerLine;
