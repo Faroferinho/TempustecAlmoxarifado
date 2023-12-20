@@ -267,6 +267,7 @@ public class ProjectList {
 									mouseStatus = false;
 								}else {
 									DBConector.Archive("" + (configStateIndex + 1));
+									updateProjectList = true;
 								}
 								
 								

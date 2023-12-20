@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 
 import main.Almoxarifado;
-import pages.Employee;
 
 public class DBConector {
 	
@@ -296,15 +295,33 @@ public class DBConector {
 						aux = "', ";
 						break;
 					case 8:
-						aux = "); \n";
+						aux = ") \n";
 					}
 					
 					partsQuery += rslt.getString(i) + aux;
 				}
-				System.out.println(partsQuery);
+				
 				Almoxarifado.quantityArchiveParts++;
 			}
-			statement.executeUpdate(partsQuery);
+			if(!partsQuery.equals("")) {
+				String[] brokenQuery;
+				
+				brokenQuery = partsQuery.split(" \n");
+				
+				for(int i = 0; i < brokenQuery.length; i++) {
+					System.out.println(brokenQuery[i] + "");
+					statement.executeUpdate(brokenQuery[i]);
+					Almoxarifado.quantityParts--;
+				}
+			}
+			
+			query = "DELETE FROM Montagem WHERE ID_Montagem = " + ID;
+			statement.executeUpdate(query);
+			query = "DELETE FROM Pecas WHERE Montagem = " + ID;
+			statement.executeUpdate(query);
+			
+			Almoxarifado.quantityAssembly--;
+			
 			
 			con.close();
 		} catch (SQLException e) {
