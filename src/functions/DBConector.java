@@ -266,6 +266,7 @@ public class DBConector {
 			
 			query = "INSERT INTO Arquivo VALUES (" + Almoxarifado.quantityArchives + ", " + auxInfoFromMontagem + auxDateTime + "', " 
 			+ Almoxarifado.rdf + ");";
+			Almoxarifado.quantityArchives++;
 			
 			System.out.println(query);
 			
@@ -318,7 +319,7 @@ public class DBConector {
 			query = "DELETE FROM Montagem WHERE ID_Montagem = " + ID;
 			statement.executeUpdate(query);
 			query = "DELETE FROM Pecas WHERE Montagem = " + ID;
-			statement.executeUpdate(query);
+			//statement.executeUpdate(query);
 			
 			Almoxarifado.quantityAssembly--;
 			
@@ -328,7 +329,65 @@ public class DBConector {
 			e.printStackTrace();
 		}
 		
-		Almoxarifado.quantityArchives++;
+		correctIDs(Integer.parseInt(ID));
+	}
+	
+	private static void correctIDs(int index) {
+		System.out.println("Index: " + index);
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", 
+					"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+		
+		String query = "SELECT ID_Montagem FROM Montagem";
+		String[] brokenPartsQuery;
+		String[] brokenAssemblyQuery;
+		
+		try {
+			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
+			Statement statement = con.createStatement();
+			ResultSet rslt = statement.executeQuery(query);
+			
+			query = "";
+			while(rslt.next()) {
+				int measurer = Integer.parseInt(rslt.getString(1));
+				System.out.println("Em Int: " + measurer);
+				if(measurer > index) {
+					query += "UPDATE Montagem SET ID_Montagem = " + (measurer-1) + " WHERE ID_Montagem = " + measurer + " § ";
+				}
+			}
+			
+			brokenAssemblyQuery = query.split(" § ");
+			for(int i = 0; i < brokenAssemblyQuery.length; i++) {
+				System.out.println(brokenAssemblyQuery[i]);
+				statement.executeUpdate(brokenAssemblyQuery[i]);
+			}
+			
+			query = "SELECT ID_Parts FROM Pecas";
+			rslt = statement.executeQuery(query);
+			
+			query = "";
+			while(rslt.next()) {
+				int measurer = Integer.parseInt(rslt.getString(1));
+				System.out.println("Em Int: " + measurer);
+				if(measurer > index) {
+					query += "UPDATE Pecas SET ID_Parts = " + (measurer-1) + " WHERE ID_Parts = " + measurer + " § ";
+				}
+			}
+			
+			brokenPartsQuery = query.split(" § ");
+			for(int i = 0; i < brokenPartsQuery.length; i++) {
+				System.out.println(brokenPartsQuery[i]);
+				statement.executeUpdate(brokenPartsQuery[i]);
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private static int checkSize(String objective, String table) {

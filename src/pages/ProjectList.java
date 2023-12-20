@@ -102,7 +102,7 @@ public class ProjectList {
 		
 		JOptionPane.showMessageDialog(null, "Cadastro Efetuado Com sucesso", "Cadastro Concluido", JOptionPane.INFORMATION_MESSAGE, null);
 		
-		System.out.println("Feito o Castro");
+		System.out.println("Feito o Cadastro");
 		
 		DBConector.writeDB(querry);
 		Almoxarifado.quantityAssembly++;
