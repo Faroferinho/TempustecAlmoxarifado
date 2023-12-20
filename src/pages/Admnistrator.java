@@ -186,7 +186,8 @@ public class Admnistrator extends Profile {
 		String auxComparator[] = new String[Almoxarifado.quantityWorkers];
 		int toCompare[] = new int[Almoxarifado.quantityWorkers];
 		
-		auxComparator = getRdF.split("\n");
+		getRdF = getRdF.replaceAll("\n", "");
+		auxComparator = getRdF.split(" § ");
 		
 		
 		for(int i = 0; i < Almoxarifado.quantityWorkers; i++) {

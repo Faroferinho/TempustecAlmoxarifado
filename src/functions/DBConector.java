@@ -23,6 +23,7 @@ public class DBConector {
 	public int qnttPrts = 0;
 	public int qnttAssbly = 0;
 	public int qnttArchvs = 0;
+	public int qnttArchvsParts = 0;
 	public int qnttTyps = 0;
 	
 	public DBConector() {
@@ -30,6 +31,7 @@ public class DBConector {
 		String parts = "select * from pecas";
 		String assemblies = "select * from Montagem";
 		String archives = "select * from Arquivo";
+		String archiveParts = "select * from Arquivo_Pecas";
 		String types = "select * from Tipo_Quantidade";
 
 		try {
@@ -45,29 +47,29 @@ public class DBConector {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
 			Statement statement = con.createStatement();
 			
-			ResultSet queryWorkersResult = statement.executeQuery(workers);
+			ResultSet query = statement.executeQuery(workers);
 			
-			while(queryWorkersResult.next()) {
+			while(query.next()) {
 				qnttWrks++;
 			}
-			ResultSet queryPartsResult = statement.executeQuery(parts);
+			query = statement.executeQuery(parts);
 			
-			while(queryPartsResult.next()) {
+			while(query.next()) {
 				qnttPrts++;
 			}
-			ResultSet queryAssembliesResult = statement.executeQuery(assemblies);
+			query = statement.executeQuery(assemblies);
 			
-			while(queryAssembliesResult.next()) {
+			while(query.next()) {
 				qnttAssbly++;
 			}
 			
-			ResultSet queryArchivesResult = statement.executeQuery(archives);
-			while(queryArchivesResult.next()) {
+			query = statement.executeQuery(archives);
+			while(query.next()) {
 				qnttArchvs++;
 			}
 			
-			ResultSet queryQTResult = statement.executeQuery(types);
-			while(queryQTResult.next()) {
+			query = statement.executeQuery(types);
+			while(query.next()) {
 				qnttTyps++;
 			}
 			
@@ -208,82 +210,70 @@ public class DBConector {
 	}
 
 	public static void Archive(String ID) {
+		
+		System.out.println("ID: " + ID);
+		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", 
+					"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		
-		String moment = "" + LocalDateTime.now();
+		String query = "SELECT * FROM Montagem WHERE ID_Montagem = " + ID;
+		String auxInfoFromMontagem = "";
 		
-		moment = moment.substring(0, 19);
-		moment.replaceAll("-", "");
-		moment.replaceAll("T", " ");
+		LocalDateTime moment = LocalDateTime.now();
+		String auxDateTime = moment.toString();
+		auxDateTime = auxDateTime.substring(0, 19);
+		auxDateTime = auxDateTime.replaceAll("T", " ");
 		
-		//System.out.println("data e Hora: " + LocalDateTime.now());
+		System.out.println("Data e Hora: " + auxDateTime);
 		
-		String getInfo = "SELECT * FROM Montagem WHERE ID_Montagem = " + ID;
-		String textToQuery = "";
-		String passToArchive = "INSERT INTO Arquivo(ID_Arquivo, ID_Montagem, ISO, Description, Company, image, cost, Archive_Moment, Archiver_RdF) "
-				+ "VALUES (" + (Almoxarifado.quantityArchives+1) + ", ";
-		String deleteProject = "DELETE FROM Montagem WHERE ID_Montagem = " + ID;
-		String getParts = "SELECT * FROM Pecas WHERE Montagem = " + ID;
-		String copyParts = "";
-		String deleteParts = "DELETE * FROM Pecas WHERE Montagem = " + ID;
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
 			Statement statement = con.createStatement();
-			ResultSet rslt = statement.executeQuery(getInfo);
+			ResultSet rslt = statement.executeQuery(query);
 			
 			while(rslt.next()) {
-				String aux = "";
-				
-				for(int i = 1; i < 7; i++) {
+				String auxString = "";
+				for(int i = 1; i < checkSize("*", "Montagem"); i++) {
+					
 					switch(i) {
 					case 1:
-						aux = ", \"";
+					case 6:
+						auxString = ", '";
 						break;
-					case 3:
 					case 2:
-						aux = "\", \"";
-						break;
+					case 3:
 					case 4:
-						aux = "\", ";
+						auxString = "', '";
 						break;
 					case 5:
-						aux = ", ";
+						auxString = "', ";
 						break;
-					case 6:
-						aux = "";
 					}
 					
-					textToQuery += rslt.getString(i) + aux;
-					
+					auxInfoFromMontagem += rslt.getString(i) + auxString;
 				}
-				
 			}
 			
-			passToArchive += textToQuery + ", '" + moment + "', " + Employee.RdF + ")";
+			query = "INSERT INTO Arquivo VALUES (" + Almoxarifado.quantityArchives + ", " + auxInfoFromMontagem + auxDateTime + "', " 
+			+ Almoxarifado.rdf + ");";
 			
-			//System.out.println("Texto Pego Por Hora: \n" + passToArchive);
+			System.out.println(query);
 			
-			statement.executeUpdate(passToArchive);
+			statement.executeUpdate(query);
 			
-			statement.executeUpdate(deleteProject);
+			query = "SELECT * FROM Pecas WHERE Montagem = " + ID;
+			rslt = statement.executeQuery(query);
 			
-			
-			rslt = statement.executeQuery(getParts);
-			
-			
+			String partsQuery = "";
 			while(rslt.next()) {
-				textToQuery = "";
-				copyParts += "INSERT INTO Arquivo_Pecas(ID_Arquivo_Pecas, ID_Parts, Montagem, Description, Quantity, Quantity_Type, Price, "
-				+ "Supplier, Status, Archive_Moment, ArchiverRdF) VALUES( ";
-						
-				
-				for(int i = 1; i < 9; i++) {
+				partsQuery += "INSERT INTO Arquivo_Pecas VALUES(";
+				for(int i = 1; i < checkSize("*", "Pecas"); i++) {
 					String aux = "";
 					
 					switch(i) {
@@ -294,26 +284,25 @@ public class DBConector {
 						break;
 					case 2:
 					case 6:
-						aux = ", \"";
+						aux = ", '";
 						break;
 					case 3:
 					case 7:
-						aux = "\", ";
+						aux = "', ";
 						break;
+					case 8:
+						aux = ");\n";
 					}
 					
-					textToQuery += rslt.getString(i) + aux;
+					partsQuery += rslt.getString(i) + aux;
 				}
 				
-				copyParts += textToQuery + ", '" + moment + "', " + Almoxarifado.rdf + ");\n";
+			}
+			if(!partsQuery.equals("")) {
+				System.out.println(partsQuery);
+				statement.executeUpdate(partsQuery);
 				
 			}
-			
-			System.out.println("Prompt copiar a lista de peças: \n" + copyParts);
-			if(copyParts.length() < 4) {
-				statement.executeUpdate(copyParts);
-			}
-			statement.executeUpdate(deleteParts);
 			
 			con.close();
 		} catch (SQLException e) {
@@ -334,6 +323,8 @@ public class DBConector {
 			max = 9;
 		}else if(table.equals("arquivo") || table.equals("Arquivo") || table.equals("ARQUIVO")) {
 			max = 9;
+		}else if(table.equals("arquivo_pecas") || table.equals("Arquivo_pecas") || table.equals("Arquivo_Pecas") || table.equals("ARQUIVO_Pecas")) {
+			max = 10;
 		}
 		
 		if(!objective.equals("*")) {

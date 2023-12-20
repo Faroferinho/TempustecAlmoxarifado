@@ -161,10 +161,9 @@ public class ProjectList {
 				
 				changeState = false;
 			}else if(configState) {
-				System.out.println("Configurações no indice " + configStateIndex);
+				//System.out.println("Configurações no indice " + configStateIndex);
 				if(mouseStatus) {
-					configState = false;
-					mouseStatus = false;
+					
 				}
 			}
 			
@@ -237,15 +236,47 @@ public class ProjectList {
 			if(configStateIndex == i) {
 				if(configState) {
 					g.setColor(Color.white);
-					g.fillRect(imgX + img.getWidth() - boxBorder/2, imgY + 7, 60, 60);
+					g.fillRect(imgX + img.getWidth() - boxBorder/2, imgY + boxBorder - boxBorder/3, 60, 60);
 					
 					g.setColor(Color.black);
-					g.drawRect(imgX + img.getWidth() - boxBorder/2, imgY + 7, 59, 20);
-					g.drawString("Abrir", imgX + img.getWidth() + 5 - boxBorder/2, imgY + 20);
-					g.drawRect(imgX + img.getWidth() - boxBorder/2, imgY + 27, 59, 20);
-					g.drawString("Alterar", imgX + img.getWidth() + 5 - boxBorder/2, imgY + 40);
-					g.drawRect(imgX + img.getWidth() - boxBorder/2, imgY + 47, 59, 20);
-					g.drawString("Arquivar", imgX + img.getWidth() + 5 - boxBorder/2, imgY + 60);
+					g.drawRect(imgX + img.getWidth() - boxBorder/2, imgY + boxBorder - boxBorder/3, 59, 20);
+					g.drawString("Abrir", imgX + img.getWidth() + 5 - boxBorder/2, imgY + boxBorder - boxBorder/3 + 15);
+					g.drawRect(imgX + img.getWidth() - boxBorder/2, imgY + boxBorder - boxBorder/3 + 20, 59, 20);
+					g.drawString("Alterar", imgX + img.getWidth() + 5 - boxBorder/2, imgY + boxBorder - boxBorder/3 + 35);
+					g.drawRect(imgX + img.getWidth() - boxBorder/2, imgY + boxBorder - boxBorder/3 + 40, 59, 20);
+					g.drawString("Arquivar", imgX + img.getWidth() + 5 - boxBorder/2, imgY + boxBorder - boxBorder/3 + 55);
+					
+					
+					if(mouseStatus) {
+						if(Almoxarifado.mX > imgX + img.getWidth() - boxBorder/2 && Almoxarifado.mX < imgX + img.getWidth() - boxBorder/2 + 60) {
+							//System.out.println("Está na área do quadrado");
+							if(Almoxarifado.mY > imgY + boxBorder - boxBorder/3	&& Almoxarifado.mY < imgY + boxBorder - boxBorder/3 + 20) {
+								//System.out.println("Abrir");
+								changeStateIndex = configStateIndex;
+								changeState = true;
+							}else if(Almoxarifado.mY > imgY + boxBorder - boxBorder/3 + 20 && Almoxarifado.mY < imgY + boxBorder - boxBorder/3 + 40) {
+								//System.out.println("Editar");
+							}else if(Almoxarifado.mY > imgY + boxBorder - boxBorder/3 + 40 && Almoxarifado.mY < imgY + boxBorder - boxBorder/3 + 60) {
+								//System.out.println("Deletar");
+								int toVerif = JOptionPane.showConfirmDialog(null, "Realmente deseja Arquivar o Projeto", "Arquivo do Projeto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+								
+								if(toVerif != 0) {
+									JOptionPane.showMessageDialog(null, "Arquivo Cancelado", "", JOptionPane.PLAIN_MESSAGE);
+									configStateIndex = -1;
+									configState = false;
+									mouseStatus = false;
+								}else {
+									DBConector.Archive("" + (configStateIndex + 1));
+								}
+								
+								
+							}
+						}else {
+							configStateIndex = -1;
+							configState = false;
+							mouseStatus = false;
+						}
+					}
 				}
 			}
 		}
