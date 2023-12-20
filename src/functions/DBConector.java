@@ -23,7 +23,7 @@ public class DBConector {
 	public int qnttPrts = 0;
 	public int qnttAssbly = 0;
 	public int qnttArchvs = 0;
-	public int qnttArchvsParts = 0;
+	public int qnttArchvParts = 0;
 	public int qnttTyps = 0;
 	
 	public DBConector() {
@@ -66,6 +66,11 @@ public class DBConector {
 			query = statement.executeQuery(archives);
 			while(query.next()) {
 				qnttArchvs++;
+			}
+			
+			query = statement.executeQuery(archiveParts);
+			while(query.next()) {
+				qnttArchvParts++;
 			}
 			
 			query = statement.executeQuery(types);
@@ -272,7 +277,7 @@ public class DBConector {
 			
 			String partsQuery = "";
 			while(rslt.next()) {
-				partsQuery += "INSERT INTO Arquivo_Pecas VALUES(";
+				partsQuery += "INSERT INTO Arquivo_Pecas VALUES (" + Almoxarifado.quantityArchiveParts + ", ";
 				for(int i = 1; i < checkSize("*", "Pecas"); i++) {
 					String aux = "";
 					
@@ -291,18 +296,15 @@ public class DBConector {
 						aux = "', ";
 						break;
 					case 8:
-						aux = ");\n";
+						aux = "); \n";
 					}
 					
 					partsQuery += rslt.getString(i) + aux;
 				}
-				
-			}
-			if(!partsQuery.equals("")) {
 				System.out.println(partsQuery);
-				statement.executeUpdate(partsQuery);
-				
+				Almoxarifado.quantityArchiveParts++;
 			}
+			statement.executeUpdate(partsQuery);
 			
 			con.close();
 		} catch (SQLException e) {

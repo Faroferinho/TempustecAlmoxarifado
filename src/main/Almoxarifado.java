@@ -62,6 +62,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int quantityParts = 0;
 	public static int quantityAssembly = 0;
 	public static int quantityArchives = 0;
+	public static int quantityArchiveParts = 0;
 	
 	
 	public static void main(String args[]) {
@@ -77,6 +78,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		quantityParts = cnctr.qnttPrts;
 		quantityAssembly = cnctr.qnttAssbly;
 		quantityArchives = cnctr.qnttArchvs;
+		quantityArchiveParts = cnctr.qnttArchvParts;
 		/*
 		System.out.println("Quantidade de Funcionarios: " + quantityWorkers);
 		System.out.println("Quantidade de Peças: " + quantityParts);
