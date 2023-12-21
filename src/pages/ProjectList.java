@@ -68,8 +68,8 @@ public class ProjectList {
 	
 	private void createNewAssembly(){
 		mouseStatus = false;
-		String querry = "INSERT INTO montagem (ID_Montagem, ISO, description, company) VALUES(" + (Almoxarifado.quantityAssembly+1) + ", '";
-		String newAssemblyInfo = "OS ";
+		String querry = "INSERT INTO montagem (ISO, description, company) VALUES( '";
+		String newAssemblyInfo = "";
 		
 		newAssemblyInfo += JOptionPane.showInputDialog(null, "Insira o Valor da OS", "Cadastro de Nova Montagem", JOptionPane.PLAIN_MESSAGE);
 		if(verifyString(newAssemblyInfo)) {
@@ -77,7 +77,7 @@ public class ProjectList {
 			return;
 		}
 		
-		querry += newAssemblyInfo + "', '";
+		querry += "OS " + newAssemblyInfo + "', '";
 		newAssemblyInfo = "";
 		
 		newAssemblyInfo += JOptionPane.showInputDialog(null, "Insira uma descrição", "Cadastro de Nova Montagem", JOptionPane.PLAIN_MESSAGE);
@@ -137,7 +137,8 @@ public class ProjectList {
 					//System.out.println(confirmationOfChangeState );
 					
 					if(confirmationOfChangeState == 0) {
-						Project.ID = changeStateIndex+1;
+						Project.ID = Integer.parseInt(DBConector.findInDB("ID_Montagem", "Montagem", "ISO", 
+								"'" + names[changeStateIndex] + "'").replace(" § \n", ""));
 						Project.updateProject = true;
 						Almoxarifado.state = 5;
 					}else {
@@ -264,8 +265,11 @@ public class ProjectList {
 									configState = false;
 									mouseStatus = false;
 								}else {
-									DBConector.Archive("" + (configStateIndex + 1));
+									System.out.println(PartsList.getKey(names[configStateIndex]));
+									
+									DBConector.Archive(PartsList.getKey(names[configStateIndex]));
 									updateProjectList = true;
+									PartsList.restartAssemblyList = true;
 								}
 								
 								

@@ -83,7 +83,7 @@ public class Project {
 			String brokenApartInfo[];
 			//System.out.println("Atualizando a Pagina de Projeto");
 			String aux = DBConector.findInDB("*", "montagem", "ID_Montagem", "" + ID);
-			//System.out.println("aux: " + aux);
+			System.out.println("aux: " + aux);
 			
 			brokenApartInfo = aux.split(" § ");
 			

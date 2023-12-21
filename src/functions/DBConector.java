@@ -193,6 +193,8 @@ public class DBConector {
 		String answer = "";
 		int max = checkSize(objective, table);
 		
+		System.out.println(query);
+		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
 			Statement statement = con.createStatement();
@@ -318,8 +320,11 @@ public class DBConector {
 			
 			query = "DELETE FROM Montagem WHERE ID_Montagem = " + ID;
 			statement.executeUpdate(query);
+			System.out.println(query);
+			
 			query = "DELETE FROM Pecas WHERE Montagem = " + ID;
 			statement.executeUpdate(query);
+			System.out.println(query);
 			
 			Almoxarifado.quantityAssembly--;
 			

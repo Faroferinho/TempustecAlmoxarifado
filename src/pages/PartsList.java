@@ -56,7 +56,7 @@ public class PartsList {
 		finalPartsTable = listBreaker(toSplit);
 	}
 	
-	private static String getKey(String value) {
+	public static String getKey(String value) {
 		System.out.println("HashMap: \n" + assembliesHM);
 		
 		for (Entry<String, String> entry : assembliesHM.entrySet()) {
@@ -377,11 +377,11 @@ public class PartsList {
 			}
 			//System.out.println(ofsetHeight);
 			//System.out.println("Status do Scroll: " + scroll);
-			
-			if(restartAssemblyList) {
-				assembliesHM = fillAssembliesName();
-				restartAssemblyList = false;
-			}
+		}
+		
+		if(restartAssemblyList) {
+			assembliesHM = fillAssembliesName();
+			restartAssemblyList = false;
 		}
 	}
 	
