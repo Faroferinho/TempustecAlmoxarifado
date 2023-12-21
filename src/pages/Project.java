@@ -183,13 +183,13 @@ public class Project {
 						newDescription += JOptionPane.showInputDialog(null, "Insira uma nova descrição", "Atualizar dados da Montagem", JOptionPane.PLAIN_MESSAGE);
 						if(checkDialog(newDescription)) {
 							
-							JOptionPane.showInternalMessageDialog(null, "Erro ao Atualizar nome", "Erro", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showInternalMessageDialog(null, "Erro ao Atualizar a Descrição", "Erro", JOptionPane.ERROR_MESSAGE);
 							mouseStatus = false;
 							
 						}else {
 							
 							DBConector.writeDB("UPDATE montagem SET Description = '" + newDescription + "' WHERE ID_Montagem = " + ID);
-							JOptionPane.showInternalMessageDialog(null, "Nome Atualizado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showInternalMessageDialog(null, "Descrição Atualizada", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 							updateProject = true;
 							mouseStatus = false;
 							
@@ -204,7 +204,7 @@ public class Project {
 							mouseStatus = false;
 						}else {
 							DBConector.writeDB("UPDATE montagem SET Company = '" + newCompany + "' WHERE ID_Montagem = " + ID);
-							JOptionPane.showInternalMessageDialog(null, "Nome Atualizado", "Erro", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showInternalMessageDialog(null, "Empresa Atualizada", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 							updateProject = true;
 							mouseStatus = false;
 						}

@@ -56,8 +56,6 @@ public class ProjectList {
 		String[] auxSpliting = new String[Almoxarifado.quantityAssembly];
 		auxSpliting = toSplit.split(" § \n");
 		
-		
-		
 		return auxSpliting;
 	}
 	

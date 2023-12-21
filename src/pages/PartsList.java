@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Objects;
 
 import javax.swing.JOptionPane;
 
@@ -17,7 +20,9 @@ public class PartsList {
 	
 	public String toSplit = DBConector.readDB("*", "pecas");
 	public static String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][8];
-	static String assemblies[] = fillAssembliesName();
+	static HashMap<String, String> assembliesHM = fillAssembliesName();
+	static String[] assembliesID;
+	static String[] assembliesSO;
 	public static String quantityTypes[] = fillQuantityTypes();
 	public static boolean restartAssemblyList = false;
 	
@@ -49,6 +54,18 @@ public class PartsList {
 	public PartsList() {
 		//System.out.println("To Split: \n" + toSplit);
 		finalPartsTable = listBreaker(toSplit);
+	}
+	
+	private static String getKey(String value) {
+		System.out.println("HashMap: \n" + assembliesHM);
+		
+		for (Entry<String, String> entry : assembliesHM.entrySet()) {
+	        if (Objects.equals(value, entry.getValue())) {
+	            return entry.getKey();
+	        }
+	    }
+		
+		return "";
 	}
 	
 	private static String newQuantityType(){
@@ -94,22 +111,16 @@ public class PartsList {
 		switch(column){
 		case 1:
 			columnName += "Montagem";
-			auxString += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE, null, assemblies, 0);
+			auxString += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE,
+					null, assembliesSO, 0);
 			if(verifyString(auxString)) {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			for(int i = 0; i < Almoxarifado.quantityAssembly; i++) {
-				if(assemblies[i].equals(auxString)) {
-					aux = i+1;
-				}
-			}
+			System.out.println("auxString: " + auxString);
 			
-			auxString = Integer.toString(aux);
-			if(verifyString(auxString)) {
-				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
-				return;
-			}
+			auxString = getKey(auxString);
+			
 			break;
 		case 2:
 			columnName += "Description";
@@ -189,15 +200,22 @@ public class PartsList {
 		wasChanged = true;
 	}
 	
-	private static String[] fillAssembliesName() {
-		String[] returnArray = new String[Almoxarifado.quantityAssembly];
+	private static HashMap<String, String> fillAssembliesName() {
+		HashMap<String, String> returnHashMap = new HashMap<>();
 		
-		for(int i = 1; i < Almoxarifado.quantityAssembly+1; i++) {
-			returnArray[i-1] = DBConector.findInDB("ISO", "Montagem", "ID_Montagem", Integer.toString(i));
-			returnArray[i-1] = returnArray[i-1].substring(0, returnArray[i-1].length()-3);
+		String toBreakID = DBConector.readDB("ID_Montagem", "Montagem");
+		String toBreakSO = DBConector.readDB("ISO", "Montagem");
+		
+		assembliesID = toBreakID.split(" § \n");
+		assembliesSO = toBreakSO.split(" § \n");
+		
+		for(int i = 0; i < Almoxarifado.quantityAssembly; i++) {
+			System.out.println("ID: " + assembliesID[i] + ", SO: " + assembliesSO[i]);
+			returnHashMap.put(assembliesID[i], assembliesSO[i]);
 		}
 		
-		return returnArray;
+		
+		return returnHashMap;
 	}
 	
 	private static String[] fillQuantityTypes() {
@@ -220,23 +238,19 @@ public class PartsList {
 	}
 
 	public void addPart() {
-		String querry = "INSERT INTO pecas VALUES( " + (Almoxarifado.quantityParts + 1) + ", ";
+		String querry = "INSERT INTO pecas (Montagem, Description, Quantity, Quantity_type, Price, Supplier, Status) VALUES( ";
 
 		String aux = "";
 		int auxInt = 0;
 		if(auxAddingFromMontagem == 0) {
-			aux += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null, assemblies, 0);
+			aux += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null,
+					assembliesSO, 0);
 			if(verifyString(aux)) {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
 			System.out.println("aux: " + aux);
-			for(int i = 1; i < Almoxarifado.quantityAssembly + 1; i++) {
-				if(assemblies[i-1].equals(aux)) {
-					auxInt = i;
-				}
-			}
-			
+			auxInt = Integer.parseInt(getKey(aux));
 		}else {
 			auxInt = auxAddingFromMontagem;
 		}
@@ -318,21 +332,6 @@ public class PartsList {
 		wasChanged = true;
 	}
 	
-	private String changeAsseblyName(String assemblyID){
-		//System.out.println("assembly id: " + assemblyID);
-		String toReturn = "";
-		
-		int aux = Integer.parseInt(assemblyID);
-		
-		if(aux > assemblies.length) {
-			return "";
-		}
-		
-		toReturn = assemblies[aux-1];
-		
-		return toReturn;
-	}
-	
 	private String changeQuantityType(String quantityType){
 		String toReturn = "";
 		int aux = Integer.parseInt(quantityType);
@@ -361,7 +360,7 @@ public class PartsList {
 				toSplit = DBConector.readDB("*", "pecas");
 				finalPartsTable = listBreaker(toSplit);
 				
-				assemblies = fillAssembliesName();
+				assembliesHM = fillAssembliesName();
 				quantityTypes = fillQuantityTypes();
 				
 				maximumIndexQT = Almoxarifado.cnctr.qnttTyps;
@@ -380,7 +379,7 @@ public class PartsList {
 			//System.out.println("Status do Scroll: " + scroll);
 			
 			if(restartAssemblyList) {
-				assemblies = fillAssembliesName();
+				assembliesHM = fillAssembliesName();
 				restartAssemblyList = false;
 			}
 		}
@@ -408,7 +407,7 @@ public class PartsList {
 					String auxTextToWrite = (finalPartsTable[i][j]);
 					
 					if(i > 0 && j == 1) {
-						auxTextToWrite = changeAsseblyName(finalPartsTable[i][j]);
+						auxTextToWrite = assembliesHM.get(finalPartsTable[i][j]);
 					}
 					
 					if(i > 0 && j == 4) {
@@ -507,6 +506,7 @@ public class PartsList {
 							if(mouseStatus) {
 								eliminatePart(indexToEliminate);
 								isEliminating = false;
+								mouseStatus = false;
 								return;
 							}
 						}

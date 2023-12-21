@@ -319,7 +319,7 @@ public class DBConector {
 			query = "DELETE FROM Montagem WHERE ID_Montagem = " + ID;
 			statement.executeUpdate(query);
 			query = "DELETE FROM Pecas WHERE Montagem = " + ID;
-			//statement.executeUpdate(query);
+			statement.executeUpdate(query);
 			
 			Almoxarifado.quantityAssembly--;
 			
@@ -328,10 +328,8 @@ public class DBConector {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		correctIDs(Integer.parseInt(ID));
 	}
-	
+	/*
 	private static void correctIDs(int index) {
 		System.out.println("Index: " + index);
 		try {
@@ -371,6 +369,7 @@ public class DBConector {
 			rslt = statement.executeQuery(query);
 			
 			query = "";
+			String correctAssembly;
 			while(rslt.next()) {
 				int measurer = Integer.parseInt(rslt.getString(1));
 				System.out.println("Em Int: " + measurer);
@@ -378,18 +377,19 @@ public class DBConector {
 					query += "UPDATE Pecas SET ID_Parts = " + (measurer-1) + " WHERE ID_Parts = " + measurer + " § ";
 				}
 			}
-			
-			brokenPartsQuery = query.split(" § ");
-			for(int i = 0; i < brokenPartsQuery.length; i++) {
-				System.out.println(brokenPartsQuery[i]);
-				statement.executeUpdate(brokenPartsQuery[i]);
+			if(!query.equals("")) {
+				brokenPartsQuery = query.split(" § ");
+				for(int i = 0; i < brokenPartsQuery.length; i++) {
+					System.out.println(brokenPartsQuery[i]);
+					statement.executeUpdate(brokenPartsQuery[i]);
+				}
 			}
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 	private static int checkSize(String objective, String table) {
 		int max = 0;
 		
@@ -411,4 +411,5 @@ public class DBConector {
 		
 		return max;
 	}
+	
 }
