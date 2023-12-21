@@ -373,6 +373,10 @@ public class Admnistrator extends Profile {
 			String auxTextToDraw = separetedInfo[y][x];
 			
 			if(x > 0 && y > 0) {
+				if(x > 1) {
+					auxTextToDraw = textFormater(separetedInfo[y][x], x);
+				}
+				
 				if(Almoxarifado.mX > initialX + auxX && Almoxarifado.mX < initialX + auxX + g.getFontMetrics().stringWidth(auxTextToDraw)
 				&& Almoxarifado.mY > initialY + auxY - g.getFontMetrics().getHeight() && Almoxarifado.mY < initialY + auxY) {
 					//TODO: aumentar a Hitbox do Type;
@@ -382,10 +386,6 @@ public class Admnistrator extends Profile {
 						changeInfo(x, y);
 						mouseStatus = false;
 					}
-				}
-				
-				if(x > 1) {
-					auxTextToDraw = textFormater(separetedInfo[y][x], x);
 				}
 			}
 			
