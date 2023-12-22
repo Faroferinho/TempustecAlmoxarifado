@@ -37,9 +37,48 @@ public class Login {
 		imgX = (Almoxarifado.WIDTH/2) - (imgSize/2);
 	}
 	
+	private String cpfFormater(String CPF) {
+		String toReturn = "";
+		
+		String firstPart = "";
+		String secondPart = "";
+		String thirdPart = "";
+		String fourthPart = "";
+		
+		if(CPF.length() < 3) {
+			//System.out.println("Menor que 3");
+			toReturn = CPF;
+		}else if(CPF.length() > 2 && CPF.length() < 6) {
+			//System.out.println("Entre 3 e 6");
+			firstPart = CPF.substring(0, 3);
+			secondPart = CPF.substring(3, CPF.length());
+			
+			toReturn = firstPart + "." + secondPart;
+		}else if(CPF.length() > 5 && CPF.length() < 9) {
+			//System.out.println("Entre 6 e 9");
+			firstPart = CPF.substring(0, 3);
+			secondPart = CPF.substring(3, 6);
+			thirdPart = CPF.substring(6, CPF.length());
+			
+			toReturn = firstPart + "." + secondPart + "." + thirdPart;
+		}else if(CPF.length() > 8 && CPF.length() < 12) {
+			//System.out.println("Entre 9 e 12");
+			firstPart = CPF.substring(0, 3);
+			secondPart = CPF.substring(3, 6);
+			thirdPart = CPF.substring(6, 9);
+			fourthPart = CPF.substring(9, CPF.length());
+			
+			toReturn = firstPart + "." + secondPart + "." + thirdPart + "-" + fourthPart;
+		}else {
+			toReturn = CPF;
+		}
+		
+		return toReturn;
+	}
+	
 	public void writingOnCanvas(KeyEvent e) {
 		if(isOnCPF) {
-			if((e.getKeyCode() > 20 && e.getKeyCode() < 144) && (e.getKeyCode() != 37 && e.getKeyCode() != 38 && e.getKeyCode() != 39 && e.getKeyCode() != 40)) {
+			if(e.getKeyCode() > 47 && e.getKeyCode() < 58) {
 				textInBoxCPF += e.getKeyChar();
 			} else {
 				if(textInBoxCPF.length() > 0 && e.getKeyCode() == 8) {
@@ -47,18 +86,36 @@ public class Login {
 				}
 		
 			}
+			
+			if(textInBoxCPF.length() > 14) {
+				textInBoxCPF = textInBoxCPF.substring(0, textInBoxCPF.length()-1);
+			}
 		}else if(isOnPW) {
 			if((e.getKeyCode() > 20 && e.getKeyCode() < 144) && (e.getKeyCode() != 37 && e.getKeyCode() != 38 && e.getKeyCode() != 39 && e.getKeyCode() != 40)) {
 				textInBoxPW += e.getKeyChar();
 			} else {
 				if(textInBoxPW.length() > 0 && e.getKeyCode() == 8) {
-					textInBoxPW = textInBoxCPF.substring(0, textInBoxCPF.length()-1);
+				textInBoxPW = textInBoxPW.substring(0, textInBoxPW.length()-1);
 				}
 		
+			}
+			
+			if(textInBoxPW.length() > 30) {
+				textInBoxPW = textInBoxPW.substring(0, textInBoxPW.length()-1);
 			}
 		}
 		
 		
+	}
+	
+	private String censoringPassword(String pw) {
+		String returnString = "";
+		
+		for(int i = 0; i < pw.length(); i++) {
+			returnString += "*";
+		}
+		
+		return returnString;
 	}
 	
 	public void tick() {
@@ -105,8 +162,8 @@ public class Login {
 		g.drawRoundRect(textBoxX, textBoxY, textBoxW, textBoxH, 15, 15);
 		g.drawRoundRect(textBoxX, (int) (textBoxY * 1.6), textBoxW, textBoxH, 15, 15);
 		
-		g.drawString(textInBoxCPF, textBoxX, textBoxY + textBoxH);
-		g.drawString(textInBoxPW, textBoxX, (int) (textBoxY * 1.6) + textBoxH);
+		g.drawString(cpfFormater(textInBoxCPF), textBoxX + 5, textBoxY + textBoxH - (g.getFontMetrics().getHeight()/2));
+		g.drawString(censoringPassword(textInBoxPW), textBoxX + 5, (int) (textBoxY * 1.6) + textBoxH - (g.getFontMetrics().getHeight()/4));
 		
 		g.drawImage(loginBttn, bttnX, bttnY, null);
 		UserInterface.isOnButton(g, bttnX, bttnY);
