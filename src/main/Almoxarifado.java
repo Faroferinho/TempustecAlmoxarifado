@@ -364,7 +364,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	@Override
 	public void keyPressed(KeyEvent e) {
 		System.out.println("Caracter escrito foi: " + e.getKeyChar() + " e seu Código é: " + e.getKeyCode());
-		if(state == 0 && !login.isWriting) {
+		if(state == 0 && login.isWriting) {
 			login.writingOnCanvas(e);
 		}
 	}
