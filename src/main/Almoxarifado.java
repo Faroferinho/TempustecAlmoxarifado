@@ -49,10 +49,10 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static Project project;
 	public static Archive archive;
 	
-	public static String name = "Marcelinho";
-	public static String cpf = "Rubsheck";
-	public static String rdf = "8523";
-	public static String type = "1\n";
+	public static String name = "";
+	public static String cpf = "";
+	public static String rdf = "";
+	public static String type = "";
 	
 	public static int mX;
 	public static int mY;
@@ -89,14 +89,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			login = new Login();
 		}
 		
-		if(type.equals("1\n")) {
-			//System.out.println("é Administrador");
-			admProfile = new Admnistrator(name, rdf, cpf);
-		}else {
-			//System.out.println("é Funcionario");
-
-			workProfile = new Employee(name,rdf, cpf);
-		}
 		projectList = new ProjectList();
 		project = new Project();
 		partsList = new PartsList();
@@ -142,7 +134,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			break;
 		case 1:
 			ui.tick();
-			if(type.equals("1\n")) {
+			if(type.equals("1")) {
 				admProfile.tick();
 			}else {
 				workProfile.tick();
@@ -202,7 +194,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			login.render(g);
 			break;
 		case 1:
-			if(type.equals("1\n")) {
+			if(type.equals("1")) {
 				//System.out.println("Admnistrador");
 				admProfile.render(g);
 			}else {
@@ -265,7 +257,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		switch(state) {
 		case 1:
 			//TODO: Perfil, verificação de "está listando";
-			if(type.equals("1\n")) {
+			if(type.equals("1")) {
 				admProfile.mouseStatus = true;
 			}else {
 				workProfile.mouseStatus = true;
@@ -290,7 +282,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		mPressed = false;
-		if(type.equals("1\n")) {
+		if(type.equals("1")) {
 			admProfile.mouseStatus = false;
 		}else {
 			workProfile.mouseStatus = false;
@@ -335,7 +327,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		switch(state) {
 		case 1:
 			//TODO: Perfil, verificação de "está listando";
-			if(type.equals("1\n") && admProfile.isListing) {
+			if(type.equals("1") && admProfile.isListing) {
 				admProfile.scroll = e.getUnitsToScroll();
 			}
 			break;

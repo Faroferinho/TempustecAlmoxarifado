@@ -8,10 +8,12 @@ import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import functions.DBConector;
 import main.Almoxarifado;
 import main.UserInterface;
 
 public class Login {
+	boolean isOnTheRightState = false;
 	
 	BufferedImage tempustecLogo = Almoxarifado.imgManag.getProjectImage("Tempustec Logo Icone");
 	int imgX = (Almoxarifado.WIDTH/2) - (tempustecLogo.getWidth()/2);
@@ -35,6 +37,43 @@ public class Login {
 	
 	public Login() {
 		imgX = (Almoxarifado.WIDTH/2) - (imgSize/2);
+	}
+	
+	private void submitForm() {
+		
+		String rawRegisters = DBConector.readDB("CPF", "Funcionarios");
+		String rawPasswords = DBConector.readDB("CPF", "Funcionarios");
+		
+		String[] registers = rawRegisters.split(" § \n");
+		String[] passwords = rawPasswords.split(" § \n");
+		
+		for(int i = 0; i < registers.length; i++) {
+			if(textInBoxCPF.equals(registers[i]) && textInBoxCPF.equals(passwords[i])) {
+				System.out.println("A Conta e Senha Batem");
+				
+				String auxString = "";
+				auxString = DBConector.findInDB("*", "Funcionarios", "CPF", textInBoxCPF);
+				String[] toConfig = auxString.split(" § ");
+				
+				System.out.println(auxString);
+				
+				Almoxarifado.rdf = toConfig[0];
+				Almoxarifado.name = toConfig[1];
+				Almoxarifado.cpf = cpfFormater(textInBoxCPF);
+				Almoxarifado.type = toConfig[4];
+				
+				if(Almoxarifado.type.equals("1")) {
+					//System.out.println("é Administrador");
+					Almoxarifado.admProfile = new Admnistrator(Almoxarifado.name, Almoxarifado.rdf, Almoxarifado.cpf);
+				}else {
+					//System.out.println("é Funcionario");
+					Almoxarifado.workProfile = new Employee(Almoxarifado.name, Almoxarifado.rdf, Almoxarifado.cpf);
+				}
+				
+				Almoxarifado.state = 1;
+			}
+		}
+		
 	}
 	
 	private String cpfFormater(String CPF) {
@@ -119,24 +158,40 @@ public class Login {
 	}
 	
 	public void tick() {
-		if(Almoxarifado.mPressed) {
-			System.out.println("Clicado");
-			if(Almoxarifado.mX > textBoxX && Almoxarifado.mX < textBoxX + textBoxW) {
-				//System.out.println("Dentro do Espaço Lateral");
-				if(Almoxarifado.mY > textBoxY && Almoxarifado.mY < textBoxY + textBoxH) {
-					System.out.println("Area de Texto CPF");
-					isWriting = true;
-					isOnCPF = true;
-					isOnPW = false;
-				}else if(Almoxarifado.mY > (int) (textBoxY * 1.6) && Almoxarifado.mY < (int) (textBoxY * 1.6) + textBoxH) {
-					System.out.println("Area de Texto Senha");
-					isWriting = true;
-					isOnCPF = false;
-					isOnPW = true;
-				}else {
-					isWriting = false;
+		if(Almoxarifado.state == 0) {
+			isOnTheRightState = true;
+		}else {
+			isOnTheRightState = false;
+		}
+		
+		if(isOnTheRightState) {
+		
+			if(Almoxarifado.mPressed) {
+				System.out.println("Clicado");
+				if(Almoxarifado.mX > textBoxX && Almoxarifado.mX < textBoxX + textBoxW) {
+					//System.out.println("Dentro do Espaço Lateral");
+					if(Almoxarifado.mY > textBoxY && Almoxarifado.mY < textBoxY + textBoxH) {
+						System.out.println("Area de Texto CPF");
+						isWriting = true;
+						isOnCPF = true;
+						isOnPW = false;
+					}else if(Almoxarifado.mY > (int) (textBoxY * 1.6) && Almoxarifado.mY < (int) (textBoxY * 1.6) + textBoxH) {
+						System.out.println("Area de Texto Senha");
+						isWriting = true;
+						isOnCPF = false;
+						isOnPW = true;
+					}else {
+						isWriting = false;
+					}
+				}
+				
+				if(Almoxarifado.mX > bttnX && Almoxarifado.mX < bttnX + loginBttn.getWidth() 
+				&& Almoxarifado.mY > bttnY && Almoxarifado.mY < bttnY + loginBttn.getHeight()) {
+					System.out.println("Clicado no botão");
+					submitForm();
 				}
 			}
+			
 		}
 	}
 	

@@ -80,7 +80,7 @@ public class UserInterface {
 		if(my < bttnY + boxHeight && my > bttnY) {
 			if(mx > spaceBetween[0] + bttnX[0] && mx < spaceBetween[0] + bttnX[0] + boxWidth) {
 				System.out.println(1);
-				if(Almoxarifado.type.equals("1\n")) {
+				if(Almoxarifado.type.equals("1")) {
 					Almoxarifado.admProfile.reset = true;
 				}else {
 					Almoxarifado.workProfile.reset = true;
