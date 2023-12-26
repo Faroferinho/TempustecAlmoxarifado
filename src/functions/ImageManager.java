@@ -10,16 +10,17 @@ public class ImageManager {
 	
 	private BufferedImage spritesheet;
 	
-	public BufferedImage TempustecIcon = this.getProjectImage("TempustecLogoIcone1");
+	public BufferedImage TempustecIcon;
 	
 	public ImageManager(String imgFile) {
 		try {
-
 			spritesheet = ImageIO.read(new File("res/Spritesheet.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		TempustecIcon = this.getProjectImage("TempustecLogoIcone1");
 	}
 	
 	public BufferedImage getSprite(int x, int y, int width, int height) {
