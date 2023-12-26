@@ -8,6 +8,8 @@ import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JOptionPane;
+
 import functions.DBConector;
 import main.Almoxarifado;
 import main.UserInterface;
@@ -71,8 +73,11 @@ public class Login {
 				}
 				
 				Almoxarifado.state = 1;
+				return;
 			}
 		}
+		
+		JOptionPane.showMessageDialog(null, "Conta e/ou Senha Incorretas", "Erro ao efetuar Login", JOptionPane.ERROR_MESSAGE);
 		
 	}
 	

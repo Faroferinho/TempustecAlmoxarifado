@@ -10,12 +10,12 @@ public class ImageManager {
 	
 	private BufferedImage spritesheet;
 	
-	public BufferedImage TempustecIcon = this.getProjectImage("Tempustec Logo Icone 1");
+	public BufferedImage TempustecIcon = this.getProjectImage("TempustecLogoIcone1");
 	
 	public ImageManager(String imgFile) {
 		try {
 
-			spritesheet = ImageIO.read(new File("C:/Users/User/eclipse-workspace/AlmoxarifadoTempustec/res/Spritesheet.png"));
+			spritesheet = ImageIO.read(new File("res/Spritesheet.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,7 +34,7 @@ public class ImageManager {
 		BufferedImage returnImg = null;
 		
 		try {
-			returnImg = ImageIO.read(new File("C:/Users/User/eclipse-workspace/AlmoxarifadoTempustec/res/" + fileName + ".png"));
+			returnImg = ImageIO.read(new File("res/" + fileName + ".png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Não pude pegar o arquivo");
