@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 public class ImageManager {
 	
@@ -17,6 +18,7 @@ public class ImageManager {
 			spritesheet = ImageIO.read(new File("res/Spritesheet.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Não Existe a SpriteSheet");
 			e.printStackTrace();
 		}
 		

@@ -71,7 +71,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 		imgManag = new ImageManager("spritesheet.png");
 		ui = new UserInterface();
-		//profile = new Admnistrator("Marcelinho Rubsheck da Silva Sauro", "1970", "16700");
 
 		cnctr = new DBConector();
 		quantityWorkers = cnctr.qnttWrks;
@@ -79,15 +78,11 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		quantityAssembly = cnctr.qnttAssbly;
 		quantityArchives = cnctr.qnttArchvs;
 		quantityArchiveParts = cnctr.qnttArchvParts;
-		/*
-		System.out.println("Quantidade de Funcionarios: " + quantityWorkers);
-		System.out.println("Quantidade de Peças: " + quantityParts);
-		System.out.println("Quantidade de Montagens: " + quantityAssembly);
-		System.out.println("Quantidade de Montagens Arquivadas: " + quantityArchives + "\n");
-		*/
-		if(state == 0) {
-			login = new Login();
-		}
+		
+		login = new Login();
+		
+		admProfile = new Admnistrator(name, rdf, cpf); 
+		workProfile = new Employee(name, rdf, cpf); 
 		
 		projectList = new ProjectList();
 		project = new Project();

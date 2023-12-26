@@ -31,8 +31,8 @@ public class Login {
 	int bttnX = (Almoxarifado.WIDTH/2) - (loginBttn.getWidth()/2);
 	int bttnY = Almoxarifado.HEIGHT/16*13;
 	
-	String textInBoxCPF = "";
-	String textInBoxPW = "";
+	String textInBoxCPF = "37114320850";
+	String textInBoxPW = "Conrado08@";
 	boolean isOnCPF = false;
 	boolean isOnPW = false;
 	public boolean isWriting = false;
@@ -44,13 +44,13 @@ public class Login {
 	private void submitForm() {
 		
 		String rawRegisters = DBConector.readDB("CPF", "Funcionarios");
-		String rawPasswords = DBConector.readDB("CPF", "Funcionarios");
+		String rawPasswords = DBConector.readDB("password", "Funcionarios");
 		
 		String[] registers = rawRegisters.split(" § \n");
 		String[] passwords = rawPasswords.split(" § \n");
 		
 		for(int i = 0; i < registers.length; i++) {
-			if(textInBoxCPF.equals(registers[i]) && textInBoxCPF.equals(passwords[i])) {
+			if(textInBoxCPF.equals(registers[i]) && textInBoxPW.equals(passwords[i])) {
 				System.out.println("A Conta e Senha Batem");
 				
 				String auxString = "";
@@ -165,6 +165,7 @@ public class Login {
 	public void tick() {
 		if(Almoxarifado.state == 0) {
 			isOnTheRightState = true;
+			submitForm();
 		}else {
 			isOnTheRightState = false;
 		}

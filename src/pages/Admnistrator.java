@@ -18,6 +18,7 @@ public class Admnistrator extends Profile {
 
 	public boolean isListing = false;
 	public boolean isSigning = false;
+	public boolean isRemoving = false;
 	
 	public BufferedImage editButton;
 	public BufferedImage editDoneButton;
@@ -30,6 +31,8 @@ public class Admnistrator extends Profile {
 	
 	public int scroll = 0;
 	private int auxHeight = 0;
+	
+	int indexToEliminate = -1;
 	
 	public Admnistrator(String Name, String RdF, String CPF) {
 		super(Name, RdF, CPF);
@@ -60,20 +63,8 @@ public class Admnistrator extends Profile {
 		}
 		
 		if(isOnTheRightState) {
-			if(mouseStatus == true) {
-				//System.out.println("Mouse Status = " + mouseStatus);
-				mouseAuxRun = true;
-				mouseAuxEdit = true;
-				mouseAuxRead = true;
-				mouseAuxSign = true;
-			}else {
-				mouseAuxRun = false;
-				mouseAuxEdit = false;
-				mouseAuxRead = false;
-				mouseAuxSign = false;
-			}
 			
-			if(mouseAuxRun) {
+			if(mouseStatus) {
 				switch(buttonClick(Almoxarifado.mX, Almoxarifado.mY, true)) {
 				case 1:
 					if(isEditing == false) {
@@ -99,9 +90,6 @@ public class Admnistrator extends Profile {
 					break;
 				case 4:
 					editInfo(4);
-					mouseStatus = false;
-					break;
-				default:
 					mouseStatus = false;
 					break;
 				}
@@ -162,6 +150,10 @@ public class Admnistrator extends Profile {
 			}else if(scroll < 0 && auxHeight < 0) {
 				auxHeight += UserInterface.spd;
 				scroll = 0;
+			}
+			
+			if(!isListing) {
+				isRemoving = false;
 			}
 		}
 	}
@@ -232,6 +224,10 @@ public class Admnistrator extends Profile {
 		return returnString;
 	}
 	
+	private void remove(int x) {
+		
+	}
+	
 	private void changeInfo(int column, int index){
 		String infoChanger = "";
 		
@@ -247,20 +243,24 @@ public class Admnistrator extends Profile {
 		case 2:
 			columnName = "o CPF";
 			UpdaterName = "CPF";
-			do{
-				infoChanger += JOptionPane.showInputDialog(null, "Você deseja Alterar " + columnName, "Alteração de Perfil", JOptionPane.WARNING_MESSAGE);
-				
-				Pattern letter = Pattern.compile("[a-zA-z]");
-		        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
-		        
-		        Matcher hasLetter = letter.matcher(infoChanger);
-		        Matcher hasSpecial = special.matcher(infoChanger);
-		        
-		        if(hasLetter.find() || hasSpecial.find()) {
-		        	System.out.println("Tem Texto");
-		        	infoChanger = infoChanger.replaceAll("[^0-9]", "");
-		        }
-			}while(infoChanger.length() != 11);
+			infoChanger += JOptionPane.showInputDialog(null, "Você deseja Alterar " + columnName, "Alteração de Perfil", JOptionPane.WARNING_MESSAGE);
+			
+			Pattern letter = Pattern.compile("[a-zA-z]");
+	        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+	        
+	        Matcher hasLetter = letter.matcher(infoChanger);
+	        Matcher hasSpecial = special.matcher(infoChanger);
+	        
+	        if(hasLetter.find() || hasSpecial.find()) {
+	        	System.out.println("Tem Texto");
+	        	infoChanger = infoChanger.replaceAll("[^0-9]", "");
+	        	System.out.println(infoChanger);
+	        }
+	        
+	        if(infoChanger.length() < 10 || infoChanger.length() > 12) {
+	        	JOptionPane.showMessageDialog(null, "Valor Inserido Invalido", "Erro ao Efetuar Alteração", JOptionPane.ERROR_MESSAGE);
+	        	return;
+	        }
 			break;
 		case 3:
 			columnName = "a Senha";
@@ -344,14 +344,16 @@ public class Admnistrator extends Profile {
 		g.setColor(Color.white);
 		g.setFont(new Font("arial", 0, 14));
 		
+		Color nC = Color.white;
+		
 		for(int i = 0; i < separetedInfo.length * separetedInfo[0].length; i++) {
 			/*System.out.println("auxX: " + x + " auxY: " + y);
 			System.out.println("Texto no indice atual: " + separetedInfo[y][x]);*/
 			
 			if(y > 0) {
-				g.setColor(Color.white);
+				nC = Color.white;
 			}else {
-				g.setColor(Color.orange);
+				nC = Color.orange;
 			}
 			
 			
@@ -376,19 +378,31 @@ public class Admnistrator extends Profile {
 				if(x > 1) {
 					auxTextToDraw = textFormater(separetedInfo[y][x], x);
 				}
-				
-				if(Almoxarifado.mX > initialX + auxX && Almoxarifado.mX < initialX + auxX + g.getFontMetrics().stringWidth(auxTextToDraw)
-				&& Almoxarifado.mY > initialY + auxY - g.getFontMetrics().getHeight() && Almoxarifado.mY < initialY + auxY) {
-					//TODO: aumentar a Hitbox do Type;
-					g.setColor(Color.gray);
+				if(!isRemoving) {
+					if(Almoxarifado.mX > initialX + auxX && Almoxarifado.mX < initialX + auxX + g.getFontMetrics().stringWidth(auxTextToDraw)
+					&& Almoxarifado.mY > initialY + auxY - g.getFontMetrics().getHeight() && Almoxarifado.mY < initialY + auxY) {
+						nC = Color.gray;
+						if(mouseStatus) {
+							//System.out.println("Você cliclou em: " + auxTextToDraw);
+							changeInfo(x, y);
+							mouseStatus = false;
+						}
+					}
+				}else {
+					indexToEliminate = y;
+					if(y == indexToEliminate) {
+						nC = Color.yellow;
+					}else {
+						nC = Color.white;
+					}
 					if(mouseStatus) {
 						//System.out.println("Você cliclou em: " + auxTextToDraw);
-						changeInfo(x, y);
+						remove(Integer.parseInt(separetedInfo[y][0]));
 						mouseStatus = false;
 					}
 				}
 			}
-			
+			g.setColor(nC);
 			g.drawString(auxTextToDraw, initialX + auxX, initialY + auxY + auxHeight);
 			
 			x++;
@@ -410,6 +424,7 @@ public class Admnistrator extends Profile {
 		&& Almoxarifado.mY > initialY + auxY + auxHeight && Almoxarifado.mY < initialY + auxY + auxHeight + 64) {
 			if(mouseStatus) {
 				System.out.println("Clicado em Excluir");
+				isRemoving = true;
 			}
 		}
 	}

@@ -504,7 +504,8 @@ public class PartsList {
 							}
 							
 							if(mouseStatus) {
-								eliminatePart(indexToEliminate);
+								int idToEliminate = Integer.parseInt(finalPartsTable[indexToEliminate][0]);
+								eliminatePart(idToEliminate);
 								isEliminating = false;
 								mouseStatus = false;
 								return;
