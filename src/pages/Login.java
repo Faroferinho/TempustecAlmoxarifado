@@ -31,8 +31,8 @@ public class Login {
 	int bttnX = (Almoxarifado.WIDTH/2) - (loginBttn.getWidth()/2);
 	int bttnY = Almoxarifado.HEIGHT/16*13;
 	
-	String textInBoxCPF = "37114320850";
-	String textInBoxPW = "Conrado08@";
+	String textInBoxCPF = "";
+	String textInBoxPW = "";
 	boolean isOnCPF = false;
 	boolean isOnPW = false;
 	public boolean isWriting = false;
@@ -165,7 +165,6 @@ public class Login {
 	public void tick() {
 		if(Almoxarifado.state == 0) {
 			isOnTheRightState = true;
-			submitForm();
 		}else {
 			isOnTheRightState = false;
 		}

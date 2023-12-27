@@ -15,7 +15,7 @@ public class ImageManager {
 	
 	public ImageManager(String imgFile) {
 		try {
-			spritesheet = ImageIO.read(new File("res/Spritesheet.png"));
+			spritesheet = ImageIO.read(new File("C:/Users/User/eclipse-workspace/AlmoxarifadoTempustec/res/Spritesheet.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "Não Existe a SpriteSheet");
@@ -37,7 +37,7 @@ public class ImageManager {
 		BufferedImage returnImg = null;
 		
 		try {
-			returnImg = ImageIO.read(new File("res/" + fileName + ".png"));
+			returnImg = ImageIO.read(new File("C:/Users/User/eclipse-workspace/AlmoxarifadoTempustec/res/" + fileName + ".png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Não pude pegar o arquivo");
