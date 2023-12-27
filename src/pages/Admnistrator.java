@@ -140,7 +140,7 @@ public class Admnistrator extends Profile {
 				DBConector.writeDB(query);
 				
 				Almoxarifado.quantityWorkers++;
-				
+				getInfo();
 				isSigning = false;
 			}
 			
@@ -225,7 +225,18 @@ public class Admnistrator extends Profile {
 	}
 	
 	private void remove(int x) {
+		//System.out.println("Removendo o funcionario cujo RdF = " + x);
 		
+		int confirmation = JOptionPane.showConfirmDialog(null, "Você tem *CERTEZA* que você deseja deletar essa peça?", "Confirma a Eliminação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		
+		if(confirmation != 0) {
+			return;
+		}
+		
+		DBConector.writeDB("DELETE FROM Funcionarios WHERE RdF = " + x);
+		Almoxarifado.quantityWorkers--;
+		
+		getInfo();
 	}
 	
 	private void changeInfo(int column, int index){
@@ -389,16 +400,18 @@ public class Admnistrator extends Profile {
 						}
 					}
 				}else {
-					indexToEliminate = y;
-					if(y == indexToEliminate) {
-						nC = Color.yellow;
-					}else {
-						nC = Color.white;
-					}
-					if(mouseStatus) {
-						//System.out.println("Você cliclou em: " + auxTextToDraw);
-						remove(Integer.parseInt(separetedInfo[y][0]));
-						mouseStatus = false;
+					if(Almoxarifado.mY > initialY + auxY - g.getFontMetrics().getHeight() && Almoxarifado.mY < initialY + auxY) {
+						indexToEliminate = y;
+						if(y == indexToEliminate) {
+							nC = Color.yellow;
+						}else {
+							nC = Color.white;
+						}
+						if(mouseStatus) {
+							//System.out.println("Você cliclou em: " + auxTextToDraw);
+							remove(Integer.parseInt(separetedInfo[y][0]));
+							mouseStatus = false;
+						}
 					}
 				}
 			}
@@ -416,15 +429,30 @@ public class Admnistrator extends Profile {
 			}
 		}
 		
-		g.drawImage(deleteButton, ((Almoxarifado.WIDTH / 2) - (deleteButton.getWidth() / 2)), initialY + auxY + auxHeight, null);
-		UserInterface.isOnButton(g, ((Almoxarifado.WIDTH / 2) - (deleteButton.getWidth() / 2)), initialY + auxY + auxHeight);
-		
-		if(Almoxarifado.mX > (Almoxarifado.WIDTH / 2) - (deleteButton.getWidth() / 2)
-		&& Almoxarifado.mX < (Almoxarifado.WIDTH / 2) + (deleteButton.getWidth() / 2)
-		&& Almoxarifado.mY > initialY + auxY + auxHeight && Almoxarifado.mY < initialY + auxY + auxHeight + 64) {
-			if(mouseStatus) {
+		g.drawImage(deleteButton, ((Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 3)), initialY + auxY + auxHeight, null);
+		UserInterface.isOnButton(g, ((Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 3)), initialY + auxY + auxHeight);
+		g.drawImage(signInButton, ((Almoxarifado.WIDTH / 3)*2 - (deleteButton.getWidth() / 3)*2), initialY + auxY + auxHeight, null);
+		UserInterface.isOnButton(g, ((Almoxarifado.WIDTH / 3)*2 - (deleteButton.getWidth() / 3)*2), initialY + auxY + auxHeight);
+
+		if(mouseStatus) {
+			if(Almoxarifado.mX > (Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 2)
+			&& Almoxarifado.mX < (Almoxarifado.WIDTH / 3) + (deleteButton.getWidth() / 2)
+			&& Almoxarifado.mY > initialY + auxY + auxHeight && Almoxarifado.mY < initialY + auxY + auxHeight + 64) {
 				System.out.println("Clicado em Excluir");
-				isRemoving = true;
+				if(isRemoving == true) {
+					isRemoving = false;
+					System.out.println("Excluir Desativado");
+					mouseStatus = false;
+				}else {
+					isRemoving = true;
+					System.out.println("Excluir Ativado");
+					mouseStatus = false;
+				}
+			}
+			if(Almoxarifado.mX > (Almoxarifado.WIDTH / 3)*2 - (deleteButton.getWidth() / 2)
+			&& Almoxarifado.mX < (Almoxarifado.WIDTH / 3)*2 + (deleteButton.getWidth() / 2)
+			&& Almoxarifado.mY > initialY + auxY + auxHeight && Almoxarifado.mY < initialY + auxY + auxHeight + 64) {
+				isSigning = true;
 			}
 		}
 	}
