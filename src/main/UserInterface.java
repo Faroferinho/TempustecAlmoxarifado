@@ -79,7 +79,6 @@ public class UserInterface {
 		
 		if(my < bttnY + boxHeight && my > bttnY) {
 			if(mx > spaceBetween[0] + bttnX[0] && mx < spaceBetween[0] + bttnX[0] + boxWidth) {
-				System.out.println(1);
 				if(Almoxarifado.type.equals("1")) {
 					Almoxarifado.admProfile.reset = true;
 				}else {
@@ -87,16 +86,12 @@ public class UserInterface {
 				}
 				return 1;
 			}else if(mx > spaceBetween[1] + bttnX[1] && mx < spaceBetween[1] + bttnX[1] + boxWidth) {
-				System.out.println(2);
 				return 2;
 			}else if(mx > spaceBetween[2] + bttnX[2] && mx < spaceBetween[2] + bttnX[2] + boxWidth) {
-				System.out.println(3);
 				return 3;
 			}else if(mx > spaceBetween[3] + bttnX[3] && mx < spaceBetween[3] + bttnX[3] + boxWidth) {
-				System.out.println(4);
 				return 4;
 			}else if(mx > spaceBetween[4] + bttnX[4] && mx < spaceBetween[4] + bttnX[4] + boxWidth) {
-				System.out.println(5);
 				return 5;
 			}
 		}
@@ -133,14 +128,12 @@ public class UserInterface {
 
 	public void tick() {
 		if(Almoxarifado.mPressed) {
-			//System.out.println("Mouse Clicado UI");
 			checkMouse();
 			Almoxarifado.mPressed = false;
 		}
 	}
 	
 	public void render(Graphics g) {
-		//TODO: Criar eventos Customizados para mudar a imagem com Interface;
 		g.drawImage(iconProfile, spaceBetween[0] + bttnX[0], bttnY, null);
 		g.drawImage(iconParts, spaceBetween[1] + bttnX[1], bttnY, null);
 		g.drawImage(iconAssembly, spaceBetween[2] + bttnX[2], bttnY, null);

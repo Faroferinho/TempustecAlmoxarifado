@@ -51,8 +51,6 @@ public class ProjectList {
 	}
 	
 	private String[] spliting(String toSplit) {
-		//System.out.println("Quebrando a String: \n" + toSplit);
-		
 		String[] auxSpliting = new String[Almoxarifado.quantityAssembly];
 		auxSpliting = toSplit.split(" § \n");
 		
@@ -100,16 +98,12 @@ public class ProjectList {
 		
 		JOptionPane.showMessageDialog(null, "Cadastro Efetuado Com sucesso", "Cadastro Concluido", JOptionPane.INFORMATION_MESSAGE, null);
 		
-		System.out.println("Feito o Cadastro");
-		
 		DBConector.writeDB(querry);
 		Almoxarifado.quantityAssembly++;
 		updateProjectList = true;
 	}
 	
-	public void tick() {
-		//System.out.println("Entrou no Tick()");
-		
+	public void tick() {		
 		if(Almoxarifado.state == 3) {
 			isOnTheRightState = true;
 			Almoxarifado.frame.setTitle("Lista de Projetos");
@@ -121,21 +115,17 @@ public class ProjectList {
 		if(isOnTheRightState == true) {
 		
 			if(scroll > 1) {
-				//System.out.println("Scroll pra baixo, ofsetHeight: " + ofsetHeight);
 				ofsetHeight -= UserInterface.spd;
 				scroll = 0;
 			}else if(scroll < -1 && ofsetHeight < 0) {
-				//System.out.println("Scroll pra cima, ofsetHeight: " + ofsetHeight);
 				ofsetHeight += UserInterface.spd;
 				scroll = 0;
 			}
 			
 			if(changeState == true) {
-				//System.out.println("Mudar para o Perfil " + changeStateIndex);
 				if(changeStateIndex != Almoxarifado.quantityAssembly) {
 					int confirmationOfChangeState = JOptionPane.showConfirmDialog(null, "Realmente deseja mudar de Pagina", "Confirmação de Mudança de Pagina", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null);
-					//System.out.println(confirmationOfChangeState );
-					
+		
 					if(confirmationOfChangeState == 0) {
 						Project.ID = Integer.parseInt(DBConector.findInDB("ID_Montagem", "Montagem", "ISO", 
 								"'" + names[changeStateIndex] + "'").replace(" § \n", ""));
@@ -159,11 +149,6 @@ public class ProjectList {
 				}
 				
 				changeState = false;
-			}else if(configState) {
-				//System.out.println("Configurações no indice " + configStateIndex);
-				if(mouseStatus) {
-					
-				}
 			}
 			
 			if(updateProjectList) {
@@ -194,10 +179,8 @@ public class ProjectList {
 			imgY = initY + auxY + ofsetHeight;
 			
 			if(mouseStatus) {
-				//System.out.println("Clique");
 				if(Almoxarifado.mX > imgX + boxWidth - (boxBorder + boxBorder/2) && Almoxarifado.mX < imgX + boxWidth - (boxBorder/2)
 				&& Almoxarifado.mY > imgY + boxBorder/2 && Almoxarifado.mY < imgY + boxBorder + boxBorder/2) {
-					//System.out.println("Clicou nas opções de " + names[i]);
 					if(changeState == false) {
 						configState = true;
 						configStateIndex = i;
@@ -206,7 +189,6 @@ public class ProjectList {
 				}
 				if(Almoxarifado.mX > imgX && Almoxarifado.mX < imgX + boxWidth
 				  && Almoxarifado.mY > imgY && Almoxarifado.mY < imgY + boxHeight) {
-				//System.out.println("Clicou na " + names[i]);
 					if(configState == false) {
 						changeState = true;
 						changeStateIndex = i;
@@ -248,15 +230,10 @@ public class ProjectList {
 					
 					if(mouseStatus) {
 						if(Almoxarifado.mX > imgX + img.getWidth() - boxBorder/2 && Almoxarifado.mX < imgX + img.getWidth() - boxBorder/2 + 60) {
-							//System.out.println("Está na área do quadrado");
 							if(Almoxarifado.mY > imgY + boxBorder - boxBorder/3	&& Almoxarifado.mY < imgY + boxBorder - boxBorder/3 + 20) {
-								//System.out.println("Abrir");
 								changeStateIndex = configStateIndex;
 								changeState = true;
-							}else if(Almoxarifado.mY > imgY + boxBorder - boxBorder/3 + 20 && Almoxarifado.mY < imgY + boxBorder - boxBorder/3 + 40) {
-								//System.out.println("Editar");
 							}else if(Almoxarifado.mY > imgY + boxBorder - boxBorder/3 + 40 && Almoxarifado.mY < imgY + boxBorder - boxBorder/3 + 60) {
-								//System.out.println("Deletar");
 								int toVerif = JOptionPane.showConfirmDialog(null, "Realmente deseja Arquivar o Projeto", "Arquivo do Projeto", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 								
 								if(toVerif != 0) {
@@ -264,9 +241,7 @@ public class ProjectList {
 									configStateIndex = -1;
 									configState = false;
 									mouseStatus = false;
-								}else {
-									System.out.println(PartsList.getKey(names[configStateIndex]));
-									
+								}else {									
 									DBConector.Archive(PartsList.getKey(names[configStateIndex]));
 									updateProjectList = true;
 									PartsList.restartAssemblyList = true;

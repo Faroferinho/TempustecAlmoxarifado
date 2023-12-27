@@ -87,8 +87,6 @@ public class DBConector {
 		
 		String query = "select " + objective + " from " + table;
 		
-		//System.out.println(query);
-		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -123,8 +121,6 @@ public class DBConector {
 			System.exit(1);
 		}
 		
-		//System.out.println(returnData);
-		
 		return returnData;
 	}
 	
@@ -143,8 +139,6 @@ public class DBConector {
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
 			Statement statement = con.createStatement();
-			
-			System.out.println(objective);
 			
 			statement.executeUpdate(objective);
 			
@@ -165,8 +159,6 @@ public class DBConector {
 		}
 		
 		String query = "UPDATE " + Table + " SET " + objective + " = '" + newInfo + "' WHERE " + PK + " = " + PrimaryKey;
-		
-		System.out.println(query);
 		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
@@ -193,8 +185,6 @@ public class DBConector {
 		String answer = "";
 		int max = checkSize(objective, table);
 		
-		System.out.println(query);
-		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
 			Statement statement = con.createStatement();
@@ -217,8 +207,6 @@ public class DBConector {
 
 	public static void Archive(String ID) {
 		
-		System.out.println("ID: " + ID);
-		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		}catch(ClassNotFoundException e){
@@ -235,8 +223,6 @@ public class DBConector {
 		String auxDateTime = moment.toString();
 		auxDateTime = auxDateTime.substring(0, 19);
 		auxDateTime = auxDateTime.replaceAll("T", " ");
-		
-		System.out.println("Data e Hora: " + auxDateTime);
 		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
@@ -269,8 +255,6 @@ public class DBConector {
 			query = "INSERT INTO Arquivo VALUES (" + Almoxarifado.quantityArchives + ", " + auxInfoFromMontagem + auxDateTime + "', " 
 			+ Almoxarifado.rdf + ");";
 			Almoxarifado.quantityArchives++;
-			
-			System.out.println(query);
 			
 			statement.executeUpdate(query);
 			
@@ -312,7 +296,6 @@ public class DBConector {
 				brokenQuery = partsQuery.split(" \n");
 				
 				for(int i = 0; i < brokenQuery.length; i++) {
-					System.out.println(brokenQuery[i] + "");
 					statement.executeUpdate(brokenQuery[i]);
 					Almoxarifado.quantityParts--;
 				}
@@ -320,11 +303,9 @@ public class DBConector {
 			
 			query = "DELETE FROM Montagem WHERE ID_Montagem = " + ID;
 			statement.executeUpdate(query);
-			System.out.println(query);
 			
 			query = "DELETE FROM Pecas WHERE Montagem = " + ID;
 			statement.executeUpdate(query);
-			System.out.println(query);
 			
 			Almoxarifado.quantityAssembly--;
 			
@@ -334,67 +315,7 @@ public class DBConector {
 			e.printStackTrace();
 		}
 	}
-	/*
-	private static void correctIDs(int index) {
-		System.out.println("Index: " + index);
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		}catch(ClassNotFoundException e){
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", 
-					"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
-			System.exit(1);
-		}
-		
-		String query = "SELECT ID_Montagem FROM Montagem";
-		String[] brokenPartsQuery;
-		String[] brokenAssemblyQuery;
-		
-		try {
-			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
-			Statement statement = con.createStatement();
-			ResultSet rslt = statement.executeQuery(query);
-			
-			query = "";
-			while(rslt.next()) {
-				int measurer = Integer.parseInt(rslt.getString(1));
-				System.out.println("Em Int: " + measurer);
-				if(measurer > index) {
-					query += "UPDATE Montagem SET ID_Montagem = " + (measurer-1) + " WHERE ID_Montagem = " + measurer + " § ";
-				}
-			}
-			
-			brokenAssemblyQuery = query.split(" § ");
-			for(int i = 0; i < brokenAssemblyQuery.length; i++) {
-				System.out.println(brokenAssemblyQuery[i]);
-				statement.executeUpdate(brokenAssemblyQuery[i]);
-			}
-			
-			query = "SELECT ID_Parts FROM Pecas";
-			rslt = statement.executeQuery(query);
-			
-			query = "";
-			String correctAssembly;
-			while(rslt.next()) {
-				int measurer = Integer.parseInt(rslt.getString(1));
-				System.out.println("Em Int: " + measurer);
-				if(measurer > index) {
-					query += "UPDATE Pecas SET ID_Parts = " + (measurer-1) + " WHERE ID_Parts = " + measurer + " § ";
-				}
-			}
-			if(!query.equals("")) {
-				brokenPartsQuery = query.split(" § ");
-				for(int i = 0; i < brokenPartsQuery.length; i++) {
-					System.out.println(brokenPartsQuery[i]);
-					statement.executeUpdate(brokenPartsQuery[i]);
-				}
-			}
-			
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	*/
+	
 	private static int checkSize(String objective, String table) {
 		int max = 0;
 		

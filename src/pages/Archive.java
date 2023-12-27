@@ -35,7 +35,6 @@ public class Archive {
 	BufferedImage img = Almoxarifado.imgManag.getProjectImage("ArchiveDefaultImg");
 
 	public Archive() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	void restoreAssemby(int ID) {
@@ -61,8 +60,6 @@ public class Archive {
 				scroll = 0;
 			}
 			
-			//System.out.println("ofsetHeight: " + ofsetHeight);
-			
 			if(restart) {
 				infoGathered = "";
 				infoGathered = DBConector.readDB("*", "Arquivo");
@@ -81,14 +78,6 @@ public class Archive {
 		for(int i = 0; i < Almoxarifado.quantityArchives; i++) {
 			boxX = ((Almoxarifado.WIDTH / 4) * auxXPositioner) - (boxWidth/2);
 			
-			
-			/*
-			System.out.println("\nauxXPositioner: " + auxXPositioner + ", AuxYPositioner: " + auxYPositioner);
-			
-			System.out.println("X: " + boxX + ", Y: " + boxY + ", Width: " + boxWidth + ", Height: " + boxHeight + "\n");
-			System.out.println("auxXPositioner: " + auxXPositioner + ", AuxYPositioner: " + auxYPositioner);
-			System.out.println("------------------------------------------------------------------------------------------------------");
-			*/
 			auxXPositioner++;
 			
 			
@@ -120,7 +109,5 @@ public class Archive {
 				auxYPositioner += boxHeight*1.5;
 			}
 		}
-		//System.out.println("========================================================================================================");
 	}
-
 }

@@ -37,7 +37,6 @@ public class Employee extends Profile{
 		
 		if(isOnTheRightState) {
 			if(mouseStatus == true) {
-				//System.out.println("Mouse Status = " + mouseStatus);
 				mouseAuxRun = true;
 				mouseAuxEdit = true;
 				mouseStatus = false;
@@ -51,9 +50,7 @@ public class Employee extends Profile{
 				switch(buttonClick(Almoxarifado.mX, Almoxarifado.mY, false)) {
 				case 1:
 					if(isEditing == false) {
-						isEditing = true;
-						System.out.println("Está Editando");
-						
+						isEditing = true;						
 					}else {
 						isEditing = false;
 					}

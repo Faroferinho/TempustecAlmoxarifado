@@ -51,13 +51,10 @@ public class Login {
 		
 		for(int i = 0; i < registers.length; i++) {
 			if(textInBoxCPF.equals(registers[i]) && textInBoxPW.equals(passwords[i])) {
-				System.out.println("A Conta e Senha Batem");
 				
 				String auxString = "";
 				auxString = DBConector.findInDB("*", "Funcionarios", "CPF", textInBoxCPF);
 				String[] toConfig = auxString.split(" § ");
-				
-				System.out.println(auxString);
 				
 				Almoxarifado.rdf = toConfig[0];
 				Almoxarifado.name = toConfig[1];
@@ -65,10 +62,8 @@ public class Login {
 				Almoxarifado.type = toConfig[4];
 				
 				if(Almoxarifado.type.equals("1")) {
-					//System.out.println("é Administrador");
 					Almoxarifado.admProfile = new Admnistrator(Almoxarifado.name, Almoxarifado.rdf, Almoxarifado.cpf);
 				}else {
-					//System.out.println("é Funcionario");
 					Almoxarifado.workProfile = new Employee(Almoxarifado.name, Almoxarifado.rdf, Almoxarifado.cpf);
 				}
 				
@@ -90,23 +85,19 @@ public class Login {
 		String fourthPart = "";
 		
 		if(CPF.length() < 3) {
-			//System.out.println("Menor que 3");
 			toReturn = CPF;
 		}else if(CPF.length() > 2 && CPF.length() < 6) {
-			//System.out.println("Entre 3 e 6");
 			firstPart = CPF.substring(0, 3);
 			secondPart = CPF.substring(3, CPF.length());
 			
 			toReturn = firstPart + "." + secondPart;
 		}else if(CPF.length() > 5 && CPF.length() < 9) {
-			//System.out.println("Entre 6 e 9");
 			firstPart = CPF.substring(0, 3);
 			secondPart = CPF.substring(3, 6);
 			thirdPart = CPF.substring(6, CPF.length());
 			
 			toReturn = firstPart + "." + secondPart + "." + thirdPart;
 		}else if(CPF.length() > 8 && CPF.length() < 12) {
-			//System.out.println("Entre 9 e 12");
 			firstPart = CPF.substring(0, 3);
 			secondPart = CPF.substring(3, 6);
 			thirdPart = CPF.substring(6, 9);
@@ -172,16 +163,12 @@ public class Login {
 		if(isOnTheRightState) {
 		
 			if(Almoxarifado.mPressed) {
-				System.out.println("Clicado");
 				if(Almoxarifado.mX > textBoxX && Almoxarifado.mX < textBoxX + textBoxW) {
-					//System.out.println("Dentro do Espaço Lateral");
 					if(Almoxarifado.mY > textBoxY && Almoxarifado.mY < textBoxY + textBoxH) {
-						System.out.println("Area de Texto CPF");
 						isWriting = true;
 						isOnCPF = true;
 						isOnPW = false;
 					}else if(Almoxarifado.mY > (int) (textBoxY * 1.6) && Almoxarifado.mY < (int) (textBoxY * 1.6) + textBoxH) {
-						System.out.println("Area de Texto Senha");
 						isWriting = true;
 						isOnCPF = false;
 						isOnPW = true;
@@ -192,7 +179,6 @@ public class Login {
 				
 				if(Almoxarifado.mX > bttnX && Almoxarifado.mX < bttnX + loginBttn.getWidth() 
 				&& Almoxarifado.mY > bttnY && Almoxarifado.mY < bttnY + loginBttn.getHeight()) {
-					System.out.println("Clicado no botão");
 					submitForm();
 				}
 			}

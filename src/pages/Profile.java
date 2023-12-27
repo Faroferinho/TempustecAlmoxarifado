@@ -46,10 +46,8 @@ public class Profile {
 			if(my > Almoxarifado.HEIGHT / 2 + 105 && my < Almoxarifado.HEIGHT / 2 + 190) {
 				if(mx > Almoxarifado.WIDTH / 4 - 80 && mx < Almoxarifado.WIDTH / 4 + 80) {
 					//Editar Perfil
-					System.out.println("Botão Clicado");
 					return 1;
 				}else if(mx > (Almoxarifado.WIDTH / 4) * 3 - 80 && mx < (Almoxarifado.WIDTH / 4)*3 + 80) {
-					System.out.println("Botão Clicado");
 					return 2;
 				}
 			}
@@ -58,7 +56,6 @@ public class Profile {
 				if(isEditing == false) {
 					if(mx > (Almoxarifado.WIDTH / 5) - 80 && mx < (Almoxarifado.WIDTH / 5) + 80) {
 						//Editar Perfil;
-						//System.out.println("Botão Clicado");
 						return 1;
 					}else if(mx > (Almoxarifado.WIDTH / 5) * 2 - 80 && mx < (Almoxarifado.WIDTH / 5) * 2 + 80) {
 						//Listar Pessoas;
@@ -74,10 +71,8 @@ public class Profile {
 				
 				if(isEditing == true) {
 					if(mx > (Almoxarifado.WIDTH / 3) - 80 && mx < (Almoxarifado.WIDTH / 3) + 80) {
-						System.out.println("Botão Clicado");
 						return 1;
 					}else if(mx > (Almoxarifado.WIDTH / 4) * 3 - 80 && mx < (Almoxarifado.WIDTH / 3) * 2 + 80) {
-						System.out.println("Botão Clicado");
 						return 4;
 					}
 				}
@@ -91,7 +86,6 @@ public class Profile {
 		if(type == false) {
 			if(mx > 170 && mx < 200 + nameSize) {
 				if(my > 135 && my < 170) {
-					//System.out.println("Está no nome");
 					overName = true;
 					if(mouseAuxEdit) {
 						editInfo(1);
@@ -101,7 +95,6 @@ public class Profile {
 		}else {
 			if(mx > 170 && mx < 512) {
 				if(my > 135 && my < 170) {
-					//System.out.println("Está no nome");
 					overName = true;
 					if(mouseAuxEdit) {
 						editInfo(1);
@@ -112,7 +105,6 @@ public class Profile {
 						editInfo(2);
 					}
 				}else if(my > 210 && my < 250) {
-					//System.out.println("Está no CPF");
 					overCPF = true;
 					if(mouseAuxEdit) {
 						editInfo(3);
@@ -128,7 +120,6 @@ public class Profile {
 		case 1:
 			String newName = "";
 			newName += JOptionPane.showInputDialog("Insira o Novo Nome");
-			System.out.println("O Novo nome é: " + newName);
 			
 			if(newName != "null" && newName != "") {
 				DBConector.editLine("funcionarios", "name", newName, "RdF", RdF);
@@ -139,7 +130,6 @@ public class Profile {
 		case 2:
 			String newRdF = "";
 			newRdF += JOptionPane.showInputDialog("Insira o Novo Registro de Funcionario");
-			System.out.println("O Novo nome é: " + newRdF);
 			
 			if(!(newRdF.isBlank()) || !(newRdF.isEmpty())) {
 				DBConector.editLine("funcionarios", "RdF", newRdF, "RdF", RdF);
@@ -149,7 +139,6 @@ public class Profile {
 		case 3:
 			String newCPF = "";
 			newCPF += JOptionPane.showInputDialog("Insira o Novo CPF");
-			System.out.println("O Novo nome é: " + newCPF);
 			
 			if(!(newCPF.isBlank()) || !(newCPF.isEmpty())) {
 				DBConector.editLine("funcionarios", "CPF", newCPF, "RdF", RdF);
@@ -161,13 +150,10 @@ public class Profile {
 			
 			newPassword += JOptionPane.showInputDialog(null, "Qual Será a nova senha?", "Insira a nova Senha", JOptionPane.PLAIN_MESSAGE);
 			
-			System.out.println("Valor da Nova Senha: " + newPassword);
-			
 			if(newPassword.equals("") || newPassword.equals("null")) {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 			}else {
 				int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a Mudança?", "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-				System.out.println("Confirmação: " + confirmation);
 				if(confirmation == 0) {
 					DBConector.editLine("funcionarios", "password", newPassword, "RdF", RdF);
 				}else {

@@ -52,13 +52,10 @@ public class PartsList {
 	public static int auxAddingFromMontagem = 0;
 
 	public PartsList() {
-		//System.out.println("To Split: \n" + toSplit);
 		finalPartsTable = listBreaker(toSplit);
 	}
 	
-	public static String getKey(String value) {
-		System.out.println("HashMap: \n" + assembliesHM);
-		
+	public static String getKey(String value) {		
 		for (Entry<String, String> entry : assembliesHM.entrySet()) {
 	        if (Objects.equals(value, entry.getValue())) {
 	            return entry.getKey();
@@ -100,10 +97,7 @@ public class PartsList {
 		return returnString;
 	}
 	
-	public static void changePart(String index, int column) {
-		System.out.println("Coluna: " + column);
-		System.out.println("Index: " + index);
-		
+	public static void changePart(String index, int column) {		
 		String columnName =  "";
 		String auxString = "";
 		int aux = 0;
@@ -117,7 +111,6 @@ public class PartsList {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			System.out.println("auxString: " + auxString);
 			
 			auxString = getKey(auxString);
 			
@@ -153,7 +146,6 @@ public class PartsList {
 			}
 			
 			for(int i = 0; i < quantityTypes.length; i++) {
-				//System.out.println("Array[i]: " + quantityTypes[i] + " aux: " + aux);
 				if(quantityTypes[i].equals(auxString)) {
 					aux = i;
 				}
@@ -168,12 +160,8 @@ public class PartsList {
 				return;
 			}
 			
-			System.out.println("auxString: " + auxString);
-			
 			auxString = auxString.replaceFirst("[,]", ".");
 			auxString = auxString.replaceAll("[,]", "");
-			
-			System.out.println("auxString: " + auxString);
 			
 			break;
 		case 6:
@@ -210,7 +198,6 @@ public class PartsList {
 		assembliesSO = toBreakSO.split(" § \n");
 		
 		for(int i = 0; i < Almoxarifado.quantityAssembly; i++) {
-			System.out.println("ID: " + assembliesID[i] + ", SO: " + assembliesSO[i]);
 			returnHashMap.put(assembliesID[i], assembliesSO[i]);
 		}
 		
@@ -249,7 +236,6 @@ public class PartsList {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			System.out.println("aux: " + aux);
 			auxInt = Integer.parseInt(getKey(aux));
 		}else {
 			auxInt = auxAddingFromMontagem;
@@ -278,7 +264,6 @@ public class PartsList {
 		aux += JOptionPane.showInputDialog(null, "Selecione um tipo de quantidade", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null, quantityTypes, 0);
 		auxInt = 0;
 		for(int i = 0; i < quantityTypes.length; i++) {
-			//System.out.println("Array[i]: " + quantityTypes[i] + " aux: " + aux);
 			if(quantityTypes[i].equals(aux)) {
 				auxInt = i;
 			}
@@ -306,7 +291,6 @@ public class PartsList {
 		}
 		querry += aux + "', 0)";
 		
-		System.out.println(querry);
 		DBConector.writeDB(querry);
 		wasChanged = true;
 		Almoxarifado.quantityParts++;
@@ -356,7 +340,6 @@ public class PartsList {
 		
 		if(isOnTheRightState) {
 			if(wasChanged == true) {
-				System.out.println("Foi feita uma mudança");
 				toSplit = DBConector.readDB("*", "pecas");
 				finalPartsTable = listBreaker(toSplit);
 				
@@ -375,8 +358,6 @@ public class PartsList {
 				ofsetHeight += UserInterface.spd;
 				scroll = 0;
 			}
-			//System.out.println(ofsetHeight);
-			//System.out.println("Status do Scroll: " + scroll);
 		}
 		
 		if(restartAssemblyList) {
@@ -416,52 +397,38 @@ public class PartsList {
 					
 					switch(j) {
 					case 1:
-						//System.out.println("1");
 						auxWidth += (total*5)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
-						//System.out.println("1, AuxWidth: " + auxWidth);
 						break;
 					case 2:
-						//System.out.println("2");
 						auxWidth += (total*13.9)/100;
 						maxMouse = characterLimitPerLine;
-						//System.out.println("2, AuxWidth: " + auxWidth);
 						break;
 					case 3:
-						//System.out.println("3");
 						auxWidth += (total*33.2)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
-						//System.out.println("3, AuxWidth: " + auxWidth);
 						break;
 					case 4:
-						//System.out.println("4, AuxWidth: " + auxWidth);
 						auxWidth += g.getFontMetrics().stringWidth(" " + finalPartsTable[i][j-1]);
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
 					case 5:
-						//System.out.println("5");
 						auxWidth -= g.getFontMetrics().stringWidth(" " + finalPartsTable[i][j-2]);
 						auxWidth += (total*19)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
-						//System.out.println("5, AuxWidth: " + auxWidth);
 						break;
 					case 6:
-						//System.out.println("6");
 						auxWidth += (total*11.8)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
-						//System.out.println("6, AuxWidth: " + auxWidth);
 						break;
 					case 7:
-						//System.out.println("7");
 						auxWidth += (total*13)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
-						//System.out.println("7, AuxWidth: " + auxWidth);
 						break;
 					}
 					
 					if(i != 0 && j == 2) {
 						if(g.getFontMetrics().stringWidth(finalPartsTable[i][j]) > characterLimitPerLine) {
-							//System.out.println("O Texto é grande demais para o Espaço delimitado");
 							multipleDescriptionLinesMark = true;
 						}
 					}
@@ -485,7 +452,6 @@ public class PartsList {
 						
 							nC = Color.red;
 							if(mouseStatus) {
-								System.out.println("Você Clicou em " + finalPartsTable[i][j]);
 								changePart(finalPartsTable[i][0], j);
 								mouseStatus = false;
 							}
@@ -523,23 +489,15 @@ public class PartsList {
 						descriptionOfsetHeight += quantityOfLines;
 						double quantityOfCharacters = finalPartsTable[i][j].length()/quantityOfLines;
 						
-						/*System.out.print("Informações: \n"
-								+ "Tamanho do Texto: " + g.getFontMetrics().stringWidth(finalPartsTable[i][j]) + " / 323 = " + quantityOfLines + "\n"
-								+ "quantityOfCharacters: " + quantityOfCharacters + "\n\n\n");
-						*/
 						for(int inc = 0; inc < quantityOfLines+1; inc++) {
 							int start = (int) (quantityOfCharacters*(inc));
 							int end = (int) (quantityOfCharacters*(inc+1));
-							
-							//System.out.println("Start: " + start + ", End: " + end);
-							
+														
 							if(end > finalPartsTable[i][j].length()) {
 								end = finalPartsTable[i][j].length();
 							}
 
 							auxText = finalPartsTable[i][j].substring(start, end);
-							//System.out.println(auxText);
-							
 							
 							char verifFormat = finalPartsTable[i][j].charAt(end-1);
 							if(verifFormat != ' ' && verifFormat != ',' && verifFormat != '.' && verifFormat != '-'){
@@ -556,10 +514,7 @@ public class PartsList {
 					}
 					
 					multipleDescriptionLinesMark = false;
-					//System.out.println("Largura Auxiliar: " + auxWidth + ", Altura Auxiliar: " + auxHeight);
-					//System.out.println(finalPartsTable[i][j]);
 					
-
 					if(i > 0 && j == 7) {
 						g.drawImage(checkBox, auxWidth, auxHeight + ofsetHeight + (g.getFontMetrics().getHeight() - checkBox.getHeight()), null);
 						if(auxTextToWrite.equals("1")) {
@@ -575,13 +530,11 @@ public class PartsList {
 
 			if(mouseStatus) {
 				if(Almoxarifado.mX > Almoxarifado.WIDTH/3 - adicionar.getWidth()/2	&& Almoxarifado.mX < Almoxarifado.WIDTH/3 + adicionar.getWidth()/2
-						&& Almoxarifado.mY > auxHeight - 5 && Almoxarifado.mY < auxHeight + 69) {
-					System.out.println("Você Clicou para Adicionar Peça");
+				&& Almoxarifado.mY > auxHeight - 5 && Almoxarifado.mY < auxHeight + 69) {
 					addPart();
 					mouseStatus = false;
 				}else if(Almoxarifado.mX > Almoxarifado.WIDTH/3*2 - excluir.getWidth()/2	&& Almoxarifado.mX < Almoxarifado.WIDTH/3*2 + excluir.getWidth()/2
-						&& Almoxarifado.mY > auxHeight - 5 && Almoxarifado.mY < auxHeight + 69) {
-					System.out.println("Você Clicou para Excluir Peça");
+				&& Almoxarifado.mY > auxHeight - 5 && Almoxarifado.mY < auxHeight + 69) {
 					if(isEliminating) {
 						isEliminating = false;
 					}else {
