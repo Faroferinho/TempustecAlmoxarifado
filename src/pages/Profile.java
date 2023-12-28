@@ -93,21 +93,24 @@ public class Profile {
 				}
 			}
 		}else {
-			if(mx > 170 && mx < 512) {
+			if(mx > 170 && mx < 200 + nameSize) {
 				if(my > 135 && my < 170) {
 					overName = true;
 					if(mouseAuxEdit) {
 						editInfo(1);
+						mouseAuxEdit = false;
 					}
 				}else if(my > 170 && my < 210){
 					overRdF = true;
 					if(mouseAuxEdit) {
 						editInfo(2);
+						mouseAuxEdit = false;
 					}
 				}else if(my > 210 && my < 250) {
 					overCPF = true;
 					if(mouseAuxEdit) {
 						editInfo(3);
+						mouseAuxEdit = false;
 					}
 				}
 			}
@@ -121,7 +124,7 @@ public class Profile {
 			String newName = "";
 			newName += JOptionPane.showInputDialog("Insira o Novo Nome");
 			
-			if(newName != "null" && newName != "") {
+			if(newName.equals("") && newName.equals("null")) {
 				DBConector.editLine("funcionarios", "name", newName, "RdF", RdF);
 				name = newName;
 			}
@@ -131,7 +134,7 @@ public class Profile {
 			String newRdF = "";
 			newRdF += JOptionPane.showInputDialog("Insira o Novo Registro de Funcionario");
 			
-			if(!(newRdF.isBlank()) || !(newRdF.isEmpty())) {
+			if(!(newRdF.equals("")) || newRdF.equals("null")) {
 				DBConector.editLine("funcionarios", "RdF", newRdF, "RdF", RdF);
 				RdF = newRdF;
 			}
@@ -140,9 +143,9 @@ public class Profile {
 			String newCPF = "";
 			newCPF += JOptionPane.showInputDialog("Insira o Novo CPF");
 			
-			if(!(newCPF.isBlank()) || !(newCPF.isEmpty())) {
+			if(!(newCPF.equals("")) || newCPF.equals("null")) {
 				DBConector.editLine("funcionarios", "CPF", newCPF, "RdF", RdF);
-				RdF = newCPF;
+				CPF = newCPF;
 			}
 			break;
 		case 4:

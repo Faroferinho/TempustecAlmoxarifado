@@ -330,6 +330,17 @@ public class PartsList {
 	}
 	
 	public void tick() {
+		if(wasChanged == true) {
+			toSplit = DBConector.readDB("*", "pecas");
+			finalPartsTable = listBreaker(toSplit);
+			
+			assembliesHM = fillAssembliesName();
+			quantityTypes = fillQuantityTypes();
+			
+			maximumIndexQT = Almoxarifado.cnctr.qnttTyps;
+			
+			wasChanged = false;
+		}
 		if(Almoxarifado.state == 2) {
 			isOnTheRightState = true;
 			Almoxarifado.frame.setTitle("Lista de Peças");
@@ -339,18 +350,6 @@ public class PartsList {
 		}
 		
 		if(isOnTheRightState) {
-			if(wasChanged == true) {
-				toSplit = DBConector.readDB("*", "pecas");
-				finalPartsTable = listBreaker(toSplit);
-				
-				assembliesHM = fillAssembliesName();
-				quantityTypes = fillQuantityTypes();
-				
-				maximumIndexQT = Almoxarifado.cnctr.qnttTyps;
-				
-				wasChanged = false;
-			}
-			
 			if(scroll > 1 && ofsetHeight > maximumHeight) {
 				ofsetHeight -= UserInterface.spd;
 				scroll = 0;
@@ -362,6 +361,7 @@ public class PartsList {
 		
 		if(restartAssemblyList) {
 			assembliesHM = fillAssembliesName();
+			wasChanged = true;
 			restartAssemblyList = false;
 		}
 	}

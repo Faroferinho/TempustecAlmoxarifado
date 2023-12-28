@@ -64,6 +64,16 @@ public class Admnistrator extends Profile {
 		
 		if(isOnTheRightState) {
 			
+			if(mouseStatus == true) {
+				mouseAuxRun = true;
+				mouseAuxEdit = true;
+				mouseAuxSign = true;
+			}else {
+				mouseAuxRun = false;
+				mouseAuxEdit = false;
+				mouseAuxSign = false;
+			}
+			
 			if(mouseStatus) {
 				switch(buttonClick(Almoxarifado.mX, Almoxarifado.mY, true)) {
 				case 1:

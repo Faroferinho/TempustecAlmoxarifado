@@ -37,6 +37,8 @@ public class Login {
 	boolean isOnPW = false;
 	public boolean isWriting = false;
 	
+	private boolean blink;
+	
 	public Login() {
 		imgX = (Almoxarifado.WIDTH/2) - (imgSize/2);
 	}
@@ -210,6 +212,21 @@ public class Login {
 		
 		g.drawString(cpfFormater(textInBoxCPF), textBoxX + 5, textBoxY + textBoxH - (g.getFontMetrics().getHeight()/2));
 		g.drawString(censoringPassword(textInBoxPW), textBoxX + 5, (int) (textBoxY * 1.6) + textBoxH - (g.getFontMetrics().getHeight()/4));
+		
+		int blinkAux = 0;
+		blinkAux++;
+		
+		if(blinkAux%2 == 0 || blinkAux%3 == 0 || blinkAux%5 == 0 || blinkAux%7 == 0) {
+			blink = true;
+		}
+		
+		if(blink) {
+			if(isOnCPF) {
+				g.fillRect(g.getFontMetrics().stringWidth(cpfFormater(textInBoxCPF)) + textBoxX + 5, textBoxY + 5, 3, 30);
+			}else if(isOnPW) {
+				g.drawRect(imgX, imgY, bttnY, bttnX);
+			}
+		}
 		
 		g.drawImage(loginBttn, bttnX, bttnY, null);
 		UserInterface.isOnButton(g, bttnX, bttnY);
