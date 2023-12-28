@@ -130,6 +130,9 @@ public class PartsList {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
+			
+			auxString = formatNumb(auxString);
+			
 			break;
 		case 4:
 			columnName += "Quantity_type";
@@ -160,8 +163,7 @@ public class PartsList {
 				return;
 			}
 			
-			auxString = auxString.replaceFirst("[,]", ".");
-			auxString = auxString.replaceAll("[,]", "");
+			auxString = formatNumb(auxString);
 			
 			break;
 		case 6:
@@ -186,6 +188,14 @@ public class PartsList {
 		DBConector.editLine("pecas", columnName, auxString, "ID_Parts", index);
 		
 		wasChanged = true;
+	}
+	
+	private static String formatNumb(String text) {
+		
+		text = text.replaceFirst(",", ".");
+		text = text.replaceAll("[a-zA-Z,]", "");
+		
+		return text;
 	}
 	
 	private static HashMap<String, String> fillAssembliesName() {
@@ -257,6 +267,9 @@ public class PartsList {
 			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		
+		aux = formatNumb(aux);
+		
 		querry += aux + ", ";
 		//TODO: insira uma forma de limitar o usuário a apenas usar numeros aqui;
 		
@@ -280,6 +293,9 @@ public class PartsList {
 			JOptionPane.showMessageDialog(null, "Valor Agora será nulo", "", JOptionPane.WARNING_MESSAGE);
 			aux = "0";
 		}
+		
+		aux = formatNumb(aux);
+		
 		querry += aux + ", '";
 		//TODO: insira uma forma de limitar o usuário a apenas usar numeros aqui;
 		
@@ -290,6 +306,8 @@ public class PartsList {
 			aux = "---------------";
 		}
 		querry += aux + "', 0)";
+		
+		System.out.println(querry);
 		
 		DBConector.writeDB(querry);
 		wasChanged = true;

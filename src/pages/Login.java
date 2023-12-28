@@ -116,7 +116,7 @@ public class Login {
 	
 	public void writingOnCanvas(KeyEvent e) {
 		if(isOnCPF) {
-			if(e.getKeyCode() > 47 && e.getKeyCode() < 58) {
+			if((e.getKeyCode() > 47 && e.getKeyCode() < 58) || (e.getKeyCode() > 95 && e.getKeyCode() < 106)) {
 				textInBoxCPF += e.getKeyChar();
 			} else {
 				if(textInBoxCPF.length() > 0 && e.getKeyCode() == 8) {
@@ -143,6 +143,9 @@ public class Login {
 			}
 		}
 		
+		if(e.getKeyCode() == e.VK_ENTER) {
+			submitForm();
+		}
 		
 	}
 	
@@ -224,7 +227,7 @@ public class Login {
 			}
 		}
 		
-		if(blink) {
+		if(blink && isWriting) {			
 			if(isOnCPF) {
 				g.fillRect(g.getFontMetrics().stringWidth(cpfFormater(textInBoxCPF)) + textBoxX + 5, textBoxY + 5, 3, 30);
 			}else if(isOnPW) {

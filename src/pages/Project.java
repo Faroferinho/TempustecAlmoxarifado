@@ -101,10 +101,23 @@ public class Project {
 			separetedList = toArrayList(rawPartsList);
 			
 			price = 0;
+			double finalPrice = 0;
+			int auxQuantity = 0;
 			
 			for(int i = 10; i < separetedList.size(); i++) {
+				if(i % 8 == 3) {
+					auxQuantity += Integer.parseInt(separetedList.get(i));
+					System.out.println("Quantidade: " + auxQuantity);
+				}
 				if(i % 8 == 5) {
-					price += Double.parseDouble(separetedList.get(i));
+					finalPrice += Double.parseDouble(separetedList.get(i));
+					System.out.println("Preço da Peça: " + finalPrice);
+				}
+				if(i % 8 == 7) {
+					price += auxQuantity * finalPrice;
+					System.out.println("Preço: " + price);
+					auxQuantity = 0;
+					finalPrice = 0;
 				}
 			}
 			
