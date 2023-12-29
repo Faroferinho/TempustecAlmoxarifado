@@ -193,15 +193,16 @@ public class Login {
 	}
 	
 	public void render(Graphics g) {
+		int round = 144;
 		
 		Graphics2D g2 = (Graphics2D)g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		g.fillRect(0, 0, Almoxarifado.WIDTH, Almoxarifado.HEIGHT);
 		g.setColor(Color.orange);
-		g.fillRoundRect((Almoxarifado.WIDTH/5), 15, (Almoxarifado.WIDTH/5)*3, Almoxarifado.HEIGHT-30, 18, 18);
+		g.fillRoundRect((Almoxarifado.WIDTH/5), 15, (Almoxarifado.WIDTH/5)*3, Almoxarifado.HEIGHT-30, round, round);
 		g.setColor(Color.gray);
-		g.fillRoundRect((Almoxarifado.WIDTH/5) + 8, 15 + 8, (Almoxarifado.WIDTH/5)*3 - 16, Almoxarifado.HEIGHT-30 - 16, 18, 18);
+		g.fillRoundRect((Almoxarifado.WIDTH/5) + 8, 15 + 8, (Almoxarifado.WIDTH/5)*3 - 16, Almoxarifado.HEIGHT-30 - 16, round, round);
 		g.drawImage(tempustecLogo, imgX, imgY, imgSize, imgSize, null);
 		
 		g.setColor(Color.white);

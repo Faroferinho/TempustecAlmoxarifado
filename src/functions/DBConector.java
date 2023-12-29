@@ -148,7 +148,7 @@ public class DBConector {
 		}
 	}
 	
-	public static void editLine(String Table, String objective, String newInfo, String PK,String PrimaryKey) {
+	public static void editLine(String Table, String objective, String newInfo, String PK, String PrimaryKey) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -159,6 +159,7 @@ public class DBConector {
 		}
 		
 		String query = "UPDATE " + Table + " SET " + objective + " = '" + newInfo + "' WHERE " + PK + " = " + PrimaryKey;
+		System.out.println(query);
 		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);

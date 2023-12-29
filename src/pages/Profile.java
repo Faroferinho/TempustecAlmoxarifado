@@ -84,92 +84,89 @@ public class Profile {
 	
 	public void changeInformation(int mx, int my, boolean type){
 		if(type == false) {
-			if(mx > 170 && mx < 200 + nameSize) {
-				if(my > 135 && my < 170) {
+			if(Almoxarifado.mX > 185 && Almoxarifado.mX < Almoxarifado.WIDTH/2) {
+				if(Almoxarifado.mY > 165 && Almoxarifado.mY < 185) {
 					overName = true;
-					if(mouseAuxEdit) {
+					if(mouseStatus) {
 						editInfo(1);
+						mouseStatus = false;
 					}
 				}
 			}
 		}else {
-			if(mx > 170 && mx < 200 + nameSize) {
-				if(my > 135 && my < 170) {
+			if(Almoxarifado.mX > 185 && Almoxarifado.mX < Almoxarifado.WIDTH/2) {
+				if(Almoxarifado.mY > 145 && Almoxarifado.mY < 165) {
 					overName = true;
-					if(mouseAuxEdit) {
+					if(mouseStatus) {
 						editInfo(1);
-						mouseAuxEdit = false;
+						mouseStatus = false;
 					}
-				}else if(my > 170 && my < 210){
+				}
+				
+				if(Almoxarifado.mY > 180 && Almoxarifado.mY < 200) {
 					overRdF = true;
-					if(mouseAuxEdit) {
+					if(mouseStatus) {
 						editInfo(2);
-						mouseAuxEdit = false;
+						mouseStatus = false;
 					}
-				}else if(my > 210 && my < 250) {
+				}
+				
+				if(Almoxarifado.mY > 215 && Almoxarifado.mY < 235) {
 					overCPF = true;
-					if(mouseAuxEdit) {
+					if(mouseStatus) {
 						editInfo(3);
-						mouseAuxEdit = false;
+						mouseStatus = false;
 					}
 				}
 			}
 		}
 	}
 	
-	public void editInfo(int type) {
+	protected void editInfo(int type) {
+		String column = "";
+		String newText = "";
 		
 		switch(type) {
 		case 1:
-			String newName = "";
-			newName += JOptionPane.showInputDialog("Insira o Novo Nome");
-			
-			if(newName.equals("") && newName.equals("null")) {
-				DBConector.editLine("funcionarios", "name", newName, "RdF", RdF);
-				name = newName;
-			}
-			
+			newText += JOptionPane.showInputDialog(null, "Insira o novo nome", "Configurando Perfil", JOptionPane.PLAIN_MESSAGE);
+			column = "Name";
 			break;
 		case 2:
-			String newRdF = "";
-			newRdF += JOptionPane.showInputDialog("Insira o Novo Registro de Funcionario");
-			
-			if(!(newRdF.equals("")) || newRdF.equals("null")) {
-				DBConector.editLine("funcionarios", "RdF", newRdF, "RdF", RdF);
-				RdF = newRdF;
-			}
+			newText += JOptionPane.showInputDialog(null, "Insira o novo Registro de Funcionario", "Configurando Perfil", JOptionPane.PLAIN_MESSAGE);
+			column = "RdF";
 			break;
 		case 3:
-			String newCPF = "";
-			newCPF += JOptionPane.showInputDialog("Insira o Novo CPF");
-			
-			if(!(newCPF.equals("")) || newCPF.equals("null")) {
-				DBConector.editLine("funcionarios", "CPF", newCPF, "RdF", RdF);
-				CPF = newCPF;
-			}
+			newText += JOptionPane.showInputDialog(null, "Insira o novo CPF", "Configurando Perfil", JOptionPane.PLAIN_MESSAGE);
+			column = "CPF";
 			break;
 		case 4:
-			String newPassword = "";
+			newText += JOptionPane.showInputDialog(null, "Insira o nova Senha", "Configurando Perfil", JOptionPane.PLAIN_MESSAGE);
+			column = "Password";
 			
-			newPassword += JOptionPane.showInputDialog(null, "Qual Será a nova senha?", "Insira a nova Senha", JOptionPane.PLAIN_MESSAGE);
-			
-			if(newPassword.equals("") || newPassword.equals("null")) {
-				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
-			}else {
-				int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a Mudança?", "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-				if(confirmation == 0) {
-					DBConector.editLine("funcionarios", "password", newPassword, "RdF", RdF);
-				}else {
-					JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
-				}
-				
+			int confirm = JOptionPane.showConfirmDialog(null, "", "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			if(confirm != 0) {
+				return;
 			}
+			
 			break;
 		}
 		
+		DBConector.editLine("Funcionarios", column, newText, "RdF", RdF);
+		
+		if(type == 2) {
+			RdF = newText;
+		}
+		
+		updateInfo();
 	}
 	
-	
+	public static void updateInfo() {
+		String aux = DBConector.findInDB("*", "Funcionarios", "RdF", RdF);
+		String[] splitAux = aux.split(" § ");
+		
+		name = splitAux[1];
+		CPF = splitAux[2];
+	}
 	
 	public static void firstRendering(Graphics g) {
 		g.setColor(Color.green);
