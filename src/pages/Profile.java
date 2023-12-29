@@ -143,8 +143,9 @@ public class Profile {
 			newText += JOptionPane.showInputDialog(null, "Insira o nova Senha", "Configurando Perfil", JOptionPane.PLAIN_MESSAGE);
 			column = "Password";
 			
-			int confirm = JOptionPane.showConfirmDialog(null, "", "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			int confirm = JOptionPane.showConfirmDialog(null, "Você tem certeza que deseja mudar a Senha?", "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 			if(confirm != 0) {
+				System.out.println("Confimação Negada");
 				return;
 			}
 			

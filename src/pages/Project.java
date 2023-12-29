@@ -32,7 +32,7 @@ public class Project {
 	BufferedImage checkBox = Almoxarifado.imgManag.getSprite(414, 193, 32, 32);
 	BufferedImage check = Almoxarifado.imgManag.getSprite(406, 226, 41, 39);
 	
-	double price = 0.0;
+	static double price = 0.0;
 	
 	public static boolean updateProject = true;
 	private boolean isOnTheRightState = false;
@@ -69,6 +69,51 @@ public class Project {
 		return false;
 	}
 	
+	public void updater() {
+		ofsetHeight = 0;
+		String brokenApartInfo[];
+		String aux = DBConector.findInDB("*", "montagem", "ID_Montagem", "" + ID);
+		
+		brokenApartInfo = aux.split(" § ");
+		
+		name = brokenApartInfo[1];
+		description = brokenApartInfo[2];
+		company = brokenApartInfo[3];
+		imgAdress = brokenApartInfo[4];
+		
+		if(imgAdress.equals(null) || imgAdress.equals("null") || imgAdress.equals("")) {
+			imgAdress = "ProjetoBetaImg";
+		}
+		
+		img = Almoxarifado.imgManag.getProjectImage(imgAdress);
+		
+		rawPartsList = "";
+		rawPartsList += DBConector.findInDB("*", "pecas", "montagem", "" + ID);
+		separetedList = toArrayList(rawPartsList);
+		
+		price = 0;
+		double finalPrice = 0;
+		int auxQuantity = 0;
+		
+		for(int i = 10; i < separetedList.size(); i++) {
+			if(i % 8 == 3) {
+				auxQuantity += Integer.parseInt(separetedList.get(i));
+			}
+			if(i % 8 == 5) {
+				finalPrice += Double.parseDouble(separetedList.get(i));
+			}
+			if(i % 8 == 7) {
+				price += auxQuantity * finalPrice;
+				auxQuantity = 0;
+				finalPrice = 0;
+			}
+		}
+		
+		DBConector.editLine("Montagem", "cost", "" + price, "ID_Montagem", "" + ID);
+		
+		Almoxarifado.frame.setTitle(Project.name);
+	}
+	
 	public void tick() {
 		
 		if(Almoxarifado.state == 5) {
@@ -79,48 +124,7 @@ public class Project {
 		}
 		
 		if(updateProject) {
-			ofsetHeight = 0;
-			String brokenApartInfo[];
-			String aux = DBConector.findInDB("*", "montagem", "ID_Montagem", "" + ID);
-			
-			brokenApartInfo = aux.split(" § ");
-			
-			name = brokenApartInfo[1];
-			description = brokenApartInfo[2];
-			company = brokenApartInfo[3];
-			imgAdress = brokenApartInfo[4];
-			
-			if(imgAdress.equals(null) || imgAdress.equals("null") || imgAdress.equals("")) {
-				imgAdress = "ProjetoBetaImg";
-			}
-			
-			img = Almoxarifado.imgManag.getProjectImage(imgAdress);
-			
-			rawPartsList = "";
-			rawPartsList += DBConector.findInDB("*", "pecas", "montagem", "" + ID);
-			separetedList = toArrayList(rawPartsList);
-			
-			price = 0;
-			double finalPrice = 0;
-			int auxQuantity = 0;
-			
-			for(int i = 10; i < separetedList.size(); i++) {
-				if(i % 8 == 3) {
-					auxQuantity += Integer.parseInt(separetedList.get(i));
-				}
-				if(i % 8 == 5) {
-					finalPrice += Double.parseDouble(separetedList.get(i));
-				}
-				if(i % 8 == 7) {
-					price += auxQuantity * finalPrice;
-					auxQuantity = 0;
-					finalPrice = 0;
-				}
-			}
-			
-			DBConector.editLine("Montagem", "cost", "" + price, "ID_Montagem", "" + ID);
-			
-			Almoxarifado.frame.setTitle(Project.name);
+			updater();
 			
 			updateProject = false;
 		}

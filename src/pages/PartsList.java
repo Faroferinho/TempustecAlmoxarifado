@@ -133,6 +133,8 @@ public class PartsList {
 			
 			auxString = formatNumb(auxString);
 			
+			Almoxarifado.project.updater();
+			
 			break;
 		case 4:
 			columnName += "Quantity_type";
@@ -164,6 +166,8 @@ public class PartsList {
 			}
 			
 			auxString = formatNumb(auxString);
+			
+			Almoxarifado.project.updater();
 			
 			break;
 		case 6:

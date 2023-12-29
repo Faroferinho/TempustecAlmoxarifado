@@ -106,10 +106,11 @@ public class Admnistrator extends Profile {
 			
 			if(isEditing) {
 				changeInformation(Almoxarifado.mX, Almoxarifado.mY, true);
-				
-				if(Almoxarifado.mX > (Almoxarifado.WIDTH/3*2) - (passwordButton.getWidth()/2) && Almoxarifado.mX < (Almoxarifado.WIDTH/3*2) + (passwordButton.getWidth()/2) 
-				&& Almoxarifado.mY > Almoxarifado.HEIGHT / 2 + 120 && Almoxarifado.mY < Almoxarifado.HEIGHT / 2 + 120 + passwordButton.getHeight()) {
-					editInfo(4);
+				if(mouseStatus) {
+					if(Almoxarifado.mX > (Almoxarifado.WIDTH/3*2) - (passwordButton.getWidth()/2) && Almoxarifado.mX < (Almoxarifado.WIDTH/3*2) + (passwordButton.getWidth()/2) 
+					&& Almoxarifado.mY > Almoxarifado.HEIGHT / 2 + 120 && Almoxarifado.mY < Almoxarifado.HEIGHT / 2 + 120 + passwordButton.getHeight()) {
+						editInfo(4);
+					}
 				}
 				
 			}else if(isSigning) {
