@@ -14,7 +14,7 @@ import main.UserInterface;
 
 public class Project {
 	
-	static int ID = 2;
+	static int ID = 40;
 	static String name = "";
 	static String description = "";
 	static String company = "";
@@ -107,15 +107,12 @@ public class Project {
 			for(int i = 10; i < separetedList.size(); i++) {
 				if(i % 8 == 3) {
 					auxQuantity += Integer.parseInt(separetedList.get(i));
-					System.out.println("Quantidade: " + auxQuantity);
 				}
 				if(i % 8 == 5) {
 					finalPrice += Double.parseDouble(separetedList.get(i));
-					System.out.println("Preço da Peça: " + finalPrice);
 				}
 				if(i % 8 == 7) {
 					price += auxQuantity * finalPrice;
-					System.out.println("Preço: " + price);
 					auxQuantity = 0;
 					finalPrice = 0;
 				}
@@ -376,10 +373,12 @@ public class Project {
 				if(isEliminating) {
 					if(i > 7) {
 						if(Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - (g.getFontMetrics().getHeight() + 15) && 
-						Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight + 15) {
+						Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight + 10) {
 							newColor = Color.yellow;
 							if(mouseStatus) {
-								Almoxarifado.partsList.eliminatePart(Integer.parseInt(separetedList.get((auxTextHeight/50)*8)));
+								System.out.println(separetedList.get((auxTextHeight/50)*8));
+								
+								Almoxarifado.partsList.eliminatePart(Integer.parseInt(separetedList.get((auxTextHeight/30)*8)));
 								updateProject = true;
 								mouseStatus = false;
 							}
@@ -406,23 +405,26 @@ public class Project {
 		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight);
 		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight);
 		if(mouseStatus) {
-			if(Almoxarifado.mY > positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30 &&
-			Almoxarifado.mY < positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + 30 + add.getHeight()) {				
+			if(Almoxarifado.mY > positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight
+			&& Almoxarifado.mY < positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + add.getHeight()) {
 				if(Almoxarifado.mX > (Almoxarifado.WIDTH/3) - (add.getWidth()/2) && Almoxarifado.mX < (Almoxarifado.WIDTH/3) + (add.getWidth()/2)) {
 					PartsList.auxAddingFromMontagem = ID;
+					Almoxarifado.partsList.addPart();
 					PartsList.auxAddingFromMontagem = 0;
 					updateProject = true;
 					mouseStatus = false;
-				}else if(Almoxarifado.mX > (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2) && Almoxarifado.mX < (Almoxarifado.WIDTH/3)*2 + (add.getWidth()/2)) {
-					if(isEliminating == true) {
-						isEliminating = false;
-					}else {
+				}
+				
+				if(Almoxarifado.mX > (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2) && Almoxarifado.mX < (Almoxarifado.WIDTH/3)*2 + (add.getWidth()/2)){
+					if(!isEliminating) {
 						isEliminating = true;
+						mouseStatus = false;
+					}else {
+						isEliminating = false;
+						mouseStatus = false;
 					}
-					mouseStatus = false;
 				}
 			}
-			
 		}
 	}
 	

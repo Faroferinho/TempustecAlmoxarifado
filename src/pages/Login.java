@@ -143,7 +143,7 @@ public class Login {
 			}
 		}
 		
-		if(e.getKeyCode() == e.VK_ENTER) {
+		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 			submitForm();
 		}
 		
