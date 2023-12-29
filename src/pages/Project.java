@@ -112,6 +112,8 @@ public class Project {
 		DBConector.editLine("Montagem", "cost", "" + price, "ID_Montagem", "" + ID);
 		
 		Almoxarifado.frame.setTitle(Project.name);
+		
+		PartsList.quantityTypes = PartsList.fillQuantityTypes();
 	}
 	
 	public void tick() {

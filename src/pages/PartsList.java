@@ -69,7 +69,7 @@ public class PartsList {
 		
 		String newName = JOptionPane.showInputDialog(null, "Qual o Nome do Novo tipo de Unidade?", "Cadastro de novo tipo de Medida", JOptionPane.PLAIN_MESSAGE);
 		
-		DBConector.writeDB("INSERT INTO Tipo_Quantidade VALUES(" + (quantityTypes.length - 1) + ", '" + newName + "')");
+		DBConector.writeDB("INSERT INTO Tipo_Quantidade(Value_Tipo_Quantidade) VALUES('" + newName + "')");
 		
 		Almoxarifado.cnctr.qnttTyps++;
 		
@@ -219,7 +219,7 @@ public class PartsList {
 		return returnHashMap;
 	}
 	
-	private static String[] fillQuantityTypes() {
+	public static String[] fillQuantityTypes() {
 		maximumIndexQT = Almoxarifado.cnctr.qnttTyps;
 		
 		String returnArrayString[] = new String[maximumIndexQT + 1];
@@ -341,13 +341,11 @@ public class PartsList {
 	private String changeQuantityType(String quantityType){
 		String toReturn = "";
 		int aux = Integer.parseInt(quantityType);
-		if(aux < quantityTypes.length + 1) {
+		if(aux < quantityTypes.length) {
 			toReturn = quantityTypes[aux];
 		}else {
 			return toReturn;
-		}
-		
-		
+		}	
 		return toReturn;
 	}
 	
@@ -538,9 +536,9 @@ public class PartsList {
 					multipleDescriptionLinesMark = false;
 					
 					if(i > 0 && j == 7) {
-						g.drawImage(checkBox, auxWidth, auxHeight + ofsetHeight + (g.getFontMetrics().getHeight() - checkBox.getHeight()), null);
+						g.drawImage(checkBox, auxWidth, auxHeight + (g.getFontMetrics().getHeight() - checkBox.getHeight()), null);
 						if(auxTextToWrite.equals("1")) {
-							g.drawImage(check, auxWidth, auxHeight + ofsetHeight + (g.getFontMetrics().getHeight() - check.getHeight()), null);
+							g.drawImage(check, auxWidth, auxHeight + (g.getFontMetrics().getHeight() - check.getHeight()), null);
 						}
 					}
 					
