@@ -126,11 +126,12 @@ public class PartsList {
 		case 3:
 			columnName += "Quantity";
 			auxString += JOptionPane.showInputDialog(null, "Insira a quantidade de Peças (apenas numeros)", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
+			
+			auxString = formatNumb(auxString);
 			if(verifyString(auxString)) {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			auxString = formatNumb(auxString);
 			
 			break;
 		case 4:
@@ -157,11 +158,14 @@ public class PartsList {
 		case 5:
 			columnName += "Price";
 			auxString += JOptionPane.showInputDialog(null, "Insira o Valor da Peça (apenas numeros)", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
+			
+			auxString = formatNumb(auxString);
+			
 			if(verifyString(auxString)) {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			auxString = formatNumb(auxString);
+			
 			break;
 		case 6:
 			columnName += "Supplier";
@@ -263,12 +267,13 @@ public class PartsList {
 		
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira a quantidade de Peças (apenas numeros)", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
+		
+		aux = formatNumb(aux);
+		
 		if(verifyString(aux)) {
 			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
-		aux = formatNumb(aux);
 		
 		querry += aux + ", ";
 		//TODO: insira uma forma de limitar o usuário a apenas usar numeros aqui;
@@ -289,12 +294,13 @@ public class PartsList {
 		
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira o Valor da Peça (apenas numeros)", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
+		
+		aux = formatNumb(aux);
+		
 		if(verifyString(aux)) {
 			JOptionPane.showMessageDialog(null, "Valor Agora será nulo", "", JOptionPane.WARNING_MESSAGE);
 			aux = "0";
 		}
-		
-		aux = formatNumb(aux);
 		
 		querry += aux + ", '";
 		//TODO: insira uma forma de limitar o usuário a apenas usar numeros aqui;
