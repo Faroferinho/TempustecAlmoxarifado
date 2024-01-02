@@ -31,14 +31,20 @@ public class Login {
 	int bttnX = (Almoxarifado.WIDTH/2) - (loginBttn.getWidth()/2);
 	int bttnY = Almoxarifado.HEIGHT/16*13;
 	
-	String textInBoxCPF = "";
-	String textInBoxPW = "";
+	String textInBoxCPF = "12345678901";
+	String textInBoxPW = "12345678901";
 	boolean isOnCPF = false;
 	boolean isOnPW = false;
 	public boolean isWriting = false;
 	
 	private boolean blink;
 	private int blinkAux = 0;
+	
+	private int indexCursor = 0;
+	private boolean changeCursor = false;
+	private int auxCursorPositioner = 0;
+	private int indexCursorPositioner = 0;
+	private int charSize = 0;
 	
 	public Login() {
 		imgX = (Almoxarifado.WIDTH/2) - (imgSize/2);
@@ -114,21 +120,33 @@ public class Login {
 		return toReturn;
 	}
 	
+	private String censoringPassword(String pw) {
+		String returnString = "";
+		
+		for(int i = 0; i < pw.length(); i++) {
+			returnString += "*";
+		}
+		
+		return returnString;
+	}
+	
 	public void writingOnCanvas(KeyEvent e) {
 		if(isOnCPF) {
 			if((e.getKeyCode() > 47 && e.getKeyCode() < 58) || (e.getKeyCode() > 95 && e.getKeyCode() < 106)) {
 				textInBoxCPF += e.getKeyChar();
+				
 			} else {
 				if(textInBoxCPF.length() > 0 && e.getKeyCode() == 8) {
 					textInBoxCPF = textInBoxCPF.substring(0, textInBoxCPF.length()-1);
 				}
 			}
 			
-			if(textInBoxCPF.length() > 14) {
+			if(textInBoxCPF.length() > 11) {
 				textInBoxCPF = textInBoxCPF.substring(0, textInBoxCPF.length()-1);
 			}
 		}else if(isOnPW) {
-			if((e.getKeyCode() > 20 && e.getKeyCode() < 144) && (e.getKeyCode() != 37 && e.getKeyCode() != 38 && e.getKeyCode() != 39 && e.getKeyCode() != 40)) {
+			if((e.getKeyCode() > 20 && e.getKeyCode() < 144) && (e.getKeyCode() != 37 && e.getKeyCode() != 38 
+			&& e.getKeyCode() != 39 && e.getKeyCode() != 40)) {
 				textInBoxPW += e.getKeyChar();
 			} else {
 				if(textInBoxPW.length() > 0 && e.getKeyCode() == 8) {
@@ -154,20 +172,16 @@ public class Login {
 			}
 		}
 		
+		if(e.getKeyCode() > 36 && e.getKeyCode() < 41) {
+			System.out.println("Está Movendo com as Setinhas");
+			indexCursor = e.getKeyCode();
+			changeCursor = true;
+		}
+		
 		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 			submitForm();
 		}
 		
-	}
-	
-	private String censoringPassword(String pw) {
-		String returnString = "";
-		
-		for(int i = 0; i < pw.length(); i++) {
-			returnString += "*";
-		}
-		
-		return returnString;
 	}
 	
 	public void tick() {
@@ -229,6 +243,46 @@ public class Login {
 		g.drawString(cpfFormater(textInBoxCPF), textBoxX + 5, textBoxY + textBoxH - (g.getFontMetrics().getHeight()/2));
 		g.drawString(censoringPassword(textInBoxPW), textBoxX + 5, (int) (textBoxY * 1.6) + textBoxH - (g.getFontMetrics().getHeight()/4));
 		
+		if(changeCursor) {
+			System.out.println("auxCursorPositioner: " + auxCursorPositioner);
+			
+			switch(indexCursor) {
+			case KeyEvent.VK_UP:
+				if(isOnCPF) {
+					auxCursorPositioner = g.getFontMetrics().stringWidth(cpfFormater(textInBoxCPF));
+				}else if(isOnPW){
+					auxCursorPositioner = g.getFontMetrics().stringWidth(censoringPassword(textInBoxPW));
+				}
+				break;
+			
+			case KeyEvent.VK_DOWN:
+				auxCursorPositioner = 0;
+				break;
+			
+			case KeyEvent.VK_LEFT:
+				if(isOnCPF) {
+					if(indexCursorPositioner < cpfFormater(textInBoxCPF).length()) {
+						indexCursorPositioner++;
+						System.out.println("Char: " + cpfFormater(textInBoxCPF).charAt(cpfFormater(textInBoxCPF).length() - indexCursorPositioner));
+						auxCursorPositioner += g.getFontMetrics().stringWidth("" + cpfFormater(textInBoxCPF).charAt(cpfFormater(textInBoxCPF).length() - indexCursorPositioner));
+					}
+				}else if(isOnPW){
+					
+				}
+				break;
+			
+			case KeyEvent.VK_RIGHT:
+				if(isOnCPF) {
+					
+				}else if(isOnPW){
+					
+				}
+				break;
+			
+			}
+			changeCursor = false;
+		}
+		
 		blinkAux++;
 		
 		if(blinkAux%23 == 0) {
@@ -241,9 +295,9 @@ public class Login {
 		
 		if(blink && isWriting) {			
 			if(isOnCPF) {
-				g.fillRect(g.getFontMetrics().stringWidth(cpfFormater(textInBoxCPF)) + textBoxX + 5, textBoxY + 5, 3, 30);
+				g.fillRect(g.getFontMetrics().stringWidth(cpfFormater(textInBoxCPF)) - auxCursorPositioner + textBoxX + 5, textBoxY + 5, 2, 30);
 			}else if(isOnPW) {
-				g.fillRect(g.getFontMetrics().stringWidth(censoringPassword(textInBoxPW)) + textBoxX + 5, (int) (textBoxY * 1.6) + 5, 3, 30);
+				g.fillRect(g.getFontMetrics().stringWidth(censoringPassword(textInBoxPW)) - auxCursorPositioner + textBoxX + 5, (int) (textBoxY * 1.6) + 5, 2, 30);
 			}
 		}
 		
