@@ -34,7 +34,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 0;
+	public static byte state = 2;
 	
 	public static JFrame frame;
 	public static Toolkit tk;
@@ -327,9 +327,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
-		System.out.println("Tecla: " + e.getKeyChar() + " - Código: " + e.getKeyCode());
-		
 		if(state == 0 && login.isWriting) {
 			login.writingOnCanvas(e);
 		}

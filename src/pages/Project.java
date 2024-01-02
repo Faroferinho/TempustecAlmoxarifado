@@ -322,27 +322,40 @@ public class Project {
 				}
 				
 				switch(i % 8) {
-				// 0 -> ID;
+				// 0 -> ID
 				case 1:
+					//1 -> Montagem
 					auxTextWidth += (total*5)/100;
 					break;
+					
 				case 2:
+					// 2 -> Descrição
 					auxTextWidth += (total*13.9)/100;
 					break;
+					
 				case 3:
+					// 3 -> Quantidade
 					auxTextWidth += (total*33.2)/100;
 					break;
+				
 				case 4:
+					// 4 -> Tipo de Quantidade
 					auxTextWidth += g.getFontMetrics().stringWidth(" " + separetedList.get(i-1));
 					break;
+				
 				case 5:
+					//5 -> Preço
 					auxTextWidth -= g.getFontMetrics().stringWidth(" " + separetedList.get(i-2));
 					auxTextWidth += (total*19)/100;
 					break;
+				
 				case 6:
+					//6 -> Fornecedor
 					auxTextWidth += (total*11.8)/100;
 					break;
+				
 				case 7:
+					//7 -> Status
 					auxTextWidth += (total*14.6)/100;
 					break;
 				}

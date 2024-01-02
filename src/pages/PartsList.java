@@ -390,7 +390,7 @@ public class PartsList {
 		
 		if(isOnTheRightState) {
 			
-			g.setFont(new Font("arial", 1, 12));
+			g.setFont(new Font("arial", 0, 12));
 
 			int auxHeight = 125 + ofsetHeight;
 			int auxWidth = 50;		
@@ -416,33 +416,49 @@ public class PartsList {
 					}
 					
 					switch(j) {
+					//Caso 0:
+						//ID
+					
 					case 1:
+						//Montagem
 						auxWidth += (total*5)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
+					
 					case 2:
+						//Descrição
 						auxWidth += (total*13.9)/100;
 						maxMouse = characterLimitPerLine;
 						break;
+					
 					case 3:
+						//Quantidade
 						auxWidth += (total*33.2)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
+					
 					case 4:
+						//Tipo de Quantidade
 						auxWidth += g.getFontMetrics().stringWidth(" " + finalPartsTable[i][j-1]);
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
+					
 					case 5:
+						//Preço
 						auxWidth -= g.getFontMetrics().stringWidth(" " + finalPartsTable[i][j-2]);
-						auxWidth += (total*19)/100;
+						auxWidth += (total*15)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
+					
 					case 6:
+						//Fornecedor
 						auxWidth += (total*11.8)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
+					
 					case 7:
-						auxWidth += (total*13)/100;
+						//Status;
+						auxWidth += (total*18)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
 					}
