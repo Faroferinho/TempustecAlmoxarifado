@@ -130,10 +130,7 @@ public class PartsList {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			
 			auxString = formatNumb(auxString);
-			
-			Almoxarifado.project.updater();
 			
 			break;
 		case 4:
@@ -164,11 +161,7 @@ public class PartsList {
 				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			
 			auxString = formatNumb(auxString);
-			
-			Almoxarifado.project.updater();
-			
 			break;
 		case 6:
 			columnName += "Supplier";
@@ -190,6 +183,9 @@ public class PartsList {
 		
 		
 		DBConector.editLine("pecas", columnName, auxString, "ID_Parts", index);
+		
+		Project.ID = Integer.parseInt(finalPartsTable[column][1]);
+		Almoxarifado.project.updater();
 		
 		wasChanged = true;
 	}
@@ -311,7 +307,7 @@ public class PartsList {
 		}
 		querry += aux + "', 0)";
 		
-		System.out.println(querry);
+		System.out.println("Query" + querry);
 		
 		DBConector.writeDB(querry);
 		wasChanged = true;

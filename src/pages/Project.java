@@ -70,6 +70,8 @@ public class Project {
 	}
 	
 	public void updater() {
+		System.out.println("ID: " + ID);
+		
 		ofsetHeight = 0;
 		String brokenApartInfo[];
 		String aux = DBConector.findInDB("*", "montagem", "ID_Montagem", "" + ID);
@@ -117,7 +119,6 @@ public class Project {
 	}
 	
 	public void tick() {
-		
 		if(Almoxarifado.state == 5) {
 			isOnTheRightState = true;
 		}else {
@@ -395,8 +396,6 @@ public class Project {
 						Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight + 10) {
 							newColor = Color.yellow;
 							if(mouseStatus) {
-								System.out.println(separetedList.get((auxTextHeight/50)*8));
-								
 								Almoxarifado.partsList.eliminatePart(Integer.parseInt(separetedList.get((auxTextHeight/30)*8)));
 								updateProject = true;
 								mouseStatus = false;

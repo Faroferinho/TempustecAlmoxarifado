@@ -76,7 +76,7 @@ public class DBConector {
 			while(query.next()) {
 				qnttTyps++;
 			}
-			
+			//TODO
 			con.close();
 		} catch(SQLException e){
 			e.printStackTrace();
@@ -159,7 +159,7 @@ public class DBConector {
 		}
 		
 		String query = "UPDATE " + Table + " SET " + objective + " = '" + newInfo + "' WHERE " + PK + " = " + PrimaryKey;
-		System.out.println(query);
+		System.out.println("Editar Linha: " + query);
 		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
@@ -185,6 +185,8 @@ public class DBConector {
 		String query = "SELECT " + objective + " FROM " + table + " WHERE " + column + " = " + key;
 		String answer = "";
 		int max = checkSize(objective, table);
+		
+		System.out.println("Encontrar no DB: " + query);
 		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
