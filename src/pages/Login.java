@@ -122,7 +122,6 @@ public class Login {
 				if(textInBoxCPF.length() > 0 && e.getKeyCode() == 8) {
 					textInBoxCPF = textInBoxCPF.substring(0, textInBoxCPF.length()-1);
 				}
-		
 			}
 			
 			if(textInBoxCPF.length() > 14) {
@@ -140,6 +139,18 @@ public class Login {
 			
 			if(textInBoxPW.length() > 30) {
 				textInBoxPW = textInBoxPW.substring(0, textInBoxPW.length()-1);
+			}
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_TAB) {
+			if(isWriting) {
+				if(isOnCPF) {
+					isOnPW = true;
+					isOnCPF = false;
+				}else {
+					isOnCPF = true;
+					isOnPW = false;
+				}
 			}
 		}
 		

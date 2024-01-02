@@ -117,6 +117,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		this.addMouseMotionListener(this);
 		this.addMouseWheelListener(this);
 		this.addKeyListener(this);
+		this.setFocusTraversalKeysEnabled(false);
 	}
 	
 	public void tick() {
@@ -326,6 +327,9 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
+		System.out.println("Tecla: " + e.getKeyChar() + " - Código: " + e.getKeyCode());
+		
 		if(state == 0 && login.isWriting) {
 			login.writingOnCanvas(e);
 		}
