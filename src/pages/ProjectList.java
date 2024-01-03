@@ -39,7 +39,7 @@ public class ProjectList {
 	private boolean configState = false;
 	private int configStateIndex = -1;
 	
-	private static boolean updateProjectList;
+	public static boolean updateProjectList;
 	public static boolean updateProjectListPL;
 	
 	BufferedImage img = Almoxarifado.imgManag.getSprite(256, 192, boxWidth, boxHeight);

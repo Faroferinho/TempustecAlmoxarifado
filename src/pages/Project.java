@@ -182,7 +182,7 @@ public class Project {
 							JOptionPane.showInternalMessageDialog(null, "Nome Atualizado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 							updateProject = true;
 							mouseStatus = false;
-							
+							ProjectList.updateProjectList = true;
 						}
 						
 					}else if(isOverDescription) {
