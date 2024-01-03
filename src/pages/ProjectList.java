@@ -66,7 +66,7 @@ public class ProjectList {
 	
 	private void createNewAssembly(){
 		mouseStatus = false;
-		String querry = "INSERT INTO montagem (ISO, description, company) VALUES( '";
+		String querry = "INSERT INTO montagem (ISO, description, company) VALUES( \"";
 		String newAssemblyInfo = "";
 		
 		newAssemblyInfo += JOptionPane.showInputDialog(null, "Insira o Valor da OS", "Cadastro de Nova Montagem", JOptionPane.PLAIN_MESSAGE);
@@ -75,7 +75,7 @@ public class ProjectList {
 			return;
 		}
 		
-		querry += "OS " + newAssemblyInfo + "', '";
+		querry += "OS " + newAssemblyInfo + "\", \"";
 		newAssemblyInfo = "";
 		
 		newAssemblyInfo += JOptionPane.showInputDialog(null, "Insira uma descrição", "Cadastro de Nova Montagem", JOptionPane.PLAIN_MESSAGE);
@@ -84,7 +84,7 @@ public class ProjectList {
 			newAssemblyInfo = "---------------------";
 		}
 		
-		querry += newAssemblyInfo + "', '";
+		querry += newAssemblyInfo + "\", \"";
 		newAssemblyInfo = "";
 		
 		newAssemblyInfo += JOptionPane.showInputDialog(null, "De Qual Empresa?", "Cadastro de Nova Montagem", JOptionPane.PLAIN_MESSAGE);
@@ -93,7 +93,7 @@ public class ProjectList {
 			return;
 		}
 		
-		querry += newAssemblyInfo + "')";
+		querry += newAssemblyInfo + "\")";
 		newAssemblyInfo = "";
 		
 		JOptionPane.showMessageDialog(null, "Cadastro Efetuado Com sucesso", "Cadastro Concluido", JOptionPane.INFORMATION_MESSAGE, null);
@@ -128,7 +128,7 @@ public class ProjectList {
 		
 					if(confirmationOfChangeState == 0) {
 						Project.ID = Integer.parseInt(DBConector.findInDB("ID_Montagem", "Montagem", "ISO", 
-								"'" + names[changeStateIndex] + "'").replace(" § \n", ""));
+								"\"" + names[changeStateIndex] + "\"").replace(" § \n", ""));
 						Project.updateProject = true;
 						Almoxarifado.state = 5;
 					}else {

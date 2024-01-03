@@ -115,7 +115,7 @@ public class Admnistrator extends Profile {
 				
 			}else if(isSigning) {
 				int newRdF = generateRdF();
-				String query = "INSERT INTO Funcionarios VALUES(" + newRdF + ", '";
+				String query = "INSERT INTO Funcionarios VALUES(" + newRdF + ", \"";
 
 				String auxQ = "";
 				auxQ += writingQuery("Qual o Nome?");
@@ -125,7 +125,7 @@ public class Admnistrator extends Profile {
 				}
 				
 				query += auxQ;
-				query +="', '";
+				query +="\", \"";
 				
 				auxQ = "";
 				
@@ -136,7 +136,7 @@ public class Admnistrator extends Profile {
 				}
 				
 				query += auxQ;
-				query += "', 'Tempustec2023', ";
+				query += "\", \"Tempustec2023\", ";
 				
 				auxQ = "";
 				

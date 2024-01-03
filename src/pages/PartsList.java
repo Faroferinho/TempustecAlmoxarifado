@@ -69,7 +69,7 @@ public class PartsList {
 		
 		String newName = JOptionPane.showInputDialog(null, "Qual o Nome do Novo tipo de Unidade?", "Cadastro de novo tipo de Medida", JOptionPane.PLAIN_MESSAGE);
 		
-		DBConector.writeDB("INSERT INTO Tipo_Quantidade(Value_Tipo_Quantidade) VALUES('" + newName + "')");
+		DBConector.writeDB("INSERT INTO Tipo_Quantidade(Value_Tipo_Quantidade) VALUES(\"" + newName + "\")");
 		
 		Almoxarifado.cnctr.qnttTyps++;
 		
@@ -202,7 +202,7 @@ public class PartsList {
 		return text;
 	}
 	
-	private static HashMap<String, String> fillAssembliesName() {
+	public static HashMap<String, String> fillAssembliesName() {
 		HashMap<String, String> returnHashMap = new HashMap<>();
 		
 		String toBreakID = DBConector.readDB("ID_Montagem", "Montagem");
@@ -255,7 +255,7 @@ public class PartsList {
 			auxInt = auxAddingFromMontagem;
 		}
 		
-		querry += auxInt + ", '";
+		querry += auxInt + ", \"";
 		
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira a Descrição:", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
@@ -263,7 +263,7 @@ public class PartsList {
 			JOptionPane.showMessageDialog(null, "O Valor Agora é Nulo", "", JOptionPane.WARNING_MESSAGE);
 			aux = "---------------";
 		}
-		querry += aux + "', ";
+		querry += aux + "\", ";
 		
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira a quantidade de Peças (apenas numeros)", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
@@ -302,7 +302,7 @@ public class PartsList {
 			aux = "0";
 		}
 		
-		querry += aux + ", '";
+		querry += aux + ", \"";
 		//TODO: insira uma forma de limitar o usuário a apenas usar numeros aqui;
 		
 		aux = "";
@@ -311,7 +311,7 @@ public class PartsList {
 			JOptionPane.showMessageDialog(null, "Valor Agora será nulo", "", JOptionPane.WARNING_MESSAGE);
 			aux = "---------------";
 		}
-		querry += aux + "', 0)";
+		querry += aux + "\", 0)";
 		
 		System.out.println("Query" + querry);
 		

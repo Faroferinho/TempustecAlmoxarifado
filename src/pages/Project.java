@@ -115,6 +115,7 @@ public class Project {
 		
 		Almoxarifado.frame.setTitle(Project.name);
 		
+		PartsList.assembliesHM = PartsList.fillAssembliesName();
 		PartsList.quantityTypes = PartsList.fillQuantityTypes();
 	}
 	
@@ -177,7 +178,7 @@ public class Project {
 							
 						}else {
 							
-							DBConector.writeDB("UPDATE montagem SET ISO = '" + newName + "' WHERE ID_Montagem = " + ID);
+							DBConector.writeDB("UPDATE montagem SET ISO = \"" + newName + "\" WHERE ID_Montagem = " + ID);
 							JOptionPane.showInternalMessageDialog(null, "Nome Atualizado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 							updateProject = true;
 							mouseStatus = false;
@@ -196,7 +197,7 @@ public class Project {
 							
 						}else {
 							
-							DBConector.writeDB("UPDATE montagem SET Description = '" + newDescription + "' WHERE ID_Montagem = " + ID);
+							DBConector.writeDB("UPDATE montagem SET Description = \"" + newDescription + "\" WHERE ID_Montagem = " + ID);
 							JOptionPane.showInternalMessageDialog(null, "Descrição Atualizada", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 							updateProject = true;
 							mouseStatus = false;
@@ -211,7 +212,7 @@ public class Project {
 							JOptionPane.showInternalMessageDialog(null, "Erro ao Atualizar o Nome da Empresa", "Erro", JOptionPane.ERROR_MESSAGE);
 							mouseStatus = false;
 						}else {
-							DBConector.writeDB("UPDATE montagem SET Company = '" + newCompany + "' WHERE ID_Montagem = " + ID);
+							DBConector.writeDB("UPDATE montagem SET Company = \"" + newCompany + "\" WHERE ID_Montagem = " + ID);
 							JOptionPane.showInternalMessageDialog(null, "Empresa Atualizada", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 							updateProject = true;
 							mouseStatus = false;

@@ -44,7 +44,6 @@ public class Login {
 	private boolean changeCursor = false;
 	private int auxCursorPositioner = 0;
 	private int indexCursorPositioner = 0;
-	private int charSize = 0;
 	
 	public Login() {
 		imgX = (Almoxarifado.WIDTH/2) - (imgSize/2);

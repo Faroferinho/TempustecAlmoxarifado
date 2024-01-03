@@ -37,7 +37,7 @@ public class DBConector {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", 
+			JOptionPane.showMessageDialog(null, "Instale o Driver \"MySQL Connector-J\" e Tente Novamente", 
 			"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
@@ -91,7 +91,7 @@ public class DBConector {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", 
+			JOptionPane.showMessageDialog(null, "Instale o Driver \"MySQL Connector-J\" e Tente Novamente", 
 			"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
@@ -131,7 +131,7 @@ public class DBConector {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente",
+			JOptionPane.showMessageDialog(null, "Instale o Driver \"MySQL Connector-J\" e Tente Novamente",
 			"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
@@ -153,12 +153,12 @@ public class DBConector {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", 
+			JOptionPane.showMessageDialog(null, "Instale o Driver \"MySQL Connector-J\" e Tente Novamente", "Erro no Java Data Base Conector", 
 					JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		
-		String query = "UPDATE " + Table + " SET " + objective + " = '" + newInfo + "' WHERE " + PK + " = " + PrimaryKey;
+		String query = "UPDATE " + Table + " SET " + objective + " = \"" + newInfo + "\" WHERE " + PK + " = " + PrimaryKey;
 		System.out.println("Editar Linha: " + query);
 		
 		try {
@@ -178,7 +178,7 @@ public class DBConector {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Instale o Driver \"MySQL Connector-J\" e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		
@@ -214,7 +214,7 @@ public class DBConector {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver ''JDBC'' e Tente Novamente", 
+			JOptionPane.showMessageDialog(null, "Instale o Driver \"MySQL Connector-J\" e Tente Novamente", 
 					"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
@@ -239,15 +239,15 @@ public class DBConector {
 					switch(i) {
 					case 1:
 					case 6:
-						auxString = ", '";
+						auxString = ", \"";
 						break;
 					case 2:
 					case 3:
 					case 4:
-						auxString = "', '";
+						auxString = "\", \"";
 						break;
 					case 5:
-						auxString = "', ";
+						auxString = "\", ";
 						break;
 					}
 					
@@ -255,7 +255,7 @@ public class DBConector {
 				}
 			}
 			
-			query = "INSERT INTO Arquivo VALUES (" + Almoxarifado.quantityArchives + ", " + auxInfoFromMontagem + auxDateTime + "', " 
+			query = "INSERT INTO Arquivo VALUES (" + Almoxarifado.quantityArchives + ", " + auxInfoFromMontagem + auxDateTime + "\", " 
 			+ Almoxarifado.rdf + ");";
 			Almoxarifado.quantityArchives++;
 			
@@ -278,11 +278,11 @@ public class DBConector {
 						break;
 					case 2:
 					case 6:
-						aux = ", '";
+						aux = ", \"";
 						break;
 					case 3:
 					case 7:
-						aux = "', ";
+						aux = "\", ";
 						break;
 					case 8:
 						aux = ") \n";
