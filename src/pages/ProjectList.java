@@ -124,8 +124,8 @@ public class ProjectList {
 			
 			if(changeState == true) {
 				if(changeStateIndex != Almoxarifado.quantityAssembly) {
-					int confirmationOfChangeState = JOptionPane.showConfirmDialog(null, "Realmente deseja mudar de Pagina", "Confirmação de Mudança de Pagina", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null);
-		
+					int confirmationOfChangeState = JOptionPane.showConfirmDialog(null, "Realmente deseja mudar de Pagina",
+					"Confirmação de Mudança de Pagina", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null);
 					if(confirmationOfChangeState == 0) {
 						Project.ID = Integer.parseInt(DBConector.findInDB("ID_Montagem", "Montagem", "ISO", 
 								"\"" + names[changeStateIndex] + "\"").replace(" § \n", ""));
@@ -137,7 +137,8 @@ public class ProjectList {
 						return;
 					}
 				}else {
-					int confirmationOfChangeState = JOptionPane.showConfirmDialog(null, "Realmente deseja Criar outra Montagem?", "Confirmação de Criação de Montagem", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+					int confirmationOfChangeState = JOptionPane.showConfirmDialog(null, "Realmente deseja Criar outra Montagem?", 
+					"Confirmação de Criação de Montagem", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null);
 					
 					if(confirmationOfChangeState == 0) {
 						createNewAssembly();

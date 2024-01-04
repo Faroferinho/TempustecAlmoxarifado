@@ -28,8 +28,11 @@ public class PartsList {
 	
 	private int ofsetHeight;
 	public static int scroll;
-	private static int maximumHeight = 0;
-	private static int auxExtraLineCounter = 0;
+	private static int maximumHeight = 1;
+	private boolean toggleScrollBar = false;
+	private int scrollBarThumbWidth = 16;
+	private int scrollBarThumbHeight;
+	private int valueToDiv = 3;
 	
 	public boolean mouseStatus = false;
 	
@@ -97,7 +100,9 @@ public class PartsList {
 		return returnString;
 	}
 	
-	public static void changePart(String index, int column) {		
+	public static void changePart(String index, int column) {
+		System.out.println("Index: " + index + ", Coluna: " + column);
+		
 		String columnName =  "";
 		String auxString = "";
 		int aux = 0;
@@ -187,9 +192,6 @@ public class PartsList {
 		
 		
 		DBConector.editLine("pecas", columnName, auxString, "ID_Parts", index);
-		
-		Project.ID = Integer.parseInt(finalPartsTable[column][1]);
-		Almoxarifado.project.updater();
 		
 		wasChanged = true;
 	}
@@ -350,7 +352,7 @@ public class PartsList {
 		}	
 		return toReturn;
 	}
-	
+		
 	public void tick() {
 		if(wasChanged == true) {
 			toSplit = DBConector.readDB("*", "pecas");
@@ -360,7 +362,7 @@ public class PartsList {
 			quantityTypes = fillQuantityTypes();
 			
 			maximumIndexQT = Almoxarifado.cnctr.qnttTyps;
-			
+						
 			wasChanged = false;
 		}
 		if(Almoxarifado.state == 2) {
@@ -372,7 +374,14 @@ public class PartsList {
 		}
 		
 		if(isOnTheRightState) {
-			if(scroll > 1 && ofsetHeight > maximumHeight) {
+			System.out.println("Maximum Height: " + maximumHeight);			
+			if(maximumHeight > 15) {
+				toggleScrollBar = true;
+			}else {
+				toggleScrollBar = false;
+			}
+			
+			if(scroll > 1 && ofsetHeight > maximumHeight * -1) {
 				ofsetHeight -= UserInterface.spd;
 				scroll = 0;
 			}else if(scroll < -1 && ofsetHeight < 0) {
@@ -429,7 +438,7 @@ public class PartsList {
 					
 					case 2:
 						//Descrição
-						auxWidth += (total*13.9)/100;
+						auxWidth += (total*12)/100;
 						maxMouse = characterLimitPerLine;
 						break;
 					
@@ -448,7 +457,7 @@ public class PartsList {
 					case 5:
 						//Preço
 						auxWidth -= g.getFontMetrics().stringWidth(" " + finalPartsTable[i][j-2]);
-						auxWidth += (total*15)/100;
+						auxWidth += (total*13)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
 					
@@ -490,7 +499,9 @@ public class PartsList {
 						
 							nC = Color.red;
 							if(mouseStatus) {
+								Project.ID = Integer.parseInt(finalPartsTable[i][1]);
 								changePart(finalPartsTable[i][0], j);
+								Almoxarifado.project.updater();
 								mouseStatus = false;
 							}
 								
@@ -548,7 +559,6 @@ public class PartsList {
 							g.drawString(auxText + verifFormat, 0 + auxWidth, 0 + auxHeight + 30 * (inc));
 							
 						}
-						auxExtraLineCounter += descriptionOfsetHeight;
 					}
 					
 					multipleDescriptionLinesMark = false;
@@ -589,8 +599,20 @@ public class PartsList {
 			UserInterface.isOnButton(g, Almoxarifado.WIDTH/3 - adicionar.getWidth()/2, auxHeight);
 			UserInterface.isOnButton(g, Almoxarifado.WIDTH/3*2 - excluir.getWidth()/2, auxHeight);
 			
-			maximumHeight = (Almoxarifado.quantityParts + auxExtraLineCounter) * -30;
-			auxExtraLineCounter = 0;
+			maximumHeight = (auxHeight - ofsetHeight) - 455;
+			System.out.println("UserInterface.maximunHeight - 22: " + (UserInterface.maximunHeight - 22));
+			
+			if(toggleScrollBar) {
+				
+				scrollBarThumbHeight = (UserInterface.maximunHeight - 22) - (maximumHeight/valueToDiv);
+				
+				g.setColor(Color.darkGray);
+				g.fillRect(Almoxarifado.WIDTH - (36+22), UserInterface.bttnY + UserInterface.boxHeight + 18, 20, UserInterface.maximunHeight-12);
+				
+				g.setColor(Color.gray);
+				g.fillRect(Almoxarifado.WIDTH - (36+20), UserInterface.bttnY + UserInterface.boxHeight + 23, scrollBarThumbWidth, scrollBarThumbHeight);
+			}
+			
 		}
 	}
 }
