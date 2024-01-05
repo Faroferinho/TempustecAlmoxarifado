@@ -32,7 +32,6 @@ public class PartsList {
 	private boolean toggleScrollBar = false;
 	private int scrollBarThumbWidth = 16;
 	private int scrollBarThumbHeight;
-	private int valueToDiv = 3;
 	
 	public boolean mouseStatus = false;
 	
@@ -604,15 +603,26 @@ public class PartsList {
 			
 			if(toggleScrollBar) {
 				
-				scrollBarThumbHeight = (UserInterface.maximunHeight - 22) - (maximumHeight/valueToDiv);
+				int auxThumbHeight = 0;
+				
+				scrollBarThumbHeight = UserInterface.maximunHeight - ((UserInterface.maximunHeight / (maximumHeight / 30)) * ((maximumHeight / 30) - 1));
+				if(scrollBarThumbHeight < 30) {
+					scrollBarThumbHeight = 30;
+				}
+				
+				auxThumbHeight = (int) (((UserInterface.maximunHeight-22) - scrollBarThumbHeight) * ofsetHeight) / maximumHeight;
+				
+				System.out.println("scrollBarThumbHeight: " + scrollBarThumbHeight);
+				System.out.println("maximumHeight: " + maximumHeight);
 				
 				g.setColor(Color.darkGray);
 				g.fillRect(Almoxarifado.WIDTH - (36+22), UserInterface.bttnY + UserInterface.boxHeight + 18, 20, UserInterface.maximunHeight-12);
 				
 				g.setColor(Color.gray);
-				g.fillRect(Almoxarifado.WIDTH - (36+20), UserInterface.bttnY + UserInterface.boxHeight + 23, scrollBarThumbWidth, scrollBarThumbHeight);
+				g.fillRect(Almoxarifado.WIDTH - (36+20), UserInterface.bttnY + UserInterface.boxHeight + 23 - auxThumbHeight, scrollBarThumbWidth, scrollBarThumbHeight);
 			}
 			
 		}
+		System.out.println("========================================");
 	}
 }
