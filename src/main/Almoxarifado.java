@@ -290,12 +290,13 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if(partsList.isDragging) {
-			System.out.println("Y: " + e.getYOnScreen());
-			System.out.println("Máximo: " + (UserInterface.bttnY + UserInterface.boxHeight + 18 + UserInterface.maximunHeight));
+			System.out.println("Y: " + e.getY());
+			partsList.ofsetHeight = (e.getY() - (UserInterface.bttnY + UserInterface.boxHeight + 18)) * -1;
 			
-			if((e.getYOnScreen() - (UserInterface.bttnY + UserInterface.boxHeight - 10)) > UserInterface.bttnY + UserInterface.boxHeight + 18 
-			&& (e.getYOnScreen()) < UserInterface.bttnY + UserInterface.boxHeight + 64 + UserInterface.maximunHeight) {
-				partsList.ofsetHeight = -((e.getYOnScreen() - 200) * 2);
+			if(partsList.ofsetHeight > 0) {
+				partsList.ofsetHeight = 0;
+			}else if(partsList.ofsetHeight < (PartsList.maximumHeight) * -1) {
+				partsList.ofsetHeight = (PartsList.maximumHeight) * -1;
 			}
 		}
 	}

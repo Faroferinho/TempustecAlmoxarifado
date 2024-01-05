@@ -33,7 +33,8 @@ public class PartsList {
 	private int scrollBarThumbWidth = 16;
 	private int scrollBarThumbHeight;
 	public boolean isDragging = false;
-	public int auxThumbHeight = 0;
+	private int auxThumbHeight = 0;
+	
 	
 	public boolean mouseStatus = false;
 	
@@ -339,6 +340,8 @@ public class PartsList {
 				DBConector.writeDB("UPDATE pecas SET ID_Parts = " + (auxVerifID - 1) + " WHERE ID_Parts = " + auxVerifID);
 			}
 		}
+		ofsetHeight += 55;
+		
 		wasChanged = true;
 	}
 	
@@ -609,12 +612,15 @@ public class PartsList {
 				auxThumbHeight = (int) (((UserInterface.maximunHeight-22) - scrollBarThumbHeight) * ofsetHeight) / maximumHeight;
 				
 				g.setColor(Color.darkGray);
-				g.fillRect(Almoxarifado.WIDTH - (36+22), UserInterface.bttnY + UserInterface.boxHeight + 18, 20, UserInterface.maximunHeight-12);
+				g.fillRect(Almoxarifado.WIDTH - (36 + 22), UserInterface.bttnY + UserInterface.boxHeight + 18, 20, UserInterface.maximunHeight - 12);
 				
-				g.setColor(Color.gray);
+				g.setColor(Color.lightGray);
 				if(mouseStatus) {
-					if(Almoxarifado.mX > Almoxarifado.WIDTH - (36+20)) {
-						g.setColor(Color.lightGray);
+					if(Almoxarifado.mX > Almoxarifado.WIDTH - (36 + 22) 
+					&& Almoxarifado.mX < Almoxarifado.WIDTH - (36 + 22) + 22
+					&& Almoxarifado.mY > UserInterface.bttnY + UserInterface.boxHeight + 18 
+					&& Almoxarifado.mY < UserInterface.bttnY + UserInterface.boxHeight + 18 + UserInterface.maximunHeight) {
+						g.setColor(Color.gray);
 						isDragging = true;
 					}else {
 						isDragging = false;
