@@ -26,12 +26,14 @@ public class PartsList {
 	public static String quantityTypes[] = fillQuantityTypes();
 	public static boolean restartAssemblyList = false;
 	
-	private int ofsetHeight;
+	public int ofsetHeight;
 	public static int scroll;
-	private static int maximumHeight = 1;
+	public static int maximumHeight = 1;
 	private boolean toggleScrollBar = false;
 	private int scrollBarThumbWidth = 16;
 	private int scrollBarThumbHeight;
+	public boolean isDragging = false;
+	public int auxThumbHeight = 0;
 	
 	public boolean mouseStatus = false;
 	
@@ -100,7 +102,6 @@ public class PartsList {
 	}
 	
 	public static void changePart(String index, int column) {
-		System.out.println("Index: " + index + ", Coluna: " + column);
 		
 		String columnName =  "";
 		String auxString = "";
@@ -372,8 +373,7 @@ public class PartsList {
 			ofsetHeight = 0;
 		}
 		
-		if(isOnTheRightState) {
-			System.out.println("Maximum Height: " + maximumHeight);			
+		if(isOnTheRightState) {		
 			if(maximumHeight > 15) {
 				toggleScrollBar = true;
 			}else {
@@ -599,12 +599,8 @@ public class PartsList {
 			UserInterface.isOnButton(g, Almoxarifado.WIDTH/3*2 - excluir.getWidth()/2, auxHeight);
 			
 			maximumHeight = (auxHeight - ofsetHeight) - 455;
-			System.out.println("UserInterface.maximunHeight - 22: " + (UserInterface.maximunHeight - 22));
 			
-			if(toggleScrollBar) {
-				
-				int auxThumbHeight = 0;
-				
+			if(toggleScrollBar) {				
 				scrollBarThumbHeight = UserInterface.maximunHeight - ((UserInterface.maximunHeight / (maximumHeight / 30)) * ((maximumHeight / 30) - 1));
 				if(scrollBarThumbHeight < 30) {
 					scrollBarThumbHeight = 30;
@@ -612,17 +608,22 @@ public class PartsList {
 				
 				auxThumbHeight = (int) (((UserInterface.maximunHeight-22) - scrollBarThumbHeight) * ofsetHeight) / maximumHeight;
 				
-				System.out.println("scrollBarThumbHeight: " + scrollBarThumbHeight);
-				System.out.println("maximumHeight: " + maximumHeight);
-				
 				g.setColor(Color.darkGray);
 				g.fillRect(Almoxarifado.WIDTH - (36+22), UserInterface.bttnY + UserInterface.boxHeight + 18, 20, UserInterface.maximunHeight-12);
 				
 				g.setColor(Color.gray);
+				if(mouseStatus) {
+					if(Almoxarifado.mX > Almoxarifado.WIDTH - (36+20)) {
+						g.setColor(Color.lightGray);
+						isDragging = true;
+					}else {
+						isDragging = false;
+					}
+				}
+				
 				g.fillRect(Almoxarifado.WIDTH - (36+20), UserInterface.bttnY + UserInterface.boxHeight + 23 - auxThumbHeight, scrollBarThumbWidth, scrollBarThumbHeight);
 			}
 			
 		}
-		System.out.println("========================================");
 	}
 }
