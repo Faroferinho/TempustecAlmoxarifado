@@ -365,7 +365,7 @@ public class PartsList {
 
 		if(ofsetHeight < PartsList.maximumHeight * -1) {
 			ofsetHeight = PartsList.maximumHeight * -1;
-		}else if(ofsetHeight > 0) {
+		}if(ofsetHeight > 0) {
 			ofsetHeight = 0;
 		}
 		

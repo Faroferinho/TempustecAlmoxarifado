@@ -259,6 +259,8 @@ public class DBConector {
 			+ Almoxarifado.rdf + ");";
 			Almoxarifado.quantityArchives++;
 			
+			System.out.println(query);
+			
 			statement.executeUpdate(query);
 			
 			query = "SELECT * FROM Pecas WHERE Montagem = " + ID;

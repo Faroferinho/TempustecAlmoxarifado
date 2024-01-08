@@ -31,6 +31,7 @@ public class ProjectList {
 	
 	public static int scroll;
 	private static int ofsetHeight;
+	public int maximumHeight = 0;
 	public boolean mouseStatus = false;
 	
 	private boolean changeState = false;
@@ -114,7 +115,7 @@ public class ProjectList {
 		
 		if(isOnTheRightState == true) {
 		
-			if(scroll > 1) {
+			if(scroll > 1 && ofsetHeight > maximumHeight * -1) {
 				ofsetHeight -= UserInterface.spd;
 				scroll = 0;
 			}else if(scroll < -1 && ofsetHeight < 0) {
@@ -257,7 +258,8 @@ public class ProjectList {
 						}
 					}
 				}
-			}
+			}	
 		}
+		maximumHeight = imgX + auxY;
 	}
 }
