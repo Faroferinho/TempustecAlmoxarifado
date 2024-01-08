@@ -29,11 +29,12 @@ public class PartsList {
 	public int ofsetHeight;
 	public static int scroll;
 	public static int maximumHeight = 1;
+	
 	private boolean toggleScrollBar = false;
-	private int scrollBarThumbWidth = 16;
-	private int scrollBarThumbHeight;
+	private int thumbWidth = 18;
+	private int thumbHeight = 0;
+	private double thumbAuxY = 0;
 	public boolean isDragging = false;
-	private int auxThumbHeight = 0;
 	
 	
 	public boolean mouseStatus = false;
@@ -342,6 +343,10 @@ public class PartsList {
 		}
 		ofsetHeight += 55;
 		
+		int Y = (UserInterface.maximunHeight - 16) - thumbHeight;
+		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + ofsetHeight));
+		thumbAuxY = Y / S;
+		
 		wasChanged = true;
 	}
 	
@@ -356,6 +361,19 @@ public class PartsList {
 		return toReturn;
 	}
 		
+	public void scrollPositioner() {
+
+		if(ofsetHeight < PartsList.maximumHeight * -1) {
+			ofsetHeight = PartsList.maximumHeight * -1;
+		}else if(ofsetHeight > 0) {
+			ofsetHeight = 0;
+		}
+		
+		int Y = (UserInterface.maximunHeight - 18) - thumbHeight;
+		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + ofsetHeight));
+		thumbAuxY = Y / S;
+	}
+	
 	public void tick() {
 		if(wasChanged == true) {
 			toSplit = DBConector.readDB("*", "pecas");
@@ -376,19 +394,39 @@ public class PartsList {
 			ofsetHeight = 0;
 		}
 		
-		if(isOnTheRightState) {		
+		if(isOnTheRightState) {	
 			if(maximumHeight > 15) {
 				toggleScrollBar = true;
 			}else {
 				toggleScrollBar = false;
 			}
 			
-			if(scroll > 1 && ofsetHeight > maximumHeight * -1) {
+			if(scroll > 1) {
 				ofsetHeight -= UserInterface.spd;
+				
+				scrollPositioner();
+				
 				scroll = 0;
 			}else if(scroll < -1 && ofsetHeight < 0) {
 				ofsetHeight += UserInterface.spd;
+				
+				scrollPositioner();
+				
 				scroll = 0;
+			}
+			
+			if(mouseStatus) {
+				if(Almoxarifado.mX > Almoxarifado.WIDTH - (36 + 21) && Almoxarifado.mX < Almoxarifado.WIDTH - (36 + 21) + 20
+				&& Almoxarifado.mY > UserInterface.bttnY + UserInterface.boxHeight + 20 - (int) (thumbAuxY) 
+				&& Almoxarifado.mY < UserInterface.bttnY + UserInterface.boxHeight + 20 - (int) (thumbAuxY) + thumbHeight) {
+					isDragging = true;
+				}else if(Almoxarifado.mX > Almoxarifado.WIDTH - (36 + 22) && Almoxarifado.mX < Almoxarifado.WIDTH - (36 + 22) + thumbWidth
+						&& Almoxarifado.mY > UserInterface.bttnY + UserInterface.boxHeight + 18
+						&& Almoxarifado.mY < UserInterface.bttnY + UserInterface.boxHeight + UserInterface.maximunHeight + 6) {
+					System.out.println("AAAAAAAAAA");
+				}
+			}else {
+				isDragging = false;
 			}
 		}
 		
@@ -603,31 +641,23 @@ public class PartsList {
 			
 			maximumHeight = (auxHeight - ofsetHeight) - 455;
 			
-			if(toggleScrollBar) {				
-				scrollBarThumbHeight = UserInterface.maximunHeight - ((UserInterface.maximunHeight / (maximumHeight / 30)) * ((maximumHeight / 30) - 1));
-				if(scrollBarThumbHeight < 30) {
-					scrollBarThumbHeight = 30;
-				}
-				
-				auxThumbHeight = (int) (((UserInterface.maximunHeight-22) - scrollBarThumbHeight) * ofsetHeight) / maximumHeight;
+			if(toggleScrollBar) {
 				
 				g.setColor(Color.darkGray);
 				g.fillRect(Almoxarifado.WIDTH - (36 + 22), UserInterface.bttnY + UserInterface.boxHeight + 18, 20, UserInterface.maximunHeight - 12);
 				
-				g.setColor(Color.lightGray);
-				if(mouseStatus) {
-					if(Almoxarifado.mX > Almoxarifado.WIDTH - (36 + 22) 
-					&& Almoxarifado.mX < Almoxarifado.WIDTH - (36 + 22) + 22
-					&& Almoxarifado.mY > UserInterface.bttnY + UserInterface.boxHeight + 18 
-					&& Almoxarifado.mY < UserInterface.bttnY + UserInterface.boxHeight + 18 + UserInterface.maximunHeight) {
-						g.setColor(Color.gray);
-						isDragging = true;
-					}else {
-						isDragging = false;
+				if(maximumHeight > 0) {
+					thumbHeight = (int) ((UserInterface.maximunHeight - 16) - (((UserInterface.maximunHeight - 32) * (maximumHeight / 16)) / 100));
+					if(thumbHeight < 30) {
+						thumbHeight = 30;
 					}
 				}
 				
-				g.fillRect(Almoxarifado.WIDTH - (36+20), UserInterface.bttnY + UserInterface.boxHeight + 23 - auxThumbHeight, scrollBarThumbWidth, scrollBarThumbHeight);
+				g.setColor(Color.lightGray);
+				if(isDragging) {
+					g.setColor(Color.gray);
+				}
+				g.fillRect(Almoxarifado.WIDTH - (36 + 21), UserInterface.bttnY + UserInterface.boxHeight + 20 - (int) (thumbAuxY), thumbWidth, thumbHeight);
 			}
 			
 		}
