@@ -142,6 +142,7 @@ public class Project {
 			isOnTheRightState = true;
 		}else {
 			isOnTheRightState = false;
+			thumbAuxY = 0;
 			ofsetHeight = 0;
 		}
 		

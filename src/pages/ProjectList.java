@@ -128,6 +128,7 @@ public class ProjectList {
 			Almoxarifado.frame.setTitle("Lista de Projetos");
 		}else {
 			isOnTheRightState = false;
+			thumbAuxY = 0;
 			ofsetHeight = 0;
 		}
 		

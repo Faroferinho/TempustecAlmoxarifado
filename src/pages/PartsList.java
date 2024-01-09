@@ -393,6 +393,7 @@ public class PartsList {
 			Almoxarifado.frame.setTitle("Lista de Peças");
 		}else {
 			isOnTheRightState = false;
+			thumbAuxY = 0;
 			ofsetHeight = 0;
 		}
 		
