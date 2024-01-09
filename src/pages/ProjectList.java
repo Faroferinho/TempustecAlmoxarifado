@@ -283,8 +283,11 @@ public class ProjectList {
 									mouseStatus = false;
 								}else {									
 									DBConector.Archive(PartsList.getKey(names[configStateIndex]));
+									scrollPositioner();
 									updateProjectList = true;
 									PartsList.restartAssemblyList = true;
+									configState = false;
+									mouseStatus = false;
 								}
 								
 								
@@ -316,6 +319,6 @@ public class ProjectList {
 			g.fillRect(Almoxarifado.WIDTH - (36 + 21), UserInterface.bttnY + UserInterface.boxHeight + 20 - (int)(thumbAuxY), thumbWidth, thumbHeight);
 		}
 		
-		maximumHeight = (Math.round(Almoxarifado.quantityAssembly / 3) * (boxHeight + spaceBetween)) - spaceBetween;
+		maximumHeight = (Math.round(Almoxarifado.quantityAssembly / 3) * (boxHeight + spaceBetween)) - spaceBetween/2;
 	}
 }

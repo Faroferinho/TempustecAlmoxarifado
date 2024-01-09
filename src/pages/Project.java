@@ -14,7 +14,7 @@ import main.UserInterface;
 
 public class Project {
 	
-	static int ID = 0;
+	static int ID = 53;
 	static String name = "";
 	static String description = "";
 	static String company = "";
@@ -36,11 +36,18 @@ public class Project {
 	
 	public static boolean updateProject = true;
 	private boolean isOnTheRightState = false;
-	
+
+	public boolean mouseStatus = false;
+
 	public static int scroll;
 	private int ofsetHeight = 0;
+	private int maximumHeight = 1;
 	
-	public boolean mouseStatus = false;
+	private boolean toggleScrollBar = false;
+	private int thumbWidth = 18;
+	public int thumbHeight = 0;
+	private double thumbAuxY = 0;
+	public boolean isDragging = false;
 	
 	int imgX = UserInterface.bttnX[0] + 50;
 	int imgY = Almoxarifado.HEIGHT - UserInterface.maximunHeight - 20;
@@ -264,7 +271,7 @@ public class Project {
 		ArrayList<String> returnArrayList = new ArrayList<>();
 		
 		returnArrayList.add("ID");
-		returnArrayList.add("Montagem");
+		returnArrayList.add("");
 		returnArrayList.add("Descrição");
 		returnArrayList.add("Quantidade");
 		returnArrayList.add("");
@@ -291,7 +298,7 @@ public class Project {
 		String toReturn = null;
 		
 		if(index == 1) {
-			toReturn = name;
+			toReturn = "";
 		}else {
 			toReturn = PartsList.quantityTypes[Integer.parseInt(toTranslate)];
 		}
@@ -327,12 +334,11 @@ public class Project {
 				// 0 -> ID
 				case 1:
 					//1 -> Montagem
-					auxTextWidth += (total*5)/100;
 					break;
 					
 				case 2:
 					// 2 -> Descrição
-					auxTextWidth += (total*13.9)/100;
+					auxTextWidth += (total*11)/100;
 					break;
 					
 				case 3:
@@ -423,6 +429,10 @@ public class Project {
 		g.drawImage(remove, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight, null);
 		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight);
 		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight);
+		
+		maximumHeight = positionerY + auxTextHeight + g.getFontMetrics().getHeight() - (UserInterface.boxHeight + UserInterface.bttnY);
+		System.out.println("maximumHeight: " + maximumHeight);
+		
 		if(mouseStatus) {
 			if(Almoxarifado.mY > positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight
 			&& Almoxarifado.mY < positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + add.getHeight()) {
@@ -482,19 +492,30 @@ public class Project {
 			
 			
 			if(!isEditing) {
-				g.drawImage(editProfile, Almoxarifado.WIDTH - 128 - 60, imgY + ofsetHeight, null);
+				g.drawImage(editProfile, Almoxarifado.WIDTH - 128 - 100, imgY + ofsetHeight, null);
 			}else {
-				g.drawImage(isEditingProfile, Almoxarifado.WIDTH - 128 - 60, imgY + ofsetHeight, null);
+				g.drawImage(isEditingProfile, Almoxarifado.WIDTH - 128 - 100, imgY + ofsetHeight, null);
 			}
 			
-			g.drawImage(archiveProfile, Almoxarifado.WIDTH - 128 - 60, imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight, null);
+			g.drawImage(archiveProfile, Almoxarifado.WIDTH - 128 - 100, imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight, null);
 			
-			UserInterface.isOnButton(g, Almoxarifado.WIDTH - 128 - 60, imgY + ofsetHeight);
-			UserInterface.isOnButton(g, Almoxarifado.WIDTH - 128 - 60, imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight);
+			UserInterface.isOnButton(g, Almoxarifado.WIDTH - 128 - 100, imgY + ofsetHeight);
+			UserInterface.isOnButton(g, Almoxarifado.WIDTH - 128 - 100, imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight);
 			
 			nameSize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(name);
 			descriptionSize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(description);
 			companySize = g.getFontMetrics(new Font("arial", 0, 20)).stringWidth(company);
+			
+			if(toggleScrollBar) {
+				g.setColor(Color.darkGray);
+				g.fillRect(Almoxarifado.WIDTH - (36 + 22), UserInterface.bttnY + UserInterface.boxHeight + 18, 20, UserInterface.maximunHeight - 12);
+				
+				if(isDragging) {
+					g.setColor(Color.gray);
+				}
+				g.setColor(Color.lightGray);
+				g.fillRect(Almoxarifado.WIDTH - (36 + 21), UserInterface.bttnY + UserInterface.boxHeight + 20 - (int) (thumbAuxY), thumbWidth, thumbHeight);
+			}
 			
 			drawPartsList(g);
 		}

@@ -421,9 +421,9 @@ public class PartsList {
 				&& Almoxarifado.mY < UserInterface.bttnY + UserInterface.boxHeight + 20 - (int) (thumbAuxY) + thumbHeight) {
 					isDragging = true;
 				}else if(Almoxarifado.mX > Almoxarifado.WIDTH - (36 + 22) && Almoxarifado.mX < Almoxarifado.WIDTH - (36 + 22) + thumbWidth
-						&& Almoxarifado.mY > UserInterface.bttnY + UserInterface.boxHeight + 18
-						&& Almoxarifado.mY < UserInterface.bttnY + UserInterface.boxHeight + UserInterface.maximunHeight + 6) {
-					System.out.println("AAAAAAAAAA");
+					 && Almoxarifado.mY > UserInterface.bttnY + UserInterface.boxHeight + 18
+					 && Almoxarifado.mY < UserInterface.bttnY + UserInterface.boxHeight + UserInterface.maximunHeight + 6) {
+					
 				}
 			}else {
 				isDragging = false;
