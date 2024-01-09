@@ -34,7 +34,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 5;
+	public static byte state = 0;
 	
 	public static JFrame frame;
 	public static Toolkit tk;
@@ -51,7 +51,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	
 	public static String name = "";
 	public static String cpf = "";
-	public static String rdf = "8523";
+	public static String rdf = "";
 	public static String type = "";
 	
 	public static int mX;
@@ -289,17 +289,21 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		int y = e.getY() - (UserInterface.bttnY + UserInterface.boxHeight + 18);
+		
 		if(partsList.isDragging) {
-			int y = e.getY() - (UserInterface.bttnY + UserInterface.boxHeight + 18);
 			partsList.ofsetHeight = ((PartsList.maximumHeight * y) / ((UserInterface.maximunHeight - 12) - partsList.thumbHeight)) * -1;
 			
 			partsList.scrollPositioner();
 		}else if(projectList.isDragging) {
 			
-			int y = e.getY() - (UserInterface.bttnY + UserInterface.boxHeight + 18);
 			projectList.ofsetHeight = ((projectList.maximumHeight * y) / ((UserInterface.maximunHeight - 12) - projectList.thumbHeight)) * -1;
 			
 			projectList.scrollPositioner();
+		}else if(project.isDragging) {
+			project.ofsetHeight = ((project.maximumHeight * y) / ((UserInterface.maximunHeight - 12) - project.thumbHeight)) * -1;
+			
+			project.scrollPositioner();
 		}
 	}
 

@@ -40,8 +40,8 @@ public class Project {
 	public boolean mouseStatus = false;
 
 	public static int scroll;
-	private int ofsetHeight = 0;
-	private int maximumHeight = 1;
+	public int ofsetHeight = 0;
+	public int maximumHeight = 1;
 	
 	private boolean toggleScrollBar = false;
 	private int thumbWidth = 18;
@@ -79,7 +79,6 @@ public class Project {
 	public void updater() {
 		System.out.println("ID: " + ID);
 		
-		ofsetHeight = 0;
 		String brokenApartInfo[];
 		String aux = DBConector.findInDB("*", "montagem", "ID_Montagem", "" + ID);
 		
@@ -126,6 +125,18 @@ public class Project {
 		PartsList.quantityTypes = PartsList.fillQuantityTypes();
 	}
 	
+	public void scrollPositioner() {
+		if(ofsetHeight < (maximumHeight * -1)) {			
+			ofsetHeight = maximumHeight * -1;
+		}if(ofsetHeight > 0) {		
+			ofsetHeight = 0;
+		}
+		
+		int Y = (UserInterface.maximunHeight - 18) - thumbHeight;
+		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + ofsetHeight));
+		thumbAuxY = Y / S;
+	}
+	
 	public void tick() {
 		if(Almoxarifado.state == 5) {
 			isOnTheRightState = true;
@@ -140,13 +151,46 @@ public class Project {
 			updateProject = false;
 		}
 		
+		
+		
 		if(isOnTheRightState) {
+			if(maximumHeight > 0) {
+				toggleScrollBar = true;
+				thumbHeight = (int) ((UserInterface.maximunHeight - 16) - (((UserInterface.maximunHeight - 32) * (maximumHeight / 16)) / 100));
+				if(thumbHeight < 30) {
+					thumbHeight = 30;
+				}
+			}else {
+				toggleScrollBar = false;
+				scroll = 0;
+			}
+			
 			if(scroll > 0) {
 				ofsetHeight -= UserInterface.spd;
+				
+				scrollPositioner();
+				
 				scroll = 0;
-			}else if(scroll < 0 && ofsetHeight < 0) {
+			}else if(scroll < 0) {
 				ofsetHeight += UserInterface.spd;
+				
+				scrollPositioner();
+								
 				scroll = 0;
+			}
+			
+			if(mouseStatus) {
+				if(Almoxarifado.mX > Almoxarifado.WIDTH - (36 + 21) && Almoxarifado.mX < Almoxarifado.WIDTH - (36 + 21) + 20
+				&& Almoxarifado.mY > UserInterface.bttnY + UserInterface.boxHeight + 20 - (int) (thumbAuxY) 
+				&& Almoxarifado.mY < UserInterface.bttnY + UserInterface.boxHeight + 20 - (int) (thumbAuxY) + thumbHeight) {
+					isDragging = true;
+				}else if(Almoxarifado.mX > Almoxarifado.WIDTH - (36 + 22) && Almoxarifado.mX < Almoxarifado.WIDTH - (36 + 22) + thumbWidth
+					 && Almoxarifado.mY > UserInterface.bttnY + UserInterface.boxHeight + 18
+					 && Almoxarifado.mY < UserInterface.bttnY + UserInterface.boxHeight + UserInterface.maximunHeight + 6) {
+					
+				}
+			}else {
+				isDragging = false;
 			}
 			
 			if(isEditing) {
@@ -430,8 +474,7 @@ public class Project {
 		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight);
 		UserInterface.isOnButton(g, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight);
 		
-		maximumHeight = positionerY + auxTextHeight + g.getFontMetrics().getHeight() - (UserInterface.boxHeight + UserInterface.bttnY);
-		System.out.println("maximumHeight: " + maximumHeight);
+		maximumHeight = positionerY + auxTextHeight + g.getFontMetrics().getHeight() - (UserInterface.maximunHeight + 26);
 		
 		if(mouseStatus) {
 			if(Almoxarifado.mY > positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight
@@ -510,10 +553,10 @@ public class Project {
 				g.setColor(Color.darkGray);
 				g.fillRect(Almoxarifado.WIDTH - (36 + 22), UserInterface.bttnY + UserInterface.boxHeight + 18, 20, UserInterface.maximunHeight - 12);
 				
+				g.setColor(Color.lightGray);
 				if(isDragging) {
 					g.setColor(Color.gray);
 				}
-				g.setColor(Color.lightGray);
 				g.fillRect(Almoxarifado.WIDTH - (36 + 21), UserInterface.bttnY + UserInterface.boxHeight + 20 - (int) (thumbAuxY), thumbWidth, thumbHeight);
 			}
 			

@@ -201,6 +201,8 @@ public class ProjectList {
 			
 			if(maximumHeight > 450) {
 				toggleScrollBar = true;
+			}else {
+				toggleScrollBar = false;
 			}
 		}
 	}

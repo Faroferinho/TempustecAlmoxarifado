@@ -362,6 +362,8 @@ public class PartsList {
 	}
 		
 	public void scrollPositioner() {
+		System.out.println("maximumHeight: " + maximumHeight * -1);
+		System.out.println("ofsetHeight: " + ofsetHeight);
 
 		if(ofsetHeight < PartsList.maximumHeight * -1) {
 			ofsetHeight = PartsList.maximumHeight * -1;
@@ -639,7 +641,7 @@ public class PartsList {
 			UserInterface.isOnButton(g, Almoxarifado.WIDTH/3 - adicionar.getWidth()/2, auxHeight);
 			UserInterface.isOnButton(g, Almoxarifado.WIDTH/3*2 - excluir.getWidth()/2, auxHeight);
 			
-			maximumHeight = (auxHeight - ofsetHeight) - 455;
+			maximumHeight = (auxHeight - ofsetHeight) - UserInterface.maximunHeight;
 			
 			if(toggleScrollBar) {
 				
