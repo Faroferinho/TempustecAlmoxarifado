@@ -30,9 +30,15 @@ public class ProjectList {
 	String descriptions[];
 	
 	public static int scroll;
-	private static int ofsetHeight;
+	public int ofsetHeight;
 	public int maximumHeight = 0;
 	public boolean mouseStatus = false;
+	
+	private boolean toggleScrollBar = false;
+	private int thumbWidth = 18;
+	public int thumbHeight = 0;
+	private double thumbAuxY = 0;
+	public boolean isDragging = false;
 	
 	private boolean changeState = false;
 	private int changeStateIndex = -1;
@@ -104,6 +110,18 @@ public class ProjectList {
 		updateProjectList = true;
 	}
 	
+	public void scrollPositioner() {
+		if(ofsetHeight < maximumHeight * -1) {
+			ofsetHeight = maximumHeight * -1;
+		}if(ofsetHeight > 0) {
+			ofsetHeight = 0;
+		}
+		
+		int Y = (UserInterface.maximunHeight - 18) - thumbHeight;
+		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + ofsetHeight));
+		thumbAuxY = Y / S;
+	}
+	
 	public void tick() {		
 		if(Almoxarifado.state == 3) {
 			isOnTheRightState = true;
@@ -114,12 +132,29 @@ public class ProjectList {
 		}
 		
 		if(isOnTheRightState == true) {
+			
+			if(mouseStatus) {
+				if(Almoxarifado.mX > Almoxarifado.WIDTH - (36 + 21) && Almoxarifado.mX < Almoxarifado.WIDTH - (36 + 21) + thumbWidth) {
+					if(Almoxarifado.mY > UserInterface.bttnY + UserInterface.boxHeight + 20 - (int)(thumbAuxY) 
+					&& Almoxarifado.mY < UserInterface.bttnY + UserInterface.boxHeight + 20 - (int)(thumbAuxY) + thumbHeight) {
+						isDragging = true;
+					}
+				}
+			}else {
+				isDragging = false;
+			}
 		
-			if(scroll > 1 && ofsetHeight > maximumHeight * -1) {
+			if(scroll > 1) {
 				ofsetHeight -= UserInterface.spd;
+				
+				scrollPositioner();
+				
 				scroll = 0;
-			}else if(scroll < -1 && ofsetHeight < 0) {
+			}else if(scroll < -1) {
 				ofsetHeight += UserInterface.spd;
+				
+				scrollPositioner();
+				
 				scroll = 0;
 			}
 			
@@ -164,6 +199,9 @@ public class ProjectList {
 				updateProjectList = false;
 			}
 			
+			if(maximumHeight > 450) {
+				toggleScrollBar = true;
+			}
 		}
 	}
 	
@@ -260,6 +298,24 @@ public class ProjectList {
 				}
 			}	
 		}
-		maximumHeight = imgX + auxY;
+		if(toggleScrollBar) {
+			g.setColor(Color.darkGray);
+			g.fillRect(Almoxarifado.WIDTH - (36 + 22), UserInterface.bttnY + UserInterface.boxHeight + 18, 20, UserInterface.maximunHeight - 12);
+			
+			if(maximumHeight > 0) {
+				thumbHeight = (int) ((UserInterface.maximunHeight - 16) - (((UserInterface.maximunHeight - 32) * (maximumHeight / 16)) / 100));
+				if(thumbHeight < 30) {
+					thumbHeight = 30;
+				}
+			}
+			
+			g.setColor(Color.lightGray);
+			if(isDragging) {
+				g.setColor(Color.gray);
+			}
+			g.fillRect(Almoxarifado.WIDTH - (36 + 21), UserInterface.bttnY + UserInterface.boxHeight + 20 - (int)(thumbAuxY), thumbWidth, thumbHeight);
+		}
+		
+		maximumHeight = (Math.round(Almoxarifado.quantityAssembly / 3) * (boxHeight + spaceBetween)) - spaceBetween;
 	}
 }

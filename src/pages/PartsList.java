@@ -32,7 +32,7 @@ public class PartsList {
 	
 	private boolean toggleScrollBar = false;
 	private int thumbWidth = 18;
-	private int thumbHeight = 0;
+	public int thumbHeight = 0;
 	private double thumbAuxY = 0;
 	public boolean isDragging = false;
 	
@@ -659,7 +659,6 @@ public class PartsList {
 				}
 				g.fillRect(Almoxarifado.WIDTH - (36 + 21), UserInterface.bttnY + UserInterface.boxHeight + 20 - (int) (thumbAuxY), thumbWidth, thumbHeight);
 			}
-			
 		}
 	}
 }
