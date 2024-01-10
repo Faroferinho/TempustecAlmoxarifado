@@ -114,9 +114,16 @@ public class PartsList {
 			columnName += "Montagem";
 			auxString += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE,
 					null, assembliesSO, 0);
+			
 			if(verifyString(auxString)) {
-				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
 				return;
+			}else {
+				if(auxString.equals("")) {
+					auxString = correctString(column);
+					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+					break;
+				}
 			}
 			
 			auxString = getKey(auxString);
@@ -125,10 +132,18 @@ public class PartsList {
 		case 2:
 			columnName += "Description";
 			auxString += JOptionPane.showInputDialog(null, "Insira a Descrição:", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
+			
 			if(verifyString(auxString)) {
-				JOptionPane.showMessageDialog(null, "Valor Agora é Nulo", "", JOptionPane.WARNING_MESSAGE);
-				auxString = "---------------";
+				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
+				return;
+			}else {
+				if(auxString.equals("")) {
+					auxString = correctString(column);
+					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+					break;
+				}
 			}
+			
 			break;
 		case 3:
 			columnName += "Quantity";
@@ -136,18 +151,32 @@ public class PartsList {
 			
 			auxString = formatNumb(auxString);
 			if(verifyString(auxString)) {
-				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
 				return;
+			}else {
+				if(auxString.equals("")) {
+					auxString = correctString(column);
+					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+					break;
+				}
 			}
 			
 			break;
 		case 4:
 			columnName += "Quantity_type";
 			auxString += JOptionPane.showInputDialog(null, "Selecione um tipo de quantidade", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE, null, quantityTypes, 0);
+			
 			if(verifyString(auxString)) {
-				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
 				return;
+			}else {
+				if(auxString.equals("")) {
+					auxString = correctString(column);
+					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+					break;
+				}
 			}
+			
 			aux = 0;
 			
 			if(auxString.equals(quantityTypes[quantityTypes.length-1])) {
@@ -169,18 +198,32 @@ public class PartsList {
 			auxString = formatNumb(auxString);
 			
 			if(verifyString(auxString)) {
-				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
 				return;
+			}else {
+				if(auxString.equals("")) {
+					auxString = correctString(column);
+					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+					break;
+				}
 			}
 			
 			break;
 		case 6:
 			columnName += "Supplier";
 			auxString += JOptionPane.showInputDialog(null, "Insira o Fornecedor:", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
+			
 			if(verifyString(auxString)) {
-				JOptionPane.showMessageDialog(null, "Valor Agora é Nulo", "", JOptionPane.WARNING_MESSAGE);
-				auxString = "---------------";
+				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
+				return;
+			}else {
+				if(auxString.equals("")) {
+					auxString = correctString(column);
+					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+					break;
+				}
 			}
+			
 			break;
 		case 7:
 			columnName += "Status";
@@ -200,8 +243,26 @@ public class PartsList {
 	
 	private static String formatNumb(String text) {
 		
-		text = text.replaceFirst(",", ".");
-		text = text.replaceAll("[^0-9]", "");
+		System.out.println("=============================================================");
+		
+		System.out.println("1 - Texto: " + text);
+		
+		text = text.replaceFirst(",", "§");
+		System.out.println("2 - Texto: " + text);
+		
+		text = text.replaceFirst("/[.]/", "§");
+		System.out.println("3 - Texto: " + text);
+		
+		text = text.replaceAll("/[^0-9§]/", "");
+		System.out.println("4 - Texto: " + text);
+		
+		text = text.replaceFirst("§", ".");
+		System.out.println("5 - Texto: " + text);
+		
+		text = text.replaceAll("§", "");
+		System.out.println("6 - Texto: " + text);
+		
+		System.out.println("=============================================================");
 		
 		return text;
 	}
@@ -235,11 +296,34 @@ public class PartsList {
 		return returnArrayString;
 	}
 	
-	private static boolean verifyString(String toVerif) {
-		if(toVerif.equals("") || toVerif.equals("null") || toVerif.equals(" ")) {
+
+	private static boolean verifyString(String text) {
+		if(text.equals("null")) {
 			return true;
+		}else {
+			return false;
 		}
-		return false;
+	}
+	
+	private static String correctString(int index) {
+		String toReturn = "";
+		System.out.println("index: " + index);
+		
+		switch(index) {
+		case 2:
+		case 6:
+			toReturn = "------------";
+			break;
+		case 1:
+		case 4:
+			toReturn = "1";
+			break;
+		default:
+			toReturn = "0";
+			break;
+		}
+		
+		return toReturn;
 	}
 
 	public void addPart() {
@@ -250,23 +334,39 @@ public class PartsList {
 		if(auxAddingFromMontagem == 0) {
 			aux += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null,
 					assembliesSO, 0);
+			
 			if(verifyString(aux)) {
-				JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
 				return;
+			}else {
+				if(aux.equals("")) {
+					aux = correctString(1);
+					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+				}
 			}
+			
 			auxInt = Integer.parseInt(getKey(aux));
 		}else {
 			auxInt = auxAddingFromMontagem;
+			
+			if(verifyString(aux)) {
+				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
+				return;
+			}else {
+				if(aux.equals("")) {
+					aux = correctString(1);
+					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+				}
+			}
 		}
 		
 		querry += auxInt + ", \"";
 		
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira a Descrição:", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
-		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "O Valor Agora é Nulo", "", JOptionPane.WARNING_MESSAGE);
-			aux = "---------------";
-		}
+		
+		//TODO - verifyString
+		
 		querry += aux + "\", ";
 		
 		aux = "";
@@ -274,10 +374,7 @@ public class PartsList {
 		
 		aux = formatNumb(aux);
 		
-		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
+		//TODO - verifyString
 		
 		querry += aux + ", ";
 		
@@ -289,10 +386,9 @@ public class PartsList {
 				auxInt = i;
 			}
 		}
-		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
+
+		//TODO - verifyString
+		
 		querry += auxInt + ", ";
 		
 		aux = "";
@@ -300,20 +396,16 @@ public class PartsList {
 		
 		aux = formatNumb(aux);
 		
-		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "Valor Agora será nulo", "", JOptionPane.WARNING_MESSAGE);
-			aux = "0";
-		}
+		//TODO - verifyString
 		
 		querry += aux + ", \"";
 		//TODO: insira uma forma de limitar o usuário a apenas usar numeros aqui;
 		
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira o Fornecedor:", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
-		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "Valor Agora será nulo", "", JOptionPane.WARNING_MESSAGE);
-			aux = "---------------";
-		}
+		
+		//TODO - verifyString
+		
 		querry += aux + "\", 0)";
 		
 		System.out.println("Query" + querry);
