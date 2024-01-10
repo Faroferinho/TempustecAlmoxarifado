@@ -201,7 +201,7 @@ public class PartsList {
 	private static String formatNumb(String text) {
 		
 		text = text.replaceFirst(",", ".");
-		text = text.replaceAll("[a-zA-Z,]", "");
+		text = text.replaceAll("[^0-9]", "");
 		
 		return text;
 	}
@@ -280,7 +280,6 @@ public class PartsList {
 		}
 		
 		querry += aux + ", ";
-		//TODO: insira uma forma de limitar o usuário a apenas usar numeros aqui;
 		
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Selecione um tipo de quantidade", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null, quantityTypes, 0);
