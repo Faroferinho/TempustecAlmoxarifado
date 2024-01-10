@@ -296,7 +296,6 @@ public class PartsList {
 		return returnArrayString;
 	}
 	
-
 	private static boolean verifyString(String text) {
 		if(text.equals("null")) {
 			return true;
@@ -336,28 +335,25 @@ public class PartsList {
 					assembliesSO, 0);
 			
 			if(verifyString(aux)) {
-				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Cancelando Cadastro", "Retornando", JOptionPane.WARNING_MESSAGE);
 				return;
 			}else {
 				if(aux.equals("")) {
 					aux = correctString(1);
 					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+				}else {
+					auxInt = Integer.parseInt(getKey(aux));
 				}
 			}
-			
-			auxInt = Integer.parseInt(getKey(aux));
 		}else {
 			auxInt = auxAddingFromMontagem;
+			System.out.println("AuxInt: " + auxInt);
 			
-			if(verifyString(aux)) {
-				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
+			if(verifyString("" + auxInt)) {
+				JOptionPane.showMessageDialog(null, "Cancelando Cadastro", "Retornando", JOptionPane.WARNING_MESSAGE);
 				return;
-			}else {
-				if(aux.equals("")) {
-					aux = correctString(1);
-					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
-				}
 			}
+			
 		}
 		
 		querry += auxInt + ", \"";
@@ -365,7 +361,15 @@ public class PartsList {
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira a Descrição:", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
 		
-		//TODO - verifyString
+		if(verifyString(aux)) {
+			JOptionPane.showMessageDialog(null, "Cancelando Cadastro", "Retornando", JOptionPane.WARNING_MESSAGE);
+			return;
+		}else {
+			if(aux.equals("")) {
+				aux = correctString(2);
+				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+			}
+		}
 		
 		querry += aux + "\", ";
 		
@@ -374,7 +378,15 @@ public class PartsList {
 		
 		aux = formatNumb(aux);
 		
-		//TODO - verifyString
+		if(verifyString(aux)) {
+			JOptionPane.showMessageDialog(null, "Cancelando Cadastro", "Retornando", JOptionPane.WARNING_MESSAGE);
+			return;
+		}else {
+			if(aux.equals("")) {
+				aux = correctString(3);
+				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+			}
+		}
 		
 		querry += aux + ", ";
 		
@@ -387,7 +399,15 @@ public class PartsList {
 			}
 		}
 
-		//TODO - verifyString
+		if(verifyString(aux)) {
+			JOptionPane.showMessageDialog(null, "Cancelando Cadastro", "Retornando", JOptionPane.WARNING_MESSAGE);
+			return;
+		}else {
+			if(aux.equals("")) {
+				aux = correctString(4);
+				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+			}
+		}
 		
 		querry += auxInt + ", ";
 		
@@ -396,15 +416,30 @@ public class PartsList {
 		
 		aux = formatNumb(aux);
 		
-		//TODO - verifyString
+		if(verifyString(aux)) {
+			JOptionPane.showMessageDialog(null, "Cancelando Cadastro", "Retornando", JOptionPane.WARNING_MESSAGE);
+			return;
+		}else {
+			if(aux.equals("")) {
+				aux = correctString(5);
+				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+			}
+		}
 		
 		querry += aux + ", \"";
-		//TODO: insira uma forma de limitar o usuário a apenas usar numeros aqui;
 		
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira o Fornecedor:", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
 		
-		//TODO - verifyString
+		if(verifyString(aux)) {
+			JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
+			return;
+		}else {
+			if(aux.equals("")) {
+				aux = correctString(6);
+				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
+			}
+		}
 		
 		querry += aux + "\", 0)";
 		
@@ -416,7 +451,6 @@ public class PartsList {
 	}
 	
 	public void eliminatePart(int index){
-		//TODO: OTIMIZAR ESSA DESGRAÇA, POR DEUS
 		int confirmation = JOptionPane.showConfirmDialog(null, "Você tem *CERTEZA* que você deseja deletar essa peça?", "Confirma a Eliminação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		
 		if(confirmation != 0) {
