@@ -409,7 +409,10 @@ public class Project {
 				
 				case 7:
 					//7 -> Status
-					auxTextWidth += (total*14.6)/100;
+					auxTextWidth += (total*17)/100;
+					if(i > 10) {
+						auxTextWidth += (total*2)/100;
+					}
 					break;
 				}
 				
