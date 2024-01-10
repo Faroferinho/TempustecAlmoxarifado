@@ -235,6 +235,8 @@ public class PartsList {
 			break;
 		}
 		
+		auxString = scoots(auxString);
+		
 		
 		DBConector.editLine("pecas", columnName, auxString, "ID_Parts", index);
 		
@@ -325,6 +327,16 @@ public class PartsList {
 		return toReturn;
 	}
 
+	private static String scoots(String text) {
+		
+		System.out.println("Texto sem Formatação: " + text);
+		text = text.replaceAll("\"", "''");
+		System.out.println("Texto Formatado: " + text);
+		
+		return text;
+		
+	}
+	
 	public void addPart() {
 		String querry = "INSERT INTO pecas (Montagem, Description, Quantity, Quantity_type, Price, Supplier, Status) VALUES( ";
 
@@ -371,6 +383,8 @@ public class PartsList {
 			}
 		}
 		
+		aux = scoots(aux);
+		
 		querry += aux + "\", ";
 		
 		aux = "";
@@ -387,6 +401,8 @@ public class PartsList {
 				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 			}
 		}
+		aux = scoots(aux);
+		aux = formatNumb(aux);
 		
 		querry += aux + ", ";
 		
@@ -414,6 +430,7 @@ public class PartsList {
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira o Valor da Peça (apenas numeros)", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
 		
+		aux = scoots(aux);
 		aux = formatNumb(aux);
 		
 		if(verifyString(aux)) {
@@ -440,10 +457,11 @@ public class PartsList {
 				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 			}
 		}
+		aux = scoots(aux);
 		
 		querry += aux + "\", 0)";
 		
-		System.out.println("Query" + querry);
+		System.out.println("Query: " + querry);
 		
 		DBConector.writeDB(querry);
 		wasChanged = true;
