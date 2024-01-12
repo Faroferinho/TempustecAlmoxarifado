@@ -618,6 +618,10 @@ public class PartsList {
 						auxTextToWrite = changeQuantityType(finalPartsTable[i][j]);
 					}
 					
+					if(i > 0 && j == 5) {
+						auxTextToWrite = "R$ " + finalPartsTable[i][j];
+					}
+					
 					switch(j) {
 					//Caso 0:
 						//ID

@@ -426,6 +426,15 @@ public class Project {
 					if(i % 8 == 1 || i % 8 == 4) {
 						toDraw = translateText(separetedList.get(i), i % 8);
 					}
+					
+					if(i % 8 == 7) {
+						auxCheckBox = 15;
+					}
+					
+					if(i % 8 == 5) {
+						toDraw = "R$ " + toDraw;
+					}
+					
 					if(!isEliminating) {
 						if(Almoxarifado.mX > positionerX + auxTextWidth - auxCheckBox &&
 						Almoxarifado.mX < positionerX + auxTextWidth + g.getFontMetrics().stringWidth(toDraw) + auxCheckBox &&
@@ -438,10 +447,6 @@ public class Project {
 								mouseStatus = false;
 							}
 						}
-					}
-					
-					if(i % 8 == 7) {
-						auxCheckBox = 15;
 					}
 				}
 				
