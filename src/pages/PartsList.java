@@ -150,6 +150,9 @@ public class PartsList {
 			auxString += JOptionPane.showInputDialog(null, "Insira a quantidade de Peças (apenas numeros)", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
 			
 			auxString = formatNumb(auxString);
+			auxString = auxString.replaceAll("[.]", "");
+			System.out.println("auxString: " + auxString);
+			
 			if(verifyString(auxString)) {
 				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
 				return;
@@ -196,6 +199,7 @@ public class PartsList {
 			auxString += JOptionPane.showInputDialog(null, "Insira o Valor da Peça (apenas numeros)", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
 			
 			auxString = formatNumb(auxString);
+			System.out.println("auxString: " + auxString);
 			
 			if(verifyString(auxString)) {
 				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
@@ -244,29 +248,21 @@ public class PartsList {
 	}
 	
 	private static String formatNumb(String text) {
+		System.out.println("1 - Texto sem nenhuma formatação: " + text);
+		String toReturn = "";
 		
-		System.out.println("=============================================================");
+		String floatAux = text.replace(",", "§");
+		floatAux = floatAux.replace(".", "§");
+		System.out.println("2 - Texto trocando '.' e ',' por '§': " + floatAux);
 		
-		System.out.println("1 - Texto: " + text);
+		String letterAux = floatAux.replaceAll("[^0-9§]", "");
+		System.out.println("3 - Texto sem os caracteres especiais: " + letterAux);
 		
-		text = text.replaceFirst(",", "§");
-		System.out.println("2 - Texto: " + text);
+		toReturn = letterAux.replaceFirst("§", ".");
+		toReturn = toReturn.replaceAll("§", "");
+		System.out.println("4 - Trocando o primeiro '§' por '.' e removendo o resto: " + toReturn);
 		
-		text = text.replaceFirst("/[.]/", "§");
-		System.out.println("3 - Texto: " + text);
-		
-		text = text.replaceAll("/[^0-9§]/", "");
-		System.out.println("4 - Texto: " + text);
-		
-		text = text.replaceFirst("§", ".");
-		System.out.println("5 - Texto: " + text);
-		
-		text = text.replaceAll("§", "");
-		System.out.println("6 - Texto: " + text);
-		
-		System.out.println("=============================================================");
-		
-		return text;
+		return toReturn;
 	}
 	
 	public static HashMap<String, String> fillAssembliesName() {
@@ -342,6 +338,7 @@ public class PartsList {
 
 		String aux = "";
 		int auxInt = 0;
+		System.out.println("Montage{");
 		if(auxAddingFromMontagem == 0) {
 			aux += JOptionPane.showInputDialog(null, "Selecione a Montagem", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null,
 					assembliesSO, 0);
@@ -369,7 +366,8 @@ public class PartsList {
 		}
 		
 		querry += auxInt + ", \"";
-		
+		System.out.println("} \n\nDescrição{");
+				
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira a Descrição:", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
 		
@@ -386,11 +384,10 @@ public class PartsList {
 		aux = scoots(aux);
 		
 		querry += aux + "\", ";
+		System.out.println("} \n\nQuantidade de Peças{");
 		
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira a quantidade de Peças (apenas numeros)", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
-		
-		aux = formatNumb(aux);
 		
 		if(verifyString(aux)) {
 			JOptionPane.showMessageDialog(null, "Cancelando Cadastro", "Retornando", JOptionPane.WARNING_MESSAGE);
@@ -403,8 +400,10 @@ public class PartsList {
 		}
 		aux = scoots(aux);
 		aux = formatNumb(aux);
+		aux = aux.replaceAll(".", "");
 		
 		querry += aux + ", ";
+		System.out.println("} \n\nTipo de Quantidade{");
 		
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Selecione um tipo de quantidade", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null, quantityTypes, 0);
@@ -426,12 +425,10 @@ public class PartsList {
 		}
 		
 		querry += auxInt + ", ";
+		System.out.println("} \n\nValor{");
 		
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira o Valor da Peça (apenas numeros)", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
-		
-		aux = scoots(aux);
-		aux = formatNumb(aux);
 		
 		if(verifyString(aux)) {
 			JOptionPane.showMessageDialog(null, "Cancelando Cadastro", "Retornando", JOptionPane.WARNING_MESSAGE);
@@ -442,8 +439,12 @@ public class PartsList {
 				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 			}
 		}
+		aux = scoots(aux);
+		aux = formatNumb(aux);
+		
 		
 		querry += aux + ", \"";
+		System.out.println("} \n\nFornecedor{");
 		
 		aux = "";
 		aux += JOptionPane.showInputDialog(null, "Insira o Fornecedor:", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
@@ -460,6 +461,7 @@ public class PartsList {
 		aux = scoots(aux);
 		
 		querry += aux + "\", 0)";
+		System.out.println("}");
 		
 		System.out.println("Query: " + querry);
 		
