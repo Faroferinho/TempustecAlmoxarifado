@@ -43,9 +43,12 @@ public class PartsList {
 	
 	private static int maximumIndexQT = 0;
 	
-	int total = 0;
-	int characterLimitPerLine = 0;
+	int total = Almoxarifado.WIDTH - 50*2;
+	int characterLimitPerLine = (int) ((total*28)/100);;
 	boolean multipleDescriptionLinesMark = false;
+	int auxHeight = 125 + ofsetHeight;
+	int auxWidth = 50;		
+	int descriptionOfsetHeight = 1;
 	
 	boolean isEliminating = false;
 	int indexToEliminate = -1;
@@ -595,11 +598,9 @@ public class PartsList {
 			
 			g.setFont(new Font("arial", 0, 12));
 
-			int auxHeight = 125 + ofsetHeight;
-			int auxWidth = 50;		
-			int descriptionOfsetHeight = 1;
-			total = Almoxarifado.WIDTH - auxWidth*2;
-			characterLimitPerLine = (int) ((total*28)/100);
+			auxHeight = 125 + ofsetHeight;
+			auxWidth = 50;		
+			descriptionOfsetHeight = 1;
 			
 			for(int i = 0; i < Almoxarifado.quantityParts+1; i++) {
 
@@ -628,19 +629,19 @@ public class PartsList {
 					
 					case 1:
 						//Montagem
-						auxWidth += (total*5)/100;
+						auxWidth += (total*4.5)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
 					
 					case 2:
 						//Descrição
-						auxWidth += (total*12)/100;
+						auxWidth += (total*9.5)/100;
 						maxMouse = characterLimitPerLine;
 						break;
 					
 					case 3:
 						//Quantidade
-						auxWidth += (total*33.2)/100;
+						auxWidth += (total*38)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
 					

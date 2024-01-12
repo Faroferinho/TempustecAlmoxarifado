@@ -64,6 +64,17 @@ public class Project {
 	
 	boolean isEliminating = false;
 	
+	int positionerX = 52;
+	int positionerY = imgY + 224;
+	int auxTextWidth = 0;
+	int auxTextHeight = 0;
+	int total = Almoxarifado.WIDTH - (positionerX*2);
+	
+	boolean multipleDescriptionMark = false;
+	int sizeOfPartDescription = 0;
+	int maxTextSize = (int) (((total*40)/100) - ((total*5.5)/100));
+	int auxH = 0;
+	
 	public Project() {
 		// TODO Auto-generated constructor stub
 		
@@ -353,11 +364,10 @@ public class Project {
 	}
 	
 	public void drawPartsList(Graphics g) {
-		int positionerX = 52;
-		int positionerY = imgY + 224;
-		int auxTextWidth = 0;
-		int auxTextHeight = 0;
-		int total = Almoxarifado.WIDTH - (positionerX*2);
+		positionerX = 52;
+		positionerY = imgY + 224;
+		auxTextWidth = 0;
+		auxTextHeight = 0;
 		
 		Color newColor;
 		
@@ -383,12 +393,12 @@ public class Project {
 					
 				case 2:
 					// 2 -> Descrição
-					auxTextWidth += (total*11)/100;
+					auxTextWidth += (total*5.5)/100;
 					break;
 					
 				case 3:
 					// 3 -> Quantidade
-					auxTextWidth += (total*33.2)/100;
+					auxTextWidth += (total*38)/100;
 					break;
 				
 				case 4:
@@ -409,22 +419,25 @@ public class Project {
 				
 				case 7:
 					//7 -> Status
-					auxTextWidth += (total*17)/100;
+					auxTextWidth += (total*20)/100;
 					if(i > 10) {
 						auxTextWidth += (total*2)/100;
 					}
 					break;
 				}
 				
-				if(i != 0 && i % 8 == 0) {
-					auxTextHeight += 30;
-					auxTextWidth = 0;
-				}
-				
 				toDraw = separetedList.get(i);
 				if(i > 8 ) {
 					if(i % 8 == 1 || i % 8 == 4) {
 						toDraw = translateText(separetedList.get(i), i % 8);
+					}
+					
+					if(i % 8 == 2) {
+						if(g.getFontMetrics().stringWidth(toDraw) > maxTextSize) {
+							multipleDescriptionMark = true;
+						}
+					}else {
+						multipleDescriptionMark = false;
 					}
 					
 					if(i % 8 == 7) {
@@ -436,15 +449,29 @@ public class Project {
 					}
 					
 					if(!isEliminating) {
-						if(Almoxarifado.mX > positionerX + auxTextWidth - auxCheckBox &&
-						Almoxarifado.mX < positionerX + auxTextWidth + g.getFontMetrics().stringWidth(toDraw) + auxCheckBox &&
-						Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - g.getFontMetrics().getHeight() - auxCheckBox &&
-						Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight + auxCheckBox) {
-							newColor = Color.darkGray;
-							if(mouseStatus) {
-								PartsList.changePart(separetedList.get((auxTextHeight/30)*8), i % 8);
-								updateProject = true;
-								mouseStatus = false;
+						if(multipleDescriptionMark) {
+							if(Almoxarifado.mX > positionerX + auxTextWidth 
+							&& Almoxarifado.mX < positionerX + auxTextWidth + maxTextSize
+							&& Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - g.getFontMetrics().getHeight() - auxCheckBox
+							&& Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight + (g.getFontMetrics().stringWidth(toDraw) / maxTextSize) * 30) {
+								newColor = Color.darkGray;
+								if(mouseStatus) {
+									PartsList.changePart(separetedList.get((auxTextHeight/30)*8), i % 8);
+									updateProject = true;
+									mouseStatus = false;
+								}
+							}
+						}else {
+							if(Almoxarifado.mX > positionerX + auxTextWidth - auxCheckBox 
+							&& Almoxarifado.mX < positionerX + auxTextWidth + g.getFontMetrics().stringWidth(toDraw) + auxCheckBox
+							&& Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - g.getFontMetrics().getHeight() - auxCheckBox
+							&& Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight + auxCheckBox) {
+								newColor = Color.darkGray;
+								if(mouseStatus) {
+									PartsList.changePart(separetedList.get((auxTextHeight/30)*8), i % 8);
+									updateProject = true;
+									mouseStatus = false;
+								}
 							}
 						}
 					}
@@ -463,12 +490,57 @@ public class Project {
 						}
 					}
 				}
-				
-				
+				if(i != 0 && i % 8 == 0) {
+					auxTextHeight += 30 + auxH;
+					auxTextWidth = 0;
+					auxH = 0;
+				}
 				
 				g.setColor(newColor);
 				
-				g.drawString(toDraw, positionerX + auxTextWidth, positionerY + auxTextHeight + ofsetHeight);
+				if(!multipleDescriptionMark) {
+					g.drawString(toDraw, positionerX + auxTextWidth, positionerY + auxTextHeight + ofsetHeight);
+				}else {
+					System.out.println("========================================================================");
+					System.out.println(" Texto - " + toDraw);
+					
+					ArrayList<Integer> breakLineIndex = new ArrayList<>();
+					int auxLineStandIn = 1;
+					breakLineIndex.add(0);
+					
+					for(int currChar = 0; currChar < toDraw.length(); currChar++) {
+						if(g.getFontMetrics().stringWidth(toDraw.substring(breakLineIndex.get(auxLineStandIn-1), currChar)) > maxTextSize) {
+							System.out.println("-----------------------------");
+							System.out.println("currChar: " + currChar);
+							
+							breakLineIndex.add(currChar);
+							auxLineStandIn++;
+						}
+					}
+					breakLineIndex.add(toDraw.length());
+					
+					System.out.println("-----------------------------");
+					System.out.println("-----------------------------");
+					System.out.println("breakLineIndex: " + breakLineIndex);
+					System.out.println("-----------------------------");
+					
+					for(int lines = 1; lines < breakLineIndex.size(); lines++) {
+						String auxBrokenDesc;
+						
+						auxBrokenDesc = toDraw.substring(breakLineIndex.get(lines-1), breakLineIndex.get(lines));
+
+						System.out.println("-----------------------------");
+						System.out.println((lines + 1) + "º loop");
+						System.out.println("auxBrokenDesc: " + auxBrokenDesc);
+						System.out.println("indice de inicio da SubString: " + breakLineIndex.get(lines-1));
+						System.out.println("indice de fim da SubString: " + breakLineIndex.get(lines));
+						
+						g.drawString(auxBrokenDesc, positionerX + auxTextWidth, positionerY + auxTextHeight + ofsetHeight + auxH);
+						auxH += 30;
+					}
+					auxH -=30;
+					System.out.println("========================================================================");
+				}
 				
 				if(i > 10 && i % 8 == 7) {
 					g.drawImage(checkBox, positionerX + auxTextWidth - g.getFontMetrics().stringWidth(toDraw), positionerY + auxTextHeight + ofsetHeight + (g.getFontMetrics().getHeight() - checkBox.getHeight()), 20, 20, null);
