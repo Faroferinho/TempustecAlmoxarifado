@@ -104,7 +104,6 @@ public class PartsList {
 	}
 	
 	public static void changePart(String index, int column) {
-		
 		String columnName =  "";
 		String auxString = "";
 		int aux = 0;
@@ -304,6 +303,7 @@ public class PartsList {
 	
 	private static String correctString(int index) {
 		String toReturn = "";
+		System.out.println("-------------------------------");
 		System.out.println("index: " + index);
 		
 		switch(index) {
@@ -319,6 +319,8 @@ public class PartsList {
 			toReturn = "0";
 			break;
 		}
+		System.out.println("toReturn: " + toReturn);
+		System.out.println("-------------------------------");
 		
 		return toReturn;
 	}
@@ -390,7 +392,7 @@ public class PartsList {
 		aux += JOptionPane.showInputDialog(null, "Insira a quantidade de Peças (apenas numeros)", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE);
 		
 		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "Cancelando Cadastro", "Retornando", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
 			return;
 		}else {
 			if(aux.equals("")) {
@@ -400,9 +402,11 @@ public class PartsList {
 		}
 		aux = scoots(aux);
 		aux = formatNumb(aux);
-		aux = aux.replaceAll(".", "");
+		aux = aux.replaceAll("[.]", "");
+		System.out.println("aux: " + aux);
 		
 		querry += aux + ", ";
+		System.out.println("Query: " + querry);
 		System.out.println("} \n\nTipo de Quantidade{");
 		
 		aux = "";
