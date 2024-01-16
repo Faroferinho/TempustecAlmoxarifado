@@ -34,7 +34,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 0;
+	public static byte state = 1;
 	
 	public static JFrame frame;
 	public static Toolkit tk;
@@ -51,7 +51,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	
 	public static String name = "";
 	public static String cpf = "";
-	public static String rdf = "";
+	public static String rdf = "5000";
 	public static String type = "";
 	
 	public static int mX;
@@ -92,11 +92,12 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		frame = new JFrame();
 		
 		frame.add(almox);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setBackground(Color.black);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
 		
@@ -109,8 +110,8 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public Almoxarifado() {
 		tk = Toolkit.getDefaultToolkit();
 		
-		WIDTH = (tk.getScreenSize().width / 4) * 3;
-		HEIGHT = (tk.getScreenSize().height / 4) * 3;
+		WIDTH = tk.getScreenSize().width;
+		HEIGHT = tk.getScreenSize().height - 60;
 		
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.addMouseListener(this);
