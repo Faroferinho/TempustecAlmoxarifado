@@ -28,15 +28,11 @@ public class UserInterface {
 	public static int maximunHeight = Almoxarifado.HEIGHT - (bttnY + boxHeight + 12) - 40;
 
 	public UserInterface() {
-		bttnX[0] = (Almoxarifado.WIDTH/(bttnX.length + 1)) - (boxWidth / 2);
-		bttnX[1] = ((Almoxarifado.WIDTH/(bttnX.length + 1)) * 2) - (boxWidth / 2);
-		bttnX[2] = ((Almoxarifado.WIDTH/(bttnX.length + 1)) * 3) - (boxWidth / 2);
-		bttnX[3] = ((Almoxarifado.WIDTH/(bttnX.length + 1)) * 4) - (boxWidth / 2);
-		bttnX[4] = ((Almoxarifado.WIDTH/(bttnX.length + 1)) * 5) - (boxWidth / 2);
-		
-		for(int i  = 0; i < bttnX.length; i++) {
-			System.out.println("Valor de bttnX[" + i + "] é: " + bttnX[i]);
-		}
+		bttnX[0] = (Almoxarifado.WIDTH / (bttnX.length + 1)) - (boxWidth / 2);
+		bttnX[1] = ((Almoxarifado.WIDTH / (bttnX.length + 1)) * 2) - (boxWidth / 2);
+		bttnX[2] = ((Almoxarifado.WIDTH / (bttnX.length + 1)) * 3) - (boxWidth / 2);
+		bttnX[3] = ((Almoxarifado.WIDTH / (bttnX.length + 1)) * 4) - (boxWidth / 2);
+		bttnX[4] = ((Almoxarifado.WIDTH / (bttnX.length + 1)) * 5) - (boxWidth / 2);
 		
 		iconProfile = Almoxarifado.imgManag.getSprite(384, 0, boxWidth, boxHeight);
 		iconParts = Almoxarifado.imgManag.getSprite(256, 0, boxWidth, boxHeight);

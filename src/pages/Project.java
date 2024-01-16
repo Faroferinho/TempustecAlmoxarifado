@@ -116,9 +116,10 @@ public class Project {
 		
 		for(int i = 10; i < separetedList.size(); i++) {
 			if(i % 8 == 3) {
-				auxQuantity += Integer.parseInt(separetedList.get(i));
+				String auxToCleanQuantity = separetedList.get(i).replaceAll("[^0-9]", "");
+				auxQuantity += Integer.parseInt(auxToCleanQuantity);
 			}
-			if(i % 8 == 5) {
+			if(i % 8 == 4) {
 				finalPrice += Double.parseDouble(separetedList.get(i));
 			}
 			if(i % 8 == 7) {
@@ -133,7 +134,6 @@ public class Project {
 		Almoxarifado.frame.setTitle(Project.name);
 		
 		PartsList.assembliesHM = PartsList.fillAssembliesName();
-		PartsList.quantityTypes = PartsList.fillQuantityTypes();
 	}
 	
 	public void scrollPositioner() {
@@ -355,8 +355,6 @@ public class Project {
 		
 		if(index == 1) {
 			toReturn = "";
-		}else {
-			toReturn = PartsList.quantityTypes[Integer.parseInt(toTranslate)];
 		}
 		
 		return toReturn;
@@ -447,6 +445,8 @@ public class Project {
 					if(i % 8 == 5) {
 						toDraw = "R$ " + toDraw;
 					}
+					
+					System.out.println("toDraw: " + toDraw);
 					
 					if(!isEliminating) {
 						if(multipleDescriptionMark) {

@@ -23,7 +23,6 @@ public class DBConector {
 	public int qnttAssbly = 0;
 	public int qnttArchvs = 0;
 	public int qnttArchvParts = 0;
-	public int qnttTyps = 0;
 	
 	public DBConector() {
 		String workers = "select * from funcionarios";
@@ -31,7 +30,6 @@ public class DBConector {
 		String assemblies = "select * from Montagem";
 		String archives = "select * from Arquivo";
 		String archiveParts = "select * from Arquivo_Pecas";
-		String types = "select * from Tipo_Quantidade";
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -71,11 +69,6 @@ public class DBConector {
 			while(query.next()) {
 				qnttArchvParts++;
 			}
-			
-			query = statement.executeQuery(types);
-			while(query.next()) {
-				qnttTyps++;
-			}
 			//TODO
 			con.close();
 		} catch(SQLException e){
@@ -96,7 +89,7 @@ public class DBConector {
 			System.exit(1);
 		}
 		
-
+		System.out.println("Query: \n" + query);
 		String returnData = "";
 		
 		int maxIndex = checkSize(objective, table);
@@ -120,6 +113,8 @@ public class DBConector {
 			JOptionPane.showMessageDialog(null, "Erro ao Efetuar Ação", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
+		
+		System.out.println("Informação do DB: \n" + returnData);
 		
 		return returnData;
 	}

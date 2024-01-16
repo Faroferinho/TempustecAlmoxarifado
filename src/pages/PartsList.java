@@ -23,7 +23,6 @@ public class PartsList {
 	static HashMap<String, String> assembliesHM = fillAssembliesName();
 	static String[] assembliesID;
 	static String[] assembliesSO;
-	public static String quantityTypes[] = fillQuantityTypes();
 	public static boolean restartAssemblyList = false;
 	
 	public int ofsetHeight;
@@ -40,8 +39,6 @@ public class PartsList {
 	public boolean mouseStatus = false;
 	
 	private static boolean wasChanged = false;
-	
-	private static int maximumIndexQT = 0;
 	
 	int total = Almoxarifado.WIDTH - 50*2;
 	int characterLimitPerLine = (int) ((total*28)/100);;
@@ -74,19 +71,6 @@ public class PartsList {
 		return "";
 	}
 	
-	private static String newQuantityType(){
-		
-		String newName = JOptionPane.showInputDialog(null, "Qual o Nome do Novo tipo de Unidade?", "Cadastro de novo tipo de Medida", JOptionPane.PLAIN_MESSAGE);
-		
-		DBConector.writeDB("INSERT INTO Tipo_Quantidade(Value_Tipo_Quantidade) VALUES(\"" + newName + "\")");
-		
-		Almoxarifado.cnctr.qnttTyps++;
-		
-		wasChanged = true;
-		
-		return "" + (quantityTypes.length-1);
-	}
-	
 	private String[][] listBreaker(String toSplit){
 		String linesToBreakdown[] = toSplit.split("\n");
 		String returnString[][] = new String[Almoxarifado.quantityParts+1][8];
@@ -95,8 +79,8 @@ public class PartsList {
 		returnString[0][1] = "Montagem";
 		returnString[0][2] = "Descrição";
 		returnString[0][3] = "Quantidade";
-		returnString[0][4] = "";
-		returnString[0][5] = "Preço";
+		returnString[0][4] = "Preço";
+		returnString[0][5] = "Data do Pedido";
 		returnString[0][6] = "Fornecedor";
 		returnString[0][7] = "Status";
 		
@@ -109,7 +93,6 @@ public class PartsList {
 	public static void changePart(String index, int column) {
 		String columnName =  "";
 		String auxString = "";
-		int aux = 0;
 		
 		switch(column){
 		case 1:
@@ -168,35 +151,6 @@ public class PartsList {
 			
 			break;
 		case 4:
-			columnName += "Quantity_type";
-			auxString += JOptionPane.showInputDialog(null, "Selecione um tipo de quantidade", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE, null, quantityTypes, 0);
-			
-			if(verifyString(auxString)) {
-				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
-				return;
-			}else {
-				if(auxString.equals("")) {
-					auxString = correctString(column);
-					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
-					break;
-				}
-			}
-			
-			aux = 0;
-			
-			if(auxString.equals(quantityTypes[quantityTypes.length-1])) {
-				auxString = newQuantityType();
-				break;
-			}
-			
-			for(int i = 0; i < quantityTypes.length; i++) {
-				if(quantityTypes[i].equals(auxString)) {
-					aux = i;
-				}
-			}
-			auxString = Integer.toString(aux);
-			break;
-		case 5:
 			columnName += "Price";
 			auxString += JOptionPane.showInputDialog(null, "Insira o Valor da Peça (apenas numeros)", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
 			
@@ -213,6 +167,9 @@ public class PartsList {
 					break;
 				}
 			}
+			
+			break;
+		case 5:
 			
 			break;
 		case 6:
@@ -282,18 +239,6 @@ public class PartsList {
 		
 		
 		return returnHashMap;
-	}
-	
-	public static String[] fillQuantityTypes() {
-		maximumIndexQT = Almoxarifado.cnctr.qnttTyps;
-		
-		String returnArrayString[] = new String[maximumIndexQT + 1];
-		String auxText = DBConector.readDB("Value_Tipo_Quantidade", "Tipo_Quantidade");
-		
-		returnArrayString = auxText.split(" § ");
-		returnArrayString[maximumIndexQT] = "Adicionar Outro...";
-		
-		return returnArrayString;
 	}
 	
 	private static boolean verifyString(String text) {
@@ -410,28 +355,6 @@ public class PartsList {
 		
 		querry += aux + ", ";
 		System.out.println("Query: " + querry);
-		System.out.println("} \n\nTipo de Quantidade{");
-		
-		aux = "";
-		aux += JOptionPane.showInputDialog(null, "Selecione um tipo de quantidade", "Cadastro de Nova Peça", JOptionPane.PLAIN_MESSAGE, null, quantityTypes, 0);
-		auxInt = 0;
-		for(int i = 0; i < quantityTypes.length; i++) {
-			if(quantityTypes[i].equals(aux)) {
-				auxInt = i;
-			}
-		}
-
-		if(verifyString(aux)) {
-			JOptionPane.showMessageDialog(null, "Cancelando Cadastro", "Retornando", JOptionPane.WARNING_MESSAGE);
-			return;
-		}else {
-			if(aux.equals("")) {
-				aux = correctString(4);
-				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
-			}
-		}
-		
-		querry += auxInt + ", ";
 		System.out.println("} \n\nValor{");
 		
 		aux = "";
@@ -501,17 +424,6 @@ public class PartsList {
 		
 		wasChanged = true;
 	}
-	
-	private String changeQuantityType(String quantityType){
-		String toReturn = "";
-		int aux = Integer.parseInt(quantityType);
-		if(aux < quantityTypes.length) {
-			toReturn = quantityTypes[aux];
-		}else {
-			return toReturn;
-		}	
-		return toReturn;
-	}
 		
 	public void scrollPositioner() {
 		System.out.println("maximumHeight: " + maximumHeight * -1);
@@ -534,9 +446,6 @@ public class PartsList {
 			finalPartsTable = listBreaker(toSplit);
 			
 			assembliesHM = fillAssembliesName();
-			quantityTypes = fillQuantityTypes();
-			
-			maximumIndexQT = Almoxarifado.cnctr.qnttTyps;
 						
 			wasChanged = false;
 		}
@@ -616,10 +525,6 @@ public class PartsList {
 					}
 					
 					if(i > 0 && j == 4) {
-						auxTextToWrite = changeQuantityType(finalPartsTable[i][j]);
-					}
-					
-					if(i > 0 && j == 5) {
 						auxTextToWrite = "R$ " + finalPartsTable[i][j];
 					}
 					
@@ -635,26 +540,25 @@ public class PartsList {
 					
 					case 2:
 						//Descrição
-						auxWidth += (total*9.5)/100;
+						auxWidth += (total*8)/100;
 						maxMouse = characterLimitPerLine;
 						break;
 					
 					case 3:
 						//Quantidade
-						auxWidth += (total*38)/100;
+						auxWidth += (total*37)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
 					
 					case 4:
-						//Tipo de Quantidade
-						auxWidth += g.getFontMetrics().stringWidth(" " + finalPartsTable[i][j-1]);
+						//Preço;
+						auxWidth += (total*9)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
 					
 					case 5:
-						//Preço
-						auxWidth -= g.getFontMetrics().stringWidth(" " + finalPartsTable[i][j-2]);
-						auxWidth += (total*13)/100;
+						//Data do Pedido
+						auxWidth += (total*8)/100;
 						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
 						break;
 					
