@@ -15,7 +15,7 @@ import main.UserInterface;
 
 public class Project {
 	
-	static int ID = 0;
+	static int ID = 1;
 	static String name = "";
 	static String description = "";
 	static String company = "";

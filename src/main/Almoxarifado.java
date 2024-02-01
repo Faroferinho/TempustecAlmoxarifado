@@ -34,7 +34,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 3;
+	public static byte state = 5;
 	
 	public static JFrame frame;
 	public static Toolkit tk;
@@ -52,7 +52,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static String name = "Leoncio Pafuncio Figueiredo";
 	public static String cpf = "321.456.987-13";
 	public static String rdf = "2082";
-	public static String type = "0";
+	public static String type = "1";
 	
 	public static int mX;
 	public static int mY;

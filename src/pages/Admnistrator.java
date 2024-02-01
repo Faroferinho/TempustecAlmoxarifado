@@ -431,9 +431,9 @@ public class Admnistrator extends Profile {
 		}
 		
 		g.drawImage(deleteButton, ((Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 3)), initialY + auxY + auxHeight, null);
-		UserInterface.isOnBigButton(g, ((Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 3)), initialY + auxY + auxHeight);
+		UserInterface.isOnSmallButton(g, ((Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 3)), initialY + auxY + auxHeight);
 		g.drawImage(signInButton, ((Almoxarifado.WIDTH / 3)*2 - (deleteButton.getWidth() / 3)*2), initialY + auxY + auxHeight, null);
-		UserInterface.isOnBigButton(g, ((Almoxarifado.WIDTH / 3)*2 - (deleteButton.getWidth() / 3)*2), initialY + auxY + auxHeight);
+		UserInterface.isOnSmallButton(g, ((Almoxarifado.WIDTH / 3)*2 - (deleteButton.getWidth() / 3)*2), initialY + auxY + auxHeight);
 
 		if(mouseStatus) {
 			if(Almoxarifado.mX > (Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 2)

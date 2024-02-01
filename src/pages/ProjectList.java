@@ -51,6 +51,11 @@ public class ProjectList {
 	BufferedImage normalTable = Almoxarifado.imgManag.getSprite(300, 180, boxWidth, boxHeight);
 	BufferedImage addItems = Almoxarifado.imgManag.getSprite(150, 180, boxWidth, boxHeight);
 	
+	boolean multipleDescriptionMark = false;
+	int sizeOfPartDescription = 0;
+	int maxTextSize = 128;
+	int auxH = 0;
+	
 	public ProjectList(){
 		names = spliting(namesToSplit);
 		descriptions = spliting(descriptionsToSplit);
@@ -241,9 +246,13 @@ public class ProjectList {
 			if(i != Almoxarifado.quantityAssembly) {
 				g.drawImage(normalTable, imgX, imgY, boxWidth, boxHeight, null);
 				g.setFont(new Font("segoi ui", 1, 17));
-				Almoxarifado.drawStringBorder(((Graphics2D) g), names[i], imgX + (boxWidth / 2) - (g.getFontMetrics().stringWidth(names[i]) / 2), imgY + 28, 1, Color.black, Color.white);
+				Almoxarifado.drawStringBorder(((Graphics2D) g), names[i], imgX + (boxWidth / 2) - (g.getFontMetrics().stringWidth(names[i]) / 2), imgY + 28, 1, new Color(46, 46, 46), Color.white);
 				g.setFont(new Font("segoi ui", 0, 12));
-				g.drawString(descriptions[i], imgX + 10, imgY + 60);
+				if(g.getFontMetrics().stringWidth(descriptions[i]) < 128) {
+					g.drawString(descriptions[i], imgX + 10, imgY + 58);
+				}else {
+					
+				}
 			}else {
 				g.drawImage(addItems, imgX, imgY, boxWidth, boxHeight, null);
 			}
