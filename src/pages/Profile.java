@@ -198,7 +198,7 @@ public class Profile {
 		g.setColor(Color.green);
 		g.fillRect(76, 132, 100, 133);
 		
-		g.setFont(new Font("impact", 0, 20));
+		g.setFont(new Font("segoi ui", 0, 20));
 		
 		if(overName) {
 			g.setColor(Color.darkGray);

@@ -27,7 +27,7 @@ public class Project {
 	BufferedImage img;
 	BufferedImage editProfile = Almoxarifado.imgManag.getSprite(475, 60*3, 165, 60);
 	BufferedImage archiveProfile = Almoxarifado.imgManag.getSprite(475, 60*4, 165, 60);
-	BufferedImage isEditingProfile = Almoxarifado.imgManag.getSprite(475, 64*3, 128, 64);
+	BufferedImage isEditingProfile = Almoxarifado.imgManag.getSprite(165, 510, 165, 60);
 	BufferedImage add = Almoxarifado.imgManag.getSprite(475, 60*6, 165, 60);
 	BufferedImage remove = Almoxarifado.imgManag.getSprite(475, 60*8, 165, 60);
 	BufferedImage check = Almoxarifado.imgManag.getSprite(452, 371, 21, 21);

@@ -39,7 +39,7 @@ public class Admnistrator extends Profile {
 		super(Name, RdF, CPF);
 		
 		editButton = Almoxarifado.imgManag.getSprite(475, 0, 165, 60);
-		editDoneButton = Almoxarifado.imgManag.getSprite(475, 0, 165, 60);
+		editDoneButton = Almoxarifado.imgManag.getSprite(0, 510, 165, 60);
 		listButton = Almoxarifado.imgManag.getSprite(475, 60, 165, 60);
 		signInButton = Almoxarifado.imgManag.getSprite(475, 60*5, 165, 60);
 		passwordButton = Almoxarifado.imgManag.getSprite(475, 120, 165, 60);
@@ -508,10 +508,8 @@ public class Admnistrator extends Profile {
 				
 				firstRendering(g);
 				
-				g.drawImage(editDoneButton, Almoxarifado.WIDTH / 3 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
-				g.drawImage(passwordButton, (Almoxarifado.WIDTH / 3) * 2 - 64, Almoxarifado.HEIGHT / 2 + 120, null);
-				UserInterface.isOnSmallButton(g, Almoxarifado.WIDTH / 3 - 64, Almoxarifado.HEIGHT / 2 + 120);
-				UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH / 3) * 2 - 64, Almoxarifado.HEIGHT / 2 + 120);
+				g.drawImage(editDoneButton, Almoxarifado.WIDTH - (76 + 165)*2, 136, null);
+				g.drawImage(passwordButton, Almoxarifado.WIDTH - (76 + 165), 136*2, null);
 
 				
 			}else if(isListing == true) {

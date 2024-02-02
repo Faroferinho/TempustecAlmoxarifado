@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -30,6 +31,8 @@ public class ProjectList {
 	String names[];
 	String descriptionsToSplit = DBConector.readDB("description", "montagem");
 	String descriptions[];
+	String companiesToSplit = DBConector.readDB("Company", "montagem");
+	String companies[];
 	
 	public static int scroll;
 	public int ofsetHeight;
@@ -50,15 +53,17 @@ public class ProjectList {
 	
 	BufferedImage normalTable = Almoxarifado.imgManag.getSprite(300, 180, boxWidth, boxHeight);
 	BufferedImage addItems = Almoxarifado.imgManag.getSprite(150, 180, boxWidth, boxHeight);
+	BufferedImage bipartitionLine = Almoxarifado.imgManag.getSprite(312, 384, 124, 4);
 	
 	boolean multipleDescriptionMark = false;
 	int sizeOfPartDescription = 0;
-	int maxTextSize = 128;
+	int maxTextSize = 125;
 	int auxH = 0;
 	
 	public ProjectList(){
 		names = spliting(namesToSplit);
 		descriptions = spliting(descriptionsToSplit);
+		companies = spliting(companiesToSplit);
 	}
 	
 	private String[] spliting(String toSplit) {
@@ -248,10 +253,38 @@ public class ProjectList {
 				g.setFont(new Font("segoi ui", 1, 17));
 				Almoxarifado.drawStringBorder(((Graphics2D) g), names[i], imgX + (boxWidth / 2) - (g.getFontMetrics().stringWidth(names[i]) / 2), imgY + 28, 1, new Color(46, 46, 46), Color.white);
 				g.setFont(new Font("segoi ui", 0, 12));
-				if(g.getFontMetrics().stringWidth(descriptions[i]) < 128) {
-					g.drawString(descriptions[i], imgX + 10, imgY + 58);
+
+				auxH = 0;
+				if(g.getFontMetrics().stringWidth(descriptions[i]) < maxTextSize) {
+				
+					g.drawString(descriptions[i], imgX + 10, imgY + 65);
+					g.drawImage(bipartitionLine, imgX + 12, imgY + 80, null);
+					g.drawString(companies[i], imgX + 10, imgY + 105);
+				
 				}else {
+					ArrayList<Integer> breakLineIndexes = new ArrayList<>();
+					int auxLineStandIn = 1;
+					breakLineIndexes.add(0);
 					
+					for(int currChar = 0; currChar < descriptions[i].length(); currChar++) {
+						if(g.getFontMetrics().stringWidth(descriptions[i].substring(breakLineIndexes.get(auxLineStandIn-1), currChar)) > maxTextSize) {
+							breakLineIndexes.add(currChar);
+							auxLineStandIn++;
+						}
+					}
+					breakLineIndexes.add(descriptions[i].length());
+					
+					for(int lines = 1; lines < breakLineIndexes.size(); lines++) {
+						String auxBrokenDesc;
+						
+						auxBrokenDesc = descriptions[i].substring(breakLineIndexes.get(lines - 1),  breakLineIndexes.get(lines));
+						
+						g.drawString(auxBrokenDesc, imgX + 10, imgY + 65 + auxH);
+						auxH += 30;
+					}
+					
+					g.drawImage(bipartitionLine, imgX + 12, imgY + 50 + auxH, null);
+					g.drawString(companies[i], imgX + 10, imgY + 75 + auxH);
 				}
 			}else {
 				g.drawImage(addItems, imgX, imgY, boxWidth, boxHeight, null);

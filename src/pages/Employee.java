@@ -18,7 +18,7 @@ public class Employee extends Profile{
 		super(Name, RdF, CPF);
 		
 		editButton = Almoxarifado.imgManag.getSprite(475, 0, 165, 60);
-		doneButton = Almoxarifado.imgManag.getSprite(475, 120, 165, 60);
+		doneButton = Almoxarifado.imgManag.getSprite(0, 510, 165, 60);
 		passwordButton = Almoxarifado.imgManag.getSprite(475, 120, 165, 60);
 	}
 	

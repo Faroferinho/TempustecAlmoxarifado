@@ -248,3 +248,25 @@ O Usuário 2082 entrou no modo de listagem de funcionarios - Horario: 2024-02-01
 
 O Usuário 2082 entrou no modo de listagem de funcionarios - Horario: 2024-02-01T14:23:50.215240700
 
+O Usuário 2082 entrou no modo de listagem de funcionarios - Horario: 2024-02-02T07:35:27.625064900
+
+O Usuário 2082 entrou no modo de edição - Horario: 2024-02-02T07:51:06.870379500
+
+O Usuário 2082 entrou no modo de listagem de funcionarios - Horario: 2024-02-02T07:51:17.674047100
+
+O Usuário 2082 entrou no modo de edição - Horario: 2024-02-02T07:51:22.910887800
+
+O Usuário 2082 saiu do modo de edição - Horario: 2024-02-02T07:51:23.569089200
+
+O Usuário 2082 entrou no modo de edição - Horario: 2024-02-02T07:51:24.228450600
+
+O Usuário 2082 entrou no modo de edição - Horario: 2024-02-02T07:52:51.107921200
+
+O Usuário 2082 saiu do modo de edição - Horario: 2024-02-02T07:52:51.697351300
+
+O Usuário 2082 entrou no modo de edição - Horario: 2024-02-02T07:52:52.183368100
+
+O Usuário 2082 saiu do modo de edição - Horario: 2024-02-02T07:52:52.777965300
+
+O Usuário 2082 modou para o projeto 1 - Horario: 2024-02-02T09:30:25.595661200
+
