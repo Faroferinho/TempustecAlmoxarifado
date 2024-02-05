@@ -317,6 +317,35 @@ public class DBConector {
 		}
 	}
 	
+	public static int counterOfElements(String ID, String where, String type) {
+		int returnCounter = 0;
+		String query = "Select * from " + where + " where ID_" + type + " = " + ID;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
+			Statement statement = con.createStatement();
+			ResultSet rslt = statement.executeQuery(query);
+			
+			while(rslt.next()) {
+				returnCounter++;
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return returnCounter;
+	}
+	
 	private static int checkSize(String objective, String table) {
 		int max = 0;
 		
@@ -327,7 +356,7 @@ public class DBConector {
 		}else if(table.equals("pecas") || table.equals("Pecas") || table.equals("PECAS")) {
 			max = 9;
 		}else if(table.equals("arquivo") || table.equals("Arquivo") || table.equals("ARQUIVO")) {
-			max = 9;
+			max = 10;
 		}else if(table.equals("arquivo_pecas") || table.equals("Arquivo_pecas") || table.equals("Arquivo_Pecas") || table.equals("ARQUIVO_Pecas")) {
 			max = 10;
 		}

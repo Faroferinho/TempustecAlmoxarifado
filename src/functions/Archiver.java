@@ -64,5 +64,31 @@ public class Archiver {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void createReport(String ID) {
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter("Report.txt"));
+			String message = "";
+			String date;
+			
+			LocalDateTime ldt = LocalDateTime.now();
+			
+			date = "" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear() + " - " + ldt.getHour() + ":" + ldt.getMinute() + ":" + ldt.getSecond();
+			
+			message += date + "\n";
+			message += "Arquivo de Montagem da " + DBConector.findInDB("ISO", "Montagem", "ID_Montagem", ID).replace(" § \n", "") +
+					"(" + DBConector.findInDB("ISO", "Montagem", "ID_Montagem", ID).replace(" § \n", "") + "), Informações da Montagem: \n";
+			message += " - ID: " + ID + ";\n - Preço: " + DBConector.findInDB("cost", "Montagem", "ID_Montagem", ID).replace(" § \n", "") + ";\n - Quantidade de Peças" + 
+					DBConector.counterOfElements(ID, "pecas", "parts") + ";\n";
+			message += "					- Almoxarifado.";
+			
+			writer.write(message);
+			
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

@@ -389,7 +389,7 @@ public class PartsList {
 		
 		DBConector.writeDB("UPDATE pecas SET ID_Parts = (ID_Parts-1) WHERE ID_Parts > " + index);
 		
-		ofsetHeight += 55;
+		ofsetHeight += 15;
 		
 		int Y = (UserInterface.maximunHeight - 16) - thumbHeight;
 		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + ofsetHeight));

@@ -57,7 +57,7 @@ public class UserInterface {
 	public void limitScrollToWorkspaceArea(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(35, 0, Almoxarifado.WIDTH - 35*2, 10);
-		g.fillRect(35, Almoxarifado.HEIGHT - 10, Almoxarifado.WIDTH - 35*2, 7);
+		g.fillRect(35, Almoxarifado.HEIGHT - 10, Almoxarifado.WIDTH - 35*2, 30);
 		
 		g.setColor(Color.lightGray);
 		g.fillRect(35, 10, Almoxarifado.WIDTH - 35*2, 13);

@@ -34,7 +34,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 3;
+	public static byte state = 4;
 	
 	public static JFrame frame;
 	public static Toolkit tk;
@@ -69,7 +69,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 		Almoxarifado almox = new Almoxarifado();
 		
-		imgManag = new ImageManager("NSpritesheet");
+		imgManag = new ImageManager("Spritesheet");
 		ui = new UserInterface();
 
 		cnctr = new DBConector();
@@ -315,6 +315,10 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			project.ofsetHeight = ((project.maximumHeight * y) / ((UserInterface.maximunHeight - 12) - project.thumbHeight)) * -1;
 			
 			project.scrollPositioner();
+		}else if(archive.isDragging) {
+			archive.ofsetHeight = ((archive.maximumHeight * y) / ((UserInterface.maximunHeight - 12) - archive.thumbHeight)) * -1;
+			
+			archive.scrollPositioner();
 		}
 	}
 
@@ -326,7 +330,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		
 		switch(state) {
 		case 1:
 			if(type.equals("1") && admProfile.isListing) {
