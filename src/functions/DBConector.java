@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -18,62 +19,8 @@ public class DBConector {
 	private static String user = "root";
 	private static String password = "1234";
 	
-	public int qnttWrks = 0;
-	public int qnttPrts = 0;
-	public int qnttAssbly = 0;
-	public int qnttArchvs = 0;
-	public int qnttArchvParts = 0;
-	
 	public DBConector() {
-		String workers = "select * from funcionarios";
-		String parts = "select * from pecas";
-		String assemblies = "select * from Montagem";
-		String archives = "select * from Arquivo";
-		String archiveParts = "select * from Arquivo_Pecas";
-
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver \"MySQL Connector-J\" e Tente Novamente", 
-			"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
-			System.exit(1);
-		}
 		
-		try {
-			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
-			Statement statement = con.createStatement();
-			
-			ResultSet query = statement.executeQuery(workers);
-			
-			while(query.next()) {
-				qnttWrks++;
-			}
-			query = statement.executeQuery(parts);
-			
-			while(query.next()) {
-				qnttPrts++;
-			}
-			query = statement.executeQuery(assemblies);
-			
-			while(query.next()) {
-				qnttAssbly++;
-			}
-			
-			query = statement.executeQuery(archives);
-			while(query.next()) {
-				qnttArchvs++;
-			}
-			
-			query = statement.executeQuery(archiveParts);
-			while(query.next()) {
-				qnttArchvParts++;
-			}
-			//TODO
-			con.close();
-		} catch(SQLException e){
-			e.printStackTrace();
-		}
 	}
 	
 	public static String readDB(String objective, String table){
@@ -317,14 +264,95 @@ public class DBConector {
 		}
 	}
 	
-	public static int counterOfElements(String ID, String where, String type) {
-		int returnCounter = 0;
-		String query = "Select * from " + where + " where ID_" + type + " = " + ID;
+	public static double getAssemblyValue(String ID) {
+		String priceQuery = "SELECT price FROM Pecas WHERE Montagem = " + ID;
+		String quantityQuery = "SELECT quantity FROM Pecas WHERE Montagem = " + ID;
+		
+		ArrayList<String> prices = new ArrayList<>();
+		ArrayList<String> quantities = new ArrayList<>();
+		
+		double value = 0;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver \"MySQL Connector-J\" e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+		
+		try {
+			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
+			Statement statement = con.createStatement();
+			
+			ResultSet rsltPrice = statement.executeQuery(priceQuery);
+			
+			while(rsltPrice.next()) {
+				prices.add(rsltPrice.getString(1));
+			}
+			
+			ResultSet rsltQuantity = statement.executeQuery(quantityQuery);
+			
+			while(rsltQuantity.next()) {
+				quantities.add(rsltQuantity.getString(1).replaceAll("[^0-9.]", ""));
+			}
+			
+			for(int i = 0; i < prices.size(); i++) {
+				System.out.println("Preço: " + prices.get(i));
+				System.out.println("Quantidade: " + quantities.get(i));
+				value += Double.parseDouble(prices.get(i)) * Double.parseDouble(quantities.get(i));
+			}
+			
+			System.out.println("Valor da Montagem: " + value);
+			
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		
+		return value;
+	}
+	
+	public static double totalValueExpended() {
+		String command = "SELECT COST FROM Montagem";
+		double returnValue = 0;
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao Conectar com o Driver, Contacte alguém especializado", "Erro ao Conectar ao Driver", JOptionPane.PLAIN_MESSAGE, null);
+		}
+		
+		try {
+			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
+			Statement statement = con.createStatement();
+			ResultSet rslt = statement.executeQuery(command);
+			
+			int i = 0;
+			System.out.println("=========================================================");
+			while(rslt.next()) {
+				i++;
+				System.out.println(i + "º Valor: " + rslt.getString(1));
+				returnValue += rslt.getDouble(1);
+				System.out.println("=========================================================");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return returnValue;
+	}
+	
+	public static int counterOfElements(String where, String condition) {
+		int returnCounter = 0;
+		String query = "Select * from " + where + " where " + condition;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
@@ -339,7 +367,33 @@ public class DBConector {
 			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return returnCounter;
+	}
+	
+	public static int counterOfElements(String where) {
+		int returnCounter = 0;
+		String query = "Select * from " + where;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
+			Statement statement = con.createStatement();
+			ResultSet rslt = statement.executeQuery(query);
+			
+			while(rslt.next()) {
+				returnCounter++;
+			}
+			
+			
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		

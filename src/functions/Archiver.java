@@ -8,12 +8,14 @@ import java.time.LocalDateTime;
 import pages.Profile;
 
 public class Archiver {
+	
+	static String genericCommand = "INSERT INTO ";
 
 	public Archiver() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static void writeOnArchive(String action, String ID, String basis, String changes) {
+	public static void writeOnArchive(String action, String args0, String args1, String changes) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("archive.txt", true));
 			
@@ -30,22 +32,22 @@ public class Archiver {
 				toArchive += "saiu do modo de edição";
 				break;
 			case "listagem":
-				toArchive += "entrou no modo de listagem de " + ID;
+				toArchive += "entrou no modo de listagem de " + args0;
 				break;
 			case "cadastro":
-				toArchive += "inseriu um novo cadastro de " + ID + " no DB de " + basis + " = " + changes;
+				toArchive += "inseriu um novo cadastro de " + args0 + " no DB de " + args1 + " = " + changes;
 				break;
 			case "alteracao":
-				toArchive += "alterou " + ID + ", passou de " + basis + " para " + changes;
+				toArchive += "alterou " + args0 + ", passou de " + args1 + " para " + changes;
 				break;
 			case "remocao":
-				toArchive += "removeu o " + ID + " de ID " + basis;
+				toArchive += "removeu o " + args0 + " de ID " + args1;
 				break;
 			case "mudarPag":
-				toArchive += "modou para o projeto " + ID;
+				toArchive += "modou para o projeto " + args0;
 				break;
 			case "arquivo":
-				toArchive += "arquivou " + ID;
+				toArchive += "arquivou " + args0;
 				break;
 			case "":
 				toArchive += "";
@@ -60,14 +62,24 @@ public class Archiver {
 			
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public static void createReport(String ID) {
-		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter("Report.txt"));
+	public static void logInfo() {
+		String command = genericCommand + "Quinzena(date, totalExpanses) VALUES(";
+		
+		LocalDateTime thisMoment = LocalDateTime.now();
+		String auxDate = thisMoment.toString();
+		auxDate = auxDate.substring(0, 19);
+		auxDate = auxDate.replaceAll("T", " ");
+		command += auxDate + ", ";
+		
+		System.out.println("command: " + command);
+		
+	}
+	
+	protected static void createExpancesReport() {
 			String message = "";
 			String date;
 			
@@ -76,19 +88,24 @@ public class Archiver {
 			date = "" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear() + " - " + ldt.getHour() + ":" + ldt.getMinute() + ":" + ldt.getSecond();
 			
 			message += date + "\n";
-			message += "Arquivo de Montagem da " + DBConector.findInDB("ISO", "Montagem", "ID_Montagem", ID).replace(" § \n", "") +
-					"(" + DBConector.findInDB("ISO", "Montagem", "ID_Montagem", ID).replace(" § \n", "") + "), Informações da Montagem: \n";
-			message += " - ID: " + ID + ";\n - Preço: " + DBConector.findInDB("cost", "Montagem", "ID_Montagem", ID).replace(" § \n", "") + ";\n - Quantidade de Peças" + 
-					DBConector.counterOfElements(ID, "pecas", "parts") + ";\n";
-			message += "					- Almoxarifado.";
 			
-			writer.write(message);
 			
-			writer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			Email.sendReport("Relatório Quinzenal - " + date, message);
+	}
+	
+	protected static void createCongratulationsReport() {
+		String message = "";
+		String date;
+		
+		LocalDateTime ldt = LocalDateTime.now();
+		
+		date = "" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear() + " - " + ldt.getHour() + ":" + ldt.getMinute() + ":" + ldt.getSecond();
+		
+		message += date + "\n";
+		message += "Os gastos essa Quinzena foram exatamente 0, Parabens a todos os envolvidos 😀🥳";
+		message += "					- Almoxarifado.";
+		
+		Email.sendReport("Relatório Quinzenal - " + date, message);
 	}
 
 }

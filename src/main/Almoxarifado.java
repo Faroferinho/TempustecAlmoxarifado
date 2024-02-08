@@ -73,11 +73,17 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		ui = new UserInterface();
 
 		cnctr = new DBConector();
-		quantityWorkers = cnctr.qnttWrks;
-		quantityParts = cnctr.qnttPrts;
-		quantityAssembly = cnctr.qnttAssbly;
-		quantityArchives = cnctr.qnttArchvs;
-		quantityArchiveParts = cnctr.qnttArchvParts;
+		quantityWorkers = DBConector.counterOfElements("funcionarios");
+		quantityParts = DBConector.counterOfElements("pecas");
+		quantityAssembly = DBConector.counterOfElements("Montagem");
+		quantityArchives = DBConector.counterOfElements("Arquivo");
+		quantityArchiveParts = DBConector.counterOfElements("Arquivo_Pecas");
+		
+		System.out.println("quantityWorkers: " + quantityWorkers);
+		System.out.println("quantityParts: " + quantityParts);
+		System.out.println("quantityAssembly: " + quantityAssembly);
+		System.out.println("quantityArchives: " + quantityArchives);
+		System.out.println("quantityArchiveParts: " + quantityArchiveParts);
 		
 		login = new Login();
 		
@@ -99,7 +105,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
 		
 		frame.setIconImage(imgManag.TempustecIcon);
 		

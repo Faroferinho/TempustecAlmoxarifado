@@ -113,28 +113,7 @@ public class Project {
 		rawPartsList += DBConector.findInDB("*", "pecas", "montagem", "" + ID);
 		separetedList = toArrayList(rawPartsList);
 		
-		price = 0;
-		double finalPrice = 0;
-		double auxQuantity = 0;
-		
-		for(int i = 10; i < separetedList.size(); i++) {
-			if(i % 8 == 3) {
-				String auxToCleanQuantity = PartsList.formatNumb(separetedList.get(i));
-				if(auxToCleanQuantity.equals("")) {
-					auxToCleanQuantity = "0";
-				}
-				
-				auxQuantity += Double.parseDouble(auxToCleanQuantity);
-			}
-			if(i % 8 == 4) {
-				finalPrice += Double.parseDouble(separetedList.get(i));
-			}
-			if(i % 8 == 7) {
-				price += auxQuantity * finalPrice;
-				auxQuantity = 0;
-				finalPrice = 0;
-			}
-		}
+		price = DBConector.getAssemblyValue("" + ID);
 		
 		DBConector.editLine("Montagem", "cost", "" + price, "ID_Montagem", "" + ID);
 		

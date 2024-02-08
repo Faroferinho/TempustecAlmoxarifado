@@ -18,7 +18,7 @@ public class Email {
 		
 	}
 	
-	protected void sendReport(String header, String body) {
+	protected static void sendReport(String header, String body) {
 		Properties configs = new Properties();
 		
 		configs.put("mail.smtp.host", "smtp.gmail.com");

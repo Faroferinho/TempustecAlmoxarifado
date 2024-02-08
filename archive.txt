@@ -62,3 +62,39 @@ O Usuário 8523 efetuou login - Horario: 2024-02-06T09:48:11.528311900
 
 O Usuário 8523 efetuou login - Horario: 2024-02-06T11:32:29.380252800
 
+O Usuário 8523 efetuou login - Horario: 2024-02-06T13:51:01.631007
+
+O Usuário 8523 alterou a peça ID_Parts.447, passou de ------------ para Bogas Parafusos - Horario: 2024-02-06T13:52:04.922411500
+
+O Usuário 8523 alterou a peça ID_Parts.447, passou de 0.00 para 17.45 - Horario: 2024-02-06T13:52:29.806018200
+
+O Usuário 8523 removeu o ID_Parts de ID 455 - Horario: 2024-02-06T13:52:42.562106800
+
+O Usuário 8523 efetuou login - Horario: 2024-02-06T14:48:43.314646400
+
+O Usuário 8523 efetuou login - Horario: 2024-02-06T15:25:43.076667200
+
+O Usuário 8523 efetuou login - Horario: 2024-02-06T15:27:13.161164500
+
+O Usuário 8523 efetuou login - Horario: 2024-02-07T07:26:26.474526
+
+O Usuário 8523 efetuou login - Horario: 2024-02-07T10:51:40.853459200
+
+O Usuário 8523 modou para o projeto 1 - Horario: 2024-02-07T10:51:47.897711700
+
+O Usuário 8523 efetuou login - Horario: 2024-02-07T10:52:14.805741500
+
+O Usuário 8523 modou para o projeto 1 - Horario: 2024-02-07T10:52:19.929955400
+
+O Usuário 8523 efetuou login - Horario: 2024-02-07T13:14:07.188824600
+
+O Usuário 8523 alterou a peça ID_Parts.1, passou de  para  - Horario: 2024-02-07T13:15:56.496955100
+
+O Usuário 8523 efetuou login - Horario: 2024-02-07T13:16:38.238869600
+
+O Usuário 8523 efetuou login - Horario: 2024-02-07T13:25:49.310971500
+
+O Usuário 8523 efetuou login - Horario: 2024-02-07T14:00:47.475372900
+
+O Usuário 8523 modou para o projeto 1 - Horario: 2024-02-07T14:00:58.733907900
+
