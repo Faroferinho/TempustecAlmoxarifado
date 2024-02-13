@@ -140,9 +140,9 @@ public class Profile {
 			break;
 		}
 		
-		Archiver.writeOnArchive("alteracao", "o próprio " + column, DBConector.findInDB(column, "Funcionarios", "RdF", RdF).replaceAll(" § \n", ""), newText);
+		Archiver.writeOnArchive("alteracao", "o próprio " + column, DBConector.readDB(column, "Funcionarios", "RdF", RdF).replaceAll(" § \n", ""), newText);
 		
-		DBConector.editLine("Funcionarios", column, newText, "RdF", RdF);
+		DBConector.writeDB("Funcionarios", column, newText, "RdF", RdF);
 		
 		if(type == 2) {
 			RdF = newText;
@@ -152,7 +152,7 @@ public class Profile {
 	}
 	
 	public static void updateInfo() {
-		String aux = DBConector.findInDB("*", "Funcionarios", "RdF", RdF);
+		String aux = DBConector.readDB("*", "Funcionarios", "RdF", RdF);
 		String[] splitAux = aux.split(" § ");
 		
 		name = splitAux[1];

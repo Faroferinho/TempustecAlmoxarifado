@@ -90,7 +90,7 @@ public class Project {
 	
 	public void updater() {		
 		String brokenApartInfo[];
-		String aux = DBConector.findInDB("*", "montagem", "ID_Montagem", "" + ID);
+		String aux = DBConector.readDB("*", "montagem", "ID_Montagem", "" + ID);
 		
 		brokenApartInfo = aux.split(" § ");
 		
@@ -110,33 +110,12 @@ public class Project {
 		}
 		
 		rawPartsList = "";
-		rawPartsList += DBConector.findInDB("*", "pecas", "montagem", "" + ID);
+		rawPartsList += DBConector.readDB("*", "pecas", "montagem", "" + ID);
 		separetedList = toArrayList(rawPartsList);
 		
-		price = 0;
-		double finalPrice = 0;
-		double auxQuantity = 0;
+		price = DBConector.getAssemblyValue("" + ID);
 		
-		for(int i = 10; i < separetedList.size(); i++) {
-			if(i % 8 == 3) {
-				String auxToCleanQuantity = PartsList.formatNumb(separetedList.get(i));
-				if(auxToCleanQuantity.equals("")) {
-					auxToCleanQuantity = "0";
-				}
-				
-				auxQuantity += Double.parseDouble(auxToCleanQuantity);
-			}
-			if(i % 8 == 4) {
-				finalPrice += Double.parseDouble(separetedList.get(i));
-			}
-			if(i % 8 == 7) {
-				price += auxQuantity * finalPrice;
-				auxQuantity = 0;
-				finalPrice = 0;
-			}
-		}
-		
-		DBConector.editLine("Montagem", "cost", "" + price, "ID_Montagem", "" + ID);
+		DBConector.writeDB("Montagem", "cost", "" + price, "ID_Montagem", "" + ID);
 		
 		Almoxarifado.frame.setTitle(Project.name);
 		

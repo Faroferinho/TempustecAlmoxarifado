@@ -114,40 +114,30 @@ public class Archive {
 				infoGathered = DBConector.readDB("*", "Arquivo");
 				Almoxarifado.frame.setTitle("Arquivo de Projetos");
 				
-				System.out.println("Informaciones?: \n" + infoGathered);
-				
 				infoGathered = infoGathered.replace("\n", "");
 				String auxInfo[] = infoGathered.split(" § "); 
-				
-
-				System.out.println("===============================================");
-				
+								
 				for(int swepper = 0; swepper < auxInfo.length; swepper++) {
 					switch(swepper % 9) {
 					case 1:
 						//ID - Quantidade;
-						quantities.add(DBConector.findInDB("ID_Archive_Parts", "Arquivo_Pecas", "Montagem", auxInfo[swepper]).split(" § \n").length - 1);
+						quantities.add(DBConector.readDB("ID_Archive_Parts", "Arquivo_Pecas", "Montagem", auxInfo[swepper]).split(" § \n").length - 1);
 						break;
 					case 2:
 						//ISOs
-						System.out.println("ISO: " + auxInfo[swepper]);
 						names.add(auxInfo[swepper]);
 						break;
 					case 5:
 						//Imagens
-						System.out.println("Imagem: " + auxInfo[swepper]);
 						images.add(auxInfo[swepper]);
 						break;
 					case 7:
 						//Datas
-						System.out.println("Datas: " + auxInfo[swepper]);
 						dates.add(auxInfo[swepper]);
 						break;
 					case 8:
 						//RdF dos Arquivadores
-						System.out.println("RdFs: " + auxInfo[swepper]);
 						RdFs.add(auxInfo[swepper]);
-						System.out.println("===============================================");
 						break;
 					}
 				}
@@ -162,7 +152,7 @@ public class Archive {
 		g.setFont(new Font("segoi ui", 1, 40));
 		g.drawString("Projetos Arquivados: ", 100, 150 + ofsetHeight);
 		
-		for(int i = 0; i < Almoxarifado.quantityArchives; i++) {
+		for(int i = 0; i < names.size(); i++) {
 			g.drawImage(img, imgX, initalImgY + auxHeight + ofsetHeight, null);
 			
 			g.setFont(new Font("segoi ui", 1, 17));

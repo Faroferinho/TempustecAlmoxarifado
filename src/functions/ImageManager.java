@@ -15,7 +15,7 @@ public class ImageManager {
 	
 	public ImageManager(String imgFile) {
 		try {
-			spritesheet = ImageIO.read(new File("res/" + imgFile + ".png"));
+			spritesheet = ImageIO.read(new File("C:/Program Files/Almoxarifado/res/" + imgFile + ".png"));
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Não Existe a SpriteSheet");
 			e.printStackTrace();
@@ -36,7 +36,7 @@ public class ImageManager {
 		BufferedImage returnImg = null;
 		
 		try {
-			returnImg = ImageIO.read(new File("res/" + fileName + ".png"));
+			returnImg = ImageIO.read(new File("C:/Program Files/Almoxarifado/res/" + fileName + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
