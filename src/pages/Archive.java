@@ -121,7 +121,7 @@ public class Archive {
 					switch(swepper % 9) {
 					case 1:
 						//ID - Quantidade;
-						quantities.add(DBConector.findInDB("ID_Archive_Parts", "Arquivo_Pecas", "Montagem", auxInfo[swepper]).split(" § \n").length - 1);
+						quantities.add(DBConector.readDB("ID_Archive_Parts", "Arquivo_Pecas", "Montagem", auxInfo[swepper]).split(" § \n").length - 1);
 						break;
 					case 2:
 						//ISOs

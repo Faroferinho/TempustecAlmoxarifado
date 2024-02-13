@@ -188,7 +188,7 @@ public class PartsList {
 			break;
 		case 7:
 			columnName += "Status";
-			if(DBConector.findInDB("Status", "pecas", "ID_Parts", index).equals("1 § \n")) {
+			if(DBConector.readDB("Status", "pecas", "ID_Parts", index).equals("1 § \n")) {
 				auxString = "0";
 			}else {
 				auxString = "1";
@@ -198,9 +198,9 @@ public class PartsList {
 		
 		auxString = scoots(auxString);
 		
-		Archiver.writeOnArchive("alteracao", "a peça ID_Parts." + index, DBConector.findInDB(columnName, "pecas", "ID_Parts", index).replaceAll(" § \n", ""), auxString);
+		Archiver.writeOnArchive("alteracao", "a peça ID_Parts." + index, DBConector.readDB(columnName, "pecas", "ID_Parts", index).replaceAll(" § \n", ""), auxString);
 		
-		DBConector.editLine("pecas", columnName, auxString, "ID_Parts", index);
+		DBConector.writeDB("pecas", columnName, auxString, "ID_Parts", index);
 		
 		wasChanged = true;
 	}

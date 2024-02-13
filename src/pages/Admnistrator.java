@@ -330,7 +330,7 @@ public class Admnistrator extends Profile {
 					infoChanger = "0";
 				}
 			}
-			DBConector.editLine("funcionarios", UpdaterName, infoChanger, "RdF", separetedInfo[index][0]);
+			DBConector.writeDB("funcionarios", UpdaterName, infoChanger, "RdF", separetedInfo[index][0]);
 			Archiver.writeOnArchive("alteracao", columnName + " de User." + separetedInfo[index][0], separetedInfo[index][column], infoChanger);
 			getInfo();
 		}

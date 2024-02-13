@@ -90,7 +90,7 @@ public class Project {
 	
 	public void updater() {		
 		String brokenApartInfo[];
-		String aux = DBConector.findInDB("*", "montagem", "ID_Montagem", "" + ID);
+		String aux = DBConector.readDB("*", "montagem", "ID_Montagem", "" + ID);
 		
 		brokenApartInfo = aux.split(" § ");
 		
@@ -110,12 +110,12 @@ public class Project {
 		}
 		
 		rawPartsList = "";
-		rawPartsList += DBConector.findInDB("*", "pecas", "montagem", "" + ID);
+		rawPartsList += DBConector.readDB("*", "pecas", "montagem", "" + ID);
 		separetedList = toArrayList(rawPartsList);
 		
 		price = DBConector.getAssemblyValue("" + ID);
 		
-		DBConector.editLine("Montagem", "cost", "" + price, "ID_Montagem", "" + ID);
+		DBConector.writeDB("Montagem", "cost", "" + price, "ID_Montagem", "" + ID);
 		
 		Almoxarifado.frame.setTitle(Project.name);
 		

@@ -15,7 +15,7 @@ import main.Almoxarifado;
 public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
-	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempustec";
+	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/TesteTempus";
 	private static String user = "root";
 	private static String password = "1234";
 	
@@ -24,8 +24,10 @@ public class DBConector {
 	}
 	
 	public static String readDB(String objective, String table){
-		
 		String query = "select " + objective + " from " + table;
+		int maxIndex = checkSize(objective, table);
+		String returnData = "";
+		//System.out.println("Query: \n" + query);
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -35,11 +37,6 @@ public class DBConector {
 			"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
-		
-		System.out.println("Query: \n" + query);
-		String returnData = "";
-		
-		int maxIndex = checkSize(objective, table);
 		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
@@ -62,6 +59,42 @@ public class DBConector {
 		}
 		
 		//System.out.println("Informação do DB: \n" + returnData);
+		
+		return returnData;
+	}
+	
+	public static String readDB(String objective, String table, String column, String key) {
+		String query = "SELECT " + objective + " FROM " + table + " WHERE " + column + " = " + key;
+		int max = checkSize(objective, table);
+		String returnData = "";
+		
+		//System.out.println("Encontrar no DB: " + query);
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver \"MySQL Connector-J\" e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+				
+		try {
+			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
+			Statement statement = con.createStatement();
+			ResultSet rslt = statement.executeQuery(query);
+			
+			
+			while(rslt.next()) {
+				for(int i = 1; i < max; i++) {
+					returnData += rslt.getString(i) + " § ";
+				}
+				returnData += "\n";
+			}
+			
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		return returnData;
 	}
@@ -89,7 +122,11 @@ public class DBConector {
 		}
 	}
 	
-	public static void editLine(String Table, String objective, String newInfo, String PK, String PrimaryKey) {
+	public static void writeDB(String Table, String objective, String newInfo, String PK, String primaryKey) {
+		String query = "UPDATE " + Table + " SET " + objective + " = \"" + newInfo + "\" WHERE " + PK + " = " + primaryKey;
+		//System.out.println("Editar Linha: " + query);
+		
+		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -98,9 +135,6 @@ public class DBConector {
 					JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
-		
-		String query = "UPDATE " + Table + " SET " + objective + " = \"" + newInfo + "\" WHERE " + PK + " = " + PrimaryKey;
-		//System.out.println("Editar Linha: " + query);
 		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
@@ -113,45 +147,15 @@ public class DBConector {
 			e.printStackTrace();
 		}
 	}
-	
-	public static String findInDB(String objective, String table, String column, String key) {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		}catch(ClassNotFoundException e){
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Instale o Driver \"MySQL Connector-J\" e Tente Novamente", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
-			System.exit(1);
-		}
-		
-		String query = "SELECT " + objective + " FROM " + table + " WHERE " + column + " = " + key;
-		String answer = "";
-		int max = checkSize(objective, table);
-		
-		//System.out.println("Encontrar no DB: " + query);
-		
-		try {
-			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
-			Statement statement = con.createStatement();
-			ResultSet rslt = statement.executeQuery(query);
-			
-			
-			while(rslt.next()) {
-				for(int i = 1; i < max; i++) {
-					answer += rslt.getString(i) + " § ";
-				}
-				answer += "\n";
-			}
-			
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		//System.out.println("Resultado do Encontrar no DB: \n" + answer);
-		
-		return answer;
-	}
 
 	public static void Archive(String ID) {
+		String query = "SELECT * FROM Montagem WHERE ID_Montagem = " + ID;
+		String auxInfoFromMontagem = "";
+		
+		LocalDateTime moment = LocalDateTime.now();
+		String auxDateTime = moment.toString();
+		auxDateTime = auxDateTime.substring(0, 19);
+		auxDateTime = auxDateTime.replaceAll("T", " ");
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -161,14 +165,6 @@ public class DBConector {
 					"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
-		
-		String query = "SELECT * FROM Montagem WHERE ID_Montagem = " + ID;
-		String auxInfoFromMontagem = "";
-		
-		LocalDateTime moment = LocalDateTime.now();
-		String auxDateTime = moment.toString();
-		auxDateTime = auxDateTime.substring(0, 19);
-		auxDateTime = auxDateTime.replaceAll("T", " ");
 		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
@@ -198,56 +194,13 @@ public class DBConector {
 				}
 			}
 			
-			query = "INSERT INTO Arquivo VALUES (" + Almoxarifado.quantityArchives + ", " + auxInfoFromMontagem + auxDateTime + "\", " 
+			query = "INSERT INTO Arquivo(ID_Montagem, ISO, Description, Company, Image, Cost, Archive_Moment, Archiver_RdF) VALUES (" + auxInfoFromMontagem + auxDateTime + "\", " 
 			+ Almoxarifado.rdf + ");";
 			Almoxarifado.quantityArchives++;
 			
-			//System.out.println(query);
-			
 			statement.executeUpdate(query);
 			
-			query = "SELECT * FROM Pecas WHERE Montagem = " + ID;
-			rslt = statement.executeQuery(query);
-			
-			String partsQuery = "";
-			while(rslt.next()) {
-				partsQuery += "INSERT INTO Arquivo_Pecas VALUES (" + Almoxarifado.quantityArchiveParts + ", ";
-				for(int i = 1; i < checkSize("*", "Pecas"); i++) {
-					String aux = "";
-					
-					switch(i) {
-					case 1:
-					case 4:
-					case 5:
-						aux = ", ";
-						break;
-					case 2:
-					case 6:
-						aux = ", \"";
-						break;
-					case 3:
-					case 7:
-						aux = "\", ";
-						break;
-					case 8:
-						aux = ") \n";
-					}
-					
-					partsQuery += rslt.getString(i) + aux;
-				}
-				
-				Almoxarifado.quantityArchiveParts++;
-			}
-			if(!partsQuery.equals("")) {
-				String[] brokenQuery;
-				
-				brokenQuery = partsQuery.split(" \n");
-				
-				for(int i = 0; i < brokenQuery.length; i++) {
-					statement.executeUpdate(brokenQuery[i]);
-					Almoxarifado.quantityParts--;
-				}
-			}
+			statement.execute("INSERT INTO Arquivo_Pecas(ID_Parts, Montagem, Description, Quantity, Price, Creation_Date, Supplier, Status) SELECT * FROM Pecas WHERE Montagem = " + ID);
 			
 			query = "DELETE FROM Montagem WHERE ID_Montagem = " + ID;
 			statement.executeUpdate(query);
@@ -257,8 +210,39 @@ public class DBConector {
 			
 			Almoxarifado.quantityAssembly--;
 			
-			
 			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void registerFortnight(String date) {
+		String mainBody = "INSERT INTO HISTORICO_CUSTO(Date, Assembly, Cost) VALUES(";
+		ArrayList<String> assemblyIDs = new ArrayList<>();
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		
+		try {
+			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
+			Statement statement = con.createStatement();
+			
+			assemblyIDs = Functions.listToArrayList(readDB("ID_Montagem", "Montagem").split(" § \n"));
+			
+			for(int i = 0; i < Almoxarifado.quantityAssembly; i++) {
+				String query = mainBody + date + ", ";
+				query += assemblyIDs.get(i).replaceAll(" § \n", "") + ", ";
+				query += getAssemblyValue(assemblyIDs.get(i).replaceAll(" § \n", "")) + ")";
+				
+				//System.out.println("register Values: " + query);
+				
+				statement.executeUpdate(query);
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -271,7 +255,7 @@ public class DBConector {
 		ArrayList<String> prices = new ArrayList<>();
 		ArrayList<String> quantities = new ArrayList<>();
 		
-		double value = 0;
+		double finalValue = 0;
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -298,12 +282,10 @@ public class DBConector {
 			}
 			
 			for(int i = 0; i < prices.size(); i++) {
-				System.out.println("Preço: " + prices.get(i));
-				System.out.println("Quantidade: " + quantities.get(i));
-				value += Double.parseDouble(prices.get(i)) * Double.parseDouble(quantities.get(i));
+				finalValue += Double.parseDouble(prices.get(i)) * Double.parseDouble(quantities.get(i));
 			}
 			
-			System.out.println("Valor da Montagem: " + value);
+			//System.out.println("Valor da Montagem: " + value);
 			
 			con.close();
 		} catch (SQLException e) {
@@ -311,33 +293,42 @@ public class DBConector {
 			System.exit(1);
 		}
 		
-		return value;
+		return finalValue;
 	}
 	
 	public static double totalValueExpended() {
-		String command = "SELECT COST FROM Montagem";
 		double returnValue = 0;
+		String IDsQuery = "SELECT ID_Montagem FROM Montagem";
+		ArrayList<String> identifiers = new ArrayList<>(); 
+		ArrayList<Double> prices = new ArrayList<>();
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao Conectar com o Driver, Contacte alguém especializado", "Erro ao Conectar ao Driver", JOptionPane.PLAIN_MESSAGE, null);
 		}
 		
 		try {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
 			Statement statement = con.createStatement();
-			ResultSet rslt = statement.executeQuery(command);
+			ResultSet rslt = statement.executeQuery(IDsQuery);
 			
 			int i = 0;
-			System.out.println("=========================================================");
+			
 			while(rslt.next()) {
+				identifiers.add(rslt.getString(1));
+				
+				prices.add(getAssemblyValue(rslt.getString(1)));
+				returnValue += prices.get(i);
+
 				i++;
-				System.out.println(i + "º Valor: " + rslt.getString(1));
-				returnValue += rslt.getDouble(1);
-				System.out.println("=========================================================");
 			}
+			
+			for(int inc = 0; inc < identifiers.size(); inc++) {
+				statement.executeUpdate("UPDATE Montagem SET cost = " + prices.get(inc) + "WHERE ID_Montagem = " + identifiers.get(inc));
+				//System.out.println("Montagem " + identifiers.get(inc) + " foi atualizada :D");
+			}
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -346,9 +337,9 @@ public class DBConector {
 		return returnValue;
 	}
 	
-	public static int counterOfElements(String where, String condition) {
+	public static int counterOfElements(String table) {
 		int returnCounter = 0;
-		String query = "Select * from " + where + " where " + condition;
+		String query = "SELECT * FROM " + table;
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -373,9 +364,9 @@ public class DBConector {
 		return returnCounter;
 	}
 	
-	public static int counterOfElements(String where) {
+	public static int counterOfElements(String table, String condition) {
 		int returnCounter = 0;
-		String query = "Select * from " + where;
+		String query = "Select * from " + table + " where " + condition;
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");

@@ -72,7 +72,7 @@ public class Login {
 			if(textInBoxCPF.equals(registers[i]) && textInBoxPW.equals(passwords[i])) {
 				
 				String auxString = "";
-				auxString = DBConector.findInDB("*", "Funcionarios", "CPF", textInBoxCPF);
+				auxString = DBConector.readDB("*", "Funcionarios", "CPF", textInBoxCPF);
 				String[] toConfig = auxString.split(" § ");
 				
 				Almoxarifado.rdf = toConfig[0];
@@ -289,10 +289,10 @@ public class Login {
 		g.fillRoundRect(textBoxX, textBoxY + 48, textBoxW, textBoxH, 15, 15);
 		g.fillRoundRect(textBoxX, (int) (textBoxY * 1.6), textBoxW, textBoxH, 15, 15);
 		g.setFont(new Font("Times New Roman", Font.BOLD, 35));
-		Almoxarifado.drawStringBorder(g2, "Inicie Sessão", (Almoxarifado.WIDTH/2) - (g.getFontMetrics().stringWidth("Inicie Sessão")/2), textBoxY - 20, 1, Color.black, Color.white);
+		Almoxarifado.drawStringBorder(g2, "Inicie Sessão", (Almoxarifado.WIDTH/2) - (g.getFontMetrics().stringWidth("Inicie Sessão")/2), textBoxY - 20, 1, Color.DARK_GRAY, Color.white);
 		g.setFont(new Font("Times New Roman", 0, 20));
-		Almoxarifado.drawStringBorder(g2, "CPF:", textBoxX + 15, textBoxY + 44, 1, Color.black, Color.white);
-		Almoxarifado.drawStringBorder(g2, "Senha:", textBoxX + 15, (int) (textBoxY * 1.6) - 3, 1, Color.black, Color.white);
+		Almoxarifado.drawStringBorder(g2, "CPF:", textBoxX + 15, textBoxY + 44, 1, Color.DARK_GRAY, Color.white);
+		Almoxarifado.drawStringBorder(g2, "Senha:", textBoxX + 15, (int) (textBoxY * 1.6) - 3, 1, Color.DARK_GRAY, Color.white);
 		g.setColor(Color.black);
 		g.drawRoundRect(textBoxX, textBoxY + 48, textBoxW, textBoxH, 15, 15);
 		g.drawRoundRect(textBoxX, (int) (textBoxY * 1.6), textBoxW, textBoxH, 15, 15);

@@ -42,17 +42,16 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static UserInterface ui;
 	public static Admnistrator admProfile;
 	public static Employee workProfile;
-	public static DBConector cnctr;
 	public static PartsList partsList;
 	public static ImageManager imgManag;
 	public static ProjectList projectList;
 	public static Project project;
 	public static Archive archive;
 	
-	public static String name = "Leoncio Pafuncio Figueiredo";
-	public static String cpf = "321.456.987-13";
-	public static String rdf = "2082";
-	public static String type = "1";
+	public static String name = "";
+	public static String cpf = "";
+	public static String rdf = "";
+	public static String type = "";
 	
 	public static int mX;
 	public static int mY;
@@ -71,19 +70,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 		imgManag = new ImageManager("Spritesheet");
 		ui = new UserInterface();
-
-		cnctr = new DBConector();
-		quantityWorkers = DBConector.counterOfElements("funcionarios");
-		quantityParts = DBConector.counterOfElements("pecas");
-		quantityAssembly = DBConector.counterOfElements("Montagem");
-		quantityArchives = DBConector.counterOfElements("Arquivo");
-		quantityArchiveParts = DBConector.counterOfElements("Arquivo_Pecas");
-		
-		System.out.println("quantityWorkers: " + quantityWorkers);
-		System.out.println("quantityParts: " + quantityParts);
-		System.out.println("quantityAssembly: " + quantityAssembly);
-		System.out.println("quantityArchives: " + quantityArchives);
-		System.out.println("quantityArchiveParts: " + quantityArchiveParts);
 		
 		login = new Login();
 		
@@ -108,7 +94,21 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 		frame.setIconImage(imgManag.TempustecIcon);
 		
+		quantityWorkers = DBConector.counterOfElements("funcionarios");
+		quantityParts = DBConector.counterOfElements("pecas");
+		quantityAssembly = DBConector.counterOfElements("Montagem");
+		quantityArchives = DBConector.counterOfElements("Arquivo");
+		quantityArchiveParts = DBConector.counterOfElements("Arquivo_Pecas");
+		
+		System.out.println("quantityWorkers: " + quantityWorkers);
+		System.out.println("quantityParts: " + quantityParts);
+		System.out.println("quantityAssembly: " + quantityAssembly);
+		System.out.println("quantityArchives: " + quantityArchives);
+		System.out.println("quantityArchiveParts: " + quantityArchiveParts);
+		
 		new Thread(almox).start();
+		
+		//Archiver.logInfo();
 	}
 	
 	public Almoxarifado() {

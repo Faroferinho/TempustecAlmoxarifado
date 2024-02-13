@@ -18,7 +18,7 @@ public class Email {
 		
 	}
 	
-	protected static void sendReport(String header, String body) {
+	public static void sendReport(String header, String body) {
 		Properties configs = new Properties();
 		
 		configs.put("mail.smtp.host", "smtp.gmail.com");
@@ -30,8 +30,7 @@ public class Email {
 		Session online = Session.getInstance(configs, 
 			new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("tempustecinterno@gmail.com", 
-								"umji ptjd jdsy imyc");
+					return new PasswordAuthentication("tempustecinterno@gmail.com", "jakh cqvx ublh tlzt");
 				}
 			}
 		);
@@ -42,7 +41,7 @@ public class Email {
 			Message message = new MimeMessage(online);
 			message.setFrom(new InternetAddress("tempustecInterno@gmail.com"));
 			
-			Address[] recivers = InternetAddress.parse("conrado.perini.fracacio@gmail.com");
+			Address[] recivers = InternetAddress.parse("conrado.perini.fracacio@gmail.com, rosangela@tempustec.ind.br");
 			
 			message.setRecipients(Message.RecipientType.TO, recivers);
 			message.setSubject(header);

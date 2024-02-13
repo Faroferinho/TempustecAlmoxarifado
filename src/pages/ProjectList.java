@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import functions.Archiver;
 import functions.DBConector;
+import functions.Functions;
 import main.Almoxarifado;
 import main.UserInterface;
 
@@ -28,11 +29,11 @@ public class ProjectList {
 	int boxBorder = 30;
 	
 	String namesToSplit = DBConector.readDB("ISO", "montagem");
-	String names[];
+	ArrayList<String> names = new ArrayList<>();
 	String descriptionsToSplit = DBConector.readDB("description", "montagem");
-	String descriptions[];
+	ArrayList<String> descriptions = new ArrayList<>();
 	String companiesToSplit = DBConector.readDB("Company", "montagem");
-	String companies[];
+	ArrayList<String> companies = new ArrayList<>();
 	
 	public static int scroll;
 	public int ofsetHeight;
@@ -61,9 +62,9 @@ public class ProjectList {
 	int auxH = 0;
 	
 	public ProjectList(){
-		names = spliting(namesToSplit);
-		descriptions = spliting(descriptionsToSplit);
-		companies = spliting(companiesToSplit);
+		names = Functions.listToArrayList(spliting(namesToSplit));
+		descriptions = Functions.listToArrayList(spliting(descriptionsToSplit));
+		companies = Functions.listToArrayList(spliting(companiesToSplit));
 	}
 	
 	private String[] spliting(String toSplit) {
@@ -92,6 +93,9 @@ public class ProjectList {
 		}
 		
 		querry += "OS " + newAssemblyInfo + "\", \"";
+		
+		names.add(newAssemblyInfo);
+		
 		newAssemblyInfo = "";
 		
 		newAssemblyInfo += JOptionPane.showInputDialog(null, "Insira uma descrição", "Cadastro de Nova Montagem", JOptionPane.PLAIN_MESSAGE);
@@ -101,6 +105,9 @@ public class ProjectList {
 		}
 		
 		querry += newAssemblyInfo + "\", \"";
+		
+		descriptions.add(newAssemblyInfo);
+		
 		newAssemblyInfo = "";
 		
 		newAssemblyInfo += JOptionPane.showInputDialog(null, "De Qual Empresa?", "Cadastro de Nova Montagem", JOptionPane.PLAIN_MESSAGE);
@@ -110,6 +117,9 @@ public class ProjectList {
 		}
 		
 		querry += newAssemblyInfo + "\")";
+		
+		companies.add(newAssemblyInfo);
+		
 		newAssemblyInfo = "";
 		
 		JOptionPane.showMessageDialog(null, "Cadastro Efetuado Com sucesso", "Cadastro Concluido", JOptionPane.INFORMATION_MESSAGE, null);
@@ -173,8 +183,8 @@ public class ProjectList {
 					int confirmationOfChangeState = JOptionPane.showConfirmDialog(null, "Realmente deseja mudar de Pagina",
 					"Confirmação de Mudança de Pagina", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null);
 					if(confirmationOfChangeState == 0) {
-						Project.ID = Integer.parseInt(DBConector.findInDB("ID_Montagem", "Montagem", "ISO", 
-								"\"" + names[changeStateIndex] + "\"").replace(" § \n", ""));
+						Project.ID = Integer.parseInt(DBConector.readDB("ID_Montagem", "Montagem", "ISO", 
+								"\"" + names.get(changeStateIndex) + "\"").replace(" § \n", ""));
 						Project.updateProject = true;
 						Archiver.writeOnArchive("mudarPag", "" + Project.ID, "", "");
 						Almoxarifado.state = 5;
@@ -203,8 +213,8 @@ public class ProjectList {
 				namesToSplit = DBConector.readDB("ISO", "montagem");
 				descriptionsToSplit = DBConector.readDB("description", "montagem");
 				
-				names = spliting(namesToSplit);
-				descriptions = spliting(descriptionsToSplit);
+				names = Functions.listToArrayList(spliting(namesToSplit));
+				descriptions = Functions.listToArrayList(spliting(descriptionsToSplit));
 				
 				PartsList.restartAssemblyList = true;
 				updateProjectList = false;
@@ -251,40 +261,40 @@ public class ProjectList {
 			if(i != Almoxarifado.quantityAssembly) {
 				g.drawImage(normalTable, imgX, imgY, boxWidth, boxHeight, null);
 				g.setFont(new Font("segoi ui", 1, 17));
-				Almoxarifado.drawStringBorder(((Graphics2D) g), names[i], imgX + (boxWidth / 2) - (g.getFontMetrics().stringWidth(names[i]) / 2), imgY + 28, 1, new Color(46, 46, 46), Color.white);
+				Almoxarifado.drawStringBorder(((Graphics2D) g), names.get(i), imgX + (boxWidth / 2) - (g.getFontMetrics().stringWidth(names.get(i)) / 2), imgY + 28, 1, new Color(46, 46, 46), Color.white);
 				g.setFont(new Font("segoi ui", 0, 12));
 
 				auxH = 0;
-				if(g.getFontMetrics().stringWidth(descriptions[i]) < maxTextSize) {
+				if(g.getFontMetrics().stringWidth(descriptions.get(i)) < maxTextSize) {
 				
-					g.drawString(descriptions[i], imgX + 10, imgY + 65);
+					g.drawString(descriptions.get(i), imgX + 10, imgY + 65);
 					g.drawImage(bipartitionLine, imgX + 12, imgY + 80, null);
-					g.drawString(companies[i], imgX + 10, imgY + 105);
+					g.drawString(companies.get(i), imgX + 10, imgY + 105);
 				
 				}else {
 					ArrayList<Integer> breakLineIndexes = new ArrayList<>();
 					int auxLineStandIn = 1;
 					breakLineIndexes.add(0);
 					
-					for(int currChar = 0; currChar < descriptions[i].length(); currChar++) {
-						if(g.getFontMetrics().stringWidth(descriptions[i].substring(breakLineIndexes.get(auxLineStandIn-1), currChar)) > maxTextSize) {
+					for(int currChar = 0; currChar < descriptions.get(i).length(); currChar++) {
+						if(g.getFontMetrics().stringWidth(descriptions.get(i).substring(breakLineIndexes.get(auxLineStandIn-1), currChar)) > maxTextSize) {
 							breakLineIndexes.add(currChar);
 							auxLineStandIn++;
 						}
 					}
-					breakLineIndexes.add(descriptions[i].length());
+					breakLineIndexes.add(descriptions.get(i).length());
 					
 					for(int lines = 1; lines < breakLineIndexes.size(); lines++) {
 						String auxBrokenDesc;
 						
-						auxBrokenDesc = descriptions[i].substring(breakLineIndexes.get(lines - 1),  breakLineIndexes.get(lines));
+						auxBrokenDesc = descriptions.get(i).substring(breakLineIndexes.get(lines - 1),  breakLineIndexes.get(lines));
 						
 						g.drawString(auxBrokenDesc, imgX + 10, imgY + 65 + auxH);
 						auxH += 30;
 					}
 					
 					g.drawImage(bipartitionLine, imgX + 12, imgY + 50 + auxH, null);
-					g.drawString(companies[i], imgX + 10, imgY + 75 + auxH);
+					g.drawString(companies.get(i), imgX + 10, imgY + 75 + auxH);
 				}
 			}else {
 				g.drawImage(addItems, imgX, imgY, boxWidth, boxHeight, null);
