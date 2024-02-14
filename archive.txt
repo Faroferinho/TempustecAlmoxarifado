@@ -439,3 +439,25 @@ O Usuário  entrou no modo de edição - Horario: 2024-02-14T09:50:44.563606200
 
 O Usuário  entrou no modo de listagem de funcionarios - Horario: 2024-02-14T10:08:05.902961100
 
+O Usuário  alterou a peça ID_Parts.7, passou de 0 para 1 - Horario: 2024-02-14T11:25:45.957306
+
+O Usuário  alterou a peça ID_Parts.9, passou de 0 para 1 - Horario: 2024-02-14T11:25:46.558505100
+
+O Usuário  alterou a peça ID_Parts.11, passou de 0 para 1 - Horario: 2024-02-14T11:25:47.622396700
+
+O Usuário  alterou a peça ID_Parts.13, passou de 0 para 1 - Horario: 2024-02-14T11:25:48.411529300
+
+O Usuário  alterou a peça ID_Parts.15, passou de 0 para 1 - Horario: 2024-02-14T11:25:49.330502
+
+O Usuário  alterou a peça ID_Parts.17, passou de 0 para 1 - Horario: 2024-02-14T11:25:50.053375500
+
+O Usuário  alterou a peça ID_Parts.19, passou de 0 para 1 - Horario: 2024-02-14T11:25:51.320921900
+
+O Usuário  alterou o CPF de User.9009, passou de 10020030040 para 12345678993 - Horario: 2024-02-14T11:28:48.425547100
+
+O Usuário  alterou a Senha de User.9009, passou de Tempustec2023 para CthulhuF'tgn - Horario: 2024-02-14T11:29:08.284803200
+
+O Usuário  alterou o Tipo de User.9009, passou de 1 para 0 - Horario: 2024-02-14T11:29:13.468023200
+
+O Usuário  removeu o funcionario de ID 9009 - Horario: 2024-02-14T11:40:19.975555100
+

@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import main.Almoxarifado;
+
 public class Functions {
 
 	public Functions() {
@@ -77,6 +79,15 @@ public class Functions {
 			return false;
 		}
 		return true;
+	}
+	
+	public static boolean isOnBox(int x, int y, int w, int h) {
+		if(Almoxarifado.mX > x && Almoxarifado.mX < x + w) {
+			if(Almoxarifado.mY > y && Almoxarifado.mY < y + h) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }
