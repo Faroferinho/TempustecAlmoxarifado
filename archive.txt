@@ -461,3 +461,25 @@ O Usuário  alterou o Tipo de User.9009, passou de 1 para 0 - Horario: 2024-02-1
 
 O Usuário  removeu o funcionario de ID 9009 - Horario: 2024-02-14T11:40:19.975555100
 
+O Usuário  alterou a peça ID_Parts.9, passou de 1 para 5 - Horario: 2024-02-14T14:27:13.387688900
+
+O Usuário  alterou a peça ID_Parts.10, passou de 3 para 6 - Horario: 2024-02-14T14:27:15.933187100
+
+O Usuário  alterou a peça ID_Parts.11, passou de 4 para 7 - Horario: 2024-02-14T14:27:18.004762600
+
+O Usuário  alterou a peça ID_Parts.12, passou de 1 para 8 - Horario: 2024-02-14T14:27:20.312073200
+
+O Usuário  alterou a peça ID_Parts.13, passou de 3 para 9 - Horario: 2024-02-14T14:27:22.348036700
+
+O Usuário  alterou a peça ID_Parts.14, passou de 4 para 10 - Horario: 2024-02-14T14:27:24.682580600
+
+O Usuário  alterou a peça ID_Parts.15, passou de 3 para 11 - Horario: 2024-02-14T14:27:27.226192900
+
+O Usuário  alterou a peça ID_Parts.16, passou de 4 para 12 - Horario: 2024-02-14T14:27:34.531365700
+
+O Usuário  alterou a peça ID_Parts.17, passou de 1 para 13 - Horario: 2024-02-14T14:27:39.233870
+
+O Usuário  alterou a peça ID_Parts.18, passou de 3 para 14 - Horario: 2024-02-14T14:27:44.604239900
+
+O Usuário  alterou o Tipo de User.4547, passou de 0 para 1 - Horario: 2024-02-14T14:28:02.898794400
+

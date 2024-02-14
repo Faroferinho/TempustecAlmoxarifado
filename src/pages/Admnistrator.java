@@ -72,22 +72,18 @@ public class Admnistrator extends Profile {
 					switch(buttonClick(Almoxarifado.mX, Almoxarifado.mY, true)) {
 					case 1:
 						//Editar Perfil
-						System.out.println("Entrando no isEditing");
 						isEditing = true;
 						break;
 					case 2:
 						//Listar Funcionario
-						System.out.println("Clique 2");
 						isListing = true;
 						break;
 					case 3:
 						//Adicionar Funcionario
 						isSigning = true;
-						System.out.println("Clique 3");
 						break;
 					case 4:
 						//Mudar Senha
-						System.out.println("Clique 4");
 						editInfo(4);
 						break;
 					}
@@ -125,19 +121,53 @@ public class Admnistrator extends Profile {
 	}
 	
 	private void addWorker() {
-		String addWorker = "INSERT INTO FUNCIONARIOS VALUES(" + generateRdF() + ", ";
+		String addWorker = "INSERT INTO FUNCIONARIOS VALUES(" + generateRdF() + ", \"";
 		String auxText = "" + writingQuery("Insira o Nome do Funcionario", "Cadastro de Funcionarios");
 		
 		if(nullVerificator(auxText)) {
 			return;
+		}else {
+			addWorker += auxText + "\", \"";
 		}
+		
+		auxText = "" + writingQuery("Insira o CPF do Funcionario", "Cadastro de Funcionarios");
+		
+		boolean isntRight = true;
+		while(isntRight) {
+			if(nullVerificator(auxText)) {
+				return;
+			}else {
+				auxText.replaceAll("[+,.;A-z]", "");
+				if(auxText.length() == 11) {
+					addWorker += auxText + "\", \"Tempustec2023\", \"";
+					isntRight = false;
+				}else {
+					auxText = "" + writingQuery("Insira um CPF válido", "Cadastro de Funcionarios");
+				}
+			}
+		}
+		
+		String selections[] = {"Colaborador", "Admnistrador"};
+		auxText = "" + (String) JOptionPane.showInputDialog(null, "Tipo de Funcionario", "Cadastro de Funcionarios", JOptionPane.PLAIN_MESSAGE, null, selections, 0);
+		if(nullVerificator(auxText)) {
+			return;
+		}else {
+			if(auxText.equals("Admnistrador")) {
+				auxText = "1";
+			}else {
+				auxText = "0";
+			}
+			
+			addWorker += auxText + "\")";
+		}
+		System.out.println(addWorker);
+		DBConector.writeDB(addWorker);
 		
 	}
 	
 	private boolean nullVerificator(String toVerif) {
-		System.out.println("Texto: " + toVerif);
-		if(toVerif.equals("null")) {
-			JOptionPane.showMessageDialog(null, "", "", JOptionPane.WARNING_MESSAGE, null);
+		if(toVerif.equals("null") || toVerif.equals("")) {
+			JOptionPane.showMessageDialog(null, "Encerrando Cadastro", "Cancelando", JOptionPane.PLAIN_MESSAGE);
 			return true;
 		}else {
 			return false;
@@ -150,24 +180,32 @@ public class Admnistrator extends Profile {
 		
 		separetedInfo = informationSorter(getPersonalInfo);
 	}
+
+	
+	private String[][] informationSorter(String toSplit){
+		String linesToBreakdown[] = toSplit.split("\n");
+		String returnString[][] = new String[linesToBreakdown.length + 1][5];
+		
+		returnString[0][0] = "Registro";
+		returnString[0][1] = "Nome";
+		returnString[0][2] = "CPF";
+		returnString[0][3] = "Senha";
+		returnString[0][4] = "Tipo";
+		
+		for(int i = 0; i < linesToBreakdown.length; i++) {
+			returnString[i+1] = linesToBreakdown[i].split(" § ");
+		}
+		return returnString;
+	}
 	
 	private int generateRdF() {
 		Random rand = new Random();	
 		int newRdF = rand.nextInt(0, 9999);
-		
-		String getRdF = DBConector.readDB("RdF", "funcionarios");
-		String auxComparator[] = new String[Almoxarifado.quantityWorkers];
-		
-		auxComparator = getRdF.split(" § \n");
-		
-		
-		for(int i = 0; i < Almoxarifado.quantityWorkers; i++) {
-			int toCompare = Integer.parseInt(auxComparator[i]);
-			if(newRdF == toCompare) {
-				newRdF = generateRdF();
-			}
+		String getQuantity = DBConector.readDB("count(RdF)", "funcionarios", "RdF", "" + newRdF);
+		System.out.println(getQuantity);
+		if(!getQuantity.equals("0 § \n")) {
+			newRdF = generateRdF();
 		}
-		
 		
 		return newRdF; 
 	}
@@ -182,22 +220,6 @@ public class Admnistrator extends Profile {
 		}
 		
 		return query;
-	}
-	
-	public String[][] informationSorter(String toSplit){
-		String linesToBreakdown[] = toSplit.split("\n");
-		String returnString[][] = new String[linesToBreakdown.length + 1][5];
-		
-		returnString[0][0] = "Registro";
-		returnString[0][1] = "Nome";
-		returnString[0][2] = "CPF";
-		returnString[0][3] = "Senha";
-		returnString[0][4] = "Tipo";
-		
-		for(int i = 0; i < linesToBreakdown.length; i++) {
-			returnString[i+1] = linesToBreakdown[i].split(" § ");
-		}
-		return returnString;
 	}
 	
 	private void remove(int x) {		
