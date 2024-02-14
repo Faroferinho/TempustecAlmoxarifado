@@ -437,3 +437,5 @@ O Usuário  alterou o próprio Name, passou de  para null - Horario: 2024-02-14T
 
 O Usuário  entrou no modo de edição - Horario: 2024-02-14T09:50:44.563606200
 
+O Usuário  entrou no modo de listagem de funcionarios - Horario: 2024-02-14T10:08:05.902961100
+
