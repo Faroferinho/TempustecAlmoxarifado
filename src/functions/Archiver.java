@@ -77,9 +77,14 @@ public class Archiver {
 		auxDate = auxDate.replaceAll("T", " ");
 		
 		if(fortnightVerificator(auxDate)) {
-			String command = genericCommand + "Quinzena(date, totalExpanses) VALUES('";
+			String lastValue = "";
+			if(!DBConector.readDB("*", "Quinzena").replaceAll(" § \n", "").equals("")) {
+				lastValue += DBConector.readDB("totalExpanses", "Quinzena", "ID_Fortnight", DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", "")).replaceAll(" § \n", "");
+			}else {
+				lastValue += "0.0";
+			}
 			
-			String lastValue = DBConector.readDB("totalExpanses", "Quinzena", "ID_Fortnight", DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", "")).replaceAll(" § \n", "");
+			String command = genericCommand + "Quinzena(date, totalExpanses) VALUES('";
 			double totalValue = DBConector.totalValueExpended();
 			
 			command += auxDate + "', ";
@@ -99,10 +104,14 @@ public class Archiver {
 	}
 	
 	private static boolean fortnightVerificator(String date) {
-		String getDateFromQuinzena = DBConector.readDB("MAX(Date)", "Quinzena").replaceAll(" § \n", "").replace(" ", "T");
+		String getDateFromQuinzena = ""; 
+		getDateFromQuinzena += DBConector.readDB("MAX(Date)", "Quinzena").replaceAll(" § \n", "").replace(" ", "T");
 		
-		if(Functions.emptyString(getDateFromQuinzena)) {
-			return false;
+		System.out.println("Ultima data: " + getDateFromQuinzena);
+		
+		if(!Functions.emptyString(getDateFromQuinzena)) {
+			System.out.println("Retornando");
+			return true;
 		}
 		
 		LocalDateTime lastDate = LocalDateTime.parse(getDateFromQuinzena);
@@ -135,7 +144,10 @@ public class Archiver {
 			message += "	O Relatório destá quinzena Registrou um total gasto Total de " + difCost + ", segue o valor gasto com as montagens: \n";
 			message += "========================================================================================================================\n";
 			for(int i = 0; i < Almoxarifado.quantityAssembly; i++) {
-				double difPrices = Double.parseDouble(currPrices[i]) - Double.parseDouble(lastPrices[i]);
+				double difPrices = 0;
+				if(lastPrices.length < i + 1) {
+					difPrices = Double.parseDouble(currPrices[i]) - Double.parseDouble(lastPrices[i]);
+				}
 				
 				if(difPrices != 0) {
 					message += "	ID: " + IDs[i] + "\n";

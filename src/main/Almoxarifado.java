@@ -18,6 +18,7 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+import functions.Archiver;
 import functions.DBConector;
 import functions.ImageManager;
 import pages.Admnistrator;
@@ -100,7 +101,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 		new Thread(almox).start();
 		
-		//Archiver.logInfo();
+		Archiver.logInfo();
 	}
 	
 	public Almoxarifado() {

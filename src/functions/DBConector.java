@@ -219,6 +219,7 @@ public class DBConector {
 	public static void registerFortnight(String date) {
 		String mainBody = "INSERT INTO HISTORICO_CUSTO(Date, Assembly, Cost) VALUES(";
 		ArrayList<String> assemblyIDs = new ArrayList<>();
+		String dateIndex = readDB("ID_Fortnight", "Quinzena", "Date", date).replaceAll(" § \n", "");
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -234,11 +235,11 @@ public class DBConector {
 			assemblyIDs = Functions.listToArrayList(readDB("ID_Montagem", "Montagem").split(" § \n"));
 			
 			for(int i = 0; i < Almoxarifado.quantityAssembly; i++) {
-				String query = mainBody + date + ", ";
+				String query = mainBody + dateIndex + ", ";
 				query += assemblyIDs.get(i).replaceAll(" § \n", "") + ", ";
 				query += getAssemblyValue(assemblyIDs.get(i).replaceAll(" § \n", "")) + ")";
 				
-				//System.out.println("register Values: " + query);
+				System.out.println("register Values: " + query);
 				
 				statement.executeUpdate(query);
 			}

@@ -41,7 +41,7 @@ public class Email {
 			Message message = new MimeMessage(online);
 			message.setFrom(new InternetAddress("tempustecInterno@gmail.com"));
 			
-			Address[] recivers = InternetAddress.parse("conrado.perini.fracacio@gmail.com, rosangela@tempustec.ind.br");
+			Address[] recivers = InternetAddress.parse("conrado.perini.fracacio@gmail.com");
 			
 			message.setRecipients(Message.RecipientType.TO, recivers);
 			message.setSubject(header);
