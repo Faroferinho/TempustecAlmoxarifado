@@ -68,7 +68,7 @@ public class DBConector {
 		int max = checkSize(objective, table);
 		String returnData = "";
 		
-		//System.out.println("Encontrar no DB: " + query);
+		System.out.println("Encontrar no DB: " + query);
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -219,7 +219,7 @@ public class DBConector {
 	public static void registerFortnight(String date) {
 		String mainBody = "INSERT INTO HISTORICO_CUSTO(Date, Assembly, Cost) VALUES(";
 		ArrayList<String> assemblyIDs = new ArrayList<>();
-		String dateIndex = readDB("ID_Fortnight", "Quinzena", "Date", date).replaceAll(" § \n", "");
+		String dateIndex = readDB("ID_Fortnight", "Quinzena", "Date", "'" + date + "'").replaceAll(" § \n", "");
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -328,6 +328,12 @@ public class DBConector {
 			for(int inc = 0; inc < identifiers.size(); inc++) {
 				statement.executeUpdate("UPDATE Montagem SET cost = " + prices.get(inc) + "WHERE ID_Montagem = " + identifiers.get(inc));
 				//System.out.println("Montagem " + identifiers.get(inc) + " foi atualizada :D");
+			}
+			
+			rslt = statement.executeQuery("Select cost From Arquivo");
+			
+			while(rslt.next()) {
+				returnValue += rslt.getDouble(i);
 			}
 			
 			

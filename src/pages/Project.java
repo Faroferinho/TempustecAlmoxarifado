@@ -288,6 +288,10 @@ public class Project {
 				DBConector.Archive("" + ID);
 				Archiver.writeOnArchive("arquivo", "o Projeto de ID = " + ID, "", "");
 				
+				PartsList.wasChanged = true;
+				ProjectList.updateProjectList = true;
+				Almoxarifado.quantityParts = DBConector.counterOfElements("Pecas");
+				
 				isArchiving = false;
 				Almoxarifado.state = 3;
 			}

@@ -77,10 +77,10 @@ public class Functions {
 	public static boolean emptyString(String s) {
 		if(s.equals("") || s.equals(null) || s.equals("null")) {
 			System.out.println("é nula");
-			return false;
+			return true;
 		}
 		System.out.println("não é nula");
-		return true;
+		return false;
 	}
 	
 	public static boolean isOnBox(int x, int y, int w, int h) {
@@ -90,6 +90,26 @@ public class Functions {
 			}
 		}
 		return false;
+	}
+	
+	public static double diferenceCurency(String v1, String v2) {
+		double returnValue = 0;
+		
+		String values1[] = v1.split("[.]");
+		String values2[] = v2.split("[.]");
+		System.out.println(values1[0]);
+		int before1 = Integer.parseInt(values1[0]);
+		System.out.println(values2[0]);
+		int before2 = Integer.parseInt(values2[0]);
+		System.out.println(values1[1]);
+		int after1 = Integer.parseInt(values1[1]);
+		System.out.println(values2[1]);
+		int after2 = Integer.parseInt(values2[1]);
+		
+		returnValue += before1 - before2;
+		returnValue += (after1 - after2) * 0.01;
+		
+		return returnValue;
 	}
 	
 }
