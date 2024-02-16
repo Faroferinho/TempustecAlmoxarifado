@@ -1,5 +1,6 @@
 package functions;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,22 +94,28 @@ public class Functions {
 	}
 	
 	public static double diferenceCurency(String v1, String v2) {
+		System.out.print(v1 + " - " + v2);
 		double returnValue = 0;
+		BigDecimal firstValue = new BigDecimal(v1);
+		BigDecimal secondValue = new BigDecimal(v2);
+		BigDecimal sumResult = firstValue.subtract(secondValue);
 		
-		String values1[] = v1.split("[.]");
-		String values2[] = v2.split("[.]");
-		System.out.println(values1[0]);
-		int before1 = Integer.parseInt(values1[0]);
-		System.out.println(values2[0]);
-		int before2 = Integer.parseInt(values2[0]);
-		System.out.println(values1[1]);
-		int after1 = Integer.parseInt(values1[1]);
-		System.out.println(values2[1]);
-		int after2 = Integer.parseInt(values2[1]);
+		returnValue += sumResult.doubleValue();
+
+		System.out.println(" = " + sumResult);
+		return returnValue;
+	}
+	
+	public static double sumCurency(String v1, String v2) {
+		System.out.print(v1 + " + " + v2);
+		double returnValue = 0;
+		BigDecimal firstValue = new BigDecimal(v1);
+		BigDecimal secondValue = new BigDecimal(v2);
+		BigDecimal sumResult = firstValue.add(secondValue);
 		
-		returnValue += before1 - before2;
-		returnValue += (after1 - after2) * 0.01;
+		returnValue += sumResult.doubleValue();
 		
+		System.out.println(" = " + sumResult);
 		return returnValue;
 	}
 	

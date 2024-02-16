@@ -563,3 +563,36 @@ O Usuário 8523 modou para o projeto 18 - Horario: 2024-02-16T08:02:19.705663900
 
 O Usuário 8523 arquivou o Projeto de ID = 18 - Horario: 2024-02-16T08:02:21.957783200
 
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-02-16T08:28:05.335805800
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-02-16T08:47:02.406551300
+
+O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 19 - Horario: 2024-02-16T08:48:34.759771800
+
+O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 21 - Horario: 2024-02-16T08:49:10.985376100
+
+O Usuário 8523 alterou a peça ID_Parts.22, passou de 0.00 para 57 - Horario: 2024-02-16T08:49:15.835980100
+
+O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 22 - Horario: 2024-02-16T08:49:32.548286700
+
+O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 23 - Horario: 2024-02-16T08:49:40.762546
+
+O Usuário 8523 alterou a peça ID_Parts.24, passou de 0 para 14,44 - Horario: 2024-02-16T08:49:47.492855
+
+O Usuário 8523 alterou a peça ID_Parts.24, passou de 0.00 para 12 - Horario: 2024-02-16T08:49:51.091010
+
+O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 24 - Horario: 2024-02-16T08:49:58.610052
+
+O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 25 - Horario: 2024-02-16T08:50:22.920755
+
+O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 26 - Horario: 2024-02-16T08:50:50.040051600
+
+O Usuário 8523 alterou a peça ID_Parts.27, passou de 0.00 para 111 - Horario: 2024-02-16T08:50:53.546034400
+
+O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 27 - Horario: 2024-02-16T08:51:14.153503
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-02-16T09:36:38.093972700
+
