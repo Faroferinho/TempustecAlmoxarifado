@@ -118,8 +118,7 @@ public class Archiver {
 		LocalDateTime lastDate = LocalDateTime.parse(getDateFromQuinzena);
 		LocalDateTime currDate = LocalDateTime.parse(date.replace(" ", "T"));
 		
-		if(currDate.isAfter(lastDate.plusSeconds(15))) {
-			System.out.println("Passou 15 dias");
+		if(currDate.isAfter(lastDate.plusDays(15))) {
 			return true;
 		}
 		
