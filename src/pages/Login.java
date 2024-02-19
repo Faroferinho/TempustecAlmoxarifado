@@ -21,12 +21,12 @@ public class Login {
 	
 	BufferedImage tempustecLogo = Almoxarifado.imgManag.getProjectImage("TempustecIconeLogo");
 	
-	int imgX = (Almoxarifado.WIDTH/2) - (tempustecLogo.getWidth()/2);
-	int imgY = 30;
 	int imgWidth = 222;
 	int imgHeight = 190;
+	int imgX = (Almoxarifado.WIDTH/2) - (imgWidth/2);
+	int imgY = 30;
 	
-	Image tempustec = tempustecLogo.getScaledInstance(imgWidth, imgHeight, 0);
+	Image tempustec = tempustecLogo.getScaledInstance(imgWidth, imgHeight, 16);
 	
 	int textBoxX = Almoxarifado.WIDTH/4;
 	int textBoxY = Almoxarifado.HEIGHT/5*2;
@@ -55,7 +55,6 @@ public class Login {
 	private int cursorIndex = 0;
 	
 	public Login() {
-		imgX = (Almoxarifado.WIDTH/2) - (imgWidth/2);
 	}
 	
 	private void submitForm() {
