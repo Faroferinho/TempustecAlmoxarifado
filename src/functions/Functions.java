@@ -94,20 +94,17 @@ public class Functions {
 	}
 	
 	public static double diferenceCurency(String v1, String v2) {
-		System.out.print(v1 + " - " + v2);
 		double returnValue = 0;
 		BigDecimal firstValue = new BigDecimal(v1);
 		BigDecimal secondValue = new BigDecimal(v2);
-		BigDecimal sumResult = firstValue.subtract(secondValue);
+		BigDecimal subResult = firstValue.subtract(secondValue);
 		
-		returnValue += sumResult.doubleValue();
+		returnValue += subResult.doubleValue();
 
-		System.out.println(" = " + sumResult);
 		return returnValue;
 	}
 	
 	public static double sumCurency(String v1, String v2) {
-		System.out.print(v1 + " + " + v2);
 		double returnValue = 0;
 		BigDecimal firstValue = new BigDecimal(v1);
 		BigDecimal secondValue = new BigDecimal(v2);
@@ -115,7 +112,6 @@ public class Functions {
 		
 		returnValue += sumResult.doubleValue();
 		
-		System.out.println(" = " + sumResult);
 		return returnValue;
 	}
 	
