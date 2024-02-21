@@ -268,14 +268,19 @@ public class Login {
 			
 		}
 	}
+
 	
 	public void render(Graphics g) {
 		g.fillRect(0, 0, Almoxarifado.WIDTH, Almoxarifado.HEIGHT);
 		g.setColor(new Color(126, 126, 126));
 		g.fillRoundRect((Almoxarifado.WIDTH/5), 15, (Almoxarifado.WIDTH/5)*3, Almoxarifado.HEIGHT-30, 45, 45);
-		g.setColor(new Color(196, 196, 196));
+		g.setColor(new Color(195, 195, 195));
 		g.fillRoundRect((Almoxarifado.WIDTH/5) + 15, 15 + 15, (Almoxarifado.WIDTH/5)*3 - 30, Almoxarifado.HEIGHT-30 - 30, 15, 15);
 		g.drawImage(tempustec, imgX, imgY, null);
+		
+		
+		g.setColor(new Color(126, 126, 126));
+		g.fillRoundRect(textBoxX - 10, textBoxY, (Almoxarifado.WIDTH / 2) + 20, 5, 5, 5);
 		
 		g.setColor(Color.white);
 		g.fillRoundRect(textBoxX, textBoxY + 48, textBoxW, textBoxH, 15, 15);
@@ -367,11 +372,6 @@ public class Login {
 				g.fillRect(g.getFontMetrics().stringWidth(censoringPassword(textInBoxPW)) - cursorAuxPositioner + textBoxX + 5, (int) (textBoxY * 1.6) + 5, 2, 18);
 			}
 		}
-		
-		g.setColor(new Color(126, 126, 126));
-		g.fillOval(textBoxX, textBoxY, 5, 5);
-		g.fillOval(textBoxX + Almoxarifado.WIDTH/2, textBoxY, 5, 5);
-		g.fillRect(textBoxX + 3, textBoxY, (Almoxarifado.WIDTH/2), 5);
 		
 		g.drawImage(loginBttn, bttnX, bttnY, null);
 		UserInterface.isOnBigButton(g, bttnX, bttnY);

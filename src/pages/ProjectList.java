@@ -36,7 +36,7 @@ public class ProjectList {
 	ArrayList<String> companies = new ArrayList<>();
 	
 	public static int scroll;
-	public int ofsetHeight;
+	public int offsetHeight;
 	public int maximumHeight = 0;
 	public boolean mouseStatus = false;
 	
@@ -62,12 +62,12 @@ public class ProjectList {
 	int auxH = 0;
 	
 	public ProjectList(){
-		names = Functions.listToArrayList(spliting(namesToSplit));
-		descriptions = Functions.listToArrayList(spliting(descriptionsToSplit));
-		companies = Functions.listToArrayList(spliting(companiesToSplit));
+		names = Functions.listToArrayList(splitting(namesToSplit));
+		descriptions = Functions.listToArrayList(splitting(descriptionsToSplit));
+		companies = Functions.listToArrayList(splitting(companiesToSplit));
 	}
 	
-	private String[] spliting(String toSplit) {
+	private String[] splitting(String toSplit) {
 		String[] auxSpliting = new String[Almoxarifado.quantityAssembly];
 		auxSpliting = toSplit.split(" § \n");
 		
@@ -130,14 +130,14 @@ public class ProjectList {
 	}
 	
 	public void scrollPositioner() {
-		if(ofsetHeight < maximumHeight * -1) {
-			ofsetHeight = maximumHeight * -1;
-		}if(ofsetHeight > 0) {
-			ofsetHeight = 0;
+		if(offsetHeight < maximumHeight * -1) {
+			offsetHeight = maximumHeight * -1;
+		}if(offsetHeight > 0) {
+			offsetHeight = 0;
 		}
 		
 		int Y = (UserInterface.maximunHeight - 18) - thumbHeight;
-		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + ofsetHeight));
+		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + offsetHeight));
 		thumbAuxY = Y / S;
 	}
 	
@@ -148,7 +148,7 @@ public class ProjectList {
 		}else {
 			isOnTheRightState = false;
 			thumbAuxY = 0;
-			ofsetHeight = 0;
+			offsetHeight = 0;
 		}
 		
 		if(isOnTheRightState == true) {
@@ -165,13 +165,13 @@ public class ProjectList {
 			}
 		
 			if(scroll > 1) {
-				ofsetHeight -= UserInterface.spd;
+				offsetHeight -= UserInterface.spd;
 				
 				scrollPositioner();
 				
 				scroll = 0;
 			}else if(scroll < -1) {
-				ofsetHeight += UserInterface.spd;
+				offsetHeight += UserInterface.spd;
 				
 				scrollPositioner();
 				
@@ -210,11 +210,12 @@ public class ProjectList {
 			}
 			
 			if(updateProjectList) {
+				// TODO: Verificar se não dar problema isso dai.
 				namesToSplit = DBConector.readDB("ISO", "montagem");
 				descriptionsToSplit = DBConector.readDB("description", "montagem");
 				
-				names = Functions.listToArrayList(spliting(namesToSplit));
-				descriptions = Functions.listToArrayList(spliting(descriptionsToSplit));
+				names = Functions.listToArrayList(splitting(namesToSplit));
+				descriptions = Functions.listToArrayList(splitting(descriptionsToSplit));
 				
 				PartsList.restartAssemblyList = true;
 				updateProjectList = false;
@@ -231,13 +232,13 @@ public class ProjectList {
 	public void render(Graphics g) {
 		g.setColor(Color.white);
 		g.setFont(new Font("segoe ui", 1, 40));
-		g.drawString("Lista de Projetos: ", Almoxarifado.WIDTH/8 - 30, initY - (25) + ofsetHeight);
+		g.drawString("Lista de Projetos: ", Almoxarifado.WIDTH/8 - 30, initY - (25) + offsetHeight);
 		
 		int auxX = 0;
 		int auxY = 0;
 		for(int i = 0; i < Almoxarifado.quantityAssembly + 1; i++) {
 			imgX = initX + (spaceBetween + boxWidth) * auxX;
-			imgY = initY + auxY + ofsetHeight;
+			imgY = initY + auxY + offsetHeight;
 			
 			if(mouseStatus) {
 				if(Almoxarifado.mX > imgX && Almoxarifado.mX < imgX + boxWidth

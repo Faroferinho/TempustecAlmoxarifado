@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -113,6 +114,41 @@ public class Functions {
 		returnValue += sumResult.doubleValue();
 		
 		return returnValue;
+	}
+	
+	public static HashMap<String, Integer> getInstances(String column, String table) {
+		HashMap<String, Integer> toReturn = new HashMap<>();
+		
+		String queryFound[] = DBConector.readDB(column, table).split(" § \n");
+		
+		for(int i = 0; i < queryFound.length; i++) {
+			if(!toReturn.containsKey(queryFound[i])) {
+				toReturn.put(queryFound[i], 1);
+			}else {
+				toReturn.put(queryFound[i], toReturn.get(queryFound[i]) + 1);
+			}
+		}
+		
+		return toReturn;
+	}
+	
+	public static String findBestInstance(String query, String column, String table) {
+		int lastValue = 0;
+		String toReturn = "";
+		HashMap<String, Integer> allValues = getInstances(column, table);
+		
+		for(String q : allValues.keySet()) {
+			if(q.toLowerCase().contains(query.toLowerCase())) {
+				if(allValues.get(q) > lastValue) {
+					toReturn = q;
+					lastValue = allValues.get(q);
+				}
+			}
+		}
+		
+		System.out.println("O Texto mais proximo é " + toReturn);
+		
+		return toReturn;
 	}
 	
 }

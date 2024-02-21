@@ -26,7 +26,7 @@ public class PartsList {
 	static String[] assembliesSO;
 	public static boolean restartAssemblyList = false;
 	
-	public int ofsetHeight;
+	public int offsetHeight;
 	public static int scroll;
 	public static int maximumHeight = 1;
 	
@@ -44,9 +44,9 @@ public class PartsList {
 	int total = Almoxarifado.WIDTH - 50*2;
 	int characterLimitPerLine = (int) ((total*28)/100);;
 	boolean multipleDescriptionLinesMark = false;
-	int auxHeight = 125 + ofsetHeight;
+	int auxHeight = 125 + offsetHeight;
 	int auxWidth = 50;		
-	int descriptionOfsetHeight = 1;
+	int descriptionOffsetHeight = 1;
 	
 	boolean isEliminating = false;
 	int indexToEliminate = -1;
@@ -106,7 +106,7 @@ public class PartsList {
 				return;
 			}else {
 				if(auxString.equals("")) {
-					auxString = correctString(column);
+					auxString = autoFill(column);
 					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 					break;
 				}
@@ -124,7 +124,7 @@ public class PartsList {
 				return;
 			}else {
 				if(auxString.equals("")) {
-					auxString = correctString(column);
+					auxString = autoFill(column);
 					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 					break;
 				}
@@ -135,14 +135,12 @@ public class PartsList {
 			columnName += "Quantity";
 			auxString += JOptionPane.showInputDialog(null, "Insira a quantidade de Peças (apenas numeros)", "Modificação da Peça", JOptionPane.PLAIN_MESSAGE);
 			
-			auxString = auxString.replaceAll("", "");
-			
 			if(verifyString(auxString)) {
 				JOptionPane.showMessageDialog(null, "Valor não Inserido", "Retornando", JOptionPane.WARNING_MESSAGE);
 				return;
 			}else {
 				if(auxString.equals("")) {
-					auxString = correctString(column);
+					auxString = autoFill(column);
 					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 					break;
 				}
@@ -160,7 +158,7 @@ public class PartsList {
 				return;
 			}else {
 				if(auxString.equals("")) {
-					auxString = correctString(column);
+					auxString = autoFill(column);
 					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 					break;
 				}
@@ -179,7 +177,7 @@ public class PartsList {
 				return;
 			}else {
 				if(auxString.equals("")) {
-					auxString = correctString(column);
+					auxString = autoFill(column);
 					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 					break;
 				}
@@ -196,7 +194,7 @@ public class PartsList {
 			break;
 		}
 		
-		auxString = scoots(auxString);
+		auxString = correctQuotation(auxString);
 		
 		Archiver.writeOnArchive("alteracao", "a peça ID_Parts." + index, DBConector.readDB(columnName, "pecas", "ID_Parts", index).replaceAll(" § \n", ""), auxString);
 		
@@ -244,7 +242,7 @@ public class PartsList {
 		}
 	}
 	
-	private static String correctString(int index) {
+	private static String autoFill(int index) {
 		String toReturn = "";
 		
 		switch(index) {
@@ -264,7 +262,7 @@ public class PartsList {
 		return toReturn;
 	}
 
-	private static String scoots(String text) {
+	private static String correctQuotation(String text) {
 		text = text.replaceAll("\"", "''");
 		
 		return text;
@@ -285,7 +283,7 @@ public class PartsList {
 				return;
 			}else {
 				if(aux.equals("")) {
-					aux = correctString(1);
+					aux = autoFill(1);
 					JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 				}else {
 					auxInt = Integer.parseInt(getKey(aux));
@@ -311,12 +309,12 @@ public class PartsList {
 			return;
 		}else {
 			if(aux.equals("")) {
-				aux = correctString(2);
+				aux = autoFill(2);
 				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 			}
 		}
 		
-		aux = scoots(aux);
+		aux = correctQuotation(aux);
 		
 		querry += aux + "\", \"";
 		
@@ -328,11 +326,11 @@ public class PartsList {
 			return;
 		}else {
 			if(aux.equals("")) {
-				aux = correctString(3);
+				aux = autoFill(3);
 				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 			}
 		}
-		aux = scoots(aux);
+		aux = correctQuotation(aux);
 		
 		querry += aux + "\", ";
 		
@@ -344,11 +342,11 @@ public class PartsList {
 			return;
 		}else {
 			if(aux.equals("")) {
-				aux = correctString(5);
+				aux = autoFill(5);
 				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 			}
 		}
-		aux = scoots(aux);
+		aux = correctQuotation(aux);
 		aux = formatNumb(aux);
 		
 		
@@ -362,11 +360,11 @@ public class PartsList {
 			return;
 		}else {
 			if(aux.equals("")) {
-				aux = correctString(6);
+				aux = autoFill(6);
 				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 			}
 		}
-		aux = scoots(aux);
+		aux = correctQuotation(aux);
 		
 		querry += aux + "\", 0)";
 		
@@ -389,24 +387,24 @@ public class PartsList {
 		
 		DBConector.writeDB("UPDATE pecas SET ID_Parts = (ID_Parts-1) WHERE ID_Parts > " + index);
 		
-		ofsetHeight += 15;
+		offsetHeight += 15;
 		
 		int Y = (UserInterface.maximunHeight - 16) - thumbHeight;
-		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + ofsetHeight));
+		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + offsetHeight));
 		thumbAuxY = Y / S;
 		
 		wasChanged = true;
 	}
 		
 	public void scrollPositioner() {
-		if(ofsetHeight < PartsList.maximumHeight * -1) {
-			ofsetHeight = PartsList.maximumHeight * -1;
-		}if(ofsetHeight > 0) {
-			ofsetHeight = 0;
+		if(offsetHeight < PartsList.maximumHeight * -1) {
+			offsetHeight = PartsList.maximumHeight * -1;
+		}if(offsetHeight > 0) {
+			offsetHeight = 0;
 		}
 		
 		int Y = (UserInterface.maximunHeight - 18) - thumbHeight;
-		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + ofsetHeight));
+		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + offsetHeight));
 		thumbAuxY = Y / S;
 	}
 	
@@ -425,10 +423,10 @@ public class PartsList {
 		}else {
 			isOnTheRightState = false;
 			thumbAuxY = 0;
-			ofsetHeight = 0;
+			offsetHeight = 0;
 		}
 		
-		if(isOnTheRightState) {	
+		if(isOnTheRightState) {
 			if(maximumHeight > 15) {
 				toggleScrollBar = true;
 			}else {
@@ -436,13 +434,13 @@ public class PartsList {
 			}
 			
 			if(scroll > 1) {
-				ofsetHeight -= UserInterface.spd;
+				offsetHeight -= UserInterface.spd;
 				
 				scrollPositioner();
 				
 				scroll = 0;
-			}else if(scroll < -1 && ofsetHeight < 0) {
-				ofsetHeight += UserInterface.spd;
+			}else if(scroll < -1 && offsetHeight < 0) {
+				offsetHeight += UserInterface.spd;
 				
 				scrollPositioner();
 				
@@ -477,9 +475,9 @@ public class PartsList {
 			
 			g.setFont(new Font("segoe ui", 0, 12));
 
-			auxHeight = 125 + ofsetHeight;
+			auxHeight = 125 + offsetHeight;
 			auxWidth = 50;
-			descriptionOfsetHeight = 1;
+			descriptionOffsetHeight = 1;
 			
 			for(int i = 0; i < finalPartsTable.length; i++) {
 
@@ -499,7 +497,7 @@ public class PartsList {
 					}
 					
 					switch(j) {
-					//Caso 0:
+					//Case 0:
 						//ID
 					
 					case 1:
@@ -606,7 +604,7 @@ public class PartsList {
 					}else {
 						String auxText = "";
 						int quantityOfLines = g.getFontMetrics().stringWidth(finalPartsTable[i][j])/characterLimitPerLine;
-						descriptionOfsetHeight += quantityOfLines;
+						descriptionOffsetHeight += quantityOfLines;
 						double quantityOfCharacters = finalPartsTable[i][j].length()/quantityOfLines;
 						
 						for(int inc = 0; inc < quantityOfLines+1; inc++) {
@@ -643,8 +641,8 @@ public class PartsList {
 					
 				}
 				auxWidth = 50;
-				auxHeight += 30*descriptionOfsetHeight;
-				descriptionOfsetHeight = 1;
+				auxHeight += 30*descriptionOffsetHeight;
+				descriptionOffsetHeight = 1;
 			}
 
 			if(mouseStatus) {
@@ -670,7 +668,7 @@ public class PartsList {
 			UserInterface.isOnSmallButton(g, Almoxarifado.WIDTH/3 - adicionar.getWidth()/2, auxHeight);
 			UserInterface.isOnSmallButton(g, Almoxarifado.WIDTH/3*2 - excluir.getWidth()/2, auxHeight);
 			
-			maximumHeight = (auxHeight - ofsetHeight) - UserInterface.maximunHeight;
+			maximumHeight = (auxHeight - offsetHeight) - UserInterface.maximunHeight;
 			
 			if(toggleScrollBar) {
 				

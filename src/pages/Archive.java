@@ -17,7 +17,7 @@ public class Archive {
 	public boolean mouseStatus = false;
 	
 	public static int scroll = 0;
-	public int ofsetHeight = 0;
+	public int offsetHeight = 0;
 	public int maximumHeight = 0;
 	
 	boolean toggleScrollBar = false;
@@ -31,7 +31,7 @@ public class Archive {
 	public String infoGathered = "";
 	
 	int imgX = 75;
-	int initalImgY = 175;
+	int initialImgY = 175;
 	int auxHeight = 0;
 
 	ArrayList<String> names = new ArrayList<>();
@@ -54,14 +54,14 @@ public class Archive {
 	}
 	
 	public void scrollPositioner() {
-		if(ofsetHeight < (maximumHeight * -1)) {
-			ofsetHeight = maximumHeight * -1;
-		}else if(ofsetHeight > 0){
-			ofsetHeight = 0;
+		if(offsetHeight < (maximumHeight * -1)) {
+			offsetHeight = maximumHeight * -1;
+		}else if(offsetHeight > 0){
+			offsetHeight = 0;
 		}
 		
 		int Y = (UserInterface.maximunHeight - 18) - thumbHeight;
-		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + ofsetHeight));
+		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + offsetHeight));
 		thumbAuxY = Y / S;
 	}
 	
@@ -75,14 +75,14 @@ public class Archive {
 		
 		if(isOnTheRightState) {
 			
-			if(scroll > 0 && ofsetHeight > (maximumHeight * -1)) {
-				ofsetHeight -= UserInterface.spd;
+			if(scroll > 0 && offsetHeight > (maximumHeight * -1)) {
+				offsetHeight -= UserInterface.spd;
 				
 				scrollPositioner();
 				
 				scroll = 0;
-			}else if(scroll < 0 && ofsetHeight < 0){
-				ofsetHeight += UserInterface.spd;
+			}else if(scroll < 0 && offsetHeight < 0){
+				offsetHeight += UserInterface.spd;
 				
 				scrollPositioner();
 				
@@ -150,18 +150,18 @@ public class Archive {
 	public void render(Graphics g) {
 		g.setColor(Color.white);
 		g.setFont(new Font("segoi ui", 1, 40));
-		g.drawString("Projetos Arquivados: ", 100, 150 + ofsetHeight);
+		g.drawString("Projetos Arquivados: ", 100, 150 + offsetHeight);
 		
 		for(int i = 0; i < names.size(); i++) {
-			g.drawImage(img, imgX, initalImgY + auxHeight + ofsetHeight, null);
+			g.drawImage(img, imgX, initialImgY + auxHeight + offsetHeight, null);
 			
 			g.setFont(new Font("segoi ui", 1, 17));
-			g.drawString(names.get(i), imgX + 170, initalImgY + 25 + ofsetHeight + auxHeight);
+			g.drawString(names.get(i), imgX + 170, initialImgY + 25 + offsetHeight + auxHeight);
 			
 			g.setFont(new Font("segoi ui", 0, 14));
-			g.drawString(dates.get(i), imgX + 170, initalImgY + 60 + ofsetHeight + auxHeight);
-			g.drawString("Quantidade de Peças: " + quantities.get(i), imgX + 170, initalImgY + 95 + ofsetHeight + auxHeight);
-			g.drawString("Registro do Arquivador: " + RdFs.get(i), imgX + 170, initalImgY + 130 + ofsetHeight + auxHeight);
+			g.drawString(dates.get(i), imgX + 170, initialImgY + 60 + offsetHeight + auxHeight);
+			g.drawString("Quantidade de Peças: " + quantities.get(i), imgX + 170, initialImgY + 95 + offsetHeight + auxHeight);
+			g.drawString("Registro do Arquivador: " + RdFs.get(i), imgX + 170, initialImgY + 130 + offsetHeight + auxHeight);
 			
 			auxHeight += 250;
 		}

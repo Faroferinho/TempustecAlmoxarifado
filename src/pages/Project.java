@@ -41,7 +41,7 @@ public class Project {
 	public boolean mouseStatus = false;
 
 	public static int scroll;
-	public int ofsetHeight = 0;
+	public int offsetHeight = 0;
 	public int maximumHeight = 1;
 	
 	private boolean toggleScrollBar = false;
@@ -123,14 +123,14 @@ public class Project {
 	}
 	
 	public void scrollPositioner() {
-		if(ofsetHeight < (maximumHeight * -1)) {			
-			ofsetHeight = maximumHeight * -1;
-		}if(ofsetHeight > 0) {		
-			ofsetHeight = 0;
+		if(offsetHeight < (maximumHeight * -1)) {			
+			offsetHeight = maximumHeight * -1;
+		}if(offsetHeight > 0) {		
+			offsetHeight = 0;
 		}
 		
 		int Y = (UserInterface.maximunHeight - 18) - thumbHeight;
-		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + ofsetHeight));
+		double S = (Double.parseDouble("" + maximumHeight) / Double.parseDouble("" + offsetHeight));
 		thumbAuxY = Y / S;
 	}
 	
@@ -140,7 +140,7 @@ public class Project {
 		}else {
 			isOnTheRightState = false;
 			thumbAuxY = 0;
-			ofsetHeight = 0;
+			offsetHeight = 0;
 		}
 		
 		if(updateProject) {
@@ -164,13 +164,13 @@ public class Project {
 			}
 			
 			if(scroll > 0) {
-				ofsetHeight -= UserInterface.spd;
+				offsetHeight -= UserInterface.spd;
 				
 				scrollPositioner();
 				
 				scroll = 0;
 			}else if(scroll < 0) {
-				ofsetHeight += UserInterface.spd;
+				offsetHeight += UserInterface.spd;
 				
 				scrollPositioner();
 								
@@ -194,16 +194,16 @@ public class Project {
 			if(isEditing) {
 				//TODO: Sistema de distancia dinamico pro limite da largura do quadrado
 				if(Almoxarifado.mX > imgX + 15 + img.getWidth() && Almoxarifado.mX < Almoxarifado.WIDTH/2) {
-					if(Almoxarifado.mY > imgY - 10 + ofsetHeight && Almoxarifado.mY < imgY + 60 + ofsetHeight) {
+					if(Almoxarifado.mY > imgY - 10 + offsetHeight && Almoxarifado.mY < imgY + 60 + offsetHeight) {
 						isOverName = true;
 						isOverDescription = false;
 						isOverCompany = false;
 					}
-					else if(Almoxarifado.mY > imgY + 75 + ofsetHeight && Almoxarifado.mY < imgY + 125 + ofsetHeight) {
+					else if(Almoxarifado.mY > imgY + 75 + offsetHeight && Almoxarifado.mY < imgY + 125 + offsetHeight) {
 						isOverName = false;
 						isOverDescription = false;
 						isOverCompany = true;
-					}else if(Almoxarifado.mY > imgY + 135 + ofsetHeight && Almoxarifado.mY < imgY + 200 + ofsetHeight) {
+					}else if(Almoxarifado.mY > imgY + 135 + offsetHeight && Almoxarifado.mY < imgY + 200 + offsetHeight) {
 						isOverName = false;
 						isOverDescription = true;
 						isOverCompany = false;
@@ -298,7 +298,7 @@ public class Project {
 			
 			if(mouseStatus) {
 				if(Almoxarifado.mX > Almoxarifado.WIDTH - 128 - 60 && Almoxarifado.mX < Almoxarifado.WIDTH - 60) {
-					if(Almoxarifado.mY >  imgY + ofsetHeight && Almoxarifado.mY <  imgY + ofsetHeight + 64) {
+					if(Almoxarifado.mY >  imgY + offsetHeight && Almoxarifado.mY <  imgY + offsetHeight + 64) {
 						if(isEditing) {
 							isEditing = false;
 							mouseStatus = false;
@@ -307,8 +307,8 @@ public class Project {
 							mouseStatus = false;
 						}
 						
-					}else if(Almoxarifado.mY > imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight &&
-					Almoxarifado.mY < imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight + 64) {
+					}else if(Almoxarifado.mY > imgY + 64 + (img.getHeight() - 64*2) + offsetHeight &&
+					Almoxarifado.mY < imgY + 64 + (img.getHeight() - 64*2) + offsetHeight + 64) {
 						isArchiving = true;
 						mouseStatus = false;
 					}
@@ -444,8 +444,8 @@ public class Project {
 						if(multipleDescriptionMark) {
 							if(Almoxarifado.mX > positionerX + auxTextWidth 
 							&& Almoxarifado.mX < positionerX + auxTextWidth + maxTextSize
-							&& Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - g.getFontMetrics().getHeight() - auxCheckBox
-							&& Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight + (g.getFontMetrics().stringWidth(toDraw) / maxTextSize) * 30) {
+							&& Almoxarifado.mY > positionerY + auxTextHeight + offsetHeight - g.getFontMetrics().getHeight() - auxCheckBox
+							&& Almoxarifado.mY < positionerY + auxTextHeight + offsetHeight + (g.getFontMetrics().stringWidth(toDraw) / maxTextSize) * 30) {
 								newColor = Color.darkGray;
 								if(mouseStatus) {
 									PartsList.changePart(separetedList.get((auxTextHeight/30)*8), i % 8);
@@ -456,8 +456,8 @@ public class Project {
 						}else {
 							if(Almoxarifado.mX > positionerX + auxTextWidth - auxCheckBox 
 							&& Almoxarifado.mX < positionerX + auxTextWidth + g.getFontMetrics().stringWidth(toDraw) + auxCheckBox
-							&& Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - g.getFontMetrics().getHeight() - auxCheckBox
-							&& Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight + auxCheckBox) {
+							&& Almoxarifado.mY > positionerY + auxTextHeight + offsetHeight - g.getFontMetrics().getHeight() - auxCheckBox
+							&& Almoxarifado.mY < positionerY + auxTextHeight + offsetHeight + auxCheckBox) {
 								newColor = Color.darkGray;
 								if(mouseStatus) {
 									PartsList.changePart(separetedList.get((auxTextHeight/30)*8), i % 8);
@@ -471,8 +471,8 @@ public class Project {
 				
 				if(isEliminating) {
 					if(i > 7) {
-						if(Almoxarifado.mY > positionerY + auxTextHeight + ofsetHeight - (g.getFontMetrics().getHeight() + 15) && 
-						Almoxarifado.mY < positionerY + auxTextHeight + ofsetHeight + 10) {
+						if(Almoxarifado.mY > positionerY + auxTextHeight + offsetHeight - (g.getFontMetrics().getHeight() + 15) && 
+						Almoxarifado.mY < positionerY + auxTextHeight + offsetHeight + 10) {
 							newColor = Color.yellow;
 							if(mouseStatus) {
 								Almoxarifado.partsList.eliminatePart(Integer.parseInt(separetedList.get((auxTextHeight/30)*8)));
@@ -491,7 +491,7 @@ public class Project {
 				g.setColor(newColor);
 				
 				if(!multipleDescriptionMark) {
-					g.drawString(toDraw, positionerX + auxTextWidth, positionerY + auxTextHeight + ofsetHeight);
+					g.drawString(toDraw, positionerX + auxTextWidth, positionerY + auxTextHeight + offsetHeight);
 				}else {
 					
 					ArrayList<Integer> breakLineIndex = new ArrayList<>();
@@ -511,30 +511,30 @@ public class Project {
 						
 						auxBrokenDesc = toDraw.substring(breakLineIndex.get(lines-1), breakLineIndex.get(lines));
 
-						g.drawString(auxBrokenDesc, positionerX + auxTextWidth, positionerY + auxTextHeight + ofsetHeight + auxH);
+						g.drawString(auxBrokenDesc, positionerX + auxTextWidth, positionerY + auxTextHeight + offsetHeight + auxH);
 						auxH += 30;
 					}
 					auxH -=30;
 				}
 				
 				if(i > 10 && i % 8 == 7) {
-					g.drawImage(checkBox, positionerX + auxTextWidth - g.getFontMetrics().stringWidth(toDraw), positionerY + auxTextHeight + ofsetHeight - checkBox.getHeight(), 20, 20, null);
+					g.drawImage(checkBox, positionerX + auxTextWidth - g.getFontMetrics().stringWidth(toDraw), positionerY + auxTextHeight + offsetHeight - checkBox.getHeight(), 20, 20, null);
 					if(toDraw.equals("1")) {
-						g.drawImage(check, positionerX + auxTextWidth - g.getFontMetrics().stringWidth(toDraw), positionerY + auxTextHeight + ofsetHeight - checkBox.getHeight(), 20, 20, null);
+						g.drawImage(check, positionerX + auxTextWidth - g.getFontMetrics().stringWidth(toDraw), positionerY + auxTextHeight + offsetHeight - checkBox.getHeight(), 20, 20, null);
 					}
 				}
 			}
 		}
-		g.drawImage(add, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight, null);
-		g.drawImage(remove, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight, null);
-		UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight);
-		UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight);
+		g.drawImage(add, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + offsetHeight, null);
+		g.drawImage(remove, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + offsetHeight, null);
+		UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH/3) - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + offsetHeight);
+		UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH/3)*2 - (add.getWidth()/2), positionerY + auxTextHeight + g.getFontMetrics().getHeight() + offsetHeight);
 		
 		maximumHeight = positionerY + auxTextHeight + g.getFontMetrics().getHeight() - (UserInterface.maximunHeight + 26);
 		
 		if(mouseStatus) {
-			if(Almoxarifado.mY > positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight
-			&& Almoxarifado.mY < positionerY + auxTextHeight + g.getFontMetrics().getHeight() + ofsetHeight + add.getHeight()) {
+			if(Almoxarifado.mY > positionerY + auxTextHeight + g.getFontMetrics().getHeight() + offsetHeight
+			&& Almoxarifado.mY < positionerY + auxTextHeight + g.getFontMetrics().getHeight() + offsetHeight + add.getHeight()) {
 				if(Almoxarifado.mX > (Almoxarifado.WIDTH/3) - (add.getWidth()/2) && Almoxarifado.mX < (Almoxarifado.WIDTH/3) + (add.getWidth()/2)) {
 					PartsList.auxAddingFromMontagem = ID;
 					Almoxarifado.partsList.addPart();
@@ -560,7 +560,7 @@ public class Project {
 		if(!updateProject) {
 			g.setFont(new Font("segoe ui", 0, 35));
 			
-			g.drawImage(img, imgX, imgY + ofsetHeight, null);
+			g.drawImage(img, imgX, imgY + offsetHeight, null);
 			
 			if(isOverName) {
 				g.setColor(Color.darkGray);
@@ -568,7 +568,7 @@ public class Project {
 			}else {
 				g.setColor(Color.white);
 			}
-			g.drawString(name, imgX + 15 + img.getWidth(), imgY + 30 + ofsetHeight);
+			g.drawString(name, imgX + 15 + img.getWidth(), imgY + 30 + offsetHeight);
 			g.setFont(new Font("segoe ui", 0, 15));
 			
 			if(isOverCompany) {
@@ -577,7 +577,7 @@ public class Project {
 			}else {
 				g.setColor(Color.white);
 			}
-			g.drawString(company, imgX + 15 + img.getWidth(), imgY + img.getHeight()/2 + ofsetHeight);
+			g.drawString(company, imgX + 15 + img.getWidth(), imgY + img.getHeight()/2 + offsetHeight);
 			
 			if(isOverDescription) {
 				g.setColor(Color.darkGray);
@@ -585,22 +585,22 @@ public class Project {
 			}else {
 				g.setColor(Color.white);
 			}
-			g.drawString(description, imgX + 15 + img.getWidth(), imgY + img.getHeight() + ofsetHeight - 3);
+			g.drawString(description, imgX + 15 + img.getWidth(), imgY + img.getHeight() + offsetHeight - 3);
 			
 			g.setColor(Color.white);
-			g.drawString("Valor da Montagem: " + String.format("%.2f", price), Almoxarifado.WIDTH/2 + 15, imgY + 20 + ofsetHeight);
+			g.drawString("Valor da Montagem: " + String.format("%.2f", price), Almoxarifado.WIDTH/2 + 15, imgY + 20 + offsetHeight);
 			
 			
 			if(!isEditing) {
-				g.drawImage(editProfile, Almoxarifado.WIDTH - 128 - 100, imgY + ofsetHeight, null);
+				g.drawImage(editProfile, Almoxarifado.WIDTH - 128 - 100, imgY + offsetHeight, null);
 			}else {
-				g.drawImage(isEditingProfile, Almoxarifado.WIDTH - 128 - 100, imgY + ofsetHeight, null);
+				g.drawImage(isEditingProfile, Almoxarifado.WIDTH - 128 - 100, imgY + offsetHeight, null);
 			}
 			
-			g.drawImage(archiveProfile, Almoxarifado.WIDTH - 128 - 100, imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight, null);
+			g.drawImage(archiveProfile, Almoxarifado.WIDTH - 128 - 100, imgY + 64 + (img.getHeight() - 64*2) + offsetHeight, null);
 			
-			UserInterface.isOnSmallButton(g, Almoxarifado.WIDTH - 128 - 100, imgY + ofsetHeight);
-			UserInterface.isOnSmallButton(g, Almoxarifado.WIDTH - 128 - 100, imgY + 64 + (img.getHeight() - 64*2) + ofsetHeight);
+			UserInterface.isOnSmallButton(g, Almoxarifado.WIDTH - 128 - 100, imgY + offsetHeight);
+			UserInterface.isOnSmallButton(g, Almoxarifado.WIDTH - 128 - 100, imgY + 64 + (img.getHeight() - 64*2) + offsetHeight);
 			
 			nameSize = g.getFontMetrics(new Font("segoe ui", 0, 20)).stringWidth(name);
 			descriptionSize = g.getFontMetrics(new Font("segoe ui", 0, 20)).stringWidth(description);
