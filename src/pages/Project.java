@@ -59,7 +59,7 @@ public class Project {
 	int nameSize = 0;
 	int descriptionSize = 0;
 	int companySize = 0;
-	boolean isOverName = true;
+	boolean isOverName = false;
 	boolean isOverDescription = false;
 	boolean isOverCompany = false;
 	
@@ -99,7 +99,7 @@ public class Project {
 		company = brokenApartInfo[3];
 		imgAdress = brokenApartInfo[4];
 		
-		if(imgAdress.equals(null) || imgAdress.equals("null") || imgAdress.equals("")) {
+		if(checkDialog(imgAdress)) {
 			imgAdress = "ProjetoBetaImg";
 		}
 		
@@ -148,8 +148,6 @@ public class Project {
 			
 			updateProject = false;
 		}
-		
-		
 		
 		if(isOnTheRightState) {
 			if(maximumHeight > 0) {
