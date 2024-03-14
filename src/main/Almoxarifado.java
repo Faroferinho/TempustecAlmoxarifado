@@ -20,7 +20,9 @@ import javax.swing.JFrame;
 
 import functions.Archiver;
 import functions.DBConector;
+import functions.Functions;
 import functions.ImageManager;
+import functions.InputWindows;
 import pages.Admnistrator;
 import pages.Archive;
 import pages.Employee;
@@ -84,7 +86,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 		frame.add(almox);
 		frame.setResizable(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.getContentPane().setBackground(Color.black);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		frame.pack();
@@ -98,6 +100,8 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		quantityAssembly = DBConector.counterOfElements("Montagem");
 		quantityArchives = DBConector.counterOfElements("Arquivo");
 		quantityArchiveParts = DBConector.counterOfElements("Arquivo_Pecas");
+		
+		InputWindows.confirm("");
 		
 		new Thread(almox).start();
 		
@@ -119,6 +123,11 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	}
 	
 	public void tick() {
+		
+		if(!frame.isShowing()) {
+			Functions.generatePurchaseInquery();
+			System.exit(0);
+		}
 		
 		switch(state) {
 		case 0:

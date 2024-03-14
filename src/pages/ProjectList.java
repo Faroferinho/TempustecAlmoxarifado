@@ -28,6 +28,8 @@ public class ProjectList {
 	int initY = UserInterface.bttnY*2 + UserInterface.boxHeight*2;
 	int boxBorder = 30;
 	
+	String idsToSplit = DBConector.readDB("ID_Montagem", "montagem");
+	ArrayList<String> ids = new ArrayList<>();
 	String namesToSplit = DBConector.readDB("ISO", "montagem");
 	ArrayList<String> names = new ArrayList<>();
 	String descriptionsToSplit = DBConector.readDB("description", "montagem");
@@ -62,6 +64,7 @@ public class ProjectList {
 	int auxH = 0;
 	
 	public ProjectList(){
+		ids = Functions.listToArrayList(splitting(idsToSplit));
 		names = Functions.listToArrayList(splitting(namesToSplit));
 		descriptions = Functions.listToArrayList(splitting(descriptionsToSplit));
 		companies = Functions.listToArrayList(splitting(companiesToSplit));
@@ -183,8 +186,8 @@ public class ProjectList {
 					int confirmationOfChangeState = JOptionPane.showConfirmDialog(null, "Realmente deseja mudar de Pagina",
 					"Confirmação de Mudança de Pagina", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null);
 					if(confirmationOfChangeState == 0) {
-						Project.ID = Integer.parseInt(DBConector.readDB("ID_Montagem", "Montagem", "ISO", 
-								"\"" + names.get(changeStateIndex) + "\"").replace(" § \n", ""));
+						System.out.println("ids: \n" + ids + "\nIndice: " + ids.get(changeStateIndex));
+						Project.ID = Integer.parseInt(ids.get(changeStateIndex));
 						Project.updateProject = true;
 						Archiver.writeOnArchive("mudarPag", "" + Project.ID, "", "");
 						Almoxarifado.state = 5;
@@ -211,9 +214,11 @@ public class ProjectList {
 			
 			if(updateProjectList) {
 				// TODO: Verificar se não dar problema isso dai.
+				idsToSplit = DBConector.readDB("ID_Montagem", "montagem");
 				namesToSplit = DBConector.readDB("ISO", "montagem");
 				descriptionsToSplit = DBConector.readDB("description", "montagem");
 				
+				ids = Functions.listToArrayList(splitting(idsToSplit));
 				names = Functions.listToArrayList(splitting(namesToSplit));
 				descriptions = Functions.listToArrayList(splitting(descriptionsToSplit));
 				

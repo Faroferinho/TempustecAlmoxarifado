@@ -11,6 +11,8 @@ import java.util.Random;
 import main.Almoxarifado;
 
 public class Functions {
+	
+	public static String partsToOrder = "";
 
 	public Functions() {
 		// TODO Auto-generated constructor stub
@@ -96,6 +98,13 @@ public class Functions {
 	
 	public static double diferenceCurency(String v1, String v2) {
 		double returnValue = 0;
+
+		if(emptyString(v1.replaceAll("[^0-9]", ""))) {
+			v1 = "0";
+		}else if(emptyString(v2.replaceAll("[^0-9]", ""))) {
+			v2 = "0";
+		}
+		
 		BigDecimal firstValue = new BigDecimal(v1);
 		BigDecimal secondValue = new BigDecimal(v2);
 		BigDecimal subResult = firstValue.subtract(secondValue);
@@ -107,6 +116,13 @@ public class Functions {
 	
 	public static double sumCurency(String v1, String v2) {
 		double returnValue = 0;
+		
+		if(emptyString(v1.replaceAll("[^0-9]", ""))) {
+			v1 = "0";
+		}else if(emptyString(v2.replaceAll("[^0-9]", ""))) {
+			v2 = "0";
+		}
+		
 		BigDecimal firstValue = new BigDecimal(v1);
 		BigDecimal secondValue = new BigDecimal(v2);
 		BigDecimal sumResult = firstValue.add(secondValue);
@@ -137,11 +153,11 @@ public class Functions {
 		String toReturn = "";
 		HashMap<String, Integer> allValues = getInstances(column, table);
 		
-		for(String q : allValues.keySet()) {
-			if(q.toLowerCase().contains(query.toLowerCase())) {
-				if(allValues.get(q) > lastValue) {
-					toReturn = q;
-					lastValue = allValues.get(q);
+		for(String currElement : allValues.keySet()) {
+			if(currElement.toLowerCase().contains(query.toLowerCase())) {
+				if(allValues.get(currElement) > lastValue) {
+					toReturn = currElement;
+					lastValue = allValues.get(currElement);
 				}
 			}
 		}
@@ -149,6 +165,38 @@ public class Functions {
 		System.out.println("O Texto mais proximo é " + toReturn);
 		
 		return toReturn;
+	}
+	
+	public static void generatePurchaseInquery() {
+		if(!Almoxarifado.rdf.equals("")) {
+			String date = "";
+			String emailHeader = "Pedido de Peça, ";
+			String emailBody = randomGreetingsGen() + "\n";
+			String orderList = "";
+			String idsList[] = partsToOrder.split(" § \n"); 
+			LocalDateTime ldt = LocalDateTime.now();
+			
+			date = "" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear() + " - " + ldt.getHour() + ":" + ldt.getMinute() + ":" + ldt.getSecond();
+			emailHeader += date;
+			
+			emailBody += "O Usuário " + Almoxarifado.name + " fez um pedido de peças, seguem os dados: \n"
+					+ "--------------------------------------------------------------------------------\n";
+			for(int i = 0; i < idsList.length; i++) {
+				if(!partsToOrder.equals("")) {
+					if(DBConector.readDB("status", "Pecas", "ID_Parts", idsList[i]).equals("0 § \n")) {			
+						orderList += "	 - Montagem: " + DBConector.readDB("ISO", "Montagem", "ID_Montagem", DBConector.readDB("Montagem", "Pecas", "ID_Parts", idsList[i]).replaceAll(" § \n", "")).replaceAll(" § \n", "") 
+								  +  " - " + DBConector.readDB("Description", "Montagem", "ID_Montagem", DBConector.readDB("Montagem", "Pecas", "ID_Parts", idsList[i]).replaceAll(" § \n", "")).replaceAll(" § \n", "") + "\n"
+								  +  "	 - Descrição: " + DBConector.readDB("Description", "Pecas", "ID_Parts", idsList[i]).replaceAll(" § \n", "") + "\n"
+								  +  "	 - Quantidade: " + DBConector.readDB("Quantity", "Pecas", "ID_Parts", idsList[i]).replaceAll(" § \n", "") + " \n"
+								  +  "--------------------------------------------------------------------------------\n";
+					}
+				}
+			}
+			
+			if(!orderList.equals("")) {
+				Email.sendReport(emailHeader, emailBody);
+			}
+		}
 	}
 	
 }

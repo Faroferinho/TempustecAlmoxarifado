@@ -1,683 +1,284 @@
-O Usuário 8523 efetuou login - Horario: 2024-02-02T11:03:49.870777900
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-03-11T09:40:03.212078
 
-O Usuário 8523 modou para o projeto 1 - Horario: 2024-02-02T11:03:54.524792
-
-O Usuário 8523 efetuou login - Horario: 2024-02-02T11:51:47.680818600
-
-O Usuário 8523 modou para o projeto 1 - Horario: 2024-02-02T11:51:52.029831300
-
-O Usuário 8523 efetuou login - Horario: 2024-02-02T13:40:31.065440500
-
-O Usuário 8523 efetuou login - Horario: 2024-02-02T15:32:19.945074500
-
-O Usuário 8523 efetuou login - Horario: 2024-02-02T15:33:55.209511600
-
-O Usuário 1233 efetuou login - Horario: 2024-02-06T09:06:23.081315500
-
-O Usuário 1233 entrou no modo de edição - Horario: 2024-02-06T09:06:27.743710200
-
-O Usuário 1233 saiu do modo de edição - Horario: 2024-02-06T09:06:29.311425400
-
-O Usuário 1233 inseriu um novo cadastro de peça no DB de ID_Parts = 452 - Horario: 2024-02-06T09:08:04.421797900
-
-O Usuário 1233 alterou a peça ID_Parts.449, passou de 0 para 1 - Horario: 2024-02-06T09:08:09.333356400
-
-O Usuário 1233 alterou a peça ID_Parts.450, passou de 0 para 1 - Horario: 2024-02-06T09:08:12.697139
-
-O Usuário 1233 alterou a peça ID_Parts.451, passou de 0 para 1 - Horario: 2024-02-06T09:08:15.595160900
-
-O Usuário 1233 alterou a peça ID_Parts.452, passou de 0 para 1 - Horario: 2024-02-06T09:08:18.636022500
-
-O Usuário 1233 alterou a peça ID_Parts.453, passou de 0 para 1 - Horario: 2024-02-06T09:08:20.860814
-
-O Usuário 1233 inseriu um novo cadastro de peça no DB de ID_Parts = 453 - Horario: 2024-02-06T09:09:16.261787100
-
-O Usuário 1233 alterou a peça ID_Parts.454, passou de 0 para 1 - Horario: 2024-02-06T09:09:18.766081
-
-O Usuário 1233 inseriu um novo cadastro de peça no DB de ID_Parts = 454 - Horario: 2024-02-06T09:10:03.494432500
-
-O Usuário 1233 alterou a peça ID_Parts.455, passou de 0 para 1 - Horario: 2024-02-06T09:10:05.250901700
-
-O Usuário 2082 inseriu um novo cadastro de peça no DB de ID_Parts = 455 - Horario: 2024-02-06T09:13:35.020695900
-
-O Usuário 2082 alterou a peça ID_Parts.456, passou de 0 para 1 - Horario: 2024-02-06T09:13:36.522283300
-
-O Usuário 2082 inseriu um novo cadastro de peça no DB de ID_Parts = 456 - Horario: 2024-02-06T09:14:17.789295300
-
-O Usuário 2082 modou para o projeto 19 - Horario: 2024-02-06T09:14:23.935648100
-
-O Usuário 2082 inseriu um novo cadastro de peça no DB de ID_Parts = 457 - Horario: 2024-02-06T09:16:17.870000600
-
-O Usuário 2082 alterou a peça ID_Parts.458, passou de ------------ para Bogas Parafusos - Horario: 2024-02-06T09:16:22.085146200
-
-O Usuário 2082 alterou a peça ID_Parts.457, passou de 0 para 1 - Horario: 2024-02-06T09:16:23.262631
-
-O Usuário 2082 alterou a peça ID_Parts.458, passou de 0 para 1 - Horario: 2024-02-06T09:16:23.549079600
-
-O Usuário 8523 efetuou login - Horario: 2024-02-06T09:24:01.595450
-
-O Usuário 8523 efetuou login - Horario: 2024-02-06T09:26:38.445270800
-
-O Usuário 8523 efetuou login - Horario: 2024-02-06T09:48:11.528311900
-
-O Usuário 8523 efetuou login - Horario: 2024-02-06T11:32:29.380252800
-
-O Usuário 8523 efetuou login - Horario: 2024-02-06T13:51:01.631007
-
-O Usuário 8523 alterou a peça ID_Parts.447, passou de ------------ para Bogas Parafusos - Horario: 2024-02-06T13:52:04.922411500
-
-O Usuário 8523 alterou a peça ID_Parts.447, passou de 0.00 para 17.45 - Horario: 2024-02-06T13:52:29.806018200
-
-O Usuário 8523 removeu o ID_Parts de ID 455 - Horario: 2024-02-06T13:52:42.562106800
-
-O Usuário 8523 efetuou login - Horario: 2024-02-06T14:48:43.314646400
-
-O Usuário 8523 efetuou login - Horario: 2024-02-06T15:25:43.076667200
-
-O Usuário 8523 efetuou login - Horario: 2024-02-06T15:27:13.161164500
-
-O Usuário 8523 efetuou login - Horario: 2024-02-07T07:26:26.474526
-
-O Usuário 8523 efetuou login - Horario: 2024-02-07T10:51:40.853459200
-
-O Usuário 8523 modou para o projeto 1 - Horario: 2024-02-07T10:51:47.897711700
-
-O Usuário 8523 efetuou login - Horario: 2024-02-07T10:52:14.805741500
-
-O Usuário 8523 modou para o projeto 1 - Horario: 2024-02-07T10:52:19.929955400
-
-O Usuário 8523 efetuou login - Horario: 2024-02-07T13:14:07.188824600
-
-O Usuário 8523 alterou a peça ID_Parts.1, passou de  para  - Horario: 2024-02-07T13:15:56.496955100
-
-O Usuário 8523 efetuou login - Horario: 2024-02-07T13:16:38.238869600
-
-O Usuário 8523 efetuou login - Horario: 2024-02-07T13:25:49.310971500
-
-O Usuário 8523 efetuou login - Horario: 2024-02-07T14:00:47.475372900
-
-O Usuário 8523 modou para o projeto 1 - Horario: 2024-02-07T14:00:58.733907900
-
-O Usuário 8523 efetuou login - Horario: 2024-02-08T11:29:49.284202
-
-O Usuário 8523 efetuou login - Horario: 2024-02-08T11:33:57.642498
-
-O Usuário 8523 efetuou login - Horario: 2024-02-08T11:39:50.118184900
-
-O Usuário 8523 efetuou login - Horario: 2024-02-08T11:56:40.073837800
-
-O Usuário 8523 efetuou login - Horario: 2024-02-09T08:11:44.023415600
-
-O Usuário 8523 efetuou login - Horario: 2024-02-09T10:11:45.464972400
-
-O Usuário 8523 efetuou login - Horario: 2024-02-09T11:01:46.708743800
-
-O Usuário 8523 efetuou login - Horario: 2024-02-09T11:37:13.145241800
-
-O Usuário 8523 efetuou login - Horario: 2024-02-09T11:44:22.781633600
-
-O Usuário 8523 efetuou login - Horario: 2024-02-09T14:20:41.291574100
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T07:07:50.176713200
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T07:47:16.876105500
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T09:08:21.625534100
-
-O Usuário 8523 modou para o projeto 19 - Horario: 2024-02-12T09:08:27.851340900
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 471 - Horario: 2024-02-12T09:14:06.356521800
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 472 - Horario: 2024-02-12T09:14:26.536754100
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T09:45:37.055661500
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T13:52:59.835573600
-
-O Usuário 8523 modou para o projeto 1 - Horario: 2024-02-12T13:53:32.127633900
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T14:03:08.998978300
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T14:13:43.248986700
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T14:16:12.217924300
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts =  - Horario: 2024-02-12T14:16:17.765807300
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 1 - Horario: 2024-02-12T14:16:22.464436400
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 2 - Horario: 2024-02-12T14:16:28.091874800
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 3 - Horario: 2024-02-12T14:16:35.008920700
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 4 - Horario: 2024-02-12T14:16:39.319317400
-
-O Usuário 8523 alterou a peça ID_Parts.3, passou de 0.00 para 3 - Horario: 2024-02-12T14:16:43.368668300
-
-O Usuário 8523 alterou a peça ID_Parts.4, passou de 0.00 para 4 - Horario: 2024-02-12T14:16:46.171776700
-
-O Usuário 8523 modou para o projeto 2 - Horario: 2024-02-12T14:16:52.173494400
-
-O Usuário 8523 arquivou o Projeto de ID = 2 - Horario: 2024-02-12T14:16:55.186226900
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T14:17:49.137600
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T14:21:33.986453900
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T14:33:33.309830
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T15:07:14.014085
-
-O Usuário 8523 modou para o projeto 2 - Horario: 2024-02-12T15:07:25.903450500
-
-O Usuário 8523 arquivou o Projeto de ID = 2 - Horario: 2024-02-12T15:07:27.506571200
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T15:09:29.017880600
-
-O Usuário 8523 modou para o projeto 2 - Horario: 2024-02-12T15:09:31.727570100
-
-O Usuário 8523 arquivou o Projeto de ID = 2 - Horario: 2024-02-12T15:09:34.833083
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T15:11:55.841711400
-
-O Usuário 8523 modou para o projeto 2 - Horario: 2024-02-12T15:11:58.310821500
-
-O Usuário 8523 arquivou o Projeto de ID = 2 - Horario: 2024-02-12T15:12:01.403981900
-
-O Usuário 8523 efetuou login - Horario: 2024-02-12T15:12:24.946184500
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T09:33:38.153581600
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T09:48:52.450628400
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T09:56:18.309445
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T10:27:19.233599400
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T10:30:27.156938900
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T10:32:52.494386400
-
-O Usuário 8523 modou para o projeto 3 - Horario: 2024-02-13T10:33:49.235198500
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts =  - Horario: 2024-02-13T10:34:00.138898300
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 6 - Horario: 2024-02-13T10:34:03.157505300
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 7 - Horario: 2024-02-13T10:34:07.507294
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 8 - Horario: 2024-02-13T10:34:10.707964200
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 9 - Horario: 2024-02-13T10:34:13.708793100
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 10 - Horario: 2024-02-13T10:34:16.746341900
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 11 - Horario: 2024-02-13T10:34:22.104600200
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 12 - Horario: 2024-02-13T10:34:28.989569500
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 13 - Horario: 2024-02-13T10:34:32.381457800
-
-O Usuário 8523 alterou a peça ID_Parts.14, passou de ------------ para 9 - Horario: 2024-02-13T10:34:35.107456800
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 14 - Horario: 2024-02-13T10:34:50.686748700
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 15 - Horario: 2024-02-13T10:34:57.041824200
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 16 - Horario: 2024-02-13T10:34:59.887636600
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 17 - Horario: 2024-02-13T10:35:02.689907
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 18 - Horario: 2024-02-13T10:35:05.265898600
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 19 - Horario: 2024-02-13T10:35:08.205092500
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:29:16.029610600
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:34:57.404663400
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:35:38.494176700
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:37:24.741898100
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:37:59.822477700
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:38:46.467878300
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:39:56.858832500
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:40:45.323266300
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:41:28.729173500
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:41:57.999482900
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:44:07.425851900
-
-O Usuário 8523 modou para o projeto 1 - Horario: 2024-02-13T11:44:19.345791800
-
-O Usuário 8523 modou para o projeto 1 - Horario: 2024-02-13T11:44:22.919952500
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:45:49.992546300
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:46:59.273408500
-
-O Usuário 8523 alterou a peça ID_Parts.7, passou de 1 para 3 - Horario: 2024-02-13T11:47:19.334243600
-
-O Usuário 8523 alterou a peça ID_Parts.8, passou de 1 para 4 - Horario: 2024-02-13T11:47:21.663157300
-
-O Usuário 8523 alterou a peça ID_Parts.10, passou de 1 para 3 - Horario: 2024-02-13T11:47:27.455362100
-
-O Usuário 8523 alterou a peça ID_Parts.11, passou de 1 para 4 - Horario: 2024-02-13T11:47:32.273056800
-
-O Usuário 8523 alterou a peça ID_Parts.13, passou de 1 para 3 - Horario: 2024-02-13T11:47:41.751663100
-
-O Usuário 8523 alterou a peça ID_Parts.14, passou de 1 para 4 - Horario: 2024-02-13T11:47:45.167427800
-
-O Usuário 8523 alterou a peça ID_Parts.16, passou de 1 para 3 - Horario: 2024-02-13T11:47:48.247441200
-
-O Usuário 8523 alterou a peça ID_Parts.17, passou de 1 para 4 - Horario: 2024-02-13T11:47:53.416068300
-
-O Usuário 8523 alterou a peça ID_Parts.19, passou de 1 para 3 - Horario: 2024-02-13T11:47:56.746559800
-
-O Usuário 8523 alterou a peça ID_Parts.20, passou de 1 para 4 - Horario: 2024-02-13T11:47:59.710563500
-
-O Usuário 8523 alterou a peça ID_Parts.15, passou de ------------ para 000000000000000000000000000000000000000000000 - Horario: 2024-02-13T11:48:15.461391700
-
-O Usuário 8523 alterou a peça ID_Parts.15, passou de ------------ para 0000000000 - Horario: 2024-02-13T11:48:20.796818700
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:53:30.631101300
-
-O Usuário 8523 modou para o projeto 1 - Horario: 2024-02-13T11:53:35.758839700
-
-O Usuário 8523 modou para o projeto 3 - Horario: 2024-02-13T11:54:18.354075100
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:55:46.528113500
-
-O Usuário 8523 alterou a peça ID_Parts.6, passou de  para  - Horario: 2024-02-13T11:56:07.472270900
-
-O Usuário 8523 alterou a peça ID_Parts.7, passou de  para  - Horario: 2024-02-13T11:56:08.256092700
-
-O Usuário 8523 removeu o ID_Parts de ID 15 - Horario: 2024-02-13T11:56:16.444802200
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T11:57:13.209946400
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T13:59:31.954532900
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T14:10:54.573428300
-
-O Usuário 8523 modou para o projeto 5 - Horario: 2024-02-13T14:11:48.211013400
-
-O Usuário 8523 efetuou login - Horario: 2024-02-13T14:18:16.280541100
-
-O Usuário 8523 efetuou login - Horario: 2024-02-14T07:08:07.916865900
-
-O Usuário 8523 efetuou login - Horario: 2024-02-14T07:09:17.006618200
-
-O Usuário 8523 efetuou login - Horario: 2024-02-14T07:16:53.636050900
-
-O Usuário 8523 efetuou login - Horario: 2024-02-14T07:17:54.226535
-
-O Usuário 8523 efetuou login - Horario: 2024-02-14T07:18:33.397150900
-
-O Usuário 8523 efetuou login - Horario: 2024-02-14T07:50:19.764862600
-
-O Usuário 8523 efetuou login - Horario: 2024-02-14T08:41:17.413757700
-
-O Usuário 8523 inseriu um novo cadastro de funcionario no DB de RdF = 8875 - Horario: 2024-02-14T08:42:03.422895600
-
-O Usuário 8523 entrou no modo de listagem de funcionarios - Horario: 2024-02-14T08:42:06.916448100
-
-O Usuário 8523 alterou o Tipo de User.8875, passou de 1 para 0 - Horario: 2024-02-14T08:42:16.673023
-
-O Usuário 8523 inseriu um novo cadastro de funcionario no DB de RdF = 4547 - Horario: 2024-02-14T08:43:08.263320100
-
-O Usuário 8523 efetuou login - Horario: 2024-02-14T08:43:43.736419100
-
-O Usuário 8523 entrou no modo de listagem de funcionarios - Horario: 2024-02-14T08:43:45.186944600
-
-O Usuário 8523 entrou no modo de listagem de funcionarios - Horario: 2024-02-14T08:45:21.240933200
-
-O Usuário 8523 inseriu um novo cadastro de funcionario no DB de RdF = 9009 - Horario: 2024-02-14T08:45:38.726454600
-
-O Usuário 8523 alterou o Tipo de User.4547, passou de 1 para 0 - Horario: 2024-02-14T08:45:52.264738300
-
-O Usuário 8523 efetuou login - Horario: 2024-02-14T08:49:05.175700900
-
-O Usuário 8523 entrou no modo de listagem de funcionarios - Horario: 2024-02-14T08:49:09.451034500
-
-O Usuário 8523 inseriu um novo cadastro de funcionario no DB de RdF = 7101 - Horario: 2024-02-14T08:49:32.390596100
-
---------------------------------------------------------------------------------------O Usuário 8523 efetuou login - Horario: 2024-02-14T09:01:12.277943900
+O Usuário 8523 modou para o projeto 2022 - Horario: 2024-03-11T09:40:08.596097700
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-14T09:01:51.747904200
+O Usuário 8523 efetuou login - Horario: 2024-03-11T09:43:09.883729800
+
+O Usuário 8523 modou para o projeto 2022 - Horario: 2024-03-11T09:43:23.333298900
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-14T09:06:36.217881600
+O Usuário 8523 efetuou login - Horario: 2024-03-11T09:45:43.423553800
 
-O Usuário 8523 entrou no modo de listagem de funcionarios - Horario: 2024-02-14T09:06:37.497247400
+O Usuário 8523 modou para o projeto 2 - Horario: 2024-03-11T09:45:46.316475700
 
-O Usuário 8523 entrou no modo de edição - Horario: 2024-02-14T09:06:58.247656300
+O Usuário 8523 modou para o projeto 6 - Horario: 2024-03-11T09:45:48.823552100
 
---------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-14T09:07:37.301955400
+O Usuário 8523 modou para o projeto 21 - Horario: 2024-03-11T09:45:53.242950500
 
-O Usuário 8523 entrou no modo de listagem de funcionarios - Horario: 2024-02-14T09:07:39.779115600
-
-O Usuário 8523 alterou o Nome de User.4547, passou de 1 para a - Horario: 2024-02-14T09:10:24.689231100
-
-O Usuário 8523 alterou o Nome de User.7101, passou de 1 para b - Horario: 2024-02-14T09:10:27.700415800
-
-O Usuário 8523 alterou o Nome de User.9009, passou de 1 para D - Horario: 2024-02-14T09:10:31.599370800
+O Usuário 8523 modou para o projeto 2022 - Horario: 2024-03-11T09:46:03.788915
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-14T09:23:27.529729300
+O Usuário 853 efetuou login - Horario: 2024-03-11T09:52:43.663346
 
-O Usuário 8523 entrou no modo de edição - Horario: 2024-02-14T09:23:29.935785500
-
-O Usuário 8523 saiu do modo de edição - Horario: 2024-02-14T09:23:30.545105900
-
-O Usuário 8523 entrou no modo de listagem de funcionarios - Horario: 2024-02-14T09:23:35.541018900
+O Usuário 853 modou para o projeto 1234 - Horario: 2024-03-11T09:53:13.116663700
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-14T09:25:08.665515800
+O Usuário 8523 efetuou login - Horario: 2024-03-11T10:00:27.561101100
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-14T09:29:10.935379100
-
-O Usuário 8523 entrou no modo de listagem de funcionarios - Horario: 2024-02-14T09:29:13.205914300
+O Usuário 8523 efetuou login - Horario: 2024-03-11T10:01:18.542269100
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-14T09:29:42.590817600
-
-O Usuário 8523 entrou no modo de listagem de funcionarios - Horario: 2024-02-14T09:29:44.159154400
-
-O Usuário  entrou no modo de edição - Horario: 2024-02-14T09:37:18.371557600
-
-O Usuário  saiu do modo de edição - Horario: 2024-02-14T09:37:19.142710900
-
-O Usuário  entrou no modo de edição - Horario: 2024-02-14T09:37:19.168020600
-
-O Usuário  saiu do modo de edição - Horario: 2024-02-14T09:37:19.191184600
-
-O Usuário  entrou no modo de edição - Horario: 2024-02-14T09:37:19.214761300
-
-O Usuário  saiu do modo de edição - Horario: 2024-02-14T09:37:21.694674
-
-O Usuário  entrou no modo de edição - Horario: 2024-02-14T09:37:21.718924800
-
-O Usuário  saiu do modo de edição - Horario: 2024-02-14T09:37:21.743843
-
-O Usuário  entrou no modo de edição - Horario: 2024-02-14T09:37:21.767443800
-
-O Usuário  saiu do modo de edição - Horario: 2024-02-14T09:37:21.790387
-
-O Usuário  entrou no modo de listagem de funcionarios - Horario: 2024-02-14T09:37:23.522284500
-
-O Usuário  entrou no modo de edição - Horario: 2024-02-14T09:37:44.173115100
-
-O Usuário  entrou no modo de listagem de funcionarios - Horario: 2024-02-14T09:38:36.402934
-
-O Usuário  entrou no modo de listagem de funcionarios - Horario: 2024-02-14T09:39:55.929190300
-
-O Usuário  entrou no modo de listagem de funcionarios - Horario: 2024-02-14T09:41:23.694968800
-
-O Usuário  entrou no modo de listagem de funcionarios - Horario: 2024-02-14T09:43:39.458405500
-
-O Usuário  entrou no modo de edição - Horario: 2024-02-14T09:43:46.166303400
-
-O Usuário  entrou no modo de listagem de funcionarios - Horario: 2024-02-14T09:47:51.769235600
-
-O Usuário  entrou no modo de listagem de funcionarios - Horario: 2024-02-14T09:50:17.538259500
-
-O Usuário  entrou no modo de edição - Horario: 2024-02-14T09:50:22.223212300
-
-O Usuário  alterou o próprio Name, passou de  para null - Horario: 2024-02-14T09:50:28.408607100
-
-O Usuário  entrou no modo de edição - Horario: 2024-02-14T09:50:44.563606200
-
-O Usuário  entrou no modo de listagem de funcionarios - Horario: 2024-02-14T10:08:05.902961100
-
-O Usuário  alterou a peça ID_Parts.7, passou de 0 para 1 - Horario: 2024-02-14T11:25:45.957306
-
-O Usuário  alterou a peça ID_Parts.9, passou de 0 para 1 - Horario: 2024-02-14T11:25:46.558505100
-
-O Usuário  alterou a peça ID_Parts.11, passou de 0 para 1 - Horario: 2024-02-14T11:25:47.622396700
-
-O Usuário  alterou a peça ID_Parts.13, passou de 0 para 1 - Horario: 2024-02-14T11:25:48.411529300
-
-O Usuário  alterou a peça ID_Parts.15, passou de 0 para 1 - Horario: 2024-02-14T11:25:49.330502
-
-O Usuário  alterou a peça ID_Parts.17, passou de 0 para 1 - Horario: 2024-02-14T11:25:50.053375500
-
-O Usuário  alterou a peça ID_Parts.19, passou de 0 para 1 - Horario: 2024-02-14T11:25:51.320921900
-
-O Usuário  alterou o CPF de User.9009, passou de 10020030040 para 12345678993 - Horario: 2024-02-14T11:28:48.425547100
-
-O Usuário  alterou a Senha de User.9009, passou de Tempustec2023 para CthulhuF'tgn - Horario: 2024-02-14T11:29:08.284803200
-
-O Usuário  alterou o Tipo de User.9009, passou de 1 para 0 - Horario: 2024-02-14T11:29:13.468023200
-
-O Usuário  removeu o funcionario de ID 9009 - Horario: 2024-02-14T11:40:19.975555100
-
-O Usuário  alterou a peça ID_Parts.9, passou de 1 para 5 - Horario: 2024-02-14T14:27:13.387688900
-
-O Usuário  alterou a peça ID_Parts.10, passou de 3 para 6 - Horario: 2024-02-14T14:27:15.933187100
-
-O Usuário  alterou a peça ID_Parts.11, passou de 4 para 7 - Horario: 2024-02-14T14:27:18.004762600
-
-O Usuário  alterou a peça ID_Parts.12, passou de 1 para 8 - Horario: 2024-02-14T14:27:20.312073200
-
-O Usuário  alterou a peça ID_Parts.13, passou de 3 para 9 - Horario: 2024-02-14T14:27:22.348036700
-
-O Usuário  alterou a peça ID_Parts.14, passou de 4 para 10 - Horario: 2024-02-14T14:27:24.682580600
-
-O Usuário  alterou a peça ID_Parts.15, passou de 3 para 11 - Horario: 2024-02-14T14:27:27.226192900
-
-O Usuário  alterou a peça ID_Parts.16, passou de 4 para 12 - Horario: 2024-02-14T14:27:34.531365700
-
-O Usuário  alterou a peça ID_Parts.17, passou de 1 para 13 - Horario: 2024-02-14T14:27:39.233870
-
-O Usuário  alterou a peça ID_Parts.18, passou de 3 para 14 - Horario: 2024-02-14T14:27:44.604239900
-
-O Usuário  alterou o Tipo de User.4547, passou de 0 para 1 - Horario: 2024-02-14T14:28:02.898794400
-
-O Usuário  modou para o projeto 1 - Horario: 2024-02-15T08:21:59.888881500
-
-O Usuário  modou para o projeto 3 - Horario: 2024-02-15T08:22:03.041990
-
-O Usuário  alterou a peça ID_Parts.6, passou de 1.00 para 200 - Horario: 2024-02-15T08:48:31.413249
-
-O Usuário  alterou a peça ID_Parts.19, passou de 5 para 400 - Horario: 2024-02-15T08:48:44.033059900
-
-O Usuário  alterou a peça ID_Parts.15, passou de 1.00 para 123 - Horario: 2024-02-15T08:48:54.717048700
-
-O Usuário  alterou a peça ID_Parts.13, passou de 8.00 para 8.97 - Horario: 2024-02-15T08:49:00.078413500
-
-O Usuário  alterou a peça ID_Parts.12, passou de 7.00 para 13.13 - Horario: 2024-02-15T08:49:03.505481900
-
-O Usuário  modou para o projeto 1 - Horario: 2024-02-15T08:51:07.296141300
-
-O Usuário  modou para o projeto 4 - Horario: 2024-02-15T08:51:16.710988500
+O Usuário 8523 efetuou login - Horario: 2024-03-11T10:02:54.241459200
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-16T07:51:23.239510500
+O Usuário 8523 efetuou login - Horario: 2024-03-11T10:04:02.122811500
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-16T07:53:09.035113600
-
-O Usuário 8523 modou para o projeto 3 - Horario: 2024-02-16T07:53:13.794949
-
-O Usuário 8523 arquivou o Projeto de ID = 3 - Horario: 2024-02-16T07:53:17.755436600
-
-O Usuário 8523 modou para o projeto 7 - Horario: 2024-02-16T07:53:20.894986700
-
-O Usuário 8523 arquivou o Projeto de ID = 7 - Horario: 2024-02-16T07:53:22.463742500
-
-O Usuário 8523 modou para o projeto 11 - Horario: 2024-02-16T07:53:24.071591300
-
-O Usuário 8523 arquivou o Projeto de ID = 11 - Horario: 2024-02-16T07:53:27.533491100
-
-O Usuário 8523 modou para o projeto 12 - Horario: 2024-02-16T07:53:30.678269
-
-O Usuário 8523 arquivou o Projeto de ID = 12 - Horario: 2024-02-16T07:53:33.535825300
-
-O Usuário 8523 modou para o projeto 16 - Horario: 2024-02-16T07:53:43.275853100
-
-O Usuário 8523 arquivou o Projeto de ID = 16 - Horario: 2024-02-16T07:53:45.528789300
+O Usuário 8523 efetuou login - Horario: 2024-03-11T10:04:49.879745100
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-16T07:54:16.753835100
+O Usuário 8523 efetuou login - Horario: 2024-03-11T10:05:36.886709100
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-16T07:59:09.681403800
+O Usuário 8523 efetuou login - Horario: 2024-03-11T10:06:53.534934800
 
-O Usuário 8523 modou para o projeto 9 - Horario: 2024-02-16T07:59:12.691472600
-
-O Usuário 8523 arquivou o Projeto de ID = 9 - Horario: 2024-02-16T07:59:14.238226400
-
-O Usuário 8523 modou para o projeto 10 - Horario: 2024-02-16T07:59:15.855228500
-
-O Usuário 8523 arquivou o Projeto de ID = 10 - Horario: 2024-02-16T07:59:20.334381800
+O Usuário 8523 modou para o projeto 1 - Horario: 2024-03-11T10:06:56.579073200
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-16T08:01:00.077263600
+O Usuário 853 efetuou login - Horario: 2024-03-11T10:07:29.149111900
 
-O Usuário 8523 modou para o projeto 13 - Horario: 2024-02-16T08:01:05.081723600
+O Usuário 853 modou para o projeto 6 - Horario: 2024-03-11T10:07:44.572735800
 
-O Usuário 8523 arquivou o Projeto de ID = 13 - Horario: 2024-02-16T08:01:07.228450200
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts =  - Horario: 2024-03-11T10:07:48.570852
 
-O Usuário 8523 modou para o projeto 15 - Horario: 2024-02-16T08:01:08.879835100
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts =  - Horario: 2024-03-11T10:07:52.933031400
 
-O Usuário 8523 arquivou o Projeto de ID = 15 - Horario: 2024-02-16T08:01:13.437380700
+O Usuário 853 modou para o projeto 5 - Horario: 2024-03-11T10:08:02.382042200
 
---------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-16T08:02:12.170924100
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 1 - Horario: 2024-03-11T10:08:05.315870300
 
-O Usuário 8523 modou para o projeto 14 - Horario: 2024-02-16T08:02:16.098911900
+O Usuário 853 modou para o projeto 7 - Horario: 2024-03-11T10:08:07.849243100
 
-O Usuário 8523 arquivou o Projeto de ID = 14 - Horario: 2024-02-16T08:02:17.841824900
-
-O Usuário 8523 modou para o projeto 18 - Horario: 2024-02-16T08:02:19.705663900
-
-O Usuário 8523 arquivou o Projeto de ID = 18 - Horario: 2024-02-16T08:02:21.957783200
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 2 - Horario: 2024-03-11T10:08:10.653657100
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-16T08:28:05.335805800
+O Usuário 8523 efetuou login - Horario: 2024-03-14T07:41:33.324853300
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-16T08:47:02.406551300
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 19 - Horario: 2024-02-16T08:48:34.759771800
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 21 - Horario: 2024-02-16T08:49:10.985376100
-
-O Usuário 8523 alterou a peça ID_Parts.22, passou de 0.00 para 57 - Horario: 2024-02-16T08:49:15.835980100
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 22 - Horario: 2024-02-16T08:49:32.548286700
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 23 - Horario: 2024-02-16T08:49:40.762546
-
-O Usuário 8523 alterou a peça ID_Parts.24, passou de 0 para 14,44 - Horario: 2024-02-16T08:49:47.492855
-
-O Usuário 8523 alterou a peça ID_Parts.24, passou de 0.00 para 12 - Horario: 2024-02-16T08:49:51.091010
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 24 - Horario: 2024-02-16T08:49:58.610052
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 25 - Horario: 2024-02-16T08:50:22.920755
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 26 - Horario: 2024-02-16T08:50:50.040051600
-
-O Usuário 8523 alterou a peça ID_Parts.27, passou de 0.00 para 111 - Horario: 2024-02-16T08:50:53.546034400
-
-O Usuário 8523 inseriu um novo cadastro de peça no DB de ID_Parts = 27 - Horario: 2024-02-16T08:51:14.153503
+O Usuário 8523 efetuou login - Horario: 2024-03-14T07:41:46.180776200
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-16T09:36:38.093972700
+O Usuário 8523 efetuou login - Horario: 2024-03-14T08:04:30.093790400
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-19T08:21:02.551458200
+O Usuário 8523 efetuou login - Horario: 2024-03-14T08:06:53.077816900
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-19T08:25:00.256433
+O Usuário 8523 efetuou login - Horario: 2024-03-14T08:17:29.961578800
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-19T08:26:20.503529400
-
-O Usuário 8523 alterou o CPF de User.8523, passou de 37114320850 para 3131313131 - Horario: 2024-02-19T08:26:56.744594
+O Usuário 853 efetuou login - Horario: 2024-03-14T08:37:54.157749400
 
 --------------------------------------------------------------------------------------
-O Usuário 6951 efetuou login - Horario: 2024-02-19T08:31:00.070667
+O Usuário 853 efetuou login - Horario: 2024-03-14T08:39:37.150147400
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 3 - Horario: 2024-03-14T08:39:42.595813
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 4 - Horario: 2024-03-14T08:39:46.620180500
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 5 - Horario: 2024-03-14T08:39:50.716610100
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 6 - Horario: 2024-03-14T08:39:55.318592300
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 7 - Horario: 2024-03-14T08:40:00.535929900
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 8 - Horario: 2024-03-14T08:40:04.253261
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-19T08:31:38.136886500
+O Usuário 853 efetuou login - Horario: 2024-03-14T08:41:04.146646500
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 9 - Horario: 2024-03-14T08:41:12.808996500
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 10 - Horario: 2024-03-14T08:41:15.588076100
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 11 - Horario: 2024-03-14T08:41:18.244511800
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-19T08:56:45.328872800
+O Usuário 853 efetuou login - Horario: 2024-03-14T08:52:19.310550100
 
-O Usuário 8523 alterou a Senha de User.7101, passou de Tempustec2023 para 1234 - Horario: 2024-02-19T08:57:13.135045400
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 12 - Horario: 2024-03-14T08:52:28.571378800
 
---------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-19T09:46:41.699335800
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 13 - Horario: 2024-03-14T08:52:31.957457900
 
---------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-19T09:47:34.641746300
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 14 - Horario: 2024-03-14T08:52:35.322949
 
---------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-19T09:48:46.562685600
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 15 - Horario: 2024-03-14T08:52:38.295139500
 
---------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-19T09:50:52.578079200
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 16 - Horario: 2024-03-14T08:52:41.282976100
 
-O Usuário 8523 alterou o CPF de User.6180, passou de 01987654321 para 98765432101 - Horario: 2024-02-19T09:51:37.327555
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 17 - Horario: 2024-03-14T08:53:04.033282400
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-19T10:41:05.643029
+O Usuário 853 efetuou login - Horario: 2024-03-14T08:54:10.983991100
 
-O Usuário 8523 removeu o funcionario de ID 2089 - Horario: 2024-02-19T10:41:31.262925500
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 18 - Horario: 2024-03-14T08:54:21.030202600
 
-O Usuário 8523 removeu o funcionario de ID 2740 - Horario: 2024-02-19T10:41:33.835607900
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 19 - Horario: 2024-03-14T08:54:23.793015400
 
---------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-21T08:08:06.080186700
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 20 - Horario: 2024-03-14T08:54:26.345573500
 
-O Usuário 8523 alterou a peça ID_Parts.21, passou de 123 para Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at auctor lacus. Donec dolor lorem, aliquet in blandit a, feugiat nec urna. Donec pretium leo magna, id porta libero maximus lobortis. Mauris vestibulum pharetra metus eget varius. - Horario: 2024-02-21T08:08:38.380479100
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 21 - Horario: 2024-03-14T08:54:29.715802100
 
-O Usuário 8523 alterou a peça ID_Parts.21, passou de Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at auctor lacus. Donec dolor lorem, aliquet in blandit a, feugiat nec urna. Donec pretium leo magna, id porta libero maximus lobortis. Mauris vestibulum pharetra metus eget varius. para Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at auctor lacus. Donec dolor lorem, aliquet in blandit a, feugiat nec urna. Donec pretium leo magna, id porta libero maximus lobortis. Mauris vestibulum pharetra metus eget varius. - Horario: 2024-02-21T08:08:54.326744700
-
-O Usuário 8523 alterou a peça ID_Parts.12, passou de 7 para Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at auctor lacus. Donec dolor lorem, aliquet in blandit a, feugiat nec urna. Donec pretium leo magna, id porta libero maximus lobortis. Mauris vestibulum pharetra metus eget varius. - Horario: 2024-02-21T08:08:58.098997500
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 22 - Horario: 2024-03-14T08:54:32.229142700
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-21T08:10:25.530051
+O Usuário 853 efetuou login - Horario: 2024-03-14T09:04:11.015615
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 23 - Horario: 2024-03-14T09:04:30.756653300
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 24 - Horario: 2024-03-14T09:04:53.102073600
+
+O Usuário 853 modou para o projeto 5 - Horario: 2024-03-14T09:04:56.903675
+
+O Usuário 853 alterou o Projeto de ID = 5, passou de OS 1 para OS 69 - Horario: 2024-03-14T09:05:08.533714
+
+O Usuário 853 modou para o projeto 6 - Horario: 2024-03-14T09:05:15.507867300
+
+O Usuário 853 alterou o Projeto de ID = 6, passou de OS 1 para OS 22 - Horario: 2024-03-14T09:05:21.996443200
+
+O Usuário 853 modou para o projeto 6 - Horario: 2024-03-14T09:05:26.512916
+
+O Usuário 853 modou para o projeto 7 - Horario: 2024-03-14T09:05:29.845037300
+
+O Usuário 853 alterou o Projeto de ID = 7, passou de OS 1 para OS 50 - Horario: 2024-03-14T09:05:35.727420100
+
+O Usuário 853 alterou a peça ID_Parts.25, passou de 1 para 5 - Horario: 2024-03-14T09:05:46.424181800
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 25 - Horario: 2024-03-14T09:06:10.754393300
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 26 - Horario: 2024-03-14T09:06:36.538293800
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-21T08:10:44.456748100
+O Usuário 853 efetuou login - Horario: 2024-03-14T09:31:18.529795800
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-21T08:11:47.581251600
+O Usuário 853 efetuou login - Horario: 2024-03-14T09:33:19.572745700
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-21T08:16:33.953826500
+O Usuário 853 efetuou login - Horario: 2024-03-14T09:33:34.972511300
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-21T08:17:32.451758800
+O Usuário 853 efetuou login - Horario: 2024-03-14T09:35:55.751459200
 
-O Usuário 8523 alterou a peça ID_Parts.12, passou de Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at auctor lacus. Donec dolor lorem, aliquet in blandit a, feugiat nec urna. Donec pretium leo magna, id porta libero maximus lobortis. Mauris vestibulum pharetra metus eget varius. para ------------------------------------------------------------------- - Horario: 2024-02-21T08:17:40.121327300
-
-O Usuário 8523 alterou a peça ID_Parts.12, passou de ------------------------------------------------------------------- para AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Horario: 2024-02-21T08:17:49.396857
-
-O Usuário 8523 alterou a peça ID_Parts.12, passou de AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA para AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Horario: 2024-02-21T08:17:56.228752500
-
-O Usuário 8523 alterou a peça ID_Parts.12, passou de AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA para AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Horario: 2024-02-21T08:18:05.777207900
-
-O Usuário 8523 alterou a peça ID_Parts.12, passou de AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA para AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Horario: 2024-02-21T08:18:35.035808300
-
-O Usuário 8523 alterou a peça ID_Parts.12, passou de AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA para AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Horario: 2024-02-21T08:18:55.151409800
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 27 - Horario: 2024-03-14T09:36:03.751334800
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-21T09:15:52.187110200
+O Usuário 853 efetuou login - Horario: 2024-03-14T09:37:28.146242100
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 27 - Horario: 2024-03-14T09:37:33.379771400
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 28 - Horario: 2024-03-14T09:37:39.794988700
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 29 - Horario: 2024-03-14T09:38:00.058200300
+
+O Usuário 853 alterou a peça ID_Parts.30, passou de 0 para 1 - Horario: 2024-03-14T09:38:02.506986700
 
 --------------------------------------------------------------------------------------
-O Usuário 8523 efetuou login - Horario: 2024-02-21T11:52:16.980932700
+O Usuário 853 efetuou login - Horario: 2024-03-14T09:39:13.339510800
+
+O Usuário 853 alterou a peça ID_Parts.29, passou de 0 para 1 - Horario: 2024-03-14T09:39:18.542079400
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-03-14T09:46:16.169668200
+
+O Usuário 853 alterou a peça ID_Parts.28, passou de 0 para 1 - Horario: 2024-03-14T09:46:21.167989800
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-03-14T09:47:52.726853300
+
+O Usuário 853 alterou a peça ID_Parts.13, passou de 0 para 1 - Horario: 2024-03-14T09:47:54.591763500
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-03-14T09:48:35.444646
+
+O Usuário 853 alterou a peça ID_Parts.4, passou de 0 para 1 - Horario: 2024-03-14T09:48:37.691749600
+
+O Usuário 853 alterou a peça ID_Parts.3, passou de 0 para 1 - Horario: 2024-03-14T09:48:38.336922800
+
+O Usuário 853 alterou a peça ID_Parts.5, passou de 0 para 1 - Horario: 2024-03-14T09:48:39.027588
+
+O Usuário 853 alterou a peça ID_Parts.4, passou de 1 para 0 - Horario: 2024-03-14T09:48:39.441531300
+
+O Usuário 853 alterou a peça ID_Parts.3, passou de 1 para 0 - Horario: 2024-03-14T09:48:39.795869500
+
+O Usuário 853 alterou a peça ID_Parts.4, passou de 0 para 1 - Horario: 2024-03-14T09:48:40.263359600
+
+O Usuário 853 alterou a peça ID_Parts.5, passou de 1 para 0 - Horario: 2024-03-14T09:48:40.879957200
+
+O Usuário 853 alterou a peça ID_Parts.3, passou de 0 para 1 - Horario: 2024-03-14T09:48:41.307982500
+
+O Usuário 853 alterou a peça ID_Parts.4, passou de 1 para 0 - Horario: 2024-03-14T09:48:41.725046300
+
+O Usuário 853 alterou a peça ID_Parts.3, passou de 1 para 0 - Horario: 2024-03-14T09:48:42.239967600
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-03-14T09:57:37.032748
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-03-14T09:58:16.647077400
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 30 - Horario: 2024-03-14T09:58:34.703695
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 31 - Horario: 2024-03-14T09:58:49.625624700
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 32 - Horario: 2024-03-14T09:59:00.457077900
+
+O Usuário 853 alterou a peça ID_Parts.33, passou de 0 para 1 - Horario: 2024-03-14T09:59:02.104677900
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 33 - Horario: 2024-03-14T09:59:22.660875300
+
+O Usuário 853 inseriu um novo cadastro de peça no DB de ID_Parts = 34 - Horario: 2024-03-14T09:59:48.797624400
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-03-14T10:16:29.681808900
+
+O Usuário 853 alterou a peça ID_Parts.1, passou de 1.00 para 1 - Horario: 2024-03-14T10:16:41.346598500
+
+O Usuário 853 alterou a peça ID_Parts.1, passou de  para  - Horario: 2024-03-14T10:16:42.047273400
+
+O Usuário 853 alterou a peça ID_Parts.1, passou de  para  - Horario: 2024-03-14T10:16:42.447207900
+
+O Usuário 853 alterou a peça ID_Parts.1, passou de  para  - Horario: 2024-03-14T10:16:42.614760700
+
+O Usuário 853 alterou a peça ID_Parts.1, passou de  para  - Horario: 2024-03-14T10:16:43.245542100
+
+O Usuário 853 alterou a peça ID_Parts.1, passou de  para  - Horario: 2024-03-14T10:16:43.620585400
+
+O Usuário 853 alterou a peça ID_Parts.1, passou de  para  - Horario: 2024-03-14T10:16:44.271928300
+
+O Usuário 853 alterou a peça ID_Parts.1, passou de  para  - Horario: 2024-03-14T10:16:44.795045400
+
+O Usuário 853 modou para o projeto 1 - Horario: 2024-03-14T10:16:54.765869700
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-03-14T10:20:15.337411800
+
+O Usuário 853 alterou a peça ID_Parts.15, passou de 3.00 para 1 - Horario: 2024-03-14T10:20:24.153123500
+
+O Usuário 853 alterou a peça ID_Parts.15, passou de 1.00 para 1 - Horario: 2024-03-14T10:20:26.108639300
+
+O Usuário 853 alterou a peça ID_Parts.15, passou de 1.00 para 3 - Horario: 2024-03-14T10:20:29.532100700
+
+O Usuário 853 alterou a peça ID_Parts.15, passou de 3.00 para 1 - Horario: 2024-03-14T10:20:32.422086900
+
+O Usuário 853 alterou a peça ID_Parts.15, passou de  para  - Horario: 2024-03-14T10:20:35.608114500
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-03-14T10:21:46.989264500
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-03-14T10:24:27.776294300
 

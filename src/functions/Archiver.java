@@ -75,7 +75,7 @@ public class Archiver {
 		auxDate = auxDate.substring(0, 19);
 		auxDate = auxDate.replaceAll("T", " ");
 		
-		int lastQuinzena = Integer.parseInt(DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", ""));
+		int lastQuinzena = Integer.parseInt("0" + DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", "").replaceAll("null", ""));
 		
 		if(fortnightVerificator(auxDate)) {
 			String lastValue = "";
