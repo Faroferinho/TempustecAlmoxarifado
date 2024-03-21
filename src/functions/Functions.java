@@ -194,7 +194,7 @@ public class Functions {
 			}
 			
 			if(!orderList.equals("")) {
-				Email.sendReport(emailHeader, emailBody);
+				Email.sendReport(emailHeader, emailBody + orderList);
 			}
 		}
 	}

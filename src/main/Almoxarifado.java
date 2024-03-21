@@ -22,7 +22,6 @@ import functions.Archiver;
 import functions.DBConector;
 import functions.Functions;
 import functions.ImageManager;
-import functions.InputWindows;
 import pages.Admnistrator;
 import pages.Archive;
 import pages.Employee;
@@ -100,8 +99,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		quantityAssembly = DBConector.counterOfElements("Montagem");
 		quantityArchives = DBConector.counterOfElements("Arquivo");
 		quantityArchiveParts = DBConector.counterOfElements("Arquivo_Pecas");
-		
-		InputWindows.confirm("");
 		
 		new Thread(almox).start();
 		
