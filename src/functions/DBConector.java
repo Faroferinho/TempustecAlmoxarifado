@@ -349,7 +349,7 @@ public class DBConector {
 	
 	public static int counterOfElements(String table) {
 		int returnCounter = 0;
-		String query = "SELECT * FROM " + table;
+		String query = "SELECT COUNT(*) FROM " + table;
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -363,7 +363,7 @@ public class DBConector {
 			ResultSet rslt = statement.executeQuery(query);
 			
 			while(rslt.next()) {
-				returnCounter++;
+				returnCounter += rslt.getInt(1);
 			}
 			
 			

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -61,6 +62,8 @@ public class PartsList {
 
 	public PartsList() {
 		finalPartsTable = listBreaker(toSplit);
+		
+		System.out.println("Carregou Lista de Peças: " + LocalDateTime.now());
 	}
 	
 	public static String getKey(String value) {		

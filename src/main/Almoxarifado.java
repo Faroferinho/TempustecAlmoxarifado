@@ -15,6 +15,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferStrategy;
+import java.time.LocalDateTime;
 
 import javax.swing.JFrame;
 
@@ -49,6 +50,9 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static ProjectList projectList;
 	public static Project project;
 	public static Archive archive;
+	
+	public static Thread mainThread;
+	public static Thread fortnightVerificatorThread;
 	
 	public static String name = "";
 	public static String cpf = "";
@@ -93,16 +97,26 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		frame.setVisible(true);
 		
 		frame.setIconImage(imgManag.TempustecIcon);
+		System.out.println("Carregou Tela: " + LocalDateTime.now());
 		
 		quantityWorkers = DBConector.counterOfElements("funcionarios");
 		quantityParts = DBConector.counterOfElements("pecas");
 		quantityAssembly = DBConector.counterOfElements("Montagem");
 		quantityArchives = DBConector.counterOfElements("Arquivo");
 		quantityArchiveParts = DBConector.counterOfElements("Arquivo_Pecas");
+		System.out.println("Carregou Quantidades: " + LocalDateTime.now());
 		
-		new Thread(almox).start();
+		mainThread = new Thread(almox);
+		fortnightVerificatorThread = new Thread() {
+			public void run(){
+				Archiver.logInfo();
+			}
+		};
 		
-		Archiver.logInfo();
+		mainThread.start();
+		fortnightVerificatorThread.start();
+		
+		System.out.println("Carregou as Threads: " + LocalDateTime.now());
 	}
 	
 	public Almoxarifado() {
@@ -117,6 +131,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		this.addMouseWheelListener(this);
 		this.addKeyListener(this);
 		this.setFocusTraversalKeysEnabled(false);
+		System.out.println("Carregou Almoxarifado: " + LocalDateTime.now());
 	}
 	
 	public void tick() {

@@ -3,6 +3,7 @@ package main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.time.LocalDateTime;
 
 import functions.Functions;
 
@@ -46,6 +47,8 @@ public class UserInterface {
 		bttnPartsActivated = Almoxarifado.imgManag.getSprite(215, 390, boxWidthBig, boxHeight);
 		bttnAssemblyActivated = Almoxarifado.imgManag.getSprite(0, 450, boxWidthBig, boxHeight);
 		bttnArchiveActivated = Almoxarifado.imgManag.getSprite(215, 450, boxWidthBig, boxHeight);
+		
+		System.out.println("Carregou UserInterface: " + LocalDateTime.now());
 	}
 	
 	public void clearBox(Graphics g) {

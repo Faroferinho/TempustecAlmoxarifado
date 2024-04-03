@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import functions.DBConector;
@@ -47,6 +48,7 @@ public class Archive {
 	BufferedImage img = Almoxarifado.imgManag.getProjectImage("ArquivoBeta");
 
 	public Archive() {
+		System.out.println("Carregou Arquivo: " + LocalDateTime.now());
 	}
 	
 	void restoreAssemby(int ID) {
