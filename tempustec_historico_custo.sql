@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: tempustec
 -- ------------------------------------------------------
--- Server version	8.0.35
+-- Server version	8.0.36
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,7 +30,7 @@ CREATE TABLE `historico_custo` (
   PRIMARY KEY (`ID_History`),
   KEY `Date` (`Date`),
   CONSTRAINT `historico_custo_ibfk_1` FOREIGN KEY (`Date`) REFERENCES `quinzena` (`ID_Fortnight`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `historico_custo` (
 
 LOCK TABLES `historico_custo` WRITE;
 /*!40000 ALTER TABLE `historico_custo` DISABLE KEYS */;
+INSERT INTO `historico_custo` VALUES (1,1,1,5494.89),(2,1,2,4900.00),(3,1,3,0.00),(4,1,4,0.00),(5,1,5,6454.31),(6,1,6,0.00),(7,1,7,141.52),(8,1,8,0.00),(9,1,9,0.00),(10,1,10,0.00),(11,1,11,0.00),(12,1,12,0.00),(13,1,13,48.20),(14,1,14,0.00),(15,1,15,0.00),(16,1,19,124.22),(17,1,20,0.00),(18,1,21,0.00),(19,2,1,5900.59),(20,2,2,6800.00),(21,2,3,0.00),(22,2,4,0.00),(23,2,5,7023.80),(24,2,6,0.00),(25,2,7,141.52),(26,2,8,0.00),(27,2,9,0.00),(28,2,10,0.00),(29,2,11,0.00),(30,2,12,0.00),(31,2,13,48.20),(32,2,14,0.00),(33,2,15,0.00),(34,2,19,344.38),(35,2,20,2245.26),(36,2,21,0.00);
 /*!40000 ALTER TABLE `historico_custo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-06  9:36:39
+-- Dump completed on 2024-04-04 10:08:20

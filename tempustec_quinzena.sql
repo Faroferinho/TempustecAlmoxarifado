@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: tempustec
 -- ------------------------------------------------------
--- Server version	8.0.35
+-- Server version	8.0.36
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,7 +27,7 @@ CREATE TABLE `quinzena` (
   `date` datetime NOT NULL,
   `totalExpanses` double(10,2) NOT NULL,
   PRIMARY KEY (`ID_Fortnight`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +36,7 @@ CREATE TABLE `quinzena` (
 
 LOCK TABLES `quinzena` WRITE;
 /*!40000 ALTER TABLE `quinzena` DISABLE KEYS */;
+INSERT INTO `quinzena` VALUES (1,'2024-03-13 07:26:47',17163.14),(2,'2024-03-28 08:40:11',22503.75);
 /*!40000 ALTER TABLE `quinzena` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-06  9:36:39
+-- Dump completed on 2024-04-04 10:08:20
