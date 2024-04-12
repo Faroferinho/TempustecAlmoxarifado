@@ -5,19 +5,31 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/conra/eclipse/Drivers/mysql-connector-j-8.3.0/mysql-connector-j-8.3.0/mysql-connector-j-8.3.0.jar">
+=======
+	<classpathentry kind="lib" path="C:/Users/Tempustec/eclipse/Drivers/mysql-connector-j-8.2.0/mysql-connector-j-8.2.0.jar">
+>>>>>>> 313004d9fc5c5db44c17bdf7361fd865caba6c06
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="res"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/conra/eclipse/Drivers/activation-1.1.jar">
+=======
+	<classpathentry kind="lib" path="C:/Users/Tempustec/eclipse/Drivers/activation-1.1.jar">
+>>>>>>> 313004d9fc5c5db44c17bdf7361fd865caba6c06
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/conra/eclipse/Drivers/javax.mail-1.6.2.jar">
+=======
+	<classpathentry kind="lib" path="C:/Users/Tempustec/eclipse/Drivers/javax.mail.jar">
+>>>>>>> 313004d9fc5c5db44c17bdf7361fd865caba6c06
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
