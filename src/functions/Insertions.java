@@ -3,7 +3,10 @@ package functions;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import main.Almoxarifado;
 
 public abstract class Insertions {
 	
@@ -16,10 +19,13 @@ public abstract class Insertions {
 	public boolean isWriting = false;
 	private int writerIndex = 0;
 	
-	protected String Title = "";
+	protected String title = "";
 	protected ArrayList<String> labels = new ArrayList<String>();
 	protected ArrayList<Rectangle> textBoxes = new ArrayList<Rectangle>();
 	protected ArrayList<String> values = new ArrayList<String>();
+	
+	protected final BufferedImage okImage = Almoxarifado.imgManag.getSprite(0, 570, 165, 60);
+	protected final BufferedImage cancelImage = Almoxarifado.imgManag.getSprite(165, 570, 165, 60);
 
 	public Insertions() {
 		// TODO Auto-generated constructor stub

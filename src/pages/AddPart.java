@@ -18,7 +18,7 @@ public class AddPart extends Insertions {
 		quantity = 5;
 		border = 15;
 		
-		Title = "Cadastro de Peça:";
+		title = "Cadastro de Peça:";
 		
 		labels.add("O.S. da Peça:");
 		values.add(DBConector.readDB("ISO", "Montagem ORDER BY LENGTH(ISO) DESC LIMIT 1").replaceAll(" § ", ""));
@@ -84,7 +84,7 @@ public class AddPart extends Insertions {
 		
 		g.setColor(Color.white);
 		g.setFont(new Font("segoi ui", 1, 40));
-		g.drawString(Title, Almoxarifado.WIDTH/2 - g.getFontMetrics().stringWidth(Title)/2, 160);
+		g.drawString(title, Almoxarifado.WIDTH/2 - g.getFontMetrics().stringWidth(title)/2, 160);
 		
 		
 		for(int i = 0; i < quantity; i++) {
@@ -98,6 +98,12 @@ public class AddPart extends Insertions {
 			
 			g.setColor(Color.white);
 		}
+		
+		g.drawImage(okImage, (Almoxarifado.WIDTH / 3) - okImage.getWidth()/2, 600, null);
+		g.drawImage(cancelImage, (Almoxarifado.WIDTH / 3) * 2 - cancelImage.getWidth()/2, 600, null);
+		
+		UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH / 3) - okImage.getWidth()/2, 600);
+		UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH / 3) * 2 - okImage.getWidth()/2, 600);
 		
 		writeOnTextBoxes(g);
 	}
