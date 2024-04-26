@@ -26,6 +26,9 @@ public abstract class Insertions {
 	
 	protected final BufferedImage okImage = Almoxarifado.imgManag.getSprite(0, 570, 165, 60);
 	protected final BufferedImage cancelImage = Almoxarifado.imgManag.getSprite(165, 570, 165, 60);
+	
+	public String genericString = "----------";
+	public int genericNumeral = 0;
 
 	public Insertions() {
 		// TODO Auto-generated constructor stub
@@ -39,7 +42,7 @@ public abstract class Insertions {
 			textInserted = values.get(selected);
 			
 			if(writerIndex == 0) {
-				if(!((e.getExtendedKeyCode() > -1 && e.getExtendedKeyCode() < 20) || 
+				if(!((e.getExtendedKeyCode() > -1 && e.getExtendedKeyCode() < 21) || 
 					 (e.getExtendedKeyCode() > 126 && e.getExtendedKeyCode() < 160))) {
 					textInserted += e.getKeyChar();
 				}else {
@@ -92,13 +95,21 @@ public abstract class Insertions {
 		return toReturn;
 	}
 	
+	protected abstract void writeTextOnBox();
+	
 	protected abstract void writeQuery();
 	
-	protected abstract void writeOnTextBoxes(Graphics g);
+	protected abstract boolean verifyValues(String text);
 	
-	protected abstract void verifyValues();
+	protected abstract void fillDefaultValues();
+	
+	protected abstract void okButtonClick();
+	
+	protected abstract void cancelButtonClick();
 	
 	public abstract void tick();
+	
+	public abstract void drawErrorMessage(Graphics g);
 	
 	public abstract void render(Graphics g);
 
