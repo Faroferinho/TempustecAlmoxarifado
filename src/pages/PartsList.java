@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 
 import functions.Archiver;
 import functions.DBConector;
-import functions.Functions;
 import main.Almoxarifado;
 import main.UserInterface;
 

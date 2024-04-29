@@ -32,9 +32,20 @@ public class AddPart extends Insertions {
 		labels.add("Fornecedor da peça: ");
 		values.add(DBConector.readDB("Supplier", "Pecas ORDER BY LENGTH(Supplier) DESC LIMIT 1").replaceAll(" § ", ""));
 		
+		int auxX = 0;
+		int auxY = 0;
+		
 		for(int i = 0; i < quantity; i++) {
-			textBoxes.add(new Rectangle(80, 200 + 90 * i, values.get(i).length() * 8 + 24, 40));
+			
+			if(auxX > 1) {
+				auxX = 0;
+				auxY++;
+			}
+			
+			textBoxes.add(new Rectangle(80 + ((middleScreenX - 80) * auxX), 200 + 160 * auxY, values.get(i).length() * 8 + 24, 40));
 			values.set(i, "");
+			
+			auxX++;
 		}
 	}
 
@@ -45,7 +56,7 @@ public class AddPart extends Insertions {
 			isWriting = false;
 			for(int i = 0; i < quantity; i++) {
 				if(Functions.isOnBox(textBoxes.get(i))) {
-					//System.out.println("Ciclou na caixa de texto " + i);
+					System.out.println("Ciclou na caixa de texto " + i);
 					selected = i;
 					isWriting = true;
 				}
@@ -130,8 +141,10 @@ public class AddPart extends Insertions {
 
 	@Override
 	protected void cancelButtonClick() {
-		// TODO Auto-generated method stub
-		
+		int toVerif = JOptionPane.showConfirmDialog(null, "Você gostaria cancelar a ação?", "Confirmar o Cancelamento", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		if(toVerif == 0) {
+			Almoxarifado.state = 2;
+		}
 	}
 
 	@Override
@@ -140,42 +153,23 @@ public class AddPart extends Insertions {
 			selected = 0;
 		}
 		
-		if(click && Functions.isOnBox(((Almoxarifado.WIDTH / 3) - okImage.getWidth()/2), 600, 165, 60)) {
-			okButtonClick();
-		}
-		
-		switch(selected) {
-		case 0:
-			break;
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		}
-		
 		writeTextOnBox();
-	}
-
-	@Override
-	public void drawErrorMessage(Graphics g) {
-		g.setFont(new Font("segoi ui", 0, 10));
-		g.setColor(Color.red);
 		
-		for(int i = 0; i < quantity; i++) {
-			g.drawString(" - Preencha este campo", (int)(textBoxes.get(i).getX() + textBoxes.get(i).getWidth()), (int)(textBoxes.get(i).getY()));
+		if(click) {
+			if(Functions.isOnBox(((Almoxarifado.WIDTH / 3) - okImage.getWidth()/2), 600, 165, 60)) {
+				okButtonClick();
+			}else if(Functions.isOnBox(((Almoxarifado.WIDTH / 3) * 2 - okImage.getWidth()/2), 600, 165, 60)) {
+				cancelButtonClick();
+			}
+			click = false;
 		}
-		
 	}
 
 	@Override
 	public void render(Graphics g) {		
 		g.setColor(Color.white);
 		g.setFont(new Font("segoi ui", 1, 40));
-		g.drawString(title, Almoxarifado.WIDTH/2 - g.getFontMetrics().stringWidth(title)/2, 160);
+		g.drawString(title, middleScreenX - g.getFontMetrics().stringWidth(title)/2, 160);
 		
 		
 		for(int i = 0; i < quantity; i++) {
@@ -195,6 +189,10 @@ public class AddPart extends Insertions {
 		
 		UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH / 3) - okImage.getWidth()/2, 600);
 		UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH / 3) * 2 - okImage.getWidth()/2, 600);
+		
+		if(isWriting) {
+			drawCursor(g);
+		}
 	}
 
 }
