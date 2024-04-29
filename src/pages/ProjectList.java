@@ -84,59 +84,8 @@ public class ProjectList {
 		
 	}
 	
-	private static boolean verifyString(String toVerif) {
-		if(toVerif.equals("") || toVerif.equals("null") || toVerif.equals(" ")) {
-			return true;
-		}
-		return false;
-	}
-	
 	private void createNewAssembly(){
-		mouseStatus = false;
-		String querry = "INSERT INTO montagem (ISO, description, company) VALUES( \"";
-		String newAssemblyInfo = "";
-		
-		newAssemblyInfo += JOptionPane.showInputDialog(null, "Insira o Valor da OS", "Cadastro de Nova Montagem", JOptionPane.PLAIN_MESSAGE);
-		if(verifyString(newAssemblyInfo)) {
-			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.WARNING_MESSAGE);
-			return;
-		}
-		
-		querry += "OS " + newAssemblyInfo + "\", \"";
-		
-		names.add(newAssemblyInfo);
-		
-		newAssemblyInfo = "";
-		
-		newAssemblyInfo += JOptionPane.showInputDialog(null, "Insira uma descrição", "Cadastro de Nova Montagem", JOptionPane.PLAIN_MESSAGE);
-		if(verifyString(newAssemblyInfo)) {
-			JOptionPane.showMessageDialog(null, "O Valor será nulo", "", JOptionPane.WARNING_MESSAGE);
-			newAssemblyInfo = "---------------------";
-		}
-		
-		querry += newAssemblyInfo + "\", \"";
-		
-		descriptions.add(newAssemblyInfo);
-		
-		newAssemblyInfo = "";
-		
-		newAssemblyInfo += JOptionPane.showInputDialog(null, "De Qual Empresa?", "Cadastro de Nova Montagem", JOptionPane.PLAIN_MESSAGE);
-		if(verifyString(newAssemblyInfo)) {
-			JOptionPane.showMessageDialog(null, "Operação Cancelada", "", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		
-		querry += newAssemblyInfo + "\")";
-		
-		companies.add(newAssemblyInfo);
-		
-		newAssemblyInfo = "";
-		
-		JOptionPane.showMessageDialog(null, "Cadastro Efetuado Com sucesso", "Cadastro Concluido", JOptionPane.INFORMATION_MESSAGE, null);
-		
-		DBConector.writeDB(querry);
-		Almoxarifado.quantityAssembly++;
-		updateProjectList = true;
+		Almoxarifado.state = 7;
 	}
 	
 	public void scrollPositioner() {
@@ -224,6 +173,7 @@ public class ProjectList {
 				resetInfo();
 				
 				PartsList.restartAssemblyList = true;
+				Almoxarifado.quantityAssembly = DBConector.counterOfElements("Montagem");
 				updateProjectList = false;
 			}
 			
