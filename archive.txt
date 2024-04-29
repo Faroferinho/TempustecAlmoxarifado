@@ -410,3 +410,6 @@ O Usuário  modou para o projeto 8 - Horario: 2024-04-29T09:07:02.666025900
 
 O Usuário  alterou o Projeto de ID = 8, passou de OS Uso Interno para Uso Interno - Horario: 2024-04-29T09:07:09.503678800
 
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-04-29T11:48:04.066420500
+
