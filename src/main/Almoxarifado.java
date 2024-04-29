@@ -392,7 +392,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
-		System.out.println("O Caractere " + e.getKeyChar() + " tem como código " + e.getExtendedKeyCode());
+		//System.out.println("O Caractere " + e.getKeyChar() + " tem como código " + e.getExtendedKeyCode());
 		
 		if(state == 0) {
 			if(login.isWriting) {
