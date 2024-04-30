@@ -16,12 +16,16 @@ import main.Almoxarifado;
 public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
-	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempustec";
+	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempusteste";
 	private static String user = "root";
 	private static String password = "1234";
 	
 	public DBConector() {
 		
+	}
+	
+	public static String getDB() {
+		return urlDBTempustec;
 	}
 	
 	public static String readDB(String objective, String table){
