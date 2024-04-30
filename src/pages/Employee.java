@@ -22,7 +22,7 @@ public class Employee extends Profile{
 		passwordButton = Almoxarifado.imgManag.getSprite(475, 120, 165, 60);
 	}
 	
-	public void tick() {	
+	public void tick() {
 		if(reset) {
 			reset = false;
 			isEditing = false;
@@ -34,7 +34,6 @@ public class Employee extends Profile{
 		}else {
 			reset = true;
 			isOnTheRightState = false;
-			
 		}
 		
 		if(isOnTheRightState) {

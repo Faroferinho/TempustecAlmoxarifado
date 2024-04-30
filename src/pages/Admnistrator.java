@@ -240,7 +240,7 @@ public class Admnistrator extends Profile {
 		return query;
 	}
 	
-	private void remove(int x) {		
+	private void removeWorker(int x) {		
 		int confirmation = JOptionPane.showConfirmDialog(null, "Você tem *CERTEZA* que você deseja deletar essa peça?", "Confirma a Eliminação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		
 		if(confirmation != 0) {
@@ -257,37 +257,29 @@ public class Admnistrator extends Profile {
 		String infoChanger = "";
 		
 		String columnName = "";
-		String UpdaterName = "";
+		String updaterName = "";
 		
 		switch(column) {
 		case 1:
 			columnName = "o Nome";
-			UpdaterName = "name";
+			updaterName = "name";
 			infoChanger += JOptionPane.showInputDialog(null, "Você deseja Alterar " + columnName, "Alteração de Perfil", JOptionPane.WARNING_MESSAGE);
 			break;
 		case 2:
 			columnName = "o CPF";
-			UpdaterName = "CPF";
+			updaterName = "CPF";
 			infoChanger += JOptionPane.showInputDialog(null, "Você deseja Alterar " + columnName, "Alteração de Perfil", JOptionPane.WARNING_MESSAGE);
 			
-			Pattern letter = Pattern.compile("[a-zA-z]");
-	        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+        	infoChanger = infoChanger.replaceAll("[^0-9]", "");
 	        
-	        Matcher hasLetter = letter.matcher(infoChanger);
-	        Matcher hasSpecial = special.matcher(infoChanger);
-	        
-	        if(hasLetter.find() || hasSpecial.find()) {
-	        	infoChanger = infoChanger.replaceAll("[^0-9]", "");
-	        }
-	        
-	        if(infoChanger.length() < 10 || infoChanger.length() > 12) {
+	        if(infoChanger.length() != 11) {
 	        	JOptionPane.showMessageDialog(null, "Valor Inserido Invalido", "Erro ao Efetuar Alteração", JOptionPane.ERROR_MESSAGE);
 	        	return;
 	        }
 			break;
 		case 3:
 			columnName = "a Senha";
-			UpdaterName = "password";
+			updaterName = "password";
 
 			int i = 0;
 			
@@ -310,14 +302,10 @@ public class Admnistrator extends Profile {
 				
 			}
 			
-			if(i == 0) {
-				return;
-			}
-			
 			break;
 		case 4:
 			columnName = "o Tipo";
-			UpdaterName = "type";
+			updaterName = "type";
 			String Options[] = {"Administrador", "Colaborador"};
 			infoChanger += JOptionPane.showInputDialog(null, "Você deseja Alterar " + columnName, "Alteração de Perfil", JOptionPane.WARNING_MESSAGE, null, Options, 0);
 			break;
@@ -334,7 +322,7 @@ public class Admnistrator extends Profile {
 					infoChanger = "0";
 				}
 			}
-			DBConector.writeDB("funcionarios", UpdaterName, infoChanger, "RdF", separetedInfo[index][0]);
+			DBConector.writeDB("funcionarios", updaterName, infoChanger, "RdF", separetedInfo[index][0]);
 			Archiver.writeOnArchive("alteracao", columnName + " de User." + separetedInfo[index][0], separetedInfo[index][column], infoChanger);
 			getInfo();
 		}
@@ -396,8 +384,7 @@ public class Admnistrator extends Profile {
 					auxTextToDraw = textFormater(separetedInfo[y][x], x);
 				}
 				if(!isRemoving) {
-					if(Almoxarifado.mX > initialX + auxX && Almoxarifado.mX < initialX + auxX + g.getFontMetrics().stringWidth(auxTextToDraw)
-					&& Almoxarifado.mY > initialY + auxY - g.getFontMetrics().getHeight() && Almoxarifado.mY < initialY + auxY) {
+					if(Functions.isOnBox(initialX + auxX, initialY + auxY - g.getFontMetrics().getHeight(), g.getFontMetrics().stringWidth(auxTextToDraw), g.getFontMetrics().getHeight())) {
 						nC = Color.gray;
 						if(mouseStatus) {
 							changeInfo(x, y);
@@ -414,7 +401,7 @@ public class Admnistrator extends Profile {
 						}
 						if(mouseStatus) {
 							Archiver.writeOnArchive("remocao", "funcionario", separetedInfo[y][0], "");
-							remove(Integer.parseInt(separetedInfo[y][0]));
+							removeWorker(Integer.parseInt(separetedInfo[y][0]));
 							mouseStatus = false;
 						}
 					}
@@ -441,9 +428,8 @@ public class Admnistrator extends Profile {
 		UserInterface.isOnSmallButton(g, ((Almoxarifado.WIDTH / 3)*2 - (deleteButton.getWidth() / 3)*2), initialY + auxY + auxHeight);
 
 		if(mouseStatus) {
-			if(Almoxarifado.mX > (Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 2)
-			&& Almoxarifado.mX < (Almoxarifado.WIDTH / 3) + (deleteButton.getWidth() / 2)
-			&& Almoxarifado.mY > initialY + auxY + auxHeight && Almoxarifado.mY < initialY + auxY + auxHeight + 64) {
+			if(Functions.isOnBox((Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 2), 
+			initialY + auxY + auxHeight, deleteButton.getWidth(), initialY + auxY + auxHeight + 64)) {
 				if(isRemoving == true) {
 					isRemoving = false;
 					mouseStatus = false;
@@ -452,9 +438,8 @@ public class Admnistrator extends Profile {
 					mouseStatus = false;
 				}
 			}
-			if(Almoxarifado.mX > (Almoxarifado.WIDTH / 3)*2 - (deleteButton.getWidth() / 2)
-			&& Almoxarifado.mX < (Almoxarifado.WIDTH / 3)*2 + (deleteButton.getWidth() / 2)
-			&& Almoxarifado.mY > initialY + auxY + auxHeight && Almoxarifado.mY < initialY + auxY + auxHeight + 64) {
+			if(Functions.isOnBox((Almoxarifado.WIDTH / 3)*2 - (deleteButton.getWidth() / 2), initialY + auxY + auxHeight, 
+			deleteButton.getWidth(), deleteButton.getHeight())) {
 				isSigning = true;
 			}
 		}
