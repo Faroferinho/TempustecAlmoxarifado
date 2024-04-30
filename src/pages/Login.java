@@ -3,9 +3,13 @@ package pages;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+<<<<<<< HEAD
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+=======
+import java.awt.Image;
+>>>>>>> 756dab6 (Recriando o repositório local git)
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
@@ -274,10 +278,6 @@ public class Login {
 	
 	public void render(Graphics g) {
 		
-		Graphics2D g2 = (Graphics2D)g;
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		
 		g.fillRect(0, 0, Almoxarifado.WIDTH, Almoxarifado.HEIGHT);
 		g.setColor(new Color(126, 126, 126));
 		g.fillRoundRect((Almoxarifado.WIDTH/5), 15, (Almoxarifado.WIDTH/5)*3, Almoxarifado.HEIGHT-30, 45, 45);
@@ -288,11 +288,11 @@ public class Login {
 		g.setColor(Color.white);
 		g.fillRoundRect(textBoxX, textBoxY + 48, textBoxW, textBoxH, 15, 15);
 		g.fillRoundRect(textBoxX, (int) (textBoxY * 1.6), textBoxW, textBoxH, 15, 15);
-		g.setFont(new Font("Times New Roman", Font.BOLD, 35));
-		Almoxarifado.drawStringBorder(g2, "Inicie Sessão", (Almoxarifado.WIDTH/2) - (g.getFontMetrics().stringWidth("Inicie Sessão")/2), textBoxY - 20, 1, Color.DARK_GRAY, Color.white);
+		Almoxarifado.drawStringBorder(g, "Inicie Sessão", (Almoxarifado.WIDTH/2) - (g.getFontMetrics().stringWidth("Inicie Sessão")/2), textBoxY - 20, 1, Color.DARK_GRAY, Color.white);
 		g.setFont(new Font("Times New Roman", 0, 20));
-		Almoxarifado.drawStringBorder(g2, "CPF:", textBoxX + 15, textBoxY + 44, 1, Color.DARK_GRAY, Color.white);
-		Almoxarifado.drawStringBorder(g2, "Senha:", textBoxX + 15, (int) (textBoxY * 1.6) - 3, 1, Color.DARK_GRAY, Color.white);
+		Almoxarifado.drawStringBorder(g, "CPF:", textBoxX + 15, textBoxY + 44, 1, Color.DARK_GRAY, Color.white);
+		Almoxarifado.drawStringBorder(g, "Senha:", textBoxX + 15, (int) (textBoxY * 1.6) - 3, 1, Color.DARK_GRAY, Color.white);
+
 		g.setColor(Color.black);
 		g.drawRoundRect(textBoxX, textBoxY + 48, textBoxW, textBoxH, 15, 15);
 		g.drawRoundRect(textBoxX, (int) (textBoxY * 1.6), textBoxW, textBoxH, 15, 15);

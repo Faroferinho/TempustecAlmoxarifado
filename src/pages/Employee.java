@@ -38,17 +38,7 @@ public class Employee extends Profile{
 		}
 		
 		if(isOnTheRightState) {
-			if(mouseStatus == true) {
-				mouseAuxRun = true;
-				mouseAuxEdit = true;
-				mouseStatus = false;
-			}else {
-				mouseAuxRun = false;
-				mouseAuxEdit = false;
-				mouseAuxSign = false;
-			}
-			
-			if(mouseAuxRun) {
+			if(mouseStatus) {
 				switch(buttonClick(Almoxarifado.mX, Almoxarifado.mY, false)) {
 				case 1:
 					if(isEditing == false) {

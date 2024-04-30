@@ -13,15 +13,15 @@ public class UserInterface {
 	public static int boxWidthSmall = 165;
 	public static int boxHeight = 60;
 	
-	public BufferedImage iconProfile;
-	public BufferedImage iconParts;
-	public BufferedImage iconAssembly;
-	public BufferedImage iconArchive;
-	public BufferedImage iconExit;
-	public BufferedImage iconProfileActivated;
-	public BufferedImage iconPartsActivated;
-	public BufferedImage iconAssemblyActivated;
-	public BufferedImage iconArchiveActivated;
+	public BufferedImage bttnProfile;
+	public BufferedImage bttnParts;
+	public BufferedImage bttnAssembly;
+	public BufferedImage bttnArchive;
+	public BufferedImage bttnExit;
+	public BufferedImage bttnProfileActivated;
+	public BufferedImage bttnPartsActivated;
+	public BufferedImage bttnAssemblyActivated;
+	public BufferedImage bttnArchiveActivated;
 	
 	public static int spd = 24;
 	
@@ -33,17 +33,18 @@ public class UserInterface {
 		bttnX[2] = ((Almoxarifado.WIDTH / (bttnX.length + 1)) * 3) - (boxWidthBig / 2);
 		bttnX[3] = ((Almoxarifado.WIDTH / (bttnX.length + 1)) * 4) - (boxWidthBig / 2);
 		bttnX[4] = ((Almoxarifado.WIDTH / (bttnX.length + 1)) * 5) - (boxWidthBig / 2);
-		
-		iconProfile = Almoxarifado.imgManag.getSprite(215, 0, boxWidthBig, boxHeight);
-		iconParts = Almoxarifado.imgManag.getSprite(0, 60, boxWidthBig, boxHeight);
-		iconAssembly = Almoxarifado.imgManag.getSprite(215, 60, boxWidthBig, boxHeight);
-		iconArchive = Almoxarifado.imgManag.getSprite(0, 120, boxWidthBig, boxHeight);
-		iconExit = Almoxarifado.imgManag.getSprite(215, 120, boxWidthBig, boxHeight);
 
-		iconProfileActivated = Almoxarifado.imgManag.getSprite(0, 390, boxWidthBig, boxHeight);
-		iconPartsActivated = Almoxarifado.imgManag.getSprite(215, 390, boxWidthBig, boxHeight);
-		iconAssemblyActivated = Almoxarifado.imgManag.getSprite(0, 450, boxWidthBig, boxHeight);
-		iconArchiveActivated = Almoxarifado.imgManag.getSprite(215, 450, boxWidthBig, boxHeight);
+		bttnProfile = Almoxarifado.imgManag.getSprite(215, 0, boxWidthBig, boxHeight);
+		bttnParts = Almoxarifado.imgManag.getSprite(0, 60, boxWidthBig, boxHeight);
+		bttnAssembly = Almoxarifado.imgManag.getSprite(215, 60, boxWidthBig, boxHeight);
+		bttnArchive = Almoxarifado.imgManag.getSprite(0, 120, boxWidthBig, boxHeight);
+		bttnExit = Almoxarifado.imgManag.getSprite(215, 120, boxWidthBig, boxHeight);
+
+		bttnProfileActivated = Almoxarifado.imgManag.getSprite(0, 390, boxWidthBig, boxHeight);
+		bttnPartsActivated = Almoxarifado.imgManag.getSprite(215, 390, boxWidthBig, boxHeight);
+		bttnAssemblyActivated = Almoxarifado.imgManag.getSprite(0, 450, boxWidthBig, boxHeight);
+		bttnArchiveActivated = Almoxarifado.imgManag.getSprite(215, 450, boxWidthBig, boxHeight);
+
 	}
 	
 	public void clearBox(Graphics g) {
@@ -73,29 +74,36 @@ public class UserInterface {
 	}
 	
 	public int setFunction(int mx, int my){
-		
-		if(my < bttnY + boxHeight && my > bttnY) {
-			if(mx > bttnX[0] && mx < bttnX[0] + boxWidthBig) {
-				if(Almoxarifado.type.equals("1")) {
-					Almoxarifado.admProfile.reset = true;
-				}else {
-					Almoxarifado.workProfile.reset = true;
+		if(my > bttnY && my < bttnY + boxHeight) {
+			for(int i = 0; i < 5; i++) {
+				if(mx > bttnX[i] && mx < bttnX[i] + boxWidthBig) {
+					return i + 1;
 				}
-				return 1;
-			}else if(mx > bttnX[1] && mx < bttnX[1] + boxWidthBig) {
-				return 2;
-			}else if(mx > bttnX[2] && mx < bttnX[2] + boxWidthBig) {
-				return 3;
-			}else if(mx > bttnX[3] && mx < bttnX[3] + boxWidthBig) {
-				return 4;
-			}else if(mx > bttnX[4] && mx < bttnX[4] + boxWidthBig) {
-				return 5;
 			}
 		}
 		
 		return -1;
-		
+	}
+	
+	public void checkMouse() {
+		switch(setFunction(Almoxarifado.mX, Almoxarifado.mY)) {
+		case 1:
+			Almoxarifado.state = 1;
+			break;
+		case 2:
+			Almoxarifado.state = 2;
+			break;
+		case 3:
+			Almoxarifado.state = 3;
+			break;
+		case 4:
+			Almoxarifado.state = 4;
+			break;
+		case 5:
+			System.exit(0);
+			break;
 		}
+	}
 	
 	public static void isOnBigButton(Graphics g, int pX, int pY) {
 		if(Almoxarifado.mX > pX && Almoxarifado.mX < pX + boxWidthBig) {
@@ -114,24 +122,7 @@ public class UserInterface {
 			}
 		}
 	}
-	
-	public void checkMouse() {
-		if(setFunction(Almoxarifado.mX, Almoxarifado.mY) == 1) {
-			Almoxarifado.state = 1;
-		}else if(setFunction(Almoxarifado.mX, Almoxarifado.mY) == 2) {
-			Almoxarifado.state = 2;
-		}else if(setFunction(Almoxarifado.mX, Almoxarifado.mY) == 3) {
-			Almoxarifado.state = 3;
-		}else if(setFunction(Almoxarifado.mX, Almoxarifado.mY) == 4) {
-			Almoxarifado.state = 4;
-		}else if(setFunction(Almoxarifado.mX, Almoxarifado.mY) == 5) {
-			System.exit(0);
-		}
-	}
-	
-	public void drawTableBorders(Graphics g) {
-		
-	}
+
 
 	public void tick() {
 		if(Almoxarifado.mPressed) {
@@ -141,25 +132,26 @@ public class UserInterface {
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(iconProfile, bttnX[0], bttnY, null);
-		g.drawImage(iconParts, bttnX[1], bttnY, null);
-		g.drawImage(iconAssembly, bttnX[2], bttnY, null);
-		g.drawImage(iconArchive, bttnX[3], bttnY, null);
-		g.drawImage(iconExit, bttnX[4], bttnY, null);
+
+		g.drawImage(bttnProfile, bttnX[0], bttnY, null);
+		g.drawImage(bttnParts, bttnX[1], bttnY, null);
+		g.drawImage(bttnAssembly, bttnX[2], bttnY, null);
+		g.drawImage(bttnArchive, bttnX[3], bttnY, null);
+		g.drawImage(bttnExit, bttnX[4], bttnY, null);
 		
 		switch(Almoxarifado.state) {
 		case 1:
-			g.drawImage(iconProfileActivated, bttnX[0], bttnY, null);
+			g.drawImage(bttnProfileActivated, bttnX[0], bttnY, null);
 			break;
 		case 2:
-			g.drawImage(iconPartsActivated, bttnX[1], bttnY, null);
+			g.drawImage(bttnPartsActivated, bttnX[1], bttnY, null);
 			break;
 		case 3:
 		case 5:
-			g.drawImage(iconAssemblyActivated, bttnX[2], bttnY, null);
+			g.drawImage(bttnAssemblyActivated, bttnX[2], bttnY, null);
 			break;
 		case 4:
-			g.drawImage(iconArchiveActivated, bttnX[3], bttnY, null);
+			g.drawImage(bttnArchiveActivated, bttnX[3], bttnY, null);
 			break;
 		}
 		

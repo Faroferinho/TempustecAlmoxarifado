@@ -19,6 +19,9 @@ public class Archiver {
 	public static void writeOnArchive(String action, String args0, String args1, String changes) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("archive.txt", true));
+			if(action.equals("login")) {
+				writer.append("--------------------------------------------------------------------------------------\n");
+			}
 			
 			String toArchive = "O Usuário " + Profile.RdF + " ";
 			

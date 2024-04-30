@@ -29,11 +29,6 @@ public class Profile {
 	public static boolean overName = false;
 	public static boolean overRdF = false;
 	public static boolean overCPF = false;
-	
-	public boolean mouseAuxRun = false;
-	public boolean mouseAuxEdit = false;
-	public boolean mouseAuxRead = false;
-	public boolean mouseAuxSign = false;
 
 	public Profile(String inName, String inRdF, String inCPF) {
 		name = inName;
@@ -55,7 +50,6 @@ public class Profile {
 		}else {
 			if(mx > Almoxarifado.WIDTH - (76 + 165)*2 && mx < Almoxarifado.WIDTH - 76
 			&& my > 136 && my < 332) {
-				System.out.println("Clicado dentro da área");
 				if(mx < Almoxarifado.WIDTH - ((76*2) + 165) && my < 196){
 					return 1;
 				}else if(mx > Almoxarifado.WIDTH - (76 + 165) && my < 196) {
@@ -78,7 +72,6 @@ public class Profile {
 					overName = true;
 					if(mouseStatus) {
 						editInfo(1);
-						mouseStatus = false;
 					}
 				}
 			}
@@ -88,7 +81,6 @@ public class Profile {
 					overName = true;
 					if(mouseStatus) {
 						editInfo(1);
-						mouseStatus = false;
 					}
 				}
 				
@@ -96,7 +88,6 @@ public class Profile {
 					overRdF = true;
 					if(mouseStatus) {
 						editInfo(2);
-						mouseStatus = false;
 					}
 				}
 				
@@ -104,7 +95,6 @@ public class Profile {
 					overCPF = true;
 					if(mouseStatus) {
 						editInfo(3);
-						mouseStatus = false;
 					}
 				}
 			}

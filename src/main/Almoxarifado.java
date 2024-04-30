@@ -72,10 +72,10 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		ui = new UserInterface();
 		
 		login = new Login();
-		
+
 		admProfile = new Admnistrator(name, rdf, cpf); 
-		workProfile = new Employee(name, rdf, cpf); 
-		
+		workProfile = new Employee(name, rdf, cpf);
+
 		projectList = new ProjectList();
 		project = new Project();
 		partsList = new PartsList();
@@ -99,12 +99,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		quantityAssembly = DBConector.counterOfElements("Montagem");
 		quantityArchives = DBConector.counterOfElements("Arquivo");
 		quantityArchiveParts = DBConector.counterOfElements("Arquivo_Pecas");
-		
-		System.out.println("quantityWorkers: " + quantityWorkers);
-		System.out.println("quantityParts: " + quantityParts);
-		System.out.println("quantityAssembly: " + quantityAssembly);
-		System.out.println("quantityArchives: " + quantityArchives);
-		System.out.println("quantityArchiveParts: " + quantityArchiveParts);
 		
 		new Thread(almox).start();
 		
@@ -181,6 +175,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		//Crio um grafico usando os graficos do bs;
 		Graphics g = bs.getDrawGraphics();
 		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 		
 		//Basicamente desenho o esqueleto da UI;
 		
@@ -209,7 +204,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			break;
 		case 5:
 			project.render(g);
-			
 			break;
 		}
 		if(state != 0) {
@@ -220,16 +214,21 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		bs.show();
 	}
 	
-	public static void drawStringBorder(Graphics2D g2, String text, int x, int y, int borderThickness, Color borderColor, Color textColor) {
-		g2.setColor(borderColor);
-		for(int i = -borderThickness; i < borderThickness+1; i++) {
-			for(int j = -borderThickness; j < borderThickness+1; j++) {
-				g2.drawString(text, x+i, y+j);
+	public static void drawStringBorder(Graphics g, String text, int x, int y, int borderThickness, Color borderColor, Color textColor) {
+		g.setColor(borderColor);
+		
+		for(int i = borderThickness * (-1); i < (borderThickness + 1); i++) {
+			
+			for(int j = borderThickness * (-1); j < (borderThickness + 1); j++) {
+				
+				g.drawString(text, x+i, y+j);
+			
 			}
+			
 		}
 		
-		g2.setColor(textColor);
-		g2.drawString(text, x, y);
+		g.setColor(textColor);
+		g.drawString(text, x, y);
 		
 	}
 

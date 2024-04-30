@@ -18,15 +18,15 @@ import main.UserInterface;
 public class Admnistrator extends Profile {
 
 	public boolean isListing = false;
-	public boolean isSigning = false;
-	public boolean isRemoving = false;
+	private boolean isSigning = false;
+	private boolean isRemoving = false;
 	
-	public BufferedImage editButton;
-	public BufferedImage editDoneButton;
-	public BufferedImage listButton;
-	public BufferedImage signInButton;
-	public BufferedImage passwordButton;
-	public BufferedImage deleteButton;
+	private BufferedImage editButton;
+	private BufferedImage editDoneButton;
+	private BufferedImage listButton;
+	private BufferedImage signInButton;
+	private BufferedImage passwordButton;
+	private BufferedImage deleteButton;
 	
 	String separetedInfo[][];
 	
@@ -64,48 +64,39 @@ public class Admnistrator extends Profile {
 		}
 		
 		if(isOnTheRightState) {
-			
-			if(mouseStatus == true) {
-				mouseAuxRun = true;
-				mouseAuxEdit = true;
-				mouseAuxSign = true;
-			}else {
-				mouseAuxRun = false;
-				mouseAuxEdit = false;
-				mouseAuxSign = false;
-			}
-			
 			if(mouseStatus) {
-				switch(buttonClick(Almoxarifado.mX, Almoxarifado.mY, true)) {
-				case 1:
-					if(isEditing == false) {
-						isEditing = true;
-						Archiver.writeOnArchive("edicao1", "", "", "");
-					}else {
-						Archiver.writeOnArchive("edicao2", "", "", "");
-						isEditing = false;
+				if(!isEditing && !isListing) {
+					switch(buttonClick(Almoxarifado.mX, Almoxarifado.mY, true)) {
+					case 1:
+						if(isEditing == false) {
+							isEditing = true;
+							Archiver.writeOnArchive("edicao1", "", "", "");
+						}else {
+							Archiver.writeOnArchive("edicao2", "", "", "");
+							isEditing = false;
+						}
+						mouseStatus = false;
+						break;
+					case 2:
+						if(isListing == false) {
+							Archiver.writeOnArchive("listagem", "funcionarios", "", "");
+							isListing = true;
+							getInfo();		
+						}
+						mouseStatus = false;
+						break;
+					case 3:
+						if(isSigning == false) {
+							isSigning = true;
+						}
+						mouseStatus = false;
+						break;
+					case 4:
+						editInfo(4);
+						mouseStatus = false;
+						break;
 					}
-					mouseStatus = false;
-					break;
-				case 2:
-					if(isListing == false) {
-						Archiver.writeOnArchive("listagem", "funcionarios", "", "");
-						isListing = true;
-						getInfo();		
 					}
-					mouseStatus = false;
-					break;
-				case 3:
-					if(isSigning == false) {
-						isSigning = true;
-					}
-					mouseStatus = false;
-					break;
-				case 4:
-					editInfo(4);
-					mouseStatus = false;
-					break;
-				}
 			}
 			
 			if(isEditing) {
@@ -191,15 +182,12 @@ public class Admnistrator extends Profile {
 		
 		String getRdF = DBConector.readDB("RdF", "funcionarios");
 		String auxComparator[] = new String[Almoxarifado.quantityWorkers];
-		int toCompare[] = new int[Almoxarifado.quantityWorkers];
 		
-		getRdF = getRdF.replaceAll("\n", "");
-		auxComparator = getRdF.split(" § ");
-		
-		
+		auxComparator = getRdF.split(" § \n");
+				
 		for(int i = 0; i < Almoxarifado.quantityWorkers; i++) {
-			toCompare[i] = Integer.parseInt(auxComparator[i]);
-			if(newRdF == toCompare[i]) {
+			int toCompare = Integer.parseInt(auxComparator[i]);
+			if(newRdF == toCompare) {
 				newRdF = generateRdF();
 			}
 		}

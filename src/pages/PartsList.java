@@ -39,7 +39,7 @@ public class PartsList {
 	
 	public boolean mouseStatus = false;
 	
-	private static boolean wasChanged = false;
+	private static boolean wasChanged = true;
 	
 	int total = Almoxarifado.WIDTH - 50*2;
 	int characterLimitPerLine = (int) ((total*28)/100);;
@@ -481,8 +481,8 @@ public class PartsList {
 			auxWidth = 50;
 			descriptionOfsetHeight = 1;
 			
-			for(int i = 0; i < Almoxarifado.quantityParts+1; i++) {
-
+			for(int i = 0; i < finalPartsTable.length; i++) {
+				
 				for(int j = 0; j < 8; j++) {
 					
 					int auxCheckBox = 0;
