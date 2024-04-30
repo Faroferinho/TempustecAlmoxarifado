@@ -34,6 +34,9 @@ public abstract class Insertions {
 	public String genericString = "----------";
 	public int genericNumeral = 0;
 	
+	protected boolean hasRecomendation = false;
+	protected String recomendation = "";
+	
 	protected int middleScreenX = (Almoxarifado.WIDTH)/2;
 
 	public Insertions() {
@@ -70,6 +73,7 @@ public abstract class Insertions {
 		}
 		
 		values.set(selected, textInserted);
+		showRecomendations();
 	}
 	
 	public String advancedWriter(String originalText, KeyEvent e) {
@@ -126,6 +130,8 @@ public abstract class Insertions {
 	protected abstract boolean verifyValues(String text);
 	
 	protected abstract void fillDefaultValues();
+	
+	protected abstract void showRecomendations();
 	
 	protected abstract void okButtonClick();
 	
