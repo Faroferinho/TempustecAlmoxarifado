@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import functions.Functions;
+
 public class UserInterface {
 	
 	public static int bttnX[] = new int[5];
@@ -100,6 +102,7 @@ public class UserInterface {
 			Almoxarifado.state = 4;
 			break;
 		case 5:
+			Functions.generatePurchaseInquery();
 			System.exit(0);
 			break;
 		}

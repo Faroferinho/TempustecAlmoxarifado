@@ -16,7 +16,7 @@ import main.Almoxarifado;
 public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
-	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/TesteTempus";
+	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempustec";
 	private static String user = "root";
 	private static String password = "1234";
 	
@@ -284,8 +284,8 @@ public class DBConector {
 			}
 			
 			for(int i = 0; i < prices.size(); i++) {
-				BigDecimal firstValue = new BigDecimal(prices.get(i));
-				BigDecimal lastValue = new BigDecimal(quantities.get(i));
+				BigDecimal firstValue = new BigDecimal("0" + prices.get(i));
+				BigDecimal lastValue = new BigDecimal("0" + quantities.get(i));
 				finalValue += firstValue.multiply(lastValue).doubleValue();
 			}
 			

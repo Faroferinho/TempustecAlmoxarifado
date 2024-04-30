@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import functions.Archiver;
 import functions.DBConector;
+import functions.Functions;
 import main.Almoxarifado;
 import main.UserInterface;
 
@@ -196,9 +197,10 @@ public class PartsList {
 		
 		auxString = correctQuotation(auxString);
 		
-		Archiver.writeOnArchive("alteracao", "a peça ID_Parts." + index, DBConector.readDB(columnName, "pecas", "ID_Parts", index).replaceAll(" § \n", ""), auxString);
-		
-		DBConector.writeDB("pecas", columnName, auxString, "ID_Parts", index);
+		if(!columnName.equals("")) {
+			Archiver.writeOnArchive("alteracao", "a peça ID_Parts." + index, DBConector.readDB(columnName, "pecas", "ID_Parts", index).replaceAll(" § \n", ""), auxString);
+			DBConector.writeDB("pecas", columnName, auxString, "ID_Parts", index);
+		}
 		
 		wasChanged = true;
 	}
@@ -341,7 +343,7 @@ public class PartsList {
 			JOptionPane.showMessageDialog(null, "Cancelando Cadastro", "Retornando", JOptionPane.WARNING_MESSAGE);
 			return;
 		}else {
-			if(aux.equals("")) {
+			if(aux.replaceAll("[a-zA-Z]", "").equals("")) {
 				aux = autoFill(5);
 				JOptionPane.showMessageDialog(null, "Valor será considerado nulo", "Modificação Concluida", JOptionPane.WARNING_MESSAGE);
 			}
@@ -372,6 +374,8 @@ public class PartsList {
 		DBConector.writeDB(querry);
 		wasChanged = true;
 		Almoxarifado.quantityParts++;
+		
+		Functions.partsToOrder += DBConector.readDB("MAX(ID_Parts)", "Pecas");
 	}
 	
 	public void eliminatePart(int index){

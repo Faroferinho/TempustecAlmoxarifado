@@ -88,7 +88,7 @@ public class Project {
 		return false;
 	}
 	
-	public void updater() {		
+	public void updater() {
 		String brokenApartInfo[];
 		String aux = DBConector.readDB("*", "montagem", "ID_Montagem", "" + ID);
 		
