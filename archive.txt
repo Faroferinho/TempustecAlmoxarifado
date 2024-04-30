@@ -439,4 +439,9 @@ O Usuário  alterou o próprio Name, passou de  para null - Horario: 2024-02-14T
 
 O Usuário  entrou no modo de edição - Horario: 2024-02-14T09:50:44.563606200
 
+<<<<<<< HEAD
 >>>>>>> 756dab6 (Recriando o repositório local git)
+=======
+O Usuário  entrou no modo de listagem de funcionarios - Horario: 2024-02-14T10:08:05.902961100
+
+>>>>>>> 061a066 (TESTE)
