@@ -52,8 +52,6 @@ public class AddPart extends Insertions {
 	@Override
 	protected void writeTextOnBox() {
 		if(click) {
-			selected = -1;
-			isWriting = false;
 			for(int i = 0; i < quantity; i++) {
 				if(Functions.isOnBox(textBoxes.get(i))) {
 					System.out.println("Ciclou na caixa de texto " + i);
@@ -63,12 +61,13 @@ public class AddPart extends Insertions {
 					recomendation = "";
 				}
 			}
+			
 		}
 	}
 
 	@Override
 	protected void writeQuery() {
-		String queryInsert = "INSERT INTO pecas (Montagem, Description, Quantity, Price, Creation_Date, Supplier, Status)\nVALUES(";
+		String queryInsert = "INSERT INTO pecas (Montagem, Description, Quantity, Price, Creation_Date, Supplier, Status)\nVALUES(\"";
 		String id = "";
 		
 		if(verifyValues(values.get(0))) {
@@ -78,7 +77,7 @@ public class AddPart extends Insertions {
 			return;
 		}
 		
-		queryInsert += id + ", \"" + values.get(1) + "\", \"" + values.get(2) + "\", \"" + values.get(3) + "\", NOW(), \"" + values.get(4) + "\", 0);";
+		queryInsert += id + "\", \"" + values.get(1) + "\", \"" + values.get(2) + "\", \"" + values.get(3) + "\", NOW(), \"" + values.get(4) + "\", 0);";
 		
 		System.out.println("Query Inserted: \n" + queryInsert);
 		
@@ -234,7 +233,15 @@ public class AddPart extends Insertions {
 			
 			if(click) {
 				if(Functions.isOnBox(newRectangle)) {
+					System.out.println("Clicou na área");
 					values.set(selected, recomendation);
+				}else {
+					if(!recomendation.equals("")) {
+						isWriting = false;
+						selected = -1;
+					}else {
+						hasRecomendation = false;
+					}
 				}
 			}
 		}

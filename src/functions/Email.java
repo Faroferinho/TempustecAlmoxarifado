@@ -18,13 +18,14 @@ public class Email {
 	private static final String password = "jakh cqvx ublh tlzt";
 	
 	//Os Emails vão ser separados com um ', '
-	private static String recipients = "conrado.perini.fracacio@gmail.com";
+	private static String recipients = "conrado.perini.fracacio@gmail.com,rosangela@tempustec.ind.br,valdir@tempustec.ind.br";
 
 	public Email() {
 		
 	}
 	
 	public static void sendReport(String header, String body) {
+		//recipients += ",rosangela@tempustec.ind.br, valdir@tempustec.ind.br";
 		if(DBConector.getDB().equals("jdbc:mysql://localhost:3306/Tempustec")) {
 			Properties configs = new Properties();
 			

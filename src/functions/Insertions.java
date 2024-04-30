@@ -72,7 +72,7 @@ public abstract class Insertions {
 			}
 		}
 		
-		values.set(selected, textInserted);
+		values.set(selected, textInserted.replaceAll("\"", "''"));
 		showRecomendations();
 	}
 	
@@ -118,7 +118,7 @@ public abstract class Insertions {
 		}
 		
 		g.setColor(Color.black);
-		if(blink) {
+		if(blink && selected != -1) {
 			g.fillRect((int)(textBoxes.get(selected).getX()) + 12 + g.getFontMetrics().stringWidth(values.get(selected)), (int)(textBoxes.get(selected).getY()) + 9, 1, 24);
 		}
 	}
