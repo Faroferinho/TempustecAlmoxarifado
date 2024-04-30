@@ -430,3 +430,21 @@ O Usuário 8523 alterou a peça ID_Parts.749, passou de ---------- para Chapa de
 
 O Usuário 8523 alterou a peça ID_Parts.749, passou de 0 para 10 Peças - Horario: 2024-04-30T09:50:16.536343800
 
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-04-30T11:12:40.625092400
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-04-30T11:22:03.329072200
+
+O Usuário 8523 alterou a peça ID_Parts.754, passou de 0 para 1 - Horario: 2024-04-30T11:22:09.716817400
+
+O Usuário 8523 alterou a peça ID_Parts.755, passou de 0 para 1 - Horario: 2024-04-30T11:24:00.401430400
+
+O Usuário 8523 alterou a peça ID_Parts.756, passou de 0 para 1 - Horario: 2024-04-30T11:26:57.218061500
+
+O Usuário 8523 alterou a peça ID_Parts.756, passou de 1 para 0 - Horario: 2024-04-30T11:26:57.499645100
+
+O Usuário 8523 alterou a peça ID_Parts.757, passou de 0 para 1 - Horario: 2024-04-30T11:26:57.983344700
+
+O Usuário 8523 alterou a peça ID_Parts.756, passou de 0 para 1 - Horario: 2024-04-30T11:26:59.019768900
+

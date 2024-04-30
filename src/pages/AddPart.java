@@ -68,7 +68,9 @@ public class AddPart extends Insertions {
 	@Override
 	protected void writeQuery() {
 		String queryInsert = "INSERT INTO pecas (Montagem, Description, Quantity, Price, Creation_Date, Supplier, Status)\nVALUES(\"";
+		
 		String id = "";
+		String price = values.get(3);
 		
 		if(verifyValues(values.get(0))) {
 			id = DBConector.readDB("ID_Montagem", "Montagem WHERE ISO LIKE '%" + values.get(0) + "%'").replaceAll(" § \n", "");
@@ -77,7 +79,9 @@ public class AddPart extends Insertions {
 			return;
 		}
 		
-		queryInsert += id + "\", \"" + values.get(1) + "\", \"" + values.get(2) + "\", \"" + values.get(3) + "\", NOW(), \"" + values.get(4) + "\", 0);";
+		price = PartsList.formatNumb(price);
+		
+		queryInsert += id + "\", \"" + values.get(1) + "\", \"" + values.get(2) + "\", " + price + ", NOW(), \"" + values.get(4) + "\", 0);";
 		
 		System.out.println("Query Inserted: \n" + queryInsert);
 		

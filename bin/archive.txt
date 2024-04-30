@@ -419,3 +419,17 @@ O Usuário 853 efetuou login - Horario: 2024-04-30T08:13:30.383179400
 --------------------------------------------------------------------------------------
 O Usuário 8523 efetuou login - Horario: 2024-04-30T09:13:21.650362200
 
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-04-30T09:43:51.877565
+
+O Usuário 8523 alterou a peça ID_Parts.746, passou de Chapa de Aço 1/2'' - 400 x 400 para Chapa de Aço 1020 1/2'' 400 x 400 - Horario: 2024-04-30T09:48:55.524454200
+
+O Usuário 8523 alterou a peça ID_Parts.749, passou de 1 para 20 - Horario: 2024-04-30T09:49:49.624655800
+
+O Usuário 8523 alterou a peça ID_Parts.749, passou de ---------- para Chapa de Aço 1020 1/2'' 100 x 450 - Horario: 2024-04-30T09:50:11.707609300
+
+O Usuário 8523 alterou a peça ID_Parts.749, passou de 0 para 10 Peças - Horario: 2024-04-30T09:50:16.536343800
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-04-30T11:12:40.625092400
+

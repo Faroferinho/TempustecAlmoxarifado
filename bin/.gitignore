@@ -1,3 +1,9 @@
-/functions/
+/.classpath
+/.gitIgnore.txt
+/.project
+/.settings/
+/archive.txt
+/funcionarios.ibd
+/montagem.ibd
+/pecas.ibd
 /pages/
-/main/
