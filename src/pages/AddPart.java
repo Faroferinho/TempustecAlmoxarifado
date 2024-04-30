@@ -59,6 +59,9 @@ public class AddPart extends Insertions {
 					System.out.println("Ciclou na caixa de texto " + i);
 					selected = i;
 					isWriting = true;
+					
+					recomendation = "";
+					hasRecomendation = false;
 				}
 			}
 		}
@@ -146,22 +149,60 @@ public class AddPart extends Insertions {
 			Almoxarifado.state = 2;
 		}
 	}
-
+	
+	protected void showRecomendations() {
+		String column = "";
+		String table = "pecas";
+		
+		switch(selected) {
+		case 0:
+			column = "ISO";
+			table = "Montagem";
+			break;
+		case 1:
+			column = "Description";
+			break;
+		case 2:
+			column = "quantity";
+			break;
+		case 3:
+			column = "Price";
+			break;
+		case 4:
+			column = "supplier";
+			break;
+		default:
+			return;
+		}
+		
+		recomendation = Functions.findBestInstance(values.get(selected), column, table);
+		
+		if(!Functions.emptyString(recomendation)) {
+			hasRecomendation = true;
+			//System.out.print("recomendation está vazia?");
+		}else {
+			hasRecomendation = false;
+		}
+		
+		//System.out.println("Recomendações: " + Functions.findBestInstance(values.get(selected), column, table));
+	}
+	
 	@Override
-	public void tick() {
+	public void tick() {				
 		if(isWriting && selected == -1) {
 			selected = 0;
 		}
-		
+				
 		writeTextOnBox();
 		
 		if(click) {
 			if(Functions.isOnBox(((Almoxarifado.WIDTH / 3) - okImage.getWidth()/2), 600, 165, 60)) {
 				okButtonClick();
+				click = false;
 			}else if(Functions.isOnBox(((Almoxarifado.WIDTH / 3) * 2 - okImage.getWidth()/2), 600, 165, 60)) {
 				cancelButtonClick();
+				click = false;
 			}
-			click = false;
 		}
 	}
 
@@ -182,6 +223,20 @@ public class AddPart extends Insertions {
 			g.drawString(values.get(i), textBoxes.get(i).x + 12, textBoxes.get(i).y + g.getFontMetrics().getHeight() + 8);
 			
 			g.setColor(Color.white);
+		}
+		
+		if(hasRecomendation && selected != -1) {			
+			UserInterface.createTextBox(g, new Rectangle((int)(textBoxes.get(selected).getX()), (int)(textBoxes.get(selected).getY() + textBoxes.get(selected).getHeight()), 
+					(int)(textBoxes.get(selected).getWidth()), (int)(textBoxes.get(selected).getHeight())), 0);
+			g.drawString(recomendation, (int)(textBoxes.get(selected).getX() + 5), (int)(textBoxes.get(selected).getY() + textBoxes.get(selected).getHeight() + g.getFontMetrics().getHeight() + 5));
+			
+			if(click) {
+				if(Functions.isOnBox((int)(textBoxes.get(selected).getX()), (int)(textBoxes.get(selected).getY() + 
+				textBoxes.get(selected).getHeight()), (int)(textBoxes.get(selected).getWidth()), (int)(textBoxes.get(selected).getHeight()))) {
+					values.set(selected, recomendation);
+					click = false;
+				}
+			}
 		}
 		
 		g.drawImage(okImage, (Almoxarifado.WIDTH / 3) - okImage.getWidth()/2, 600, null);

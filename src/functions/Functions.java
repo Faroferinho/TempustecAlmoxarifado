@@ -81,10 +81,10 @@ public class Functions {
 
 	public static boolean emptyString(String s) {
 		if(s.equals("") || s.equals(null) || s.equals("null")) {
-			System.out.println("é nula");
+			//System.out.println("é nula");
 			return true;
 		}
-		System.out.println("não é nula");
+		//System.out.println("não é nula");
 		return false;
 	}
 	
