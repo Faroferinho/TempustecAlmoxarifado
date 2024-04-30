@@ -275,7 +275,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			project.mouseStatus = true;
 			break;
 		}
-		
 	}
 
 	@Override
