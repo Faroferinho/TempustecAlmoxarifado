@@ -16,7 +16,7 @@ import main.Almoxarifado;
 public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
-	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempusteste";
+	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempustec";
 	private static String user = "root";
 	private static String password = "1234";
 	
@@ -32,7 +32,7 @@ public class DBConector {
 		String query = "select " + objective + " from " + table;
 		int maxIndex = checkSize(objective, table);
 		String returnData = "";
-		System.out.println("Query: \n" + query);
+		//System.out.println("Query: \n" + query);
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -284,7 +284,16 @@ public class DBConector {
 			ResultSet rsltQuantity = statement.executeQuery(quantityQuery);
 			
 			while(rsltQuantity.next()) {
-				quantities.add(rsltQuantity.getString(1).replaceAll("[^0-9.]", ""));
+				String quantity = rsltQuantity.getString(1); 
+				
+				for(int i = 0; i < quantity.length(); i++) {
+					if(quantity.charAt(i) == ' ') {
+						quantity = quantity.substring(0, i);
+						break;
+					}
+				}
+				
+				quantities.add(quantity);
 			}
 			
 			for(int i = 0; i < prices.size(); i++) {
@@ -334,7 +343,7 @@ public class DBConector {
 			
 			for(int inc = 0; inc < identifiers.size(); inc++) {
 				statement.executeUpdate("UPDATE Montagem SET cost = " + prices.get(inc) + "WHERE ID_Montagem = " + identifiers.get(inc));
-				//System.out.println("Montagem " + identifiers.get(inc) + " foi atualizada :D");
+				System.out.println("Montagem " + identifiers.get(inc) + " foi atualizada :D");
 			}
 			
 			rslt = statement.executeQuery("SELECT cost FROM Arquivo");

@@ -18,7 +18,7 @@ public class Email {
 	private static final String password = "jakh cqvx ublh tlzt";
 	
 	//Os Emails vão ser separados com um ', '
-	private static String recipients = "conrado.perini.fracacio@gmail.com, rosangela@tempustec.ind.br, valdir@tempustec.ind.br";
+	private static String recipients = "conrado.perini.fracacio@gmail.com";
 
 	public Email() {
 		

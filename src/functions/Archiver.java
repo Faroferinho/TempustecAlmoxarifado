@@ -167,7 +167,7 @@ public class Archiver {
 			
 			System.out.println(message);
 			
-			Email.sendReport("Relatório Quinzenal - " + emailDate, message);
+			//Email.sendReport("Relatório Quinzenal - " + emailDate, message);
 	}
 	
 	private static void createCongratulationsReport() {
@@ -182,7 +182,7 @@ public class Archiver {
 		message += "	Os gastos essa Quinzena foram exatamente 0, Parabens a todos os envolvidos 😀🥳\n";
 		message += "														- Almoxarifado.";
 		
-		Email.sendReport("Relatório Quinzenal - " + date, message);
+		//Email.sendReport("Relatório Quinzenal - " + date, message);
 	}
 
 }
