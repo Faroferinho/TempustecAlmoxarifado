@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
@@ -45,6 +46,8 @@ public class Admnistrator extends Profile {
 		signInButton = Almoxarifado.imgManag.getSprite(475, 60*5, 165, 60);
 		passwordButton = Almoxarifado.imgManag.getSprite(475, 120, 165, 60);
 		deleteButton = Almoxarifado.imgManag.getSprite(475, 60*7, 165, 60);
+		
+		System.out.println("Carregou Perfil do Administrador: " + LocalDateTime.now());
 	}
 	
 	private void addWorker() {

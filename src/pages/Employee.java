@@ -2,6 +2,7 @@ package pages;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.time.LocalDateTime;
 
 import functions.Archiver;
 import main.Almoxarifado;
@@ -20,6 +21,8 @@ public class Employee extends Profile{
 		editButton = Almoxarifado.imgManag.getSprite(475, 0, 165, 60);
 		doneButton = Almoxarifado.imgManag.getSprite(0, 510, 165, 60);
 		passwordButton = Almoxarifado.imgManag.getSprite(475, 120, 165, 60);
+		
+		System.out.println("Carregou Perfil do Funcionario: " + LocalDateTime.now());
 	}
 	
 	public void tick() {

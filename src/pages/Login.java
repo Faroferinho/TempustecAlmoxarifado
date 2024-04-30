@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
@@ -55,6 +56,7 @@ public class Login {
 	private int cursorIndex = 0;
 	
 	public Login() {
+		System.out.println("Carregou Login: " + LocalDateTime.now());
 	}
 	
 	private void submitForm() {

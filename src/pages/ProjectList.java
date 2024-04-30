@@ -5,13 +5,13 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import functions.Archiver;
 import functions.DBConector;
-import functions.Functions;
 import main.Almoxarifado;
 import main.UserInterface;
 
@@ -64,17 +64,24 @@ public class ProjectList {
 	int auxH = 0;
 	
 	public ProjectList(){
-		ids = Functions.listToArrayList(splitting(idsToSplit));
-		names = Functions.listToArrayList(splitting(namesToSplit));
-		descriptions = Functions.listToArrayList(splitting(descriptionsToSplit));
-		companies = Functions.listToArrayList(splitting(companiesToSplit));
+		resetInfo();
+		
+		System.out.println("Carregou Lista de Projetos: " + LocalDateTime.now());
 	}
 	
-	private String[] splitting(String toSplit) {
-		String[] auxSpliting = new String[Almoxarifado.quantityAssembly];
-		auxSpliting = toSplit.split(" § \n");
+	private void resetInfo() {
+		String infoFromDB = DBConector.readDB("*", "Montagem");
+		String[] lines = infoFromDB.split("\n");
 		
-		return auxSpliting;
+		for(int i = 0; i < lines.length; i++) {
+			String currColumns[] = lines[i].split(" § ");
+			
+			ids.add(currColumns[0]);
+			names.add(currColumns[1]);
+			descriptions.add(currColumns[2]);
+			companies.add(currColumns[3]);
+		}
+		
 	}
 	
 	private static boolean verifyString(String toVerif) {
@@ -214,13 +221,7 @@ public class ProjectList {
 			
 			if(updateProjectList) {
 				// TODO: Verificar se não dar problema isso dai.
-				idsToSplit = DBConector.readDB("ID_Montagem", "montagem");
-				namesToSplit = DBConector.readDB("ISO", "montagem");
-				descriptionsToSplit = DBConector.readDB("description", "montagem");
-				
-				ids = Functions.listToArrayList(splitting(idsToSplit));
-				names = Functions.listToArrayList(splitting(namesToSplit));
-				descriptions = Functions.listToArrayList(splitting(descriptionsToSplit));
+				resetInfo();
 				
 				PartsList.restartAssemblyList = true;
 				updateProjectList = false;
