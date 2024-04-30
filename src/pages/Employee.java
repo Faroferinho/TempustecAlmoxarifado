@@ -51,10 +51,6 @@ public class Employee extends Profile{
 				case 2:
 					editInfo(4);
 					break;
-				case 3:
-					
-				default:
-					break;
 				}
 			}
 			
@@ -80,7 +76,7 @@ public class Employee extends Profile{
 			}else if(isEditing == true){
 				firstRendering(g);
 				
-				g.drawImage(editButton, (Almoxarifado.WIDTH/4) - (editButton.getWidth()/2), Almoxarifado.HEIGHT / 2 + 120, null);
+				g.drawImage(doneButton, (Almoxarifado.WIDTH/4) - (editButton.getWidth()/2), Almoxarifado.HEIGHT / 2 + 120, null);
 				g.drawImage(passwordButton, (Almoxarifado.WIDTH/4)*3 - (editButton.getWidth()/2), Almoxarifado.HEIGHT/2 + 120, null);
 				UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH/4) - (editButton.getWidth()/2), Almoxarifado.HEIGHT / 2 + 120);
 				UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH/4)*3 - (editButton.getWidth()/2), Almoxarifado.HEIGHT/2 + 120);
