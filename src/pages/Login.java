@@ -12,6 +12,7 @@ import java.awt.Image;
 >>>>>>> 756dab6 (Recriando o repositório local git)
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
@@ -61,6 +62,7 @@ public class Login {
 	private int cursorIndex = 0;
 	
 	public Login() {
+		System.out.println("Carregou Login: " + LocalDateTime.now());
 	}
 	
 	private void submitForm() {

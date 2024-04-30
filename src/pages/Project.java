@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -77,8 +78,7 @@ public class Project {
 	int auxH = 0;
 	
 	public Project() {
-		// TODO Auto-generated constructor stub
-		
+		System.out.println("Carregou Pagina de Projeto: " + LocalDateTime.now());
 	}
 	
 	private boolean checkDialog(String toVerif) {

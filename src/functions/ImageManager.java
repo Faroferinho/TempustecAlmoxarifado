@@ -3,6 +3,7 @@ package functions;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -22,6 +23,8 @@ public class ImageManager {
 		}
 		
 		TempustecIcon = this.getProjectImage("TempustecLogoIcone1");
+		
+		System.out.println("Carregou ImageManager: " + LocalDateTime.now());
 	}
 	
 	public BufferedImage getSprite(int x, int y, int width, int height) {
