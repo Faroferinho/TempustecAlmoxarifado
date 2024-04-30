@@ -161,10 +161,12 @@ public class UserInterface {
 			g.drawImage(bttnProfileActivated, bttnX[0], bttnY, null);
 			break;
 		case 2:
+		case 6:
 			g.drawImage(bttnPartsActivated, bttnX[1], bttnY, null);
 			break;
 		case 3:
 		case 5:
+		case 7:
 			g.drawImage(bttnAssemblyActivated, bttnX[2], bttnY, null);
 			break;
 		case 4:

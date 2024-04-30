@@ -810,4 +810,11 @@ O Usuário 853 efetuou login - Horario: 2024-04-23T08:23:57.537195400
 --------------------------------------------------------------------------------------
 O Usuário 853 efetuou login - Horario: 2024-04-23T11:36:07.709318600
 
+<<<<<<< HEAD
 >>>>>>> 96b63fb (Algumas alterações para a criação de uma pagina de adição de parte e de montagem)
+=======
+O Usuário  inseriu um novo cadastro de peça no DB de ID_Parts = 41 - Horario: 2024-04-26T09:51:12.849718600
+
+O Usuário  modou para o projeto 6 - Horario: 2024-04-26T09:58:17.475990300
+
+>>>>>>> fce5313 (Pagina de add peca foi concluida com sucesso)
