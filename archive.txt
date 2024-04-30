@@ -817,4 +817,97 @@ O Usuário  inseriu um novo cadastro de peça no DB de ID_Parts = 41 - Horario: 
 
 O Usuário  modou para o projeto 6 - Horario: 2024-04-26T09:58:17.475990300
 
+<<<<<<< HEAD
 >>>>>>> fce5313 (Pagina de add peca foi concluida com sucesso)
+=======
+O Usuário  alterou a peça ID_Parts.51, passou de 0 para 1 - Horario: 2024-04-26T10:59:45.405800600
+
+O Usuário  alterou a peça ID_Parts.52, passou de 0 para 1 - Horario: 2024-04-26T10:59:46.438463300
+
+O Usuário  alterou a peça ID_Parts.53, passou de 0 para 1 - Horario: 2024-04-26T10:59:46.835777900
+
+O Usuário  alterou a peça ID_Parts.50, passou de 0 para 1 - Horario: 2024-04-26T10:59:47.308311
+
+O Usuário  alterou a peça ID_Parts.49, passou de 0 para 1 - Horario: 2024-04-26T10:59:48.030158800
+
+O Usuário  alterou a peça ID_Parts.48, passou de 0 para 1 - Horario: 2024-04-26T10:59:48.417002800
+
+O Usuário  alterou a peça ID_Parts.47, passou de 0 para 1 - Horario: 2024-04-26T10:59:48.819949
+
+O Usuário  alterou a peça ID_Parts.46, passou de 0 para 1 - Horario: 2024-04-26T10:59:49.496034300
+
+O Usuário  alterou a peça ID_Parts.45, passou de 0 para 1 - Horario: 2024-04-26T10:59:49.982168
+
+O Usuário  alterou a peça ID_Parts.44, passou de 0 para 1 - Horario: 2024-04-26T10:59:51.025852200
+
+O Usuário  alterou a peça ID_Parts.43, passou de 0 para 1 - Horario: 2024-04-26T10:59:51.287154600
+
+O Usuário  alterou a peça ID_Parts.42, passou de 0 para 1 - Horario: 2024-04-26T10:59:52.093485500
+
+O Usuário  alterou a peça ID_Parts.41, passou de 0 para 1 - Horario: 2024-04-26T10:59:53.286928700
+
+O Usuário  alterou a peça ID_Parts.40, passou de 0 para 1 - Horario: 2024-04-26T10:59:54.194430
+
+O Usuário  alterou a peça ID_Parts.39, passou de 0 para 1 - Horario: 2024-04-26T10:59:55.705777200
+
+O Usuário  alterou a peça ID_Parts.38, passou de 0 para 1 - Horario: 2024-04-26T10:59:56.512505500
+
+O Usuário  alterou a peça ID_Parts.37, passou de 0 para 1 - Horario: 2024-04-26T10:59:56.991057
+
+O Usuário  alterou a peça ID_Parts.36, passou de 0 para 1 - Horario: 2024-04-26T10:59:57.418459800
+
+O Usuário  alterou a peça ID_Parts.35, passou de 0 para 1 - Horario: 2024-04-26T10:59:59.087531900
+
+O Usuário  alterou a peça ID_Parts.34, passou de 0 para 1 - Horario: 2024-04-26T10:59:59.425627100
+
+O Usuário  alterou a peça ID_Parts.32, passou de 0 para 1 - Horario: 2024-04-26T11:00:00.154482400
+
+O Usuário  alterou a peça ID_Parts.31, passou de 0 para 1 - Horario: 2024-04-26T11:00:01.141519400
+
+O Usuário  alterou a peça ID_Parts.27, passou de 0 para 1 - Horario: 2024-04-26T11:00:02.456383700
+
+O Usuário  alterou a peça ID_Parts.26, passou de 0 para 1 - Horario: 2024-04-26T11:00:02.814414600
+
+O Usuário  alterou a peça ID_Parts.25, passou de 0 para 1 - Horario: 2024-04-26T11:00:03.395163300
+
+O Usuário  alterou a peça ID_Parts.24, passou de 0 para 1 - Horario: 2024-04-26T11:00:03.812883
+
+O Usuário  alterou a peça ID_Parts.23, passou de 0 para 1 - Horario: 2024-04-26T11:00:04.967498200
+
+O Usuário  alterou a peça ID_Parts.22, passou de 0 para 1 - Horario: 2024-04-26T11:00:05.280660300
+
+O Usuário  alterou a peça ID_Parts.21, passou de 0 para 1 - Horario: 2024-04-26T11:00:05.746067500
+
+O Usuário  alterou a peça ID_Parts.20, passou de 0 para 1 - Horario: 2024-04-26T11:00:06.386769
+
+O Usuário  alterou a peça ID_Parts.19, passou de 0 para 1 - Horario: 2024-04-26T11:00:07.772270600
+
+O Usuário  alterou a peça ID_Parts.18, passou de 0 para 1 - Horario: 2024-04-26T11:00:08.136633100
+
+O Usuário  alterou a peça ID_Parts.16, passou de 0 para 1 - Horario: 2024-04-26T11:00:08.840260300
+
+O Usuário  alterou a peça ID_Parts.17, passou de 0 para 1 - Horario: 2024-04-26T11:00:09.365020300
+
+O Usuário  alterou a peça ID_Parts.15, passou de 0 para 1 - Horario: 2024-04-26T11:00:10.051338500
+
+O Usuário  alterou a peça ID_Parts.14, passou de 0 para 1 - Horario: 2024-04-26T11:00:11.278654500
+
+O Usuário  alterou a peça ID_Parts.12, passou de 0 para 1 - Horario: 2024-04-26T11:00:12.164401200
+
+O Usuário  alterou a peça ID_Parts.11, passou de 0 para 1 - Horario: 2024-04-26T11:00:13.168168
+
+O Usuário  alterou a peça ID_Parts.10, passou de 0 para 1 - Horario: 2024-04-26T11:00:13.533430200
+
+O Usuário  alterou a peça ID_Parts.8, passou de 0 para 1 - Horario: 2024-04-26T11:00:14.598457500
+
+O Usuário  alterou a peça ID_Parts.7, passou de 0 para 1 - Horario: 2024-04-26T11:00:14.904279100
+
+O Usuário  alterou a peça ID_Parts.9, passou de 0 para 1 - Horario: 2024-04-26T11:00:15.312386700
+
+O Usuário  alterou a peça ID_Parts.6, passou de 0 para 1 - Horario: 2024-04-26T11:00:16.049885500
+
+O Usuário  alterou a peça ID_Parts.5, passou de 0 para 1 - Horario: 2024-04-26T11:00:16.536685500
+
+O Usuário  modou para o projeto 8 - Horario: 2024-04-26T11:16:02.285453200
+
+>>>>>>> 06b778a (Backup antes de implementar sistema de Recomendação de Texto)

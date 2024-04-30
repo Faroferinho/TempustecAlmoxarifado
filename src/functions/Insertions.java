@@ -1,5 +1,6 @@
 package functions;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -19,6 +20,9 @@ public abstract class Insertions {
 	public boolean isWriting = false;
 	private int writerIndex = 0;
 	
+	private boolean blink;
+	private int blinkAux = 0;
+	
 	protected String title = "";
 	protected ArrayList<String> labels = new ArrayList<String>();
 	protected ArrayList<Rectangle> textBoxes = new ArrayList<Rectangle>();
@@ -29,6 +33,8 @@ public abstract class Insertions {
 	
 	public String genericString = "----------";
 	public int genericNumeral = 0;
+	
+	protected int middleScreenX = (Almoxarifado.WIDTH)/2;
 
 	public Insertions() {
 		// TODO Auto-generated constructor stub
@@ -95,6 +101,24 @@ public abstract class Insertions {
 		return toReturn;
 	}
 	
+	protected void drawCursor(Graphics g) {
+		
+		blinkAux++;
+		
+		if(blinkAux%21 == 0) {
+			if(blink) {
+				blink = false;
+			}else {
+				blink = true;
+			}
+		}
+		
+		g.setColor(Color.black);
+		if(blink) {
+			g.fillRect((int)(textBoxes.get(selected).getX()) + 12 + g.getFontMetrics().stringWidth(values.get(selected)), (int)(textBoxes.get(selected).getY()) + 9, 1, 24);
+		}
+	}
+	
 	protected abstract void writeTextOnBox();
 	
 	protected abstract void writeQuery();
@@ -108,8 +132,6 @@ public abstract class Insertions {
 	protected abstract void cancelButtonClick();
 	
 	public abstract void tick();
-	
-	public abstract void drawErrorMessage(Graphics g);
 	
 	public abstract void render(Graphics g);
 
