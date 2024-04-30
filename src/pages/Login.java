@@ -3,17 +3,8 @@ package pages;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-<<<<<<< HEAD
-import java.awt.Graphics2D;
 import java.awt.Image;
-<<<<<<< HEAD
-import java.awt.RenderingHints;
-=======
-import java.awt.Image;
->>>>>>> 756dab6 (Recriando o repositório local git)
-=======
 import java.awt.Rectangle;
->>>>>>> 96b63fb (Algumas alterações para a criação de uma pagina de adição de parte e de montagem)
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
@@ -302,12 +293,8 @@ public class Login {
 		UserInterface.createTextBox(g, secondBox, 15);
 		
 		g.setColor(Color.white);
-<<<<<<< HEAD
-		g.fillRoundRect(textBoxX, textBoxY + 48, textBoxW, textBoxH, 15, 15);
-		g.fillRoundRect(textBoxX, (int) (textBoxY * 1.6), textBoxW, textBoxH, 15, 15);
-=======
 		g.setFont(new Font("Times New Roman", Font.BOLD, 35));
->>>>>>> 96b63fb (Algumas alterações para a criação de uma pagina de adição de parte e de montagem)
+
 		Almoxarifado.drawStringBorder(g, "Inicie Sessão", (Almoxarifado.WIDTH/2) - (g.getFontMetrics().stringWidth("Inicie Sessão")/2), textBoxY - 20, 1, Color.DARK_GRAY, Color.white);
 		g.setFont(new Font("Times New Roman", 0, 20));
 		Almoxarifado.drawStringBorder(g, "CPF:", textBoxX + 15, textBoxY + 44, 1, Color.DARK_GRAY, Color.white);

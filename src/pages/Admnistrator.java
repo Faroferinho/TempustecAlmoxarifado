@@ -4,14 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.time.LocalDateTime;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
 import functions.Archiver;
 import functions.DBConector;
-import functions.Functions;
 import main.Almoxarifado;
 import main.UserInterface;
 
@@ -35,8 +35,6 @@ public class Admnistrator extends Profile {
 	
 	int indexToEliminate = -1;
 	
-	int listMaxHeight = 0;
-	
 	public Admnistrator(String Name, String RdF, String CPF) {
 		super(Name, RdF, CPF);
 		
@@ -46,11 +44,8 @@ public class Admnistrator extends Profile {
 		signInButton = Almoxarifado.imgManag.getSprite(475, 60*5, 165, 60);
 		passwordButton = Almoxarifado.imgManag.getSprite(475, 120, 165, 60);
 		deleteButton = Almoxarifado.imgManag.getSprite(475, 60*7, 165, 60);
-		
-		System.out.println("Carregou Perfil do Administrador: " + LocalDateTime.now());
 	}
 	
-<<<<<<< HEAD
 	public void tick() {	
 		if(reset) {
 			reset = false;
@@ -69,116 +64,110 @@ public class Admnistrator extends Profile {
 		}
 		
 		if(isOnTheRightState) {
+			
+
 			if(mouseStatus) {
-				if(!isListing && !isSigning && !isRemoving && !isEditing) {
+				if(!isEditing && !isListing) {
 					switch(buttonClick(Almoxarifado.mX, Almoxarifado.mY, true)) {
 					case 1:
-						//Editar Perfil
-						isEditing = true;
+						if(isEditing == false) {
+							isEditing = true;
+							Archiver.writeOnArchive("edicao1", "", "", "");
+						}else {
+							Archiver.writeOnArchive("edicao2", "", "", "");
+							isEditing = false;
+						}
+						mouseStatus = false;
 						break;
 					case 2:
-						//Listar Funcionario
-						isListing = true;
+						if(isListing == false) {
+							Archiver.writeOnArchive("listagem", "funcionarios", "", "");
+							isListing = true;
+							getInfo();		
+						}
+						mouseStatus = false;
 						break;
 					case 3:
-						//Adicionar Funcionario
-						isSigning = true;
+						if(isSigning == false) {
+							isSigning = true;
+						}
+						mouseStatus = false;
 						break;
 					case 4:
-						//Mudar Senha
 						editInfo(4);
+						mouseStatus = false;
 						break;
 					}
-<<<<<<< HEAD
 					}
-=======
-					mouseStatus = false;
-				}
-				
->>>>>>> 6b6b2c8 (re-estruturação do sistema)
 			}
 			
 			if(isEditing) {
+				changeInformation(Almoxarifado.mX, Almoxarifado.mY, true);
 				if(mouseStatus) {
-					if(Functions.isOnBox(Almoxarifado.WIDTH - (76 + 165) * 2, 136, UserInterface.boxWidthSmall, UserInterface.boxHeight)){
-						System.out.println("Saindo do isEditing");
-						isEditing = false;
-						mouseStatus = false;
-					}else if(Functions.isOnBox(Almoxarifado.WIDTH - (76 + 165), 136 * 2, UserInterface.boxWidthSmall, UserInterface.boxHeight)) {
+					if(Almoxarifado.mX > (Almoxarifado.WIDTH/3*2) - (passwordButton.getWidth()/2) && Almoxarifado.mX < (Almoxarifado.WIDTH/3*2) + (passwordButton.getWidth()/2) 
+					&& Almoxarifado.mY > Almoxarifado.HEIGHT / 2 + 120 && Almoxarifado.mY < Almoxarifado.HEIGHT / 2 + 120 + passwordButton.getHeight()) {
 						editInfo(4);
-						mouseStatus = false;
-					}
-				}
-			}
-			
-			if(isListing) {
-				getInfo();
-				
-				if(mouseStatus) {
-					if(Functions.isOnBox(((Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 3)) * 2, listMaxHeight, UserInterface.boxWidthSmall, UserInterface.boxHeight)) {
-						addWorker();
-						mouseStatus = false;
 					}
 				}
 				
+			}else if(isSigning) {
+				int newRdF = generateRdF();
+				String query = "INSERT INTO Funcionarios VALUES(" + newRdF + ", \"";
+
+				String auxQ = "";
+				auxQ += writingQuery("Qual o Nome?");
+				if(auxQ.equals("")) {
+					JOptionPane.showMessageDialog(null, "Nome Invalido", "Cadastro Cancelado", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 				
-			}
-		}
-	}
-	
-=======
->>>>>>> ed48cd2 (Implementação de sistema de envio de pedido de compra)
-	private void addWorker() {
-		String addWorker = "INSERT INTO FUNCIONARIOS VALUES(" + generateRdF() + ", \"";
-		String auxText = "" + writingQuery("Insira o Nome do Funcionario", "Cadastro de Funcionarios");
-		
-		if(nullVerificator(auxText)) {
-			return;
-		}else {
-			addWorker += auxText + "\", \"";
-		}
-		
-		auxText = "" + writingQuery("Insira o CPF do Funcionario", "Cadastro de Funcionarios");
-		
-		boolean isntRight = true;
-		while(isntRight) {
-			if(nullVerificator(auxText)) {
-				return;
-			}else {
-				auxText.replaceAll("[+,.;A-z]", "");
-				if(auxText.length() == 11) {
-					addWorker += auxText + "\", \"Tempustec2023\", \"";
-					isntRight = false;
+				query += auxQ;
+				query +="\", \"";
+				
+				auxQ = "";
+				
+				auxQ += writingQuery("Qual é o CPF?");
+				if(auxQ.equals("") || auxQ.length() != 11) {
+					JOptionPane.showMessageDialog(null, "CPF Invalido", "Cadastro Cancelado", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				
+				query += auxQ;
+				query += "\", \"Tempustec2023\", ";
+				
+				auxQ = "";
+				
+				Object[] possibilities = {"Colaborador", "Administrador"};
+				auxQ += (String) JOptionPane.showInputDialog(null, "Qual o Tipo do Funcionario", "", JOptionPane.PLAIN_MESSAGE, null, possibilities, possibilities[1]);
+				if(auxQ.equals("Administrador")) {
+					auxQ = "1";
 				}else {
-					auxText = "" + writingQuery("Insira um CPF válido", "Cadastro de Funcionarios");
+					auxQ = "0";
 				}
-			}
-		}
-		
-		String selections[] = {"Colaborador", "Admnistrador"};
-		auxText = "" + (String) JOptionPane.showInputDialog(null, "Tipo de Funcionario", "Cadastro de Funcionarios", JOptionPane.PLAIN_MESSAGE, null, selections, 0);
-		if(nullVerificator(auxText)) {
-			return;
-		}else {
-			if(auxText.equals("Admnistrador")) {
-				auxText = "1";
-			}else {
-				auxText = "0";
+				
+				query += auxQ;
+				query += ")";
+				
+				
+				DBConector.writeDB(query);
+				
+				Almoxarifado.quantityWorkers++;
+				getInfo();
+				Archiver.writeOnArchive("cadastro", "funcionario", "RdF", "" + newRdF);
+				isSigning = false;
 			}
 			
-			addWorker += auxText + "\")";
-		}
-		System.out.println(addWorker);
-		DBConector.writeDB(addWorker);
-		
-	}
-	
-	private boolean nullVerificator(String toVerif) {
-		if(toVerif.equals("null") || toVerif.equals("")) {
-			JOptionPane.showMessageDialog(null, "Encerrando Cadastro", "Cancelando", JOptionPane.PLAIN_MESSAGE);
-			return true;
-		}else {
-			return false;
+			if(scroll > 0) {
+				auxHeight -= UserInterface.spd;
+				scroll = 0;
+			}else if(scroll < 0 && auxHeight < 0) {
+				auxHeight += UserInterface.spd;
+				scroll = 0;
+			}
+			
+			if(!isListing) {
+				isRemoving = false;
+			}
 		}
 	}
 	
@@ -189,7 +178,40 @@ public class Admnistrator extends Profile {
 		separetedInfo = informationSorter(getPersonalInfo);
 	}
 	
-	private String[][] informationSorter(String toSplit){
+	private int generateRdF() {
+		Random rand = new Random();	
+		int newRdF = rand.nextInt(0, 9999);
+		
+		String getRdF = DBConector.readDB("RdF", "funcionarios");
+		String auxComparator[] = new String[Almoxarifado.quantityWorkers];
+
+		auxComparator = getRdF.split(" § \n");
+		
+		
+		for(int i = 0; i < Almoxarifado.quantityWorkers; i++) {
+			int toCompare = Integer.parseInt(auxComparator[i]);
+			if(newRdF == toCompare) {
+				newRdF = generateRdF();
+			}
+		}
+		
+		
+		return newRdF; 
+	}
+	
+	private String writingQuery(String prompt) {
+		String query = "";
+		query += JOptionPane.showInputDialog(prompt);
+		
+		if(verifString(query)) {
+			isSigning = false;
+			return "";
+		}
+		
+		return query;
+	}
+	
+	public String[][] informationSorter(String toSplit){
 		String linesToBreakdown[] = toSplit.split("\n");
 		String returnString[][] = new String[linesToBreakdown.length + 1][5];
 		
@@ -205,45 +227,7 @@ public class Admnistrator extends Profile {
 		return returnString;
 	}
 	
-	private int generateRdF() {
-		Random rand = new Random();	
-		int newRdF = rand.nextInt(0, 9999);
-<<<<<<< HEAD
-		
-		String getRdF = DBConector.readDB("RdF", "funcionarios");
-		String auxComparator[] = new String[Almoxarifado.quantityWorkers];
-		
-		auxComparator = getRdF.split(" § \n");
-				
-		for(int i = 0; i < Almoxarifado.quantityWorkers; i++) {
-			int toCompare = Integer.parseInt(auxComparator[i]);
-			if(newRdF == toCompare) {
-				newRdF = generateRdF();
-			}
-=======
-		String getQuantity = DBConector.readDB("count(RdF)", "funcionarios", "RdF", "" + newRdF);
-		System.out.println(getQuantity);
-		if(!getQuantity.equals("0 § \n")) {
-			newRdF = generateRdF();
->>>>>>> db7d480 (Reorganização da classe Admnistrator)
-		}
-		
-		return newRdF; 
-	}
-	
-	private String writingQuery(String prompt, String title) {
-		String query = "";
-		query += JOptionPane.showInputDialog(null, prompt, title, JOptionPane.PLAIN_MESSAGE);
-		
-		if(verifString(query)) {
-			isSigning = false;
-			return "";
-		}
-		
-		return query;
-	}
-	
-	private void removeWorker(int x) {		
+	private void remove(int x) {		
 		int confirmation = JOptionPane.showConfirmDialog(null, "Você tem *CERTEZA* que você deseja deletar essa peça?", "Confirma a Eliminação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		
 		if(confirmation != 0) {
@@ -260,29 +244,37 @@ public class Admnistrator extends Profile {
 		String infoChanger = "";
 		
 		String columnName = "";
-		String updaterName = "";
+		String UpdaterName = "";
 		
 		switch(column) {
 		case 1:
 			columnName = "o Nome";
-			updaterName = "name";
+			UpdaterName = "name";
 			infoChanger += JOptionPane.showInputDialog(null, "Você deseja Alterar " + columnName, "Alteração de Perfil", JOptionPane.WARNING_MESSAGE);
 			break;
 		case 2:
 			columnName = "o CPF";
-			updaterName = "CPF";
+			UpdaterName = "CPF";
 			infoChanger += JOptionPane.showInputDialog(null, "Você deseja Alterar " + columnName, "Alteração de Perfil", JOptionPane.WARNING_MESSAGE);
 			
-        	infoChanger = infoChanger.replaceAll("[^0-9]", "");
+			Pattern letter = Pattern.compile("[a-zA-z]");
+	        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
 	        
-	        if(infoChanger.length() != 11) {
+	        Matcher hasLetter = letter.matcher(infoChanger);
+	        Matcher hasSpecial = special.matcher(infoChanger);
+	        
+	        if(hasLetter.find() || hasSpecial.find()) {
+	        	infoChanger = infoChanger.replaceAll("[^0-9]", "");
+	        }
+	        
+	        if(infoChanger.length() < 10 || infoChanger.length() > 12) {
 	        	JOptionPane.showMessageDialog(null, "Valor Inserido Invalido", "Erro ao Efetuar Alteração", JOptionPane.ERROR_MESSAGE);
 	        	return;
 	        }
 			break;
 		case 3:
 			columnName = "a Senha";
-			updaterName = "password";
+			UpdaterName = "password";
 
 			int i = 0;
 			
@@ -305,10 +297,14 @@ public class Admnistrator extends Profile {
 				
 			}
 			
+			if(i == 0) {
+				return;
+			}
+			
 			break;
 		case 4:
 			columnName = "o Tipo";
-			updaterName = "type";
+			UpdaterName = "type";
 			String Options[] = {"Administrador", "Colaborador"};
 			infoChanger += JOptionPane.showInputDialog(null, "Você deseja Alterar " + columnName, "Alteração de Perfil", JOptionPane.WARNING_MESSAGE, null, Options, 0);
 			break;
@@ -325,7 +321,7 @@ public class Admnistrator extends Profile {
 					infoChanger = "0";
 				}
 			}
-			DBConector.writeDB("funcionarios", updaterName, infoChanger, "RdF", separetedInfo[index][0]);
+			DBConector.writeDB("funcionarios", UpdaterName, infoChanger, "RdF", separetedInfo[index][0]);
 			Archiver.writeOnArchive("alteracao", columnName + " de User." + separetedInfo[index][0], separetedInfo[index][column], infoChanger);
 			getInfo();
 		}
@@ -384,10 +380,11 @@ public class Admnistrator extends Profile {
 			
 			if(x > 0 && y > 0) {
 				if(x > 1) {
-					auxTextToDraw = textFormatter(separetedInfo[y][x], x);
+					auxTextToDraw = textFormater(separetedInfo[y][x], x);
 				}
 				if(!isRemoving) {
-					if(Functions.isOnBox(initialX + auxX, initialY + auxY - g.getFontMetrics().getHeight(), g.getFontMetrics().stringWidth(auxTextToDraw), g.getFontMetrics().getHeight())) {
+					if(Almoxarifado.mX > initialX + auxX && Almoxarifado.mX < initialX + auxX + g.getFontMetrics().stringWidth(auxTextToDraw)
+					&& Almoxarifado.mY > initialY + auxY - g.getFontMetrics().getHeight() && Almoxarifado.mY < initialY + auxY) {
 						nC = Color.gray;
 						if(mouseStatus) {
 							changeInfo(x, y);
@@ -404,7 +401,7 @@ public class Admnistrator extends Profile {
 						}
 						if(mouseStatus) {
 							Archiver.writeOnArchive("remocao", "funcionario", separetedInfo[y][0], "");
-							removeWorker(Integer.parseInt(separetedInfo[y][0]));
+							remove(Integer.parseInt(separetedInfo[y][0]));
 							mouseStatus = false;
 						}
 					}
@@ -424,15 +421,15 @@ public class Admnistrator extends Profile {
 			}
 		}
 		
-		listMaxHeight = initialY + auxY + auxHeight;
 		g.drawImage(deleteButton, ((Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 3)), initialY + auxY + auxHeight, null);
 		UserInterface.isOnSmallButton(g, ((Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 3)), initialY + auxY + auxHeight);
 		g.drawImage(signInButton, ((Almoxarifado.WIDTH / 3)*2 - (deleteButton.getWidth() / 3)*2), initialY + auxY + auxHeight, null);
 		UserInterface.isOnSmallButton(g, ((Almoxarifado.WIDTH / 3)*2 - (deleteButton.getWidth() / 3)*2), initialY + auxY + auxHeight);
 
 		if(mouseStatus) {
-			if(Functions.isOnBox((Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 2), 
-			initialY + auxY + auxHeight, deleteButton.getWidth(), initialY + auxY + auxHeight + 64)) {
+			if(Almoxarifado.mX > (Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 2)
+			&& Almoxarifado.mX < (Almoxarifado.WIDTH / 3) + (deleteButton.getWidth() / 2)
+			&& Almoxarifado.mY > initialY + auxY + auxHeight && Almoxarifado.mY < initialY + auxY + auxHeight + 64) {
 				if(isRemoving == true) {
 					isRemoving = false;
 					mouseStatus = false;
@@ -441,14 +438,15 @@ public class Admnistrator extends Profile {
 					mouseStatus = false;
 				}
 			}
-			if(Functions.isOnBox((Almoxarifado.WIDTH / 3)*2 - (deleteButton.getWidth() / 2), initialY + auxY + auxHeight, 
-			deleteButton.getWidth(), deleteButton.getHeight())) {
+			if(Almoxarifado.mX > (Almoxarifado.WIDTH / 3)*2 - (deleteButton.getWidth() / 2)
+			&& Almoxarifado.mX < (Almoxarifado.WIDTH / 3)*2 + (deleteButton.getWidth() / 2)
+			&& Almoxarifado.mY > initialY + auxY + auxHeight && Almoxarifado.mY < initialY + auxY + auxHeight + 64) {
 				isSigning = true;
 			}
 		}
 	}
 	
-	private String textFormatter(String text, int index) {
+	private String textFormater(String text, int index) {
 		String returner = "";
 		
 		switch(index) {
@@ -481,79 +479,6 @@ public class Admnistrator extends Profile {
 		return returner;
 	}
 	
-	public void tick() {	
-		if(reset) {
-			reset = false;
-			isEditing = false;
-			isSigning = false;
-			isListing = false;
-		}
-		
-		if(Almoxarifado.state == 1) {
-			isOnTheRightState = true;
-			Almoxarifado.frame.setTitle("Perfil de " + Profile.name);
-		}else {
-			reset = true;
-			isOnTheRightState = false;
-			
-		}
-		
-		if(isOnTheRightState) {
-			if(mouseStatus) {
-				if(!isListing && !isSigning && !isRemoving && !isEditing) {
-					switch(buttonClick(Almoxarifado.mX, Almoxarifado.mY, true)) {
-					case 1:
-						//Editar Perfil
-						isEditing = true;
-						break;
-					case 2:
-						//Listar Funcionario
-						isListing = true;
-						break;
-					case 3:
-						//Adicionar Funcionario
-						isSigning = true;
-						break;
-					case 4:
-						//Mudar Senha
-						editInfo(4);
-						break;
-					default:
-						mouseStatus = false;
-						return;
-					}
-					mouseStatus = false;
-				}
-			}
-			
-			if(isEditing) {
-				if(mouseStatus) {
-					if(Functions.isOnBox(Almoxarifado.WIDTH - (76 + 165) * 2, 136, UserInterface.boxWidthSmall, UserInterface.boxHeight)){
-						System.out.println("Saindo do isEditing");
-						isEditing = false;
-						mouseStatus = false;
-					}else if(Functions.isOnBox(Almoxarifado.WIDTH - (76 + 165), 136 * 2, UserInterface.boxWidthSmall, UserInterface.boxHeight)) {
-						editInfo(4);
-						mouseStatus = false;
-					}
-				}
-			}
-			
-			if(isListing) {
-				getInfo();
-				
-				if(mouseStatus) {
-					if(Functions.isOnBox(((Almoxarifado.WIDTH / 3) - (deleteButton.getWidth() / 3)) * 2, listMaxHeight, UserInterface.boxWidthSmall, UserInterface.boxHeight)) {
-						addWorker();
-						mouseStatus = false;
-					}
-				}
-				
-				
-			}
-		}
-	}
-	
 	public void render(Graphics g) {
 		
 		if(isOnTheRightState) {
@@ -576,8 +501,6 @@ public class Admnistrator extends Profile {
 				
 				g.drawImage(editDoneButton, Almoxarifado.WIDTH - (76 + 165)*2, 136, null);
 				g.drawImage(passwordButton, Almoxarifado.WIDTH - (76 + 165), 136*2, null);
-				UserInterface.isOnSmallButton(g, Almoxarifado.WIDTH - (76 + 165)*2, 136);
-				UserInterface.isOnSmallButton(g, Almoxarifado.WIDTH - (76 + 165), 136*2);
 
 				
 			}else if(isListing == true) {

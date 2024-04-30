@@ -48,12 +48,8 @@ public class UserInterface {
 		bttnPartsActivated = Almoxarifado.imgManag.getSprite(215, 390, boxWidthBig, boxHeight);
 		bttnAssemblyActivated = Almoxarifado.imgManag.getSprite(0, 450, boxWidthBig, boxHeight);
 		bttnArchiveActivated = Almoxarifado.imgManag.getSprite(215, 450, boxWidthBig, boxHeight);
-<<<<<<< HEAD
 
-=======
-		
 		System.out.println("Carregou UserInterface: " + LocalDateTime.now());
->>>>>>> 7cdc107 (salvar projeto com inicio)
 	}
 	
 	public void clearBox(Graphics g) {
