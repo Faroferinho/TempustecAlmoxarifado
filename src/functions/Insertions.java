@@ -13,10 +13,10 @@ public abstract class Insertions {
 	
 	public boolean click = false;
 	
-	private String textInserted;
 	public boolean isWriting = false;
 	private int writerIndex = 0;
 	
+	protected String Title = "";
 	protected ArrayList<String> labels = new ArrayList<String>();
 	protected ArrayList<Rectangle> textBoxes = new ArrayList<Rectangle>();
 	protected ArrayList<String> values = new ArrayList<String>();
@@ -25,7 +25,10 @@ public abstract class Insertions {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void writer(KeyEvent e) {		
+	public void writer(KeyEvent e) {
+		
+		String textInserted = "";
+		
 		if(selected > -1) {
 			textInserted = values.get(selected);
 			
@@ -35,7 +38,15 @@ public abstract class Insertions {
 					textInserted += e.getKeyChar();
 				}else {
 					if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE && textInserted.length() > 0) {
-						textInserted = textInserted.substring(0, textInserted.length()-1);
+						textInserted = textInserted.substring(0, textInserted.length() - 1);
+					}
+					
+					if(e.getKeyCode() == KeyEvent.VK_TAB) {
+						selected++;
+						if(selected > values.size() - 1) {
+							selected = 0;
+						}
+						return;
 					}
 				}
 			}else {

@@ -405,6 +405,8 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		}else if(state == 6) {
 			if(addPart.isWriting == true) {
 				addPart.writer(e);
+			}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
+				addPart.isWriting = true;				
 			}
 		}
 	}
