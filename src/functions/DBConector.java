@@ -68,7 +68,7 @@ public class DBConector {
 		int max = checkSize(objective, table);
 		String returnData = "";
 		
-		System.out.println("Encontrar no DB: " + query);
+		//System.out.println("Encontrar no DB: " + query);
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -298,7 +298,7 @@ public class DBConector {
 	}
 	
 	public static double totalValueExpended() {
-		double returnValue = 0;
+		double returnValue = 0.0;
 		String IDsQuery = "SELECT ID_Montagem FROM Montagem";
 		ArrayList<String> identifiers = new ArrayList<>(); 
 		ArrayList<Double> prices = new ArrayList<>();
@@ -320,7 +320,7 @@ public class DBConector {
 				identifiers.add(rslt.getString(1));
 				
 				prices.add(getAssemblyValue(rslt.getString(1)));
-				returnValue += prices.get(i);
+				returnValue = Functions.sumCurency("" + returnValue, "" + prices.get(i));
 
 				i++;
 			}
@@ -331,9 +331,9 @@ public class DBConector {
 			}
 			
 			rslt = statement.executeQuery("Select cost From Arquivo");
-			
 			while(rslt.next()) {
-				returnValue += rslt.getDouble(i);
+				returnValue = Functions.sumCurency("" + returnValue, "" + rslt.getString(1));
+				System.out.println("returnValue recebe " + rslt.getString(1));
 			}
 			
 			

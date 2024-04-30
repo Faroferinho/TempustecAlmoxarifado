@@ -118,7 +118,7 @@ public class Archiver {
 		LocalDateTime lastDate = LocalDateTime.parse(getDateFromQuinzena);
 		LocalDateTime currDate = LocalDateTime.parse(date.replace(" ", "T"));
 		
-		if(currDate.isAfter(lastDate.plusDays(15))) {
+		if(currDate.isAfter(lastDate.plusSeconds(15))) {
 			System.out.println("Passou 15 dias");
 			return true;
 		}
@@ -143,17 +143,20 @@ public class Archiver {
 			
 			for(int i = 0; i < currIDs.length; i++) {
 				double difPrices = 0;
-				if(currIDs[i].equals(DBConector.readDB("Assembly", "Historico_Pecas", "Assembly", currIDs[i] + " && Date = " + lastEntry).replaceAll(" § \n", ""))) {
-					difPrices = Functions.diferenceCurency(DBConector.readDB("Cost", "Montagem", "ID_Montagem", "currIDs").replaceAll(" § \n", ""), 
-							DBConector.readDB("Cost", "Montagem", "ID_Montagem", currIDs[i]).replaceAll(" § \n", ""));
+				if(currIDs[i].equals(DBConector.readDB("Assembly", "Historico_Custo", "Assembly", currIDs[i] + " && Date = " + lastEntry).replaceAll(" § \n", ""))) {
+					difPrices = Functions.diferenceCurency(
+							DBConector.readDB("Cost", "Montagem", "ID_Montagem", currIDs[i]).replaceAll(" § \n", ""), 
+							DBConector.readDB("Cost", "Historico_Custo", "Assembly", currIDs[i]+ " && Date = " + lastEntry).replaceAll(" § \n", ""));
 				}else {
 					difPrices = Double.parseDouble(DBConector.readDB("cost", "Montagem", "ID_Montagem", currIDs[i]).replaceAll(" § \n", ""));
 				}
 				
+				System.out.println("Archiver.difPrices: " + difPrices);
+				
 				if(difPrices != 0) {
 					message += "	ID: " + currIDs[i] + "\n";
-					message += "	 - Descrição: " + DBConector.readDB("description", "Montagem", "ID_Montagem", currIDs[i]) + "\n";
-					message += "	 - Empresa: " + DBConector.readDB("company", "Montagem", "ID_Montagem", currIDs[i]) + "\n";
+					message += "	 - Descrição: " + DBConector.readDB("description", "Montagem", "ID_Montagem", currIDs[i]).replaceAll(" § ", "");
+					message += "	 - Empresa: " + DBConector.readDB("company", "Montagem", "ID_Montagem", currIDs[i]).replaceAll(" § ", "");
 					message += "	 - Quantidade: " + DBConector.counterOfElements("pecas", "Montagem = " + currIDs[i]) + "\n";
 					message += "	 - Valor: " + difPrices + "\n";
 					message += "========================================================================================================================\n";
@@ -163,9 +166,9 @@ public class Archiver {
 			message += "		Tenha um Bom Resto do seu Dia!\n";
 			message += "								- Almoxarifado";
 			
-			//System.out.println(message);
+			System.out.println(message);
 			
-			Email.sendReport("Relatório Quinzenal - " + emailDate, message);
+			//Email.sendReport("Relatório Quinzenal - " + emailDate, message);
 	}
 	
 	private static void createCongratulationsReport() {
@@ -180,7 +183,7 @@ public class Archiver {
 		message += "	Os gastos essa Quinzena foram exatamente 0, Parabens a todos os envolvidos 😀🥳\n";
 		message += "														- Almoxarifado.";
 		
-		Email.sendReport("Relatório Quinzenal - " + date, message);
+		//Email.sendReport("Relatório Quinzenal - " + date, message);
 	}
 
 }
