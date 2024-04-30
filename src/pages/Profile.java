@@ -36,7 +36,7 @@ public class Profile {
 		CPF = String.valueOf(inCPF);
 	}
 	
-	public byte buttonClick(int mx, int my, boolean type) {
+	protected byte buttonClick(int mx, int my, boolean type) {
 		
 		if(type == false) {
 			if(my > Almoxarifado.HEIGHT / 2 + 105 && my < Almoxarifado.HEIGHT / 2 + 190) {
@@ -65,7 +65,7 @@ public class Profile {
 		return 0;
 	}
 	
-	public void changeInformation(int mx, int my, boolean type){
+	protected void changeInformation(int mx, int my, boolean type){
 		if(type == false) {
 			if(Almoxarifado.mX > 185 && Almoxarifado.mX < Almoxarifado.WIDTH/2) {
 				if(Almoxarifado.mY > 165 && Almoxarifado.mY < 185) {
@@ -141,7 +141,7 @@ public class Profile {
 		updateInfo();
 	}
 	
-	public static void updateInfo() {
+	protected static void updateInfo() {
 		String aux = DBConector.readDB("*", "Funcionarios", "RdF", RdF);
 		String[] splitAux = aux.split(" § ");
 		
@@ -184,7 +184,7 @@ public class Profile {
 		return toReturn;
 	}
 	
-	public static void firstRendering(Graphics g) {
+	protected static void firstRendering(Graphics g) {
 		g.setColor(Color.green);
 		g.fillRect(76, 132, 100, 133);
 		

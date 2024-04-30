@@ -659,4 +659,49 @@ O Usuário 8523 removeu o funcionario de ID 2089 - Horario: 2024-02-19T10:41:31.
 
 O Usuário 8523 removeu o funcionario de ID 2740 - Horario: 2024-02-19T10:41:33.835607900
 
+<<<<<<< HEAD
 >>>>>>> 573e37c (Correção de terminologia)
+=======
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-02-21T08:08:06.080186700
+
+O Usuário 8523 alterou a peça ID_Parts.21, passou de 123 para Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at auctor lacus. Donec dolor lorem, aliquet in blandit a, feugiat nec urna. Donec pretium leo magna, id porta libero maximus lobortis. Mauris vestibulum pharetra metus eget varius. - Horario: 2024-02-21T08:08:38.380479100
+
+O Usuário 8523 alterou a peça ID_Parts.21, passou de Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at auctor lacus. Donec dolor lorem, aliquet in blandit a, feugiat nec urna. Donec pretium leo magna, id porta libero maximus lobortis. Mauris vestibulum pharetra metus eget varius. para Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at auctor lacus. Donec dolor lorem, aliquet in blandit a, feugiat nec urna. Donec pretium leo magna, id porta libero maximus lobortis. Mauris vestibulum pharetra metus eget varius. - Horario: 2024-02-21T08:08:54.326744700
+
+O Usuário 8523 alterou a peça ID_Parts.12, passou de 7 para Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at auctor lacus. Donec dolor lorem, aliquet in blandit a, feugiat nec urna. Donec pretium leo magna, id porta libero maximus lobortis. Mauris vestibulum pharetra metus eget varius. - Horario: 2024-02-21T08:08:58.098997500
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-02-21T08:10:25.530051
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-02-21T08:10:44.456748100
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-02-21T08:11:47.581251600
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-02-21T08:16:33.953826500
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-02-21T08:17:32.451758800
+
+O Usuário 8523 alterou a peça ID_Parts.12, passou de Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at auctor lacus. Donec dolor lorem, aliquet in blandit a, feugiat nec urna. Donec pretium leo magna, id porta libero maximus lobortis. Mauris vestibulum pharetra metus eget varius. para ------------------------------------------------------------------- - Horario: 2024-02-21T08:17:40.121327300
+
+O Usuário 8523 alterou a peça ID_Parts.12, passou de ------------------------------------------------------------------- para AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Horario: 2024-02-21T08:17:49.396857
+
+O Usuário 8523 alterou a peça ID_Parts.12, passou de AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA para AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Horario: 2024-02-21T08:17:56.228752500
+
+O Usuário 8523 alterou a peça ID_Parts.12, passou de AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA para AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Horario: 2024-02-21T08:18:05.777207900
+
+O Usuário 8523 alterou a peça ID_Parts.12, passou de AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA para AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Horario: 2024-02-21T08:18:35.035808300
+
+O Usuário 8523 alterou a peça ID_Parts.12, passou de AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA para AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Horario: 2024-02-21T08:18:55.151409800
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-02-21T09:15:52.187110200
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-02-21T11:52:16.980932700
+
+>>>>>>> 26cb569 (Comentarios e correção de bugs)

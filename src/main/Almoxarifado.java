@@ -307,20 +307,20 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		int y = e.getY() - (UserInterface.bttnY + UserInterface.boxHeight + 18);
 		
 		if(partsList.isDragging) {
-			partsList.ofsetHeight = ((PartsList.maximumHeight * y) / ((UserInterface.maximunHeight - 12) - partsList.thumbHeight)) * -1;
+			partsList.offsetHeight = ((PartsList.maximumHeight * y) / ((UserInterface.maximunHeight - 12) - partsList.thumbHeight)) * -1;
 			
 			partsList.scrollPositioner();
 		}else if(projectList.isDragging) {
 			
-			projectList.ofsetHeight = ((projectList.maximumHeight * y) / ((UserInterface.maximunHeight - 12) - projectList.thumbHeight)) * -1;
+			projectList.offsetHeight = ((projectList.maximumHeight * y) / ((UserInterface.maximunHeight - 12) - projectList.thumbHeight)) * -1;
 			
 			projectList.scrollPositioner();
 		}else if(project.isDragging) {
-			project.ofsetHeight = ((project.maximumHeight * y) / ((UserInterface.maximunHeight - 12) - project.thumbHeight)) * -1;
+			project.offsetHeight = ((project.maximumHeight * y) / ((UserInterface.maximunHeight - 12) - project.thumbHeight)) * -1;
 			
 			project.scrollPositioner();
 		}else if(archive.isDragging) {
-			archive.ofsetHeight = ((archive.maximumHeight * y) / ((UserInterface.maximunHeight - 12) - archive.thumbHeight)) * -1;
+			archive.offsetHeight = ((archive.maximumHeight * y) / ((UserInterface.maximunHeight - 12) - archive.thumbHeight)) * -1;
 			
 			archive.scrollPositioner();
 		}
