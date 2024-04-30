@@ -23,6 +23,7 @@ import functions.Archiver;
 import functions.DBConector;
 import functions.Functions;
 import functions.ImageManager;
+import pages.AddPart;
 import pages.Admnistrator;
 import pages.Archive;
 import pages.Employee;
@@ -37,7 +38,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 0;
+	public static byte state = 6;
 	
 	public static JFrame frame;
 	public static Toolkit tk;
@@ -50,6 +51,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static ProjectList projectList;
 	public static Project project;
 	public static Archive archive;
+	public static AddPart addPart;
 	
 	public static Thread mainThread;
 	public static Thread fortnightVerificatorThread;
@@ -86,6 +88,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		project = new Project();
 		partsList = new PartsList();
 		archive = new Archive();
+		addPart = new AddPart();
 		
 		frame = new JFrame();
 		
@@ -148,7 +151,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			login.tick();
 			break;
 		case 1:
-			ui.tick();
 			if(type.equals("1")) {
 				admProfile.tick();
 			}else {
@@ -156,21 +158,23 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			}
 			break;
 		case 2:
-			ui.tick();
 			partsList.tick();
 			break;
 		case 3:
-			ui.tick();
 			projectList.tick();
 			break;
 		case 4:
-			ui.tick();
 			archive.tick();
 			break;
 		case 5:
-			ui.tick();
 			project.tick();
 			break;
+		case 6:
+			addPart.tick();
+		}
+		
+		if(state != 0) {
+			ui.tick();			
 		}
 	}
 	
@@ -226,6 +230,9 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			break;
 		case 5:
 			project.render(g);
+			break;
+		case 6:
+			addPart.render(g);
 			break;
 		}
 		if(state != 0) {
@@ -296,6 +303,8 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		case 5:
 			project.mouseStatus = true;
 			break;
+		case 6:
+			addPart.click = true;
 		}
 	}
 
@@ -312,6 +321,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		projectList.mouseStatus = false;
 		project.mouseStatus = false;
 		archive.mouseStatus = false;
+		addPart.click = false;
 	}
 
 	@Override
@@ -382,12 +392,19 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
+		System.out.println("O Caractere " + e.getKeyChar() + " tem como código " + e.getExtendedKeyCode());
+		
 		if(state == 0) {
 			if(login.isWriting) {
 				login.writingOnCanvas(e);
 			}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 				login.isWriting = true;
 				login.isOnCPF = true;
+			}
+		}else if(state == 6) {
+			if(addPart.isWriting == true) {
+				addPart.writer(e);
 			}
 		}
 	}

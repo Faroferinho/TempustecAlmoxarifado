@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 
@@ -31,7 +32,7 @@ public class UserInterface {
 	public static int maximunHeight = Almoxarifado.HEIGHT - (bttnY + boxHeight + 12) - 40;
 
 	public UserInterface() {
-		bttnX[0] = (Almoxarifado.WIDTH / (bttnX.length + 1)) - (boxWidthBig / 2);
+		bttnX[0] = ( Almoxarifado.WIDTH / (bttnX.length + 1)) -      (boxWidthBig / 2);
 		bttnX[1] = ((Almoxarifado.WIDTH / (bttnX.length + 1)) * 2) - (boxWidthBig / 2);
 		bttnX[2] = ((Almoxarifado.WIDTH / (bttnX.length + 1)) * 3) - (boxWidthBig / 2);
 		bttnX[3] = ((Almoxarifado.WIDTH / (bttnX.length + 1)) * 4) - (boxWidthBig / 2);
@@ -130,6 +131,13 @@ public class UserInterface {
 				g.fillRect(pX, pY, boxWidthSmall, boxHeight);
 			}
 		}
+	}
+	
+	public static void createTextBox(Graphics g, Rectangle r, int roundness) {
+		g.setColor(Color.white);
+		g.fillRoundRect(r.x, r.y, r.width, r.height, roundness, roundness);
+		g.setColor(Color.black);
+		g.drawRoundRect(r.x, r.y, r.width, r.height, roundness, roundness);
 	}
 
 

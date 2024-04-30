@@ -1,5 +1,6 @@
 package functions;
 
+import java.awt.Rectangle;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -94,6 +95,10 @@ public class Functions {
 			}
 		}
 		return false;
+	}
+	
+	public static boolean isOnBox(Rectangle r) {
+		return isOnBox(r.x, r.y, r.width, r.height);
 	}
 	
 	public static double diferenceCurency(String v1, String v2) {
@@ -198,5 +203,6 @@ public class Functions {
 			}
 		}
 	}
+
 	
 }

@@ -6,10 +6,14 @@ import java.awt.Graphics;
 <<<<<<< HEAD
 import java.awt.Graphics2D;
 import java.awt.Image;
+<<<<<<< HEAD
 import java.awt.RenderingHints;
 =======
 import java.awt.Image;
 >>>>>>> 756dab6 (Recriando o repositório local git)
+=======
+import java.awt.Rectangle;
+>>>>>>> 96b63fb (Algumas alterações para a criação de uma pagina de adição de parte e de montagem)
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
@@ -39,6 +43,9 @@ public class Login {
 	int textBoxY = Almoxarifado.HEIGHT/5*2;
 	int textBoxW = Almoxarifado.WIDTH/2;
 	int textBoxH = 30;
+	
+	Rectangle firstBox = new Rectangle(textBoxX, textBoxY + 48, textBoxW, textBoxH);
+	Rectangle secondBox = new Rectangle(textBoxX, (int) (textBoxY * 1.6), textBoxW, textBoxH);
 	
 	BufferedImage loginBttn = Almoxarifado.imgManag.getSprite(0, 0, 215, 60);
 	int bttnX = (Almoxarifado.WIDTH/2) - (loginBttn.getWidth()/2);
@@ -291,17 +298,22 @@ public class Login {
 		g.setColor(new Color(126, 126, 126));
 		g.fillRoundRect(textBoxX - 10, textBoxY, (Almoxarifado.WIDTH / 2) + 20, 5, 5, 5);
 		
+		UserInterface.createTextBox(g, firstBox, 15);
+		UserInterface.createTextBox(g, secondBox, 15);
+		
 		g.setColor(Color.white);
+<<<<<<< HEAD
 		g.fillRoundRect(textBoxX, textBoxY + 48, textBoxW, textBoxH, 15, 15);
 		g.fillRoundRect(textBoxX, (int) (textBoxY * 1.6), textBoxW, textBoxH, 15, 15);
+=======
+		g.setFont(new Font("Times New Roman", Font.BOLD, 35));
+>>>>>>> 96b63fb (Algumas alterações para a criação de uma pagina de adição de parte e de montagem)
 		Almoxarifado.drawStringBorder(g, "Inicie Sessão", (Almoxarifado.WIDTH/2) - (g.getFontMetrics().stringWidth("Inicie Sessão")/2), textBoxY - 20, 1, Color.DARK_GRAY, Color.white);
 		g.setFont(new Font("Times New Roman", 0, 20));
 		Almoxarifado.drawStringBorder(g, "CPF:", textBoxX + 15, textBoxY + 44, 1, Color.DARK_GRAY, Color.white);
 		Almoxarifado.drawStringBorder(g, "Senha:", textBoxX + 15, (int) (textBoxY * 1.6) - 3, 1, Color.DARK_GRAY, Color.white);
 
 		g.setColor(Color.black);
-		g.drawRoundRect(textBoxX, textBoxY + 48, textBoxW, textBoxH, 15, 15);
-		g.drawRoundRect(textBoxX, (int) (textBoxY * 1.6), textBoxW, textBoxH, 15, 15);
 		
 		g.setFont(new Font("segoe ui", 0, 16));
 		g.drawString(cpfFormater(textInBoxCPF), textBoxX + 5, textBoxY + textBoxH - (g.getFontMetrics().getHeight()/2) + 49);
