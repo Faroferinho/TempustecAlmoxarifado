@@ -23,6 +23,7 @@ import functions.Archiver;
 import functions.DBConector;
 import functions.Functions;
 import functions.ImageManager;
+import pages.AddAssembly;
 import pages.AddPart;
 import pages.Admnistrator;
 import pages.Archive;
@@ -38,7 +39,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 6;
+	public static byte state = 7;
 	
 	public static JFrame frame;
 	public static Toolkit tk;
@@ -52,6 +53,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static Project project;
 	public static Archive archive;
 	public static AddPart addPart;
+	public static AddAssembly addAssembly;
 	
 	public static Thread mainThread;
 	public static Thread fortnightVerificatorThread;
@@ -87,6 +89,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		partsList = new PartsList();
 		archive = new Archive();
 		addPart = new AddPart();
+		addAssembly = new AddAssembly();
 		
 		frame = new JFrame();
 		
@@ -169,6 +172,12 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			break;
 		case 6:
 			addPart.tick();
+			break;
+		case 7:
+			addAssembly.tick();
+			break;
+		default:
+			state = 0;	
 		}
 		
 		if(state != 0) {
@@ -233,7 +242,10 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		case 6:
 			addPart.render(g);
 			break;
+		case 7:
+			addAssembly.render(g);
 		}
+		
 		if(state != 0) {
 			ui.limitScrollToWorkspaceArea(g);
 			ui.render(g);
@@ -304,6 +316,10 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			break;
 		case 6:
 			addPart.click = true;
+			break;
+		case 7:
+			addAssembly.click = true;
+			break;
 		}
 	}
 
@@ -321,6 +337,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		project.mouseStatus = false;
 		archive.mouseStatus = false;
 		addPart.click = false;
+		addAssembly.click = false;
 	}
 
 	@Override
@@ -406,6 +423,12 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 				addPart.writer(e);
 			}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 				addPart.isWriting = true;				
+			}
+		}else if(state == 7) {
+			if(addAssembly.isWriting == true) {
+				addAssembly.writer(e);
+			}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
+				addAssembly.isWriting = true;				
 			}
 		}
 	}

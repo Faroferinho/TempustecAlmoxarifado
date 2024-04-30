@@ -32,7 +32,7 @@ public class DBConector {
 		String query = "select " + objective + " from " + table;
 		int maxIndex = checkSize(objective, table);
 		String returnData = "";
-		//System.out.println("Query: \n" + query);
+		System.out.println("Query: \n" + query);
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");

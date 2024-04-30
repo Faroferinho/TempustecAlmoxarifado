@@ -13,39 +13,24 @@ import functions.Insertions;
 import main.Almoxarifado;
 import main.UserInterface;
 
-public class AddPart extends Insertions {
-	
-	public AddPart() {
-		quantity = 5;
+public class AddAssembly extends Insertions{
+
+	public AddAssembly() {
+		quantity = 3;
 		border = 15;
 		
-		title = "Cadastro de Peça:";
+		title = "Cadastro de Montagem:";
 		
-		labels.add("O.S. da Peça:");
+		labels.add("Valor da O.S.:");
 		values.add(DBConector.readDB("ISO", "Montagem ORDER BY LENGTH(ISO) DESC LIMIT 1").replaceAll(" § ", ""));
 		labels.add("Descrição: ");
-		values.add(DBConector.readDB("Description", "Pecas ORDER BY LENGTH(Description) DESC LIMIT 1").replaceAll(" § ", ""));
-		labels.add("Quantidade das Peças: ");
-		values.add(DBConector.readDB("Quantity", "Pecas ORDER BY LENGTH(Quantity) DESC LIMIT 1").replaceAll(" § ", ""));
-		labels.add("Custo da Peça: ");
-		values.add(DBConector.readDB("MAX(Price)", "Pecas").replaceAll(" § ", ""));
-		labels.add("Fornecedor da peça: ");
-		values.add(DBConector.readDB("Supplier", "Pecas ORDER BY LENGTH(Supplier) DESC LIMIT 1").replaceAll(" § ", ""));
-		
-		int auxX = 0;
-		int auxY = 0;
+		values.add(DBConector.readDB("Description", "Montagem ORDER BY LENGTH(Description) DESC LIMIT 1").replaceAll(" § ", ""));
+		labels.add("Empresa: ");
+		values.add(DBConector.readDB("Company", "Montagem ORDER BY LENGTH(Company) DESC LIMIT 1").replaceAll(" § ", ""));
 		
 		for(int i = 0; i < quantity; i++) {
-			
-			if(auxX > 1) {
-				auxX = 0;
-				auxY++;
-			}
-			
-			textBoxes.add(new Rectangle(80 + ((middleScreenX - 80) * auxX), 200 + 160 * auxY, values.get(i).length() * 8 + 24, 40));
+			textBoxes.add(new Rectangle(80, 200 + 160 * i, values.get(i).length() * 8 + 24, 40));
 			values.set(i, "");
-			
-			auxX++;
 		}
 	}
 
@@ -68,62 +53,29 @@ public class AddPart extends Insertions {
 
 	@Override
 	protected void writeQuery() {
-		String queryInsert = "INSERT INTO pecas (Montagem, Description, Quantity, Price, Creation_Date, Supplier, Status)\nVALUES(";
-		String id = "";
-		
-		if(verifyValues(values.get(0))) {
-			id = DBConector.readDB("ID_Montagem", "Montagem WHERE ISO LIKE '%" + values.get(0) + "%'").replaceAll(" § \n", "");
-		}else {
-			JOptionPane.showMessageDialog(null, "Verifique a OS da Montagem", "Erro ao adicionar a montagem", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		
-		queryInsert += id + ", \"" + values.get(1) + "\", \"" + values.get(2) + "\", \"" + values.get(3) + "\", NOW(), \"" + values.get(4) + "\", 0);";
+		String queryInsert = "INSERT INTO Montagem (ISO, Description, Company, Cost)\nVALUES(\"";		
+		queryInsert += values.get(0);
+		queryInsert += "\", \"" + values.get(1) + "\", \"" + values.get(2) + "\",  0);";
 		
 		System.out.println("Query Inserted: \n" + queryInsert);
 		
 		DBConector.writeDB(queryInsert);
-		
-		Almoxarifado.quantityParts++;
-		Functions.partsToOrder += DBConector.readDB("MAX(ID_Parts)", "Pecas");
-	}
 
-	protected boolean verifyValues(String text) {
-		boolean valueExistsInDB = false;
-		String textWriten = "'%" + text.replaceAll("[a-zA-Z]", "") + "%'";
-		
-		if(textWriten.equals("'%%'")) {
-			textWriten = "'%" + text + "%'";
-		}
-		
-		String textFromDB = DBConector.readDB("ID_Montagem", "Montagem WHERE ISO LIKE" + textWriten);
-		if(!Functions.emptyString(textFromDB.replaceAll("[§\n]", ""))) {
-			System.out.println("Valor Existe no DB");
-			valueExistsInDB = true;
-		}
-		
-		return valueExistsInDB;
+		ProjectList.updateProjectList = true;
+		Almoxarifado.state = 3;
 	}
 
 	@Override
 	protected void fillDefaultValues() {
 		for(int i = 0; i < quantity; i++) {
-			if(values.get(i).equals("")) {
-				switch(i % 5) {
-				case 1:
-				case 4:
-					values.set(i, genericString);
-					break;
-				case 2:
-				case 3:
-					values.set(i, "" + genericNumeral);
-					break;
-				case 0:
-					values.set(i, "Uso Interno");
-					break;
-				}
-			}
+			values.set(i, genericString);
 		}
+	}
+
+	@Override
+	protected void showRecomendations() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -139,58 +91,18 @@ public class AddPart extends Insertions {
 		for(int i = 0; i < quantity; i++) {
 			values.set(i, "");
 		}
-		
-		PartsList.wasChanged = true;
-		Almoxarifado.state = 2;
 	}
 
 	@Override
 	protected void cancelButtonClick() {
 		int toVerif = JOptionPane.showConfirmDialog(null, "Você gostaria cancelar a ação?", "Confirmar o Cancelamento", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if(toVerif == 0) {
-			Almoxarifado.state = 2;
+			Almoxarifado.state = 3;
 		}
 	}
-	
-	protected void showRecomendations() {
-		String column = "";
-		String table = "pecas";
-		
-		switch(selected) {
-		case 0:
-			column = "ISO";
-			table = "Montagem";
-			break;
-		case 1:
-			column = "Description";
-			break;
-		case 2:
-			column = "quantity";
-			break;
-		case 3:
-			column = "Price";
-			break;
-		case 4:
-			column = "supplier";
-			break;
-		default:
-			return;
-		}
-		
-		recomendation = Functions.findBestInstance(values.get(selected), column, table);
-		
-		if(!Functions.emptyString(recomendation)) {
-			hasRecomendation = true;
-			//System.out.print("recomendation está vazia?");
-		}else {
-			hasRecomendation = false;
-		}
-		
-		//System.out.println("Recomendações: " + Functions.findBestInstance(values.get(selected), column, table));
-	}
-	
+
 	@Override
-	public void tick() {				
+	public void tick() {
 		if(isWriting && selected == -1) {
 			selected = 0;
 		}
@@ -207,7 +119,7 @@ public class AddPart extends Insertions {
 	}
 
 	@Override
-	public void render(Graphics g) {		
+	public void render(Graphics g) {
 		g.setColor(Color.white);
 		g.setFont(new Font("segoi ui", 1, 40));
 		g.drawString(title, middleScreenX - g.getFontMetrics().stringWidth(title)/2, 160);

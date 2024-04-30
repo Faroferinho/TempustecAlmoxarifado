@@ -127,8 +127,6 @@ public abstract class Insertions {
 	
 	protected abstract void writeQuery();
 	
-	protected abstract boolean verifyValues(String text);
-	
 	protected abstract void fillDefaultValues();
 	
 	protected abstract void showRecomendations();
