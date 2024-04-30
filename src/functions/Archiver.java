@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import main.Almoxarifado;
 import pages.Profile;
 
 public class Archiver {
@@ -70,11 +69,13 @@ public class Archiver {
 		}
 	}
 
-	public static void logInfo() {	
+	public static void logInfo() {
 		LocalDateTime thisMoment = LocalDateTime.now();
 		String auxDate = thisMoment.toString();
 		auxDate = auxDate.substring(0, 19);
 		auxDate = auxDate.replaceAll("T", " ");
+		
+		int lastQuinzena = Integer.parseInt(DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", ""));
 		
 		if(fortnightVerificator(auxDate)) {
 			String lastValue = "";
@@ -96,7 +97,7 @@ public class Archiver {
 			DBConector.registerFortnight(auxDate);
 			
 			if(totalValue != Double.parseDouble(lastValue)) {
-				createExpancesReport(totalValue - Double.parseDouble(lastValue));
+				createExpancesReport(Functions.diferenceCurency("" + totalValue, lastValue), lastQuinzena);
 			}else {
 				createCongratulationsReport();
 			}
@@ -109,7 +110,7 @@ public class Archiver {
 		
 		System.out.println("Ultima data: " + getDateFromQuinzena);
 		
-		if(!Functions.emptyString(getDateFromQuinzena)) {
+		if(Functions.emptyString(getDateFromQuinzena)) {
 			System.out.println("Retornando");
 			return true;
 		}
@@ -125,45 +126,46 @@ public class Archiver {
 		return false;
 	}
 	
-	private static void createExpancesReport(double difCost) {
+	private static void createExpancesReport(double difCost, int lastEntry) {
 			String message = "";
-			String date;
-			
-			String IDs[] = DBConector.readDB("ID_Montagem", "Montagem").split(" § \n");
-			String descriptions[] = DBConector.readDB("description", "Montagem").split(" § \n");
-			String companies[] = DBConector.readDB("company", "Montagem").split(" § \n");
-			String currPrices[] = DBConector.readDB("cost", "Montagem").split(" § \n");
-			String lastPrices[] = DBConector.readDB("cost", "Historico_Custo").split(" § \n");
+			String emailDate;
 			
 			LocalDateTime ldt = LocalDateTime.now();
 			
-			date = "" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear() + " - " + ldt.getHour() + ":" + ldt.getMinute() + ":" + ldt.getSecond();
+			String currIDs[] = DBConector.readDB("ID_Montagem", "Montagem").split(" § \n");
 			
-			message += date + "\n";
+			emailDate = "" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear() + " - " + ldt.getHour() + ":" + ldt.getMinute() + ":" + ldt.getSecond();
+			
+			message += emailDate + "\n";
 			message += "	" + Functions.randomGreetingsGen() + "\n";
 			message += "	O Relatório destá quinzena Registrou um total gasto Total de " + difCost + ", segue o valor gasto com as montagens: \n";
 			message += "========================================================================================================================\n";
-			for(int i = 0; i < Almoxarifado.quantityAssembly; i++) {
+			
+			for(int i = 0; i < currIDs.length; i++) {
 				double difPrices = 0;
-				if(lastPrices.length < i + 1) {
-					difPrices = Double.parseDouble(currPrices[i]) - Double.parseDouble(lastPrices[i]);
+				if(currIDs[i].equals(DBConector.readDB("Assembly", "Historico_Pecas", "Assembly", currIDs[i] + " && Date = " + lastEntry).replaceAll(" § \n", ""))) {
+					difPrices = Functions.diferenceCurency(DBConector.readDB("Cost", "Montagem", "ID_Montagem", "currIDs").replaceAll(" § \n", ""), 
+							DBConector.readDB("Cost", "Montagem", "ID_Montagem", currIDs[i]).replaceAll(" § \n", ""));
+				}else {
+					difPrices = Double.parseDouble(DBConector.readDB("cost", "Montagem", "ID_Montagem", currIDs[i]).replaceAll(" § \n", ""));
 				}
 				
 				if(difPrices != 0) {
-					message += "	ID: " + IDs[i] + "\n";
-					message += "	 - Descrição: " + descriptions[i] + "\n";
-					message += "	 - Empresa: " + companies[i] + "\n";
-					message += "	 - Quantidade: " + DBConector.counterOfElements("pecas", "Montagem = " + IDs[i]) + "\n";
+					message += "	ID: " + currIDs[i] + "\n";
+					message += "	 - Descrição: " + DBConector.readDB("description", "Montagem", "ID_Montagem", currIDs[i]) + "\n";
+					message += "	 - Empresa: " + DBConector.readDB("company", "Montagem", "ID_Montagem", currIDs[i]) + "\n";
+					message += "	 - Quantidade: " + DBConector.counterOfElements("pecas", "Montagem = " + currIDs[i]) + "\n";
 					message += "	 - Valor: " + difPrices + "\n";
 					message += "========================================================================================================================\n";
 				}
 			}
+			
 			message += "		Tenha um Bom Resto do seu Dia!\n";
 			message += "								- Almoxarifado";
 			
 			//System.out.println(message);
 			
-			Email.sendReport("Relatório Quinzenal - " + date, message);
+			Email.sendReport("Relatório Quinzenal - " + emailDate, message);
 	}
 	
 	private static void createCongratulationsReport() {

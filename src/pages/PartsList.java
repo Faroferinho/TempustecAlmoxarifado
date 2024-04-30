@@ -39,7 +39,7 @@ public class PartsList {
 	
 	public boolean mouseStatus = false;
 	
-	private static boolean wasChanged = true;
+	static boolean wasChanged = true;
 	
 	int total = Almoxarifado.WIDTH - 50*2;
 	int characterLimitPerLine = (int) ((total*28)/100);;
@@ -86,7 +86,7 @@ public class PartsList {
 		returnString[0][7] = "Status";
 		
 		for(int i = 0; i < Almoxarifado.quantityParts; i++) {
-			returnString[i+1] = linesToBreakdown[i].split(" § ");
+			returnString[i + 1] = linesToBreakdown[i].split(" § ");
 		}
 		return returnString;
 	}
