@@ -70,7 +70,10 @@ public class AddPart extends Insertions {
 		String queryInsert = "INSERT INTO pecas (Montagem, Description, Quantity, Price, Creation_Date, Supplier, Status)\nVALUES(\"";
 		
 		String id = "";
+		String desc = values.get(1);
+		String qntt = values.get(2);
 		String price = values.get(3);
+		String sppr = values.get(4);
 		
 		if(verifyValues(values.get(0))) {
 			id = DBConector.readDB("ID_Montagem", "Montagem WHERE ISO LIKE '%" + values.get(0) + "%'").replaceAll(" § \n", "");
@@ -79,9 +82,12 @@ public class AddPart extends Insertions {
 			return;
 		}
 		
+		desc = desc.replaceAll("\"", "''").replaceAll("[§\r\n]", "");
+		qntt = qntt.replaceAll("\"", "''").replaceAll("[§\r\n]", "");
 		price = PartsList.formatNumb(price);
+		sppr = sppr.replaceAll("\"", "''").replaceAll("[§\r\n]", "");
 		
-		queryInsert += id + "\", \"" + values.get(1) + "\", \"" + values.get(2) + "\", " + price + ", NOW(), \"" + values.get(4) + "\", 0);";
+		queryInsert += id + "\", \"" + desc + "\", \"" + qntt + "\", " + price + ", NOW(), \"" + sppr + "\", 0);";
 		
 		System.out.println("Query Inserted: \n" + queryInsert);
 		
