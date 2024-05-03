@@ -553,3 +553,35 @@ O Usuário 853 efetuou login - Horario: 2024-05-03T08:02:16.751278300
 
 O Usuário 853 modou para o projeto 15 - Horario: 2024-05-03T08:03:06.742638300
 
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-03T08:20:18.812040500
+
+O Usuário 853 modou para o projeto 11 - Horario: 2024-05-03T08:20:49.511711
+
+O Usuário 853 arquivou o Projeto de ID = 11 - Horario: 2024-05-03T08:20:50.855639800
+
+O Usuário 853 modou para o projeto 15 - Horario: 2024-05-03T08:20:56.425943700
+
+O Usuário 853 arquivou o Projeto de ID = 15 - Horario: 2024-05-03T08:20:58.140958900
+
+O Usuário 853 modou para o projeto 12 - Horario: 2024-05-03T08:21:02.289746800
+
+O Usuário 853 arquivou o Projeto de ID = 12 - Horario: 2024-05-03T08:21:09.262534500
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-03T08:30:18.262262600
+
+O Usuário 853 modou para o projeto 16 - Horario: 2024-05-03T08:30:26.249520500
+
+O Usuário 853 arquivou o Projeto de ID = 16 - Horario: 2024-05-03T08:30:28.218523300
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-03T08:31:36.523656500
+
+O Usuário 853 modou para o projeto 6 - Horario: 2024-05-03T08:32:28.252401800
+
+O Usuário 853 arquivou o Projeto de ID = 6 - Horario: 2024-05-03T08:32:30.258196500
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-03T08:32:56.754163800
+
