@@ -97,7 +97,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		frame.setResizable(true);
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.getContentPane().setBackground(Color.black);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);

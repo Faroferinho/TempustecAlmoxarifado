@@ -73,6 +73,11 @@ public class ProjectList {
 		String infoFromDB = DBConector.readDB("*", "Montagem");
 		String[] lines = infoFromDB.split("\n");
 		
+		ids.clear();
+		names.clear();
+		descriptions.clear();
+		companies.clear();
+		
 		for(int i = 0; i < lines.length; i++) {
 			String currColumns[] = lines[i].split(" § ");
 			

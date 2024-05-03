@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import functions.DBConector;
+import functions.Functions;
 import main.Almoxarifado;
 import main.UserInterface;
 
@@ -36,16 +37,13 @@ public class Archive {
 	int auxHeight = 0;
 
 	ArrayList<String> names = new ArrayList<>();
-	
 	ArrayList<String> images = new ArrayList<>();
-	
 	ArrayList<Integer> quantities = new ArrayList<>();
-	
 	ArrayList<String> dates = new ArrayList<>();
-	
 	ArrayList<String> RdFs = new ArrayList<>();
 		
 	BufferedImage img = Almoxarifado.imgManag.getProjectImage("ArquivoBeta");
+	BufferedImage restoreButton = Almoxarifado.imgManag.getSprite(475, 540, 165, 60);
 
 	public Archive() {
 		System.out.println("Carregou Arquivo: " + LocalDateTime.now());
@@ -102,6 +100,10 @@ public class Archive {
 				&& Almoxarifado.mY > UserInterface.bttnY + UserInterface.boxHeight + 20 - (int) (thumbAuxY) 
 				&& Almoxarifado.mY < UserInterface.bttnY + UserInterface.boxHeight + 20 - (int) (thumbAuxY) + thumbHeight) {
 					isDragging = true;
+				}
+				
+				if(Functions.isOnBox(Almoxarifado.WIDTH - 75 - restoreButton.getWidth(), initialImgY + 60 + offsetHeight + auxHeight, 165, 60)) {
+					
 				}
 			}else {
 				isDragging = false;
@@ -164,6 +166,9 @@ public class Archive {
 			g.drawString(dates.get(i), imgX + 170, initialImgY + 60 + offsetHeight + auxHeight);
 			g.drawString("Quantidade de Peças: " + quantities.get(i), imgX + 170, initialImgY + 95 + offsetHeight + auxHeight);
 			g.drawString("Registro do Arquivador: " + RdFs.get(i), imgX + 170, initialImgY + 130 + offsetHeight + auxHeight);
+			
+			g.drawImage(restoreButton, Almoxarifado.WIDTH - 75 - restoreButton.getWidth(), initialImgY + 60 + offsetHeight + auxHeight, null);
+			UserInterface.isOnSmallButton(g, Almoxarifado.WIDTH - 75 - restoreButton.getWidth(), initialImgY + 60 + offsetHeight + auxHeight);
 			
 			auxHeight += 250;
 		}

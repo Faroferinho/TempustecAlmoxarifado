@@ -38,8 +38,10 @@ public class DBConector {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			
 			JOptionPane.showMessageDialog(null, "Instale o Driver \"MySQL Connector-J\" e Tente Novamente", 
 			"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			
 			System.exit(1);
 		}
 		

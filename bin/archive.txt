@@ -453,3 +453,103 @@ O Usuário 853 efetuou login - Horario: 2024-05-02T07:44:05.674425600
 
 O Usuário 853 modou para o projeto 10 - Horario: 2024-05-02T07:44:15.692086400
 
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-02T07:50:25.493387300
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-02T07:54:36.210126800
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-02T07:56:38.883618800
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-02T07:58:26.152421300
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-02T08:05:03.025986800
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-02T08:18:29.726081100
+
+O Usuário 853 modou para o projeto 5 - Horario: 2024-05-02T08:18:35.693916900
+
+O Usuário 853 arquivou o Projeto de ID = 5 - Horario: 2024-05-02T08:18:38.316712
+
+O Usuário 853 modou para o projeto 6 - Horario: 2024-05-02T08:18:39.980197900
+
+O Usuário 853 modou para o projeto 6 - Horario: 2024-05-02T08:18:52.118366500
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-02T08:19:05.306737400
+
+O Usuário  alterou a peça ID_Parts.758, passou de 0 para 1 - Horario: 2024-05-02T09:40:25.433834800
+
+O Usuário  alterou a peça ID_Parts.759, passou de 0 para 1 - Horario: 2024-05-02T09:41:36.342653600
+
+O Usuário  alterou a peça ID_Parts.760, passou de 0 para 1 - Horario: 2024-05-02T09:42:35.982700300
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-02T09:46:09.181524100
+
+--------------------------------------------------------------------------------------
+O Usuário 1233 efetuou login - Horario: 2024-05-02T09:46:25.997843900
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-03T07:14:51.354883100
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-03T07:16:50.927308800
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-03T07:17:17.232258500
+
+O Usuário  alterou a peça ID_Parts.36, passou de 1 para 8 - Horario: 2024-05-03T07:35:04.375575800
+
+O Usuário  alterou a peça ID_Parts.28, passou de 1 para 17 - Horario: 2024-05-03T07:35:39.723606400
+
+O Usuário  alterou a peça ID_Parts.16, passou de 1 para 18 - Horario: 2024-05-03T07:35:47.820041600
+
+O Usuário  alterou a peça ID_Parts.17, passou de 1 para 6 - Horario: 2024-05-03T07:35:51.719509
+
+O Usuário  modou para o projeto 10 - Horario: 2024-05-03T07:40:05.447588500
+
+O Usuário  arquivou o Projeto de ID = 10 - Horario: 2024-05-03T07:40:07.204156400
+
+O Usuário  modou para o projeto 10 - Horario: 2024-05-03T07:40:09.971553700
+
+O Usuário  arquivou o Projeto de ID = 10 - Horario: 2024-05-03T07:40:11.775091200
+
+O Usuário  modou para o projeto 10 - Horario: 2024-05-03T07:40:13.359614100
+
+O Usuário  arquivou o Projeto de ID = 10 - Horario: 2024-05-03T07:40:14.799311
+
+O Usuário  modou para o projeto 10 - Horario: 2024-05-03T07:40:37.232565900
+
+O Usuário  arquivou o Projeto de ID = 10 - Horario: 2024-05-03T07:40:38.927751400
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-03T07:42:20.213266800
+
+O Usuário 853 modou para o projeto 10 - Horario: 2024-05-03T07:42:28.564849
+
+O Usuário 853 arquivou o Projeto de ID = 10 - Horario: 2024-05-03T07:42:30.649908600
+
+O Usuário 853 modou para o projeto 14 - Horario: 2024-05-03T07:42:38.185587500
+
+O Usuário 853 arquivou o Projeto de ID = 14 - Horario: 2024-05-03T07:42:39.675422600
+
+O Usuário 853 modou para o projeto 13 - Horario: 2024-05-03T07:42:42.007325500
+
+O Usuário 853 arquivou o Projeto de ID = 13 - Horario: 2024-05-03T07:42:44.955236400
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-03T07:42:59.037583800
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-03T07:50:01.016761400
+
+--------------------------------------------------------------------------------------
+O Usuário 853 efetuou login - Horario: 2024-05-03T08:02:16.751278300
+
+O Usuário 853 modou para o projeto 15 - Horario: 2024-05-03T08:03:06.742638300
+
