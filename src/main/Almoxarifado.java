@@ -25,11 +25,10 @@ import functions.Functions;
 import functions.ImageManager;
 import pages.AddAssembly;
 import pages.AddPart;
-import pages.Admnistrator;
 import pages.Archive;
-import pages.Employee;
 import pages.Login;
 import pages.PartsList;
+import pages.Profile;
 import pages.Project;
 import pages.ProjectList;
 
@@ -45,8 +44,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static Toolkit tk;
 	public static Login login;
 	public static UserInterface ui;
-	public static Admnistrator admProfile;
-	public static Employee workProfile;
+	public static Profile userProfile;
 	public static PartsList partsList;
 	public static ImageManager imgManag;
 	public static ProjectList projectList;
@@ -60,7 +58,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	
 	public static String name = "";
 	public static String cpf = "";
-	public static String rdf = "";
+	public static String rdf = "8523";
 	public static String type = "";
 	
 	public static int mX;
@@ -82,8 +80,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		ui = new UserInterface();
 		
 		login = new Login();
-		admProfile = new Admnistrator(name, rdf, cpf); 
-		workProfile = new Employee(name, rdf, cpf);
+		userProfile = new pages.Employee(rdf);
 		projectList = new ProjectList();
 		project = new Project();
 		partsList = new PartsList();
@@ -151,11 +148,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			login.tick();
 			break;
 		case 1:
-			if(type.equals("1")) {
-				admProfile.tick();
-			}else {
-				workProfile.tick();
-			}
+			userProfile.tick();
 			break;
 		case 2:
 			partsList.tick();
@@ -220,11 +213,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			login.render(g);
 			break;
 		case 1:
-			if(type.equals("1")) {
-				admProfile.render(g);
-			}else {
-				workProfile.render(g);
-			}
+			userProfile.render(g);
 			break;
 		case 2: 
 			partsList.render(g);
@@ -295,11 +284,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		login.mouseClick = true;
 		switch(state) {
 		case 1:
-			if(type.equals("1")) {
-				admProfile.mouseStatus = true;
-			}else {
-				workProfile.mouseStatus = true;
-			}
+			userProfile.mouseStatus = true;
 			break;
 		case 2:
 			partsList.mouseStatus = true;
@@ -326,11 +311,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public void mouseReleased(MouseEvent e) {
 		mPressed = false;
 		login.mouseClick = false;
-		if(type.equals("1")) {
-			admProfile.mouseStatus = false;
-		}else {
-			workProfile.mouseStatus = false;
-		}
+		userProfile.mouseStatus = false;
 		partsList.mouseStatus = false;
 		projectList.mouseStatus = false;
 		project.mouseStatus = false;
@@ -382,9 +363,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		switch(state) {
 		case 1:
-			if(type.equals("1") && admProfile.isListing) {
-				admProfile.scroll = e.getUnitsToScroll();
-			}
+			
 			break;
 		case 2:
 			PartsList.scroll = e.getUnitsToScroll();

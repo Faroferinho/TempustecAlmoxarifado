@@ -3,221 +3,198 @@ package pages;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JOptionPane;
 
-import functions.Archiver;
 import functions.DBConector;
+import functions.Functions;
 import main.Almoxarifado;
 
-public class Profile {
+public abstract class Profile {
 	
-	public boolean reset;
-	public boolean isOnTheRightState = false;
+	protected String rdf = "";
+	protected String name = "";
+	protected String CPF = "";
 	
-	public static String name;
-	public static String RdF;
-	public static String CPF;
+	private Color rdfColor = Color.white;
+	private Color nameColor = Color.white;
+	private Color cpfColor = Color.white;
 	
-	public static int nameSize;
-	public static int RdFSize;
-	public static int CPFSize;
-
+	protected BufferedImage bttn_changePW = Almoxarifado.imgManag.getSprite(475, 120, 165, 60);
+	protected BufferedImage bttn_editInfo = Almoxarifado.imgManag.getSprite(475, 0, 165, 60);
+	
+	private int tryoutCounter = 0;
+	
 	public boolean mouseStatus = false;
+	
 	public boolean isEditing = false;
 	
-	public static boolean overName = false;
-	public static boolean overRdF = false;
-	public static boolean overCPF = false;
+	public Profile(String RdF) {
+		rdf = RdF;
+		name = DBConector.readDB("name", "funcionarios", "RdF", RdF).replaceAll(" § \n", "");
+		CPF = DBConector.readDB("CPF", "funcionarios", "RdF", RdF).replaceAll(" § \n", "");
+	}
+	
+	public String getName() {
+		return name;
+	}
 
-	public Profile(String inName, String inRdF, String inCPF) {
-		name = inName;
-		RdF = String.valueOf(inRdF);
-		CPF = String.valueOf(inCPF);
+	public String getRdF() {
+		return rdf;
 	}
 	
-	protected byte buttonClick(int mx, int my, boolean type) {
+	public String getCPF() {
+		return CPF;
+	}
+	
+	protected void changePassword() {
+		String textInserted = "" + JOptionPane.showInputDialog(null, "Confirme com a sua senha atual", "Confirmação de Edição de Senha", JOptionPane.WARNING_MESSAGE);
 		
-		if(type == false) {
-			if(my > Almoxarifado.HEIGHT / 2 + 105 && my < Almoxarifado.HEIGHT / 2 + 190) {
-				if(mx > Almoxarifado.WIDTH / 4 - 80 && mx < Almoxarifado.WIDTH / 4 + 80) {
-					//Editar Perfil
-					return 1;
-				}else if(mx > (Almoxarifado.WIDTH / 4) * 3 - 80 && mx < (Almoxarifado.WIDTH / 4)*3 + 80) {
-					return 2;
-				}
-			}
-		}else {
-			if(mx > Almoxarifado.WIDTH - (76 + 165)*2 && mx < Almoxarifado.WIDTH - 76
-			&& my > 136 && my < 332) {
-				if(mx < Almoxarifado.WIDTH - ((76*2) + 165) && my < 196){
-					return 1;
-				}else if(mx > Almoxarifado.WIDTH - (76 + 165) && my < 196) {
-					return 2;
-				}else if(mx < Almoxarifado.WIDTH - ((76*2) + 165) && my > 272) {
-					return 3;
-				}else if(mx > Almoxarifado.WIDTH - (76 + 165) && my > 272) {
-					return 4;
-				}
-			}
+		if(Functions.emptyString(textInserted)) {
+			return;
 		}
 		
-		return 0;
-	}
-	
-	protected void changeInformation(int mx, int my, boolean type){
-		if(type == false) {
-			if(Almoxarifado.mX > 185 && Almoxarifado.mX < Almoxarifado.WIDTH/2) {
-				if(Almoxarifado.mY > 165 && Almoxarifado.mY < 185) {
-					overName = true;
-					if(mouseStatus) {
-						editInfo(1);
-					}
-				}
-			}
-		}else {
-			if(Almoxarifado.mX > 185 && Almoxarifado.mX < Almoxarifado.WIDTH/2) {
-				if(Almoxarifado.mY > 145 && Almoxarifado.mY < 165) {
-					overName = true;
-					if(mouseStatus) {
-						editInfo(1);
-					}
+		while(tryoutCounter < 3) {
+			if(textInserted.equals(DBConector.readDB("password", "funcionarios", "RdF", rdf).replaceAll(" § \n", ""))) {
+				tryoutCounter = 0;
+				
+				String newPW = "" + JOptionPane.showInputDialog(null, "Insira uma nova senha", "Nova Senha", JOptionPane.PLAIN_MESSAGE);
+				
+				if(Functions.emptyString(newPW)) {
+					return;
 				}
 				
-				if(Almoxarifado.mY > 180 && Almoxarifado.mY < 200) {
-					overRdF = true;
-					if(mouseStatus) {
-						editInfo(2);
-					}
-				}
-				
-				if(Almoxarifado.mY > 215 && Almoxarifado.mY < 235) {
-					overCPF = true;
-					if(mouseStatus) {
-						editInfo(3);
-					}
-				}
+				DBConector.writeDB("Funcionario", "password", newPW, "RdF", rdf);			
+			}else{
+				JOptionPane.showMessageDialog(null, "Tente Novamente", "Senha Inserida Incorreta", JOptionPane.ERROR_MESSAGE);
+				textInserted = "" + JOptionPane.showInputDialog(null, "Confirme com a sua senha atual", "Confirmação de Edição de Senha", JOptionPane.WARNING_MESSAGE);
+				tryoutCounter++;
 			}
 		}
 	}
 	
-	protected void editInfo(int type) {
-		String column = "";
-		String newText = "";
+	protected void editInfo() {
+		if(isEditing) {
+			if(Almoxarifado.mX > 80 && Almoxarifado.mX < 600) {
+				if(Almoxarifado.mY > 140 && Almoxarifado.mY < 190) {
+					nameColor = Color.gray;
+					
+					rdfColor = Color.white;
+					cpfColor = Color.white;
+					
+					if(mouseStatus) {
+						String newName = "" + JOptionPane.showInputDialog(null, "Insira novo Nome", "Alterar Perfil", JOptionPane.PLAIN_MESSAGE);
+						alterName(newName);
+					}
+					
+				}else if(Almoxarifado.mY > 220 && Almoxarifado.mY < 250){
+					rdfColor = Color.gray;
+					
+					nameColor = Color.white;
+					cpfColor = Color.white;
+
+					if(mouseStatus) {
+						String newRdF = "" + JOptionPane.showInputDialog(null, "Insira novo RdF", "Alterar Perfil", JOptionPane.PLAIN_MESSAGE);
+						alterRdF(newRdF);
+					}
+					
+				}else if(Almoxarifado.mY > 280 && Almoxarifado.mY < 310) {
+					cpfColor = Color.gray;
+					
+					rdfColor = Color.white;
+					nameColor = Color.white;
+					
+					if(mouseStatus) {
+						String newCPF = "" + JOptionPane.showInputDialog(null, "Insira novo CPF", "Alterar Perfil", JOptionPane.PLAIN_MESSAGE);
+						alterCPF(newCPF);
+					}
+				}else {
+					nameColor = Color.white;
+					rdfColor = Color.white;
+					cpfColor = Color.white;
+				}
+			}else {
+				nameColor = Color.white;
+				rdfColor = Color.white;
+				cpfColor = Color.white;
+			}
+		}else {
+			nameColor = Color.white;
+			rdfColor = Color.white;
+			cpfColor = Color.white;
+		}
 		
-		switch(type) {
-		case 1:
-			newText += JOptionPane.showInputDialog(null, "Insira o novo nome", "Configurando Perfil", JOptionPane.PLAIN_MESSAGE);
-			column = "Name";
-			break;
-		case 2:
-			newText += JOptionPane.showInputDialog(null, "Insira o novo Registro de Funcionario", "Configurando Perfil", JOptionPane.PLAIN_MESSAGE);
-			column = "RdF";
-			break;
-		case 3:
-			newText += JOptionPane.showInputDialog(null, "Insira o novo CPF", "Configurando Perfil", JOptionPane.PLAIN_MESSAGE);
-			column = "CPF";
-			break;
-		case 4:
-			newText += JOptionPane.showInputDialog(null, "Insira o nova Senha", "Configurando Perfil", JOptionPane.PLAIN_MESSAGE);
-			column = "Password";
-			
-			int confirm = JOptionPane.showConfirmDialog(null, "Você tem certeza que deseja mudar a Senha?", "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-			if(confirm != 0) {
+	}
+	
+	private void alterRdF(String newText) {
+		
+		if(Functions.emptyString(newText.replaceAll("[^0-9]", ""))) {
+			return;
+		}
+		
+		while(newText.replaceAll("[^0-9]", "").length() > 4) {
+			newText = "" + JOptionPane.showInputDialog(null, "Insira um RdF valido", "Alterar Perfil", JOptionPane.ERROR_MESSAGE);
+			if(Functions.emptyString(newText.replaceAll("[^0-9]", ""))) {
 				return;
 			}
-			
-			break;
 		}
 		
-		Archiver.writeOnArchive("alteracao", "o próprio " + column, DBConector.readDB(column, "Funcionarios", "RdF", RdF).replaceAll(" § \n", ""), newText);
+		DBConector.writeDB("funcionarios", "RdF", newText.replaceAll("[^0-9]", ""), "RdF", rdf);
 		
-		DBConector.writeDB("Funcionarios", column, newText, "RdF", RdF);
-		
-		if(type == 2) {
-			RdF = newText;
-		}
-		
-		updateInfo();
+		rdf = newText.replaceAll("[^0-9]", "");
+		isEditing = false;
 	}
 	
-	protected static void updateInfo() {
-		String aux = DBConector.readDB("*", "Funcionarios", "RdF", RdF);
-		String[] splitAux = aux.split(" § ");
+	private void alterName(String newText) {
 		
-		name = splitAux[1];
-		CPF =  cpfFormater(splitAux[2]);
+		if(Functions.emptyString(newText)) {
+			return;
+		}
+		
+		DBConector.writeDB("funcionarios", "name", newText, "RdF", rdf);
+		
+		name = newText;
+		isEditing = false;
 	}
 	
-	private static String cpfFormater(String CPF) {
-		String toReturn = "";
+	private void alterCPF(String newText) {
 		
-		String firstPart = "";
-		String secondPart = "";
-		String thirdPart = "";
-		String fourthPart = "";
-		
-		if(CPF.length() < 3) {
-			toReturn = CPF;
-		}else if(CPF.length() > 2 && CPF.length() < 6) {
-			firstPart = CPF.substring(0, 3);
-			secondPart = CPF.substring(3, CPF.length());
-			
-			toReturn = firstPart + "." + secondPart;
-		}else if(CPF.length() > 5 && CPF.length() < 9) {
-			firstPart = CPF.substring(0, 3);
-			secondPart = CPF.substring(3, 6);
-			thirdPart = CPF.substring(6, CPF.length());
-			
-			toReturn = firstPart + "." + secondPart + "." + thirdPart;
-		}else if(CPF.length() > 8 && CPF.length() < 12) {
-			firstPart = CPF.substring(0, 3);
-			secondPart = CPF.substring(3, 6);
-			thirdPart = CPF.substring(6, 9);
-			fourthPart = CPF.substring(9, CPF.length());
-			
-			toReturn = firstPart + "." + secondPart + "." + thirdPart + "-" + fourthPart;
-		}else {
-			toReturn = CPF;
+		if(Functions.emptyString(newText)) {
+			return;
 		}
 		
-		return toReturn;
+		while(newText.replaceAll("[^0-9]", "").length() != 11) {
+			newText = "" + JOptionPane.showInputDialog(null, "Insira um CPF valido", "Alterar Perfil", JOptionPane.ERROR_MESSAGE);
+			
+			if(Functions.emptyString(newText)) {
+				return;
+			}
+		}
+		
+		DBConector.writeDB("funcionarios", "CPF", newText.replaceAll("[^0-9]", ""), "RdF", rdf);
+		
+		CPF = newText.replaceAll("[^0-9]", "");
+		isEditing = false;
 	}
 	
-	protected static void firstRendering(Graphics g) {
-		g.setColor(Color.green);
-		g.fillRect(76, 132, 100, 133);
-		
-		g.setFont(new Font("segoi ui", 0, 20));
-		
-		if(overName) {
-			g.setColor(Color.darkGray);
-			overName = false;
-		}else {
-			g.setColor(Color.white);
-		}
-		g.drawString(name, 185, 165);
-		
-		if(overRdF) {
-			g.setColor(Color.darkGray);
-			overRdF = false;
-		}else {
-			g.setColor(Color.white);
-		}
-		g.drawString(RdF, 185, 200);
-		
-		if(overCPF) {
-			g.setColor(Color.darkGray);
-			overCPF = false;
-		}else {
-			g.setColor(Color.white);
-		}
-		g.drawString(CPF, 185, 235);
-		
-		
-		
-		nameSize = g.getFontMetrics().stringWidth(name);
+	private String formatCPF(String cpf) {
+		return cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." + cpf.substring(6, 9) + "-" + cpf.substring(9);
 	}
-
 	
+	protected void drawUserBasis(Graphics g) {
+		g.setColor(nameColor);
+		g.setFont(new Font("segoi ui", 1, 40));
+		g.drawString(name, 80, 180);
+		
+		g.setFont(new Font("segoi ui", 1, 20));
+		g.setColor(rdfColor);
+		g.drawString(rdf, 80, 240);
+		g.setColor(cpfColor);
+		g.drawString(formatCPF(CPF), 80, 300);
+	}
+	
+	public abstract void tick();
+	
+	public abstract void render(Graphics g);
 }

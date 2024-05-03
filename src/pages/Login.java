@@ -84,9 +84,9 @@ public class Login {
 				Almoxarifado.type = toConfig[4];
 				
 				if(Almoxarifado.type.equals("1")) {
-					Almoxarifado.admProfile = new Admnistrator(Almoxarifado.name, Almoxarifado.rdf, Almoxarifado.cpf);
+					Almoxarifado.userProfile = new Admnistrator(Almoxarifado.rdf);
 				}else {
-					Almoxarifado.workProfile = new Employee(Almoxarifado.name, Almoxarifado.rdf, Almoxarifado.cpf);
+					Almoxarifado.userProfile = new Employee(Almoxarifado.rdf);
 				}
 				
 				Archiver.writeOnArchive("login", null, null, null);

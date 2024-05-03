@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import pages.Profile;
+import main.Almoxarifado;
 
 public class Archiver {
 	
@@ -22,7 +22,7 @@ public class Archiver {
 				writer.append("--------------------------------------------------------------------------------------\n");
 			}
 			
-			String toArchive = "O Usuário " + Profile.RdF + " ";
+			String toArchive = "O Usuário " + Almoxarifado.userProfile.getRdF() + " ";
 			
 			switch(action) {
 			case "login":

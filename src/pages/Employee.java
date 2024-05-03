@@ -1,89 +1,49 @@
 package pages;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.time.LocalDateTime;
 
-import functions.Archiver;
 import main.Almoxarifado;
 import main.UserInterface;
 
 public class Employee extends Profile{
-
-	public BufferedImage editButton;
-	public BufferedImage doneButton;
-	public BufferedImage passwordButton;
-
 	
-	public Employee(String Name, String RdF, String CPF) {
-		super(Name, RdF, CPF);
-		
-		editButton = Almoxarifado.imgManag.getSprite(475, 0, 165, 60);
-		doneButton = Almoxarifado.imgManag.getSprite(0, 510, 165, 60);
-		passwordButton = Almoxarifado.imgManag.getSprite(475, 120, 165, 60);
-		
-		System.out.println("Carregou Perfil do Funcionario: " + LocalDateTime.now());
+	public Employee(String RdF){
+		super(RdF);
 	}
-	
+
+	@Override
 	public void tick() {
-		if(reset) {
-			reset = false;
-			isEditing = false;
-		}
-		
-		if(Almoxarifado.state == 1) {
-			isOnTheRightState = true;
-			Almoxarifado.frame.setTitle("Perfil de " + Profile.name);
-		}else {
-			reset = true;
-			isOnTheRightState = false;
-		}
-		
-		if(isOnTheRightState) {
-			if(mouseStatus) {
-				switch(buttonClick(Almoxarifado.mX, Almoxarifado.mY, false)) {
-				case 1:
-					if(isEditing == false) {
-						Archiver.writeOnArchive("edicao1", "", "", "");
+		if(mouseStatus) {
+			if(Almoxarifado.mY > (Almoxarifado.HEIGHT - 70 - bttn_changePW.getHeight()) 
+			&& Almoxarifado.mY < (Almoxarifado.HEIGHT - 70 - bttn_changePW.getHeight()) + 60) {
+				if(Almoxarifado.mX > (Almoxarifado.WIDTH/3) - (bttn_changePW.getWidth() / 2) 
+				&& Almoxarifado.mX < (Almoxarifado.WIDTH/3) - (bttn_changePW.getWidth() / 2) + 165) {
+					changePassword();
+				}else if(Almoxarifado.mX > (Almoxarifado.WIDTH/3)*2 - (bttn_changePW.getWidth() / 2) 
+				&& Almoxarifado.mX < (Almoxarifado.WIDTH/3)*2 - (bttn_changePW.getWidth() / 2) + 165) {
+					if(!isEditing) {						
 						isEditing = true;					
+						mouseStatus = false;
 					}else {
-						Archiver.writeOnArchive("edicao2", "", "", "");
-						isEditing = false;
+						isEditing = false;					
+						mouseStatus = false;
 					}
-					break;
-				case 2:
-					editInfo(4);
-					break;
 				}
 			}
-			
-			if(isEditing) {
-				changeInformation(Almoxarifado.mX, Almoxarifado.mY, false);
-				
-			}
 		}
-	}
-	
-	public void render(Graphics g) {
-
-		if(isOnTheRightState) {
 		
-			if(isEditing == false) {
-				firstRendering(g);
+		editInfo();
+	}
+					
 
-				g.drawImage(editButton, (Almoxarifado.WIDTH/4) - (editButton.getWidth()/2), Almoxarifado.HEIGHT / 2 + 120, null);
-				g.drawImage(passwordButton, (Almoxarifado.WIDTH/4)*3 - (editButton.getWidth()/2), Almoxarifado.HEIGHT/2 + 120, null);
-				UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH/4) - (editButton.getWidth()/2), Almoxarifado.HEIGHT / 2 + 120);
-				UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH/4)*3 - (editButton.getWidth()/2), Almoxarifado.HEIGHT/2 + 120);
-				
-			}else if(isEditing == true){
-				firstRendering(g);
-				
-				g.drawImage(doneButton, (Almoxarifado.WIDTH/4) - (editButton.getWidth()/2), Almoxarifado.HEIGHT / 2 + 120, null);
-				g.drawImage(passwordButton, (Almoxarifado.WIDTH/4)*3 - (editButton.getWidth()/2), Almoxarifado.HEIGHT/2 + 120, null);
-				UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH/4) - (editButton.getWidth()/2), Almoxarifado.HEIGHT / 2 + 120);
-				UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH/4)*3 - (editButton.getWidth()/2), Almoxarifado.HEIGHT/2 + 120);
-			}
-		}
+	@Override
+	public void render(Graphics g) {
+		drawUserBasis(g);
+		
+		g.drawImage(bttn_changePW, (Almoxarifado.WIDTH/3) - (bttn_changePW.getWidth() / 2), Almoxarifado.HEIGHT - 70 - bttn_changePW.getHeight(), null);
+		g.drawImage(bttn_editInfo, (Almoxarifado.WIDTH/3)*2 - (bttn_changePW.getWidth() / 2), Almoxarifado.HEIGHT - 70 - bttn_changePW.getHeight(), null);
+		
+		UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH/3) - (bttn_changePW.getWidth() / 2), Almoxarifado.HEIGHT - 70 - bttn_changePW.getHeight());
+		UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH/3)*2 - (bttn_changePW.getWidth() / 2), Almoxarifado.HEIGHT - 70 - bttn_changePW.getHeight());
 	}
 }
