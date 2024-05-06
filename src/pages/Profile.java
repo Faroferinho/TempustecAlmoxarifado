@@ -49,7 +49,13 @@ public abstract class Profile {
 	}
 	
 	protected void changePassword() {
-		String textInserted = "" + JOptionPane.showInputDialog(null, "Confirme com a sua senha atual", "Confirmação de Edição de Senha", JOptionPane.WARNING_MESSAGE);
+		String textInserted = "";
+		if(tryoutCounter < 3) {
+			textInserted += JOptionPane.showInputDialog(null, "Confirme com a sua senha atual", "Confirmação de Edição de Senha", JOptionPane.WARNING_MESSAGE);
+		}else {
+			JOptionPane.showMessageDialog(null, "Contate o Suporte Técnico", "Limite de Senhas Incorretas Atingidas", JOptionPane.ERROR_MESSAGE);
+		}
+		
 		
 		if(Functions.emptyString(textInserted)) {
 			return;
@@ -64,11 +70,17 @@ public abstract class Profile {
 				if(Functions.emptyString(newPW)) {
 					return;
 				}
-				
-				DBConector.writeDB("Funcionario", "password", newPW, "RdF", rdf);			
+				DBConector.writeDB("Funcionarios", "password", newPW, "RdF", rdf);
+				break;
 			}else{
-				JOptionPane.showMessageDialog(null, "Tente Novamente", "Senha Inserida Incorreta", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Tente Novamente, você possui " + (3 - tryoutCounter) + " restantes", "Senha Inserida Incorreta", JOptionPane.ERROR_MESSAGE);
+				
 				textInserted = "" + JOptionPane.showInputDialog(null, "Confirme com a sua senha atual", "Confirmação de Edição de Senha", JOptionPane.WARNING_MESSAGE);
+				
+				if(Functions.emptyString(textInserted)) {
+					return;
+				}
+				
 				tryoutCounter++;
 			}
 		}

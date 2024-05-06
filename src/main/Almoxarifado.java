@@ -25,6 +25,7 @@ import functions.Functions;
 import functions.ImageManager;
 import pages.AddAssembly;
 import pages.AddPart;
+import pages.Admnistrator;
 import pages.Archive;
 import pages.Login;
 import pages.PartsList;
@@ -80,7 +81,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		ui = new UserInterface();
 		
 		login = new Login();
-		userProfile = new pages.Employee(rdf);
+		userProfile = new Admnistrator(rdf);
 		projectList = new ProjectList();
 		project = new Project();
 		partsList = new PartsList();

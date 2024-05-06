@@ -19,6 +19,7 @@ public class Employee extends Profile{
 				if(Almoxarifado.mX > (Almoxarifado.WIDTH/3) - (bttn_changePW.getWidth() / 2) 
 				&& Almoxarifado.mX < (Almoxarifado.WIDTH/3) - (bttn_changePW.getWidth() / 2) + 165) {
 					changePassword();
+					mouseStatus = false;
 				}else if(Almoxarifado.mX > (Almoxarifado.WIDTH/3)*2 - (bttn_changePW.getWidth() / 2) 
 				&& Almoxarifado.mX < (Almoxarifado.WIDTH/3)*2 - (bttn_changePW.getWidth() / 2) + 165) {
 					if(!isEditing) {						
