@@ -5,7 +5,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JOptionPane;
+
 import functions.DBConector;
+import functions.Functions;
 import main.Almoxarifado;
 import main.UserInterface;
 
@@ -119,6 +122,65 @@ public class Admnistrator extends Profile {
 		editInfo();
 	}
 	
+	private void alterInfo(int line, int column) {
+		String objectiveColumn = "";
+		String newInfo = "";
+		
+		switch(column) {
+		case 0:
+			objectiveColumn = "RdF";
+			break;
+		case 1:
+			objectiveColumn = "Name";
+			break;
+		case 2:
+			objectiveColumn = "CPF";
+			break;
+		case 3:
+			objectiveColumn = "Type";
+			break;
+		}
+		
+		if(column != 3) {
+			newInfo += JOptionPane.showInputDialog(null, "Qual será a nova informação", "Atualizar Funcionario", JOptionPane.PLAIN_MESSAGE);
+			
+			if(Functions.emptyString(newInfo)) {
+				return;
+			}
+		}else {
+			String[] options = {"Funcionario", "Administrador"};
+			
+			newInfo += (String) JOptionPane.showInputDialog(null, "Selecione o novo tipo de Funcionario", "Atualizar Funcionario", JOptionPane.PLAIN_MESSAGE, null, options, 0);
+			
+			if(Functions.emptyString(newInfo)) {
+				return;
+			}
+			
+			switch(newInfo) {
+			case "Funcionario":
+				newInfo = "0";
+				break;
+			default:
+				newInfo = "1";
+				break;
+			}
+		}
+		
+		if(column == 2) {
+			while(newInfo.length() != 11) {
+				newInfo = "";
+				newInfo += JOptionPane.showInputDialog(null, "CPF invalido, tente novamente", "Atualizar Funcionario", JOptionPane.PLAIN_MESSAGE);
+				
+				if(Functions.emptyString(newInfo)) {
+					return;
+				}
+			}
+		}
+		
+		DBConector.writeDB("Funcionarios", objectiveColumn, newInfo, "RdF", brokenDownList[line][0]);
+		fillMultiArray();
+	}
+	
 	private void listWorkers(Graphics g) {
 		
 		int auxX = 80;
@@ -131,16 +193,8 @@ public class Admnistrator extends Profile {
 		
 		for(int i = 0; i < brokenDownList.length; i++) {
 			
-			if(i == 0) {
-				g.setFont(new Font("segoi ui", 1, 18));
-				g.setColor(Color.orange);
-			}else {
-				g.setFont(new Font("segoi ui", 0, 15));
-				g.setColor(Color.white);
-			}
-			
 			for(int j = 0; j < brokenDownList[0].length; j++) {
-				
+								
 				switch(j) {
 				case 1:
 					auxX += (limit * 15) / 100;
@@ -151,6 +205,40 @@ public class Admnistrator extends Profile {
 				case 3:
 					auxX += (limit * 37) / 100;
 					break;
+				}
+				
+				if(i == 0) {
+					g.setFont(new Font("segoi ui", 1, 18));
+					g.setColor(Color.orange);
+				}else {
+					g.setFont(new Font("segoi ui", 0, 15));
+					g.setColor(Color.white);
+					
+					
+				}
+				
+				if(!removingWorker) {
+					if(i != 0) {
+						if(Almoxarifado.mX > auxX && Almoxarifado.mX < auxX + g.getFontMetrics().stringWidth(brokenDownList[i][j])) {
+							if(Almoxarifado.mY > auxY - g.getFontMetrics().getHeight() && Almoxarifado.mY < auxY) {
+								g.setColor(Color.gray);
+								if(mouseStatus) {
+									alterInfo(i, j);
+									mouseStatus = false;
+								}
+							}
+						}
+					}
+				}else {
+					if(Almoxarifado.mY > auxY - g.getFontMetrics().getHeight() && Almoxarifado.mY < auxY) {
+						g.setColor(Color.red);
+						if(mouseStatus) {
+							DBConector.writeDB("DELETE FROM Funcionarios WHERE RdF = " + brokenDownList[i][0]);
+							Almoxarifado.quantityWorkers--;
+							fillMultiArray();
+							mouseStatus = false;
+						}
+					}
 				}
 				
 				//System.out.println("brokenDownList[" + i + "][" + j + "] = " + brokenDownList[i][j]);
@@ -171,9 +259,15 @@ public class Admnistrator extends Profile {
 				if(Almoxarifado.mX > (Almoxarifado.WIDTH / 3) - (bttn_addWorker.getWidth() / 2)
 				&& Almoxarifado.mX < (Almoxarifado.WIDTH / 3) + (bttn_addWorker.getWidth() / 2)) {
 					addingWorker = true;
-				}else if(Almoxarifado.mX > (Almoxarifado.WIDTH / 3) * 2 - (bttn_addWorker.getWidth() / 2)
-					  && Almoxarifado.mX < (Almoxarifado.WIDTH / 3) * 2 + (bttn_addWorker.getWidth() / 2)){
-					removingWorker = false;
+				}else if(Almoxarifado.mX > ((Almoxarifado.WIDTH / 3) * 2) - (bttn_removeWorker.getWidth() / 2)
+					  && Almoxarifado.mX < ((Almoxarifado.WIDTH / 3) * 2) + (bttn_removeWorker.getWidth() / 2)){
+					System.out.println("Clicou para remover funcionario");
+					if(removingWorker) {
+						removingWorker = false;
+					}else {
+						removingWorker = true;
+					}
+					mouseStatus = false;
 				}
 			}
 		}

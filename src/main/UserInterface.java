@@ -154,6 +154,7 @@ public class UserInterface {
 		
 		switch(Almoxarifado.state) {
 		case 1:
+		case 8:
 			g.drawImage(bttnProfileActivated, bttnX[0], bttnY, null);
 			break;
 		case 2:
