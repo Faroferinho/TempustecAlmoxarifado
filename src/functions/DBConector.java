@@ -16,7 +16,7 @@ import main.Almoxarifado;
 public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
-	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempusteste";
+	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempustec";
 	private static String user = "root";
 	private static String password = "1234";
 	

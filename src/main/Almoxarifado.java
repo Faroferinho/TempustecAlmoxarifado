@@ -40,7 +40,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 8;
+	public static byte state = 0;
 	
 	public static JFrame frame;
 	public static Toolkit tk;
@@ -422,6 +422,12 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 				addAssembly.writer(e);
 			}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 				addAssembly.isWriting = true;				
+			}
+		}else if(state == 8) {
+			if(addWorker.isWriting == true) {
+				addWorker.writer(e);
+			}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
+				addWorker.isWriting = true;				
 			}
 		}
 	}
