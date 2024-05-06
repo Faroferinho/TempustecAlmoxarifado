@@ -157,6 +157,7 @@ public class Archive {
 		g.drawString("Projetos Arquivados: ", 100, 150 + offsetHeight);
 		
 		for(int i = 0; i < names.size(); i++) {
+			g.setColor(Color.white);
 			g.drawImage(img, imgX, initialImgY + auxHeight + offsetHeight, null);
 			
 			g.setFont(new Font("segoi ui", 1, 17));

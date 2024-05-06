@@ -68,8 +68,11 @@ public class AddAssembly extends Insertions{
 	@Override
 	protected void fillDefaultValues() {
 		for(int i = 0; i < quantity; i++) {
-			values.set(i, genericString);
-		}
+			if(values.get(i).equals("")) {
+				values.set(i, genericString);
+			}
+		}	
+			
 	}
 
 	@Override
@@ -80,12 +83,8 @@ public class AddAssembly extends Insertions{
 
 	@Override
 	protected void okButtonClick() {
-		for(int i = 0; i < quantity; i++) {
-			if(values.get(i).equals("")) {
-				fillDefaultValues();
-			}
-		}
-		
+		fillDefaultValues();
+
 		writeQuery();
 		
 		for(int i = 0; i < quantity; i++) {
