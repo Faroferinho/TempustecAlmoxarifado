@@ -32,6 +32,7 @@ import pages.PartsList;
 import pages.Profile;
 import pages.Project;
 import pages.ProjectList;
+import pages.AddWorker;
 
 public class Almoxarifado extends Canvas implements Runnable, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener{
 	private static final long serialVersionUID = 1L;
@@ -53,6 +54,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static Archive archive;
 	public static AddPart addPart;
 	public static AddAssembly addAssembly;
+	public static AddWorker addWorker;
 	
 	public static Thread mainThread;
 	public static Thread fortnightVerificatorThread;
@@ -88,6 +90,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		archive = new Archive();
 		addPart = new AddPart();
 		addAssembly = new AddAssembly();
+		addWorker = new AddWorker();
 		
 		frame = new JFrame();
 		
@@ -169,6 +172,9 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		case 7:
 			addAssembly.tick();
 			break;
+		case 8:
+			addWorker.tick();
+			break;
 		default:
 			state = 0;	
 		}
@@ -233,6 +239,10 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			break;
 		case 7:
 			addAssembly.render(g);
+			break;
+		case 8:
+			addWorker.render(g);
+			break;
 		}
 		
 		if(state != 0) {
