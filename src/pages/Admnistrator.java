@@ -88,7 +88,7 @@ public class Admnistrator extends Profile {
 					if(Almoxarifado.mX > (Almoxarifado.WIDTH / 5) * 3
 					&& Almoxarifado.mX < (Almoxarifado.WIDTH / 5) * 3 + bttn_changePW.getWidth()) {
 						
-						
+						addingWorker = true;
 						
 					}else if(Almoxarifado.mX > (Almoxarifado.WIDTH / 5) * 3 + 250
 						  && Almoxarifado.mX < (Almoxarifado.WIDTH / 5) * 3 + 250 + bttn_changePW.getWidth()) {
@@ -103,6 +103,12 @@ public class Admnistrator extends Profile {
 					}
 				}
 			}
+			
+			if(addingWorker) {
+				addingWorker = false;
+				Almoxarifado.state = 8;
+			}
+			
 		}else {
 			if(addingWorker) {
 				addingWorker = false;
@@ -160,13 +166,15 @@ public class Admnistrator extends Profile {
 		UserInterface.isOnSmallButton(g, (Almoxarifado.WIDTH / 3) - (bttn_addWorker.getWidth() / 2), auxY);
 		UserInterface.isOnSmallButton(g, ((Almoxarifado.WIDTH / 3) * 2) - (bttn_removeWorker.getWidth() / 2), auxY);
 		
-		if(Almoxarifado.mY > auxY && Almoxarifado.mY < auxY + 60) {
-			if(Almoxarifado.mX > (Almoxarifado.WIDTH / 3) - (bttn_addWorker.getWidth() / 2)
-			&& Almoxarifado.mX < (Almoxarifado.WIDTH / 3) + (bttn_addWorker.getWidth() / 2)) {
-				addingWorker = true;
-			}else if(Almoxarifado.mX > (Almoxarifado.WIDTH / 3) * 2 - (bttn_addWorker.getWidth() / 2)
-				  && Almoxarifado.mX < (Almoxarifado.WIDTH / 3) * 2 + (bttn_addWorker.getWidth() / 2)){
-				removingWorker = false;
+		if(mouseStatus) {
+			if(Almoxarifado.mY > auxY && Almoxarifado.mY < auxY + 60) {
+				if(Almoxarifado.mX > (Almoxarifado.WIDTH / 3) - (bttn_addWorker.getWidth() / 2)
+				&& Almoxarifado.mX < (Almoxarifado.WIDTH / 3) + (bttn_addWorker.getWidth() / 2)) {
+					addingWorker = true;
+				}else if(Almoxarifado.mX > (Almoxarifado.WIDTH / 3) * 2 - (bttn_addWorker.getWidth() / 2)
+					  && Almoxarifado.mX < (Almoxarifado.WIDTH / 3) * 2 + (bttn_addWorker.getWidth() / 2)){
+					removingWorker = false;
+				}
 			}
 		}
 	}

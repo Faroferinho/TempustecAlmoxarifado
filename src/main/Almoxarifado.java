@@ -40,7 +40,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 1;
+	public static byte state = 8;
 	
 	public static JFrame frame;
 	public static Toolkit tk;
@@ -315,6 +315,9 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		case 7:
 			addAssembly.click = true;
 			break;
+		case 8:
+			addWorker.click = true;
+			break;
 		}
 	}
 
@@ -329,6 +332,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		archive.mouseStatus = false;
 		addPart.click = false;
 		addAssembly.click = false;
+		addWorker.click = false;
 	}
 
 	@Override

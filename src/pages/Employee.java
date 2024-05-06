@@ -23,7 +23,7 @@ public class Employee extends Profile{
 				}else if(Almoxarifado.mX > (Almoxarifado.WIDTH/3)*2 - (bttn_changePW.getWidth() / 2) 
 				&& Almoxarifado.mX < (Almoxarifado.WIDTH/3)*2 - (bttn_changePW.getWidth() / 2) + 165) {
 					if(!isEditing) {						
-						isEditing = true;					
+						isEditing = true;
 						mouseStatus = false;
 					}else {
 						isEditing = false;					
