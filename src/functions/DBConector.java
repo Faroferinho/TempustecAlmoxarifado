@@ -223,6 +223,46 @@ public class DBConector {
 		}
 	}
 	
+	public static void restoreArchived(String ID) {
+		String restoreAssembly = "INSERT INTO Montagem(ID_Montagem, ISO, Description, Company, Cost)\r\n"
+							   + "SELECT ID_Montagem, ISO, Description, Company, Cost\r\n"
+							   + "FROM Arquivo\r\n"
+							   + "WHERE ID_Arquivo = " + ID;
+		String restoreParts = "INSERT INTO Pecas\r\n"
+							+ "SELECT ID_Parts, Montagem, Description, Quantity, Price, Creation_Date, Supplier, Status\r\n"
+							+ "FROM Arquivo_Pecas\r\n"
+							+ "WHERE Montagem = " + readDB("ID_Montagem", "Arquivo", "ID_Arquivo", ID).replaceAll("[^0-9]", "");
+		String deleteArchivedAssembly = "DELETE FROM Arquivo WHERE ID_Arquivo = " + ID;
+		String deleteArchivedParts = "DELETE FROM Arquivo_Pecas WHERE Montagem = " + readDB("ID_Montagem", "Arquivo", "ID_Arquivo", ID).replaceAll("[^0-9]", "");
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Instale o Driver \"MySQL Connector-J\" e Tente Novamente", "Erro no Java Data Base Conector", 
+					JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+		
+		try {
+			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
+			Statement statement = con.createStatement();
+			
+			//System.out.println(restoreAssembly);
+			statement.executeUpdate(restoreAssembly);
+			//System.out.println(restoreParts);
+			statement.executeUpdate(restoreParts);
+			//System.out.println(deleteArchivedAssembly);
+			statement.executeUpdate(deleteArchivedAssembly);
+			//System.out.println(deleteArchivedParts);
+			statement.executeUpdate(deleteArchivedParts);
+			
+			con.close();
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
 	public static void registerFortnight(String date) {
 		String mainBody = "INSERT INTO HISTORICO_CUSTO(Date, Assembly, Cost) VALUES(";
 		ArrayList<String> assemblyIDs = new ArrayList<>();

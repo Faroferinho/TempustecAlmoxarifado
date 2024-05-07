@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import functions.DBConector;
 import functions.Functions;
 import main.Almoxarifado;
@@ -36,6 +38,7 @@ public class Archive {
 	int initialImgY = 175;
 	int auxHeight = 0;
 
+	ArrayList<String> ids = new ArrayList<>();
 	ArrayList<String> names = new ArrayList<>();
 	ArrayList<String> images = new ArrayList<>();
 	ArrayList<Integer> quantities = new ArrayList<>();
@@ -49,8 +52,18 @@ public class Archive {
 		System.out.println("Carregou Arquivo: " + LocalDateTime.now());
 	}
 	
-	void restoreAssemby(int ID) {
+	void restoreAssembly(int ID) {
+		mouseStatus = false;
 		
+		int confirmation = JOptionPane.showConfirmDialog(null, "Realmente deseja restaurar esse projeto?", "Confirmar Restauração", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
+		
+		if(confirmation == 0) {
+			DBConector.restoreArchived("" + ID);
+		}
+		
+		restart = true;
+		ProjectList.updateProjectList = true;
+		PartsList.restartAssemblyList = true;
 	}
 	
 	public void scrollPositioner() {
@@ -102,9 +115,7 @@ public class Archive {
 					isDragging = true;
 				}
 				
-				if(Functions.isOnBox(Almoxarifado.WIDTH - 75 - restoreButton.getWidth(), initialImgY + 60 + offsetHeight + auxHeight, 165, 60)) {
-					
-				}
+				
 			}else {
 				isDragging = false;
 			}
@@ -123,6 +134,9 @@ public class Archive {
 								
 				for(int swepper = 0; swepper < auxInfo.length; swepper++) {
 					switch(swepper % 9) {
+					case 0:
+						ids.add(auxInfo[swepper]);
+						break;
 					case 1:
 						//ID - Quantidade;
 						quantities.add(DBConector.readDB("ID_Archive_Parts", "Arquivo_Pecas", "Montagem", auxInfo[swepper]).split(" § \n").length - 1);
@@ -170,6 +184,12 @@ public class Archive {
 			
 			g.drawImage(restoreButton, Almoxarifado.WIDTH - 75 - restoreButton.getWidth(), initialImgY + 60 + offsetHeight + auxHeight, null);
 			UserInterface.isOnSmallButton(g, Almoxarifado.WIDTH - 75 - restoreButton.getWidth(), initialImgY + 60 + offsetHeight + auxHeight);
+			
+			if(mouseStatus) {
+				if(Functions.isOnBox(Almoxarifado.WIDTH - 75 - restoreButton.getWidth(), initialImgY + 60 + offsetHeight + auxHeight, 165, 60)) {
+					restoreAssembly(Integer.parseInt(ids.get(i)));
+				}
+			}
 			
 			auxHeight += 250;
 		}
