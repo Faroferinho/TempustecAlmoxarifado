@@ -195,15 +195,15 @@ public abstract class Profile {
 	}
 	
 	protected void drawUserBasis(Graphics g) {
-		g.setColor(nameColor);
 		g.setFont(new Font("segoi ui", 1, 40));
-		g.drawString(name, 80, 180);
+		g.setColor(nameColor);
+		g.drawString(name, 170, 180);
 		
 		g.setFont(new Font("segoi ui", 1, 20));
 		g.setColor(rdfColor);
-		g.drawString(rdf, 80, 240);
+		g.drawString(rdf, 170, 240);
 		g.setColor(cpfColor);
-		g.drawString(formatCPF(CPF), 80, 300);
+		g.drawString(formatCPF(CPF), 170, 300);
 	}
 	
 	public abstract void tick();

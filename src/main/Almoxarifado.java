@@ -25,7 +25,6 @@ import functions.Functions;
 import functions.ImageManager;
 import pages.AddAssembly;
 import pages.AddPart;
-import pages.Admnistrator;
 import pages.Archive;
 import pages.Login;
 import pages.PartsList;
@@ -83,7 +82,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		ui = new UserInterface();
 		
 		login = new Login();
-		userProfile = new Admnistrator(rdf);
 		projectList = new ProjectList();
 		project = new Project();
 		partsList = new PartsList();
@@ -324,15 +322,36 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		mPressed = false;
-		login.mouseClick = false;
-		userProfile.mouseStatus = false;
-		partsList.mouseStatus = false;
-		projectList.mouseStatus = false;
-		project.mouseStatus = false;
-		archive.mouseStatus = false;
-		addPart.click = false;
-		addAssembly.click = false;
-		addWorker.click = false;
+		
+		switch(state) {
+		case 0:
+			login.mouseClick = false;
+			break;
+		case 1:
+			userProfile.mouseStatus = false;
+			break;
+		case 2:
+			partsList.mouseStatus = false;
+			break;
+		case 3:
+			projectList.mouseStatus = false;
+			break;
+		case 4:
+			archive.mouseStatus = false;
+			break;
+		case 5:
+			project.mouseStatus = false;
+			break;
+		case 6:
+			addPart.click = false;
+			break;
+		case 7:
+			addAssembly.click = false;
+			break;
+		case 8:
+			addWorker.click = false;
+			break;
+		}
 	}
 
 	@Override
