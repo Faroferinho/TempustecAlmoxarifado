@@ -237,6 +237,8 @@ public class Login {
 	}
 	
 	public void tick() {
+		Almoxarifado.frame.setTitle("Almoxarifado - Login");
+		
 		if(Almoxarifado.state == 0) {
 			isOnTheRightState = true;
 		}else {

@@ -55,13 +55,30 @@ public class Admnistrator extends Profile {
 			brokenDownList[i][0] = listRdFs[i-1].replaceAll(" § ", "");
 			brokenDownList[i][1] = listNames[i-1].replaceAll(" § ", "");
 			brokenDownList[i][2] = formatCPF(listCPFs[i-1].replaceAll(" § ", ""));
-			brokenDownList[i][3] = listType[i-1].replaceAll(" § ", "");
+			brokenDownList[i][3] = formatType(listType[i-1].replaceAll(" § ", ""));
 		}
 		
+	}
+	
+	private String formatType(String typeNumb) {
+		String workerType = "";
+		
+		switch(typeNumb) {
+		case "1":
+			workerType += "Administrador";
+			break;
+		default:
+			workerType += "Colaborador";
+			break;
+		}
+		
+		return workerType;
 	}
 
 	@Override
 	public void tick() {
+		Almoxarifado.frame.setTitle("Almoxarifado - " + name);
+		
 		if(!isListing) {
 			if(mouseStatus) {
 				if(Almoxarifado.mY > 200
@@ -148,7 +165,7 @@ public class Admnistrator extends Profile {
 				return;
 			}
 		}else {
-			String[] options = {"Funcionario", "Administrador"};
+			String[] options = {"Colaborador", "Administrador"};
 			
 			newInfo += (String) JOptionPane.showInputDialog(null, "Selecione o novo tipo de Funcionario", "Atualizar Funcionario", JOptionPane.PLAIN_MESSAGE, null, options, 0);
 			
@@ -203,7 +220,7 @@ public class Admnistrator extends Profile {
 					auxX += (limit * 45) / 100;
 					break;
 				case 3:
-					auxX += (limit * 37) / 100;
+					auxX += (limit * 32) / 100;
 					break;
 				}
 				
@@ -213,8 +230,6 @@ public class Admnistrator extends Profile {
 				}else {
 					g.setFont(new Font("segoi ui", 0, 15));
 					g.setColor(Color.white);
-					
-					
 				}
 				
 				if(!removingWorker) {

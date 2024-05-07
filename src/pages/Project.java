@@ -117,7 +117,7 @@ public class Project {
 		
 		DBConector.writeDB("Montagem", "cost", "" + price, "ID_Montagem", "" + ID);
 		
-		Almoxarifado.frame.setTitle(Project.name);
+		Almoxarifado.frame.setTitle("Almoxarifado - Projeto: " + Project.name);
 		
 		PartsList.assembliesHM = PartsList.fillAssembliesName();
 	}

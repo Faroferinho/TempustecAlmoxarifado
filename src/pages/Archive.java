@@ -116,7 +116,7 @@ public class Archive {
 				
 				infoGathered = "";
 				infoGathered = DBConector.readDB("*", "Arquivo");
-				Almoxarifado.frame.setTitle("Arquivo de Projetos");
+				Almoxarifado.frame.setTitle("Almoxarifado - Lista de Projetos Arquivados");
 				
 				infoGathered = infoGathered.replace("\n", "");
 				String auxInfo[] = infoGathered.split(" § "); 

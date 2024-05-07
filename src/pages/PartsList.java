@@ -322,7 +322,7 @@ public class PartsList {
 		}
 		if(Almoxarifado.state == 2) {
 			isOnTheRightState = true;
-			Almoxarifado.frame.setTitle("Lista de Peças");
+			Almoxarifado.frame.setTitle("Almoxarifado - Lista de Peças");
 		}else {
 			isOnTheRightState = false;
 			thumbAuxY = 0;

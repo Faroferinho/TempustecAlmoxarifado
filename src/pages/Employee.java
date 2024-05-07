@@ -13,6 +13,9 @@ public class Employee extends Profile{
 
 	@Override
 	public void tick() {
+		
+		Almoxarifado.frame.setTitle("Almoxarifado - " + name);
+		
 		if(mouseStatus) {
 			if(Almoxarifado.mY > (Almoxarifado.HEIGHT - 70 - bttn_changePW.getHeight()) 
 			&& Almoxarifado.mY < (Almoxarifado.HEIGHT - 70 - bttn_changePW.getHeight()) + 60) {

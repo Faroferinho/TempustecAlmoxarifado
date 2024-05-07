@@ -108,7 +108,7 @@ public class ProjectList {
 	public void tick() {
 		if(Almoxarifado.state == 3) {
 			isOnTheRightState = true;
-			Almoxarifado.frame.setTitle("Lista de Projetos");
+			Almoxarifado.frame.setTitle("Almoxarifado - Lista de Projetos");
 		}else {
 			isOnTheRightState = false;
 			thumbAuxY = 0;
