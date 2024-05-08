@@ -221,15 +221,15 @@ public class Project {
 						if(checkDialog(newName)) {
 							
 							JOptionPane.showInternalMessageDialog(null, "Erro ao Atualizar nome", "Erro", JOptionPane.ERROR_MESSAGE);
-							mouseStatus = false;
+							mouseStatus = false;							
 							
 						}else {
 							Archiver.writeOnArchive("alteracao", "o Projeto de ID = " + ID, name, newName);
 							DBConector.writeDB("UPDATE montagem SET ISO = \"" + newName + "\" WHERE ID_Montagem = " + ID);
 							JOptionPane.showInternalMessageDialog(null, "Nome Atualizado", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 							updateProject = true;
-							mouseStatus = false;
 							ProjectList.updateProjectList = true;
+							mouseStatus = false;
 						}
 						
 						
@@ -242,7 +242,7 @@ public class Project {
 						if(checkDialog(newDescription)) {
 							
 							JOptionPane.showInternalMessageDialog(null, "Erro ao Atualizar a Descrição", "Erro", JOptionPane.ERROR_MESSAGE);
-							mouseStatus = false;
+							mouseStatus = false;							
 							
 						}else {
 							Archiver.writeOnArchive("alteracao", "o Projeto de ID = " + ID, description, newDescription);
@@ -250,7 +250,6 @@ public class Project {
 							JOptionPane.showInternalMessageDialog(null, "Descrição Atualizada", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 							updateProject = true;
 							mouseStatus = false;
-							
 						}
 						
 						
@@ -260,6 +259,7 @@ public class Project {
 						if(checkDialog(newCompany)) {
 							JOptionPane.showInternalMessageDialog(null, "Erro ao Atualizar o Nome da Empresa", "Erro", JOptionPane.ERROR_MESSAGE);
 							mouseStatus = false;
+							
 						}else {
 							Archiver.writeOnArchive("alteracao", "O Projeto de ID = " + ID, company, newCompany);
 							DBConector.writeDB("UPDATE montagem SET Company = \"" + newCompany + "\" WHERE ID_Montagem = " + ID);
@@ -295,18 +295,17 @@ public class Project {
 			}
 			
 			if(mouseStatus) {
-				if(Almoxarifado.mX > Almoxarifado.WIDTH - 128 - 60 && Almoxarifado.mX < Almoxarifado.WIDTH - 60) {
+				if(Almoxarifado.mX > Almoxarifado.WIDTH - 128 - 100 && Almoxarifado.mX < Almoxarifado.WIDTH - 128 - 100 + 165) {
 					if(Almoxarifado.mY >  imgY + offsetHeight && Almoxarifado.mY <  imgY + offsetHeight + 64) {
 						if(isEditing) {
 							isEditing = false;
-							mouseStatus = false;
 						}else {
 							isEditing = true;
-							mouseStatus = false;
 						}
+						mouseStatus = false;
 						
-					}else if(Almoxarifado.mY > imgY + 64 + (img.getHeight() - 64*2) + offsetHeight &&
-					Almoxarifado.mY < imgY + 64 + (img.getHeight() - 64*2) + offsetHeight + 64) {
+					}else if(Almoxarifado.mY > imgY + 64 + (img.getHeight() - 64*2) + offsetHeight
+						  && Almoxarifado.mY < imgY + 64 + (img.getHeight() - 64*2) + offsetHeight + 60) {
 						isArchiving = true;
 						mouseStatus = false;
 					}

@@ -78,13 +78,17 @@ public class ProjectList {
 		descriptions.clear();
 		companies.clear();
 		
-		for(int i = 0; i < lines.length; i++) {
-			String currColumns[] = lines[i].split(" § ");
-			
-			ids.add(currColumns[0]);
-			names.add(currColumns[1]);
-			descriptions.add(currColumns[2]);
-			companies.add(currColumns[3]);
+		System.out.println("Lista de Montagem do Bando de Dados:\n" + infoFromDB);
+		
+		if(infoFromDB != "") {
+			for(int i = 0; i < lines.length; i++) {
+				String currColumns[] = lines[i].split(" § ");
+				
+				ids.add(currColumns[0]);
+				names.add(currColumns[1]);
+				descriptions.add(currColumns[2]);
+				companies.add(currColumns[3]);
+			}
 		}
 		
 	}
