@@ -61,9 +61,25 @@ public class Archive {
 			DBConector.restoreArchived("" + ID);
 		}
 		
+		System.out.println("===================================================");
+		System.out.println("Quantidade de Arquivos: " + Almoxarifado.quantityArchives);
+		System.out.println("Quantidade de Montagens: " + Almoxarifado.quantityAssembly);
+		System.out.println("Quantidade de Peças: " + Almoxarifado.quantityParts);
+		System.out.println("---------------------------------------------------");
+		
+		Almoxarifado.quantityArchives = DBConector.counterOfElements("Arquivo");
+		Almoxarifado.quantityAssembly = DBConector.counterOfElements("Montagem");
+		Almoxarifado.quantityParts = DBConector.counterOfElements("Pecas");
+
+		System.out.println("Quantidade de Arquivos: " + Almoxarifado.quantityArchives);
+		System.out.println("Quantidade de Montagens: " + Almoxarifado.quantityAssembly);
+		System.out.println("Quantidade de Peças: " + Almoxarifado.quantityParts);
+		System.out.println("===================================================");
+		
 		restart = true;
 		ProjectList.updateProjectList = true;
-		PartsList.restartAssemblyList = true;
+		ProjectList.updateProjectListPL = true;
+		PartsList.wasChanged = true;
 	}
 	
 	public void scrollPositioner() {
@@ -87,6 +103,56 @@ public class Archive {
 		}
 		
 		if(isOnTheRightState) {
+			
+			if(restart) {
+				maximumHeight = ((Almoxarifado.quantityArchives - 2) * 250);
+				thumbHeight = (int) ((UserInterface.maximunHeight - 16) - (((UserInterface.maximunHeight - 32) * (maximumHeight / 16)) / 100));
+				System.out.println("thumbHeight: " + thumbHeight);
+				
+				infoGathered = "";
+				infoGathered = DBConector.readDB("*", "Arquivo");
+				Almoxarifado.frame.setTitle("Almoxarifado - Lista de Projetos Arquivados");
+				
+				infoGathered = infoGathered.replace("\n", "");
+				String auxInfo[] = infoGathered.split(" § ");
+				
+				ids.clear();
+				quantities.clear();
+				names.clear();
+				images.clear();
+				dates.clear();
+				RdFs.clear();
+								
+				for(int swepper = 0; swepper < auxInfo.length; swepper++) {
+					switch(swepper % 9) {
+					case 0:
+						ids.add(auxInfo[swepper]);
+						break;
+					case 1:
+						//ID - Quantidade;
+						quantities.add(DBConector.readDB("ID_Archive_Parts", "Arquivo_Pecas", "Montagem", auxInfo[swepper]).split(" § \n").length - 1);
+						break;
+					case 2:
+						//ISOs
+						names.add(auxInfo[swepper]);
+						break;
+					case 5:
+						//Imagens
+						images.add(auxInfo[swepper]);
+						break;
+					case 7:
+						//Datas
+						dates.add(auxInfo[swepper]);
+						break;
+					case 8:
+						//RdF dos Arquivadores
+						RdFs.add(auxInfo[swepper]);
+						break;
+					}
+				}
+				
+				restart = false;
+			}
 			
 			if(scroll > 0 && offsetHeight > (maximumHeight * -1)) {
 				offsetHeight -= UserInterface.spd;
@@ -120,48 +186,7 @@ public class Archive {
 				isDragging = false;
 			}
 				
-			if(restart) {
-				maximumHeight = ((Almoxarifado.quantityArchives - 2) * 250);
-				thumbHeight = (int) ((UserInterface.maximunHeight - 16) - (((UserInterface.maximunHeight - 32) * (maximumHeight / 16)) / 100));
-				System.out.println("thumbHeight: " + thumbHeight);
-				
-				infoGathered = "";
-				infoGathered = DBConector.readDB("*", "Arquivo");
-				Almoxarifado.frame.setTitle("Almoxarifado - Lista de Projetos Arquivados");
-				
-				infoGathered = infoGathered.replace("\n", "");
-				String auxInfo[] = infoGathered.split(" § "); 
-								
-				for(int swepper = 0; swepper < auxInfo.length; swepper++) {
-					switch(swepper % 9) {
-					case 0:
-						ids.add(auxInfo[swepper]);
-						break;
-					case 1:
-						//ID - Quantidade;
-						quantities.add(DBConector.readDB("ID_Archive_Parts", "Arquivo_Pecas", "Montagem", auxInfo[swepper]).split(" § \n").length - 1);
-						break;
-					case 2:
-						//ISOs
-						names.add(auxInfo[swepper]);
-						break;
-					case 5:
-						//Imagens
-						images.add(auxInfo[swepper]);
-						break;
-					case 7:
-						//Datas
-						dates.add(auxInfo[swepper]);
-						break;
-					case 8:
-						//RdF dos Arquivadores
-						RdFs.add(auxInfo[swepper]);
-						break;
-					}
-				}
-				
-				restart = false;
-			}
+			
 		}
 	}
 	

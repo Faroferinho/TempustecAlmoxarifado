@@ -117,6 +117,15 @@ public class ProjectList {
 		
 		if(isOnTheRightState == true) {
 			
+			if(updateProjectList) {
+				// TODO: Verificar se não dar problema isso dai.
+				resetInfo();
+				
+				PartsList.restartAssemblyList = true;
+				Almoxarifado.quantityAssembly = DBConector.counterOfElements("Montagem");
+				updateProjectList = false;
+			}
+			
 			if(mouseStatus) {
 				if(Almoxarifado.mX > Almoxarifado.WIDTH - (36 + 21) && Almoxarifado.mX < Almoxarifado.WIDTH - (36 + 21) + thumbWidth) {
 					if(Almoxarifado.mY > UserInterface.bttnY + UserInterface.boxHeight + 20 - (int)(thumbAuxY) 
@@ -147,7 +156,7 @@ public class ProjectList {
 					int confirmationOfChangeState = JOptionPane.showConfirmDialog(null, "Realmente deseja mudar de Pagina",
 					"Confirmação de Mudança de Pagina", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null);
 					if(confirmationOfChangeState == 0) {
-						System.out.println("ids: \n" + ids + "\nIndice: " + ids.get(changeStateIndex));
+						//System.out.println("ids: \n" + ids + "\nIndice: " + ids.get(changeStateIndex));
 						Project.ID = Integer.parseInt(ids.get(changeStateIndex));
 						Project.updateProject = true;
 						Archiver.writeOnArchive("mudarPag", "" + Project.ID, "", "");
@@ -171,15 +180,6 @@ public class ProjectList {
 				}
 				
 				changeState = false;
-			}
-			
-			if(updateProjectList) {
-				// TODO: Verificar se não dar problema isso dai.
-				resetInfo();
-				
-				PartsList.restartAssemblyList = true;
-				Almoxarifado.quantityAssembly = DBConector.counterOfElements("Montagem");
-				updateProjectList = false;
 			}
 			
 			if(maximumHeight > 450) {
@@ -220,7 +220,7 @@ public class ProjectList {
 			g.setColor(Color.white);
 			
 			
-			if(i != Almoxarifado.quantityAssembly) {
+			if(i != Almoxarifado.quantityAssembly && i < names.size()) {
 				g.drawImage(normalTable, imgX, imgY, boxWidth, boxHeight, null);
 				g.setFont(new Font("segoi ui", 1, 17));
 				Almoxarifado.drawStringBorder(((Graphics2D) g), names.get(i), imgX + (boxWidth / 2) - (g.getFontMetrics().stringWidth(names.get(i)) / 2), imgY + 28, 1, new Color(46, 46, 46), Color.white);

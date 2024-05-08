@@ -339,12 +339,14 @@ public class DBConector {
 			}
 			
 			for(int i = 0; i < prices.size(); i++) {
-				BigDecimal firstValue = new BigDecimal("0" + prices.get(i));
-				BigDecimal lastValue = new BigDecimal("0" + quantities.get(i));
+				BigDecimal firstValue = new BigDecimal("0" + prices.get(i).replaceAll("[^0-9]", ""));
+				BigDecimal lastValue = new BigDecimal("0" + quantities.get(i).replaceAll("[^0-9]", ""));
+				
+				System.out.println(firstValue.toString() + " * " + lastValue.toString() + " = " + firstValue.multiply(lastValue).doubleValue());
+				
 				finalValue += firstValue.multiply(lastValue).doubleValue();
 			}
-			
-			//System.out.println("Valor da Montagem: " + value);
+			System.out.println("");
 			
 			con.close();
 		} catch (SQLException e) {

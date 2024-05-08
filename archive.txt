@@ -650,3 +650,197 @@ O Usuário 8523 modou para o projeto 5 - Horario: 2024-05-07T11:04:12.299104400
 
 O Usuário 8523 arquivou o Projeto de ID = 5 - Horario: 2024-05-07T11:04:14.713451600
 
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:11:57.980620300
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:12:38.636116700
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:13:50.278643900
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:16:13.294962300
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:16:49.145771
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:17:10.477743500
+
+O Usuário 8523 modou para o projeto 18 - Horario: 2024-05-07T11:17:18.818366
+
+O Usuário 8523 arquivou o Projeto de ID = 18 - Horario: 2024-05-07T11:17:21.711419300
+
+O Usuário 8523 modou para o projeto 17 - Horario: 2024-05-07T11:17:24.368541
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:21:00.531458900
+
+O Usuário 8523 modou para o projeto 9 - Horario: 2024-05-07T11:21:05.608978400
+
+O Usuário 8523 arquivou o Projeto de ID = 9 - Horario: 2024-05-07T11:21:10.002141
+
+O Usuário 8523 modou para o projeto 8 - Horario: 2024-05-07T11:21:12.424743900
+
+O Usuário 8523 arquivou o Projeto de ID = 8 - Horario: 2024-05-07T11:21:14.287752800
+
+O Usuário 8523 modou para o projeto 17 - Horario: 2024-05-07T11:21:16.976452200
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:23:04.945347300
+
+O Usuário 8523 modou para o projeto 1 - Horario: 2024-05-07T11:23:09.085990300
+
+O Usuário 8523 arquivou o Projeto de ID = 1 - Horario: 2024-05-07T11:23:10.962804
+
+O Usuário 8523 modou para o projeto 6 - Horario: 2024-05-07T11:23:12.537057600
+
+O Usuário 8523 arquivou o Projeto de ID = 6 - Horario: 2024-05-07T11:23:18.601119200
+
+O Usuário 8523 modou para o projeto 5 - Horario: 2024-05-07T11:23:20.485505800
+
+O Usuário 8523 arquivou o Projeto de ID = 5 - Horario: 2024-05-07T11:23:22.836080300
+
+O Usuário 8523 modou para o projeto 7 - Horario: 2024-05-07T11:23:24.403835400
+
+O Usuário 8523 arquivou o Projeto de ID = 7 - Horario: 2024-05-07T11:23:25.936109900
+
+O Usuário 8523 modou para o projeto 20 - Horario: 2024-05-07T11:23:30.679130800
+
+O Usuário 8523 arquivou o Projeto de ID = 20 - Horario: 2024-05-07T11:23:33.555904900
+
+O Usuário 8523 modou para o projeto 22 - Horario: 2024-05-07T11:23:36.410638900
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:27:19.024879900
+
+O Usuário 8523 modou para o projeto 17 - Horario: 2024-05-07T11:27:22.961718900
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:27:43.595282100
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:33:10.513720900
+
+O Usuário 8523 modou para o projeto 17 - Horario: 2024-05-07T11:33:13.724042100
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:34:40.933684900
+
+O Usuário 8523 modou para o projeto 22 - Horario: 2024-05-07T11:34:51.241770400
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:35:09.156606300
+
+O Usuário 8523 modou para o projeto 17 - Horario: 2024-05-07T11:35:11.963268700
+
+O Usuário 8523 arquivou o Projeto de ID = 17 - Horario: 2024-05-07T11:35:18.603488700
+
+O Usuário 8523 modou para o projeto 19 - Horario: 2024-05-07T11:35:21.370280400
+
+O Usuário 8523 arquivou o Projeto de ID = 19 - Horario: 2024-05-07T11:35:23.642427400
+
+O Usuário 8523 modou para o projeto 21 - Horario: 2024-05-07T11:35:25.621078500
+
+O Usuário 8523 arquivou o Projeto de ID = 21 - Horario: 2024-05-07T11:35:27.009257600
+
+O Usuário 8523 modou para o projeto 22 - Horario: 2024-05-07T11:35:28.346305700
+
+O Usuário 8523 arquivou o Projeto de ID = 22 - Horario: 2024-05-07T11:35:36.382809800
+
+O Usuário 8523 modou para o projeto 23 - Horario: 2024-05-07T11:35:38.600204800
+
+O Usuário 8523 arquivou o Projeto de ID = 23 - Horario: 2024-05-07T11:35:45.345985600
+
+O Usuário 8523 modou para o projeto 25 - Horario: 2024-05-07T11:35:49.347773800
+
+O Usuário 8523 arquivou o Projeto de ID = 25 - Horario: 2024-05-07T11:35:52.015923
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:38:41.608478
+
+O Usuário 8523 modou para o projeto 10 - Horario: 2024-05-07T11:39:06.293437400
+
+O Usuário 8523 alterou o Projeto de ID = 10, passou de ---------- para Sei la - Horario: 2024-05-07T11:39:12.801971600
+
+O Usuário 8523 alterou O Projeto de ID = 10, passou de ---------- para a - Horario: 2024-05-07T11:39:15.809110900
+
+O Usuário 8523 alterou o Projeto de ID = 10, passou de ---------- para b] - Horario: 2024-05-07T11:39:20.222345800
+
+O Usuário 8523 modou para o projeto 11 - Horario: 2024-05-07T11:39:25.447800
+
+O Usuário 8523 alterou o Projeto de ID = 11, passou de ---------- para esse aqui sou eu - Horario: 2024-05-07T11:39:36.212764500
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:40:04.231174700
+
+O Usuário 8523 modou para o projeto 11 - Horario: 2024-05-07T11:40:07.194495700
+
+O Usuário 8523 alterou o Projeto de ID = 11, passou de ---------- para B) - Horario: 2024-05-07T11:40:26.890891600
+
+O Usuário 8523 alterou O Projeto de ID = 11, passou de ---------- para Esse aqui sou eu - Horario: 2024-05-07T11:40:34.074223700
+
+O Usuário 8523 alterou o Projeto de ID = 11, passou de ---------- para B) B) B) B) B) B) B) B) B)  - Horario: 2024-05-07T11:40:56.499222600
+
+O Usuário 8523 arquivou o Projeto de ID = 11 - Horario: 2024-05-07T11:41:00.733699600
+
+O Usuário 8523 modou para o projeto 10 - Horario: 2024-05-07T11:41:04.002023600
+
+O Usuário 8523 arquivou o Projeto de ID = 10 - Horario: 2024-05-07T11:41:05.434017900
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:47:09.719511500
+
+O Usuário 8523 modou para o projeto 11 - Horario: 2024-05-07T11:47:16.161425200
+
+O Usuário 8523 arquivou o Projeto de ID = 11 - Horario: 2024-05-07T11:47:17.588988800
+
+O Usuário 8523 modou para o projeto 18 - Horario: 2024-05-07T11:47:19.643412300
+
+O Usuário 8523 arquivou o Projeto de ID = 18 - Horario: 2024-05-07T11:47:22.890801700
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:48:51.647300100
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:51:50.023407300
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:54:16.959234200
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-07T11:55:48.635144900
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-08T07:06:41.882797600
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-08T07:15:59.386148900
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-08T07:19:14.427371
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-08T07:21:05.098212800
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-08T07:23:00.171574600
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-08T07:26:19.068338700
+
+O Usuário 8523 modou para o projeto 1 - Horario: 2024-05-08T07:26:38.818673
+
+O Usuário 8523 arquivou o Projeto de ID = 1 - Horario: 2024-05-08T07:26:40.536965700
+
+O Usuário 8523 modou para o projeto 5 - Horario: 2024-05-08T07:26:42.125313400
+
+O Usuário 8523 arquivou o Projeto de ID = 5 - Horario: 2024-05-08T07:26:43.800989800
+
+O Usuário 8523 modou para o projeto 6 - Horario: 2024-05-08T07:28:14.988975600
+
+O Usuário 8523 arquivou o Projeto de ID = 6 - Horario: 2024-05-08T07:28:16.781794200
+
+O Usuário 8523 modou para o projeto 7 - Horario: 2024-05-08T07:28:18.515065500
+
