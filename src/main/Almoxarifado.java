@@ -58,11 +58,6 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static Thread mainThread;
 	public static Thread fortnightVerificatorThread;
 	
-	public static String name = "";
-	public static String cpf = "";
-	public static String rdf = "";
-	public static String type = "";
-	
 	public static int mX;
 	public static int mY;
 	public static boolean mPressed = false;
@@ -82,6 +77,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		ui = new UserInterface();
 		
 		login = new Login();
+		userProfile = null;
 		projectList = new ProjectList();
 		project = new Project();
 		partsList = new PartsList();

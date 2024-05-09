@@ -16,6 +16,7 @@ public abstract class Profile {
 	protected String rdf = "";
 	protected String name = "";
 	protected String CPF = "";
+	private String type = "";
 	
 	private Color rdfColor = Color.white;
 	private Color nameColor = Color.white;
@@ -46,6 +47,10 @@ public abstract class Profile {
 	
 	public String getCPF() {
 		return CPF;
+	}
+	
+	public String getType() {
+		return type;
 	}
 	
 	protected void changePassword() {

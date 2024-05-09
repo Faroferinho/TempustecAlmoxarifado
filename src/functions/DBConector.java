@@ -202,7 +202,7 @@ public class DBConector {
 			}
 			
 			query = "INSERT INTO Arquivo(ID_Montagem, ISO, Description, Company, Image, Cost, Archive_Moment, Archiver_RdF) VALUES (" + auxInfoFromMontagem + auxDateTime + "\", " 
-			+ Almoxarifado.rdf + ");";
+			+ Almoxarifado.userProfile.getRdF() + ");";
 			Almoxarifado.quantityArchives++;
 			
 			statement.executeUpdate(query);

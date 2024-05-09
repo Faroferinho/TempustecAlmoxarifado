@@ -173,36 +173,37 @@ public class Functions {
 	}
 	
 	public static void generatePurchaseInquery() {
-		if(!Almoxarifado.rdf.equals("")) {
-			String date = "";
-			String emailHeader = "Pedido de Peça, ";
-			String emailBody = randomGreetingsGen() + "\n";
-			String orderList = "";
-			String idsList[] = partsToOrder.split(" § \n"); 
-			LocalDateTime ldt = LocalDateTime.now();
-			
-			date = "" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear() + " - " + ldt.getHour() + ":" + ldt.getMinute() + ":" + ldt.getSecond();
-			emailHeader += date;
-			
-			emailBody += "O Usuário " + Almoxarifado.name + " fez um pedido de peças, seguem os dados: \n"
-					+ "--------------------------------------------------------------------------------\n";
-			for(int i = 0; i < idsList.length; i++) {
-				if(!partsToOrder.equals("")) {
-					if(DBConector.readDB("status", "Pecas", "ID_Parts", idsList[i]).equals("0 § \n")) {			
-						orderList += "	 - Montagem: " + DBConector.readDB("ISO", "Montagem", "ID_Montagem", DBConector.readDB("Montagem", "Pecas", "ID_Parts", idsList[i]).replaceAll(" § \n", "")).replaceAll(" § \n", "") 
-								  +  " - " + DBConector.readDB("Description", "Montagem", "ID_Montagem", DBConector.readDB("Montagem", "Pecas", "ID_Parts", idsList[i]).replaceAll(" § \n", "")).replaceAll(" § \n", "") + "\n"
-								  +  "	 - Descrição: " + DBConector.readDB("Description", "Pecas", "ID_Parts", idsList[i]).replaceAll(" § \n", "") + "\n"
-								  +  "	 - Quantidade: " + DBConector.readDB("Quantity", "Pecas", "ID_Parts", idsList[i]).replaceAll(" § \n", "") + " \n"
-								  +  "--------------------------------------------------------------------------------\n";
+		if(Almoxarifado.state != 0) {
+			if(!Almoxarifado.userProfile.getRdF().equals("")) {
+				String date = "";
+				String emailHeader = "Pedido de Peça, ";
+				String emailBody = randomGreetingsGen() + "\n";
+				String orderList = "";
+				String idsList[] = partsToOrder.split(" § \n"); 
+				LocalDateTime ldt = LocalDateTime.now();
+				
+				date = "" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear() + " - " + ldt.getHour() + ":" + ldt.getMinute() + ":" + ldt.getSecond();
+				emailHeader += date;
+				
+				emailBody += "O Usuário " + Almoxarifado.userProfile.getName() + " fez um pedido de peças, seguem os dados: \n"
+						+ "--------------------------------------------------------------------------------\n";
+				for(int i = 0; i < idsList.length; i++) {
+					if(!partsToOrder.equals("")) {
+						if(DBConector.readDB("status", "Pecas", "ID_Parts", idsList[i]).equals("0 § \n")) {			
+							orderList += "	 - Montagem: " + DBConector.readDB("ISO", "Montagem", "ID_Montagem", DBConector.readDB("Montagem", "Pecas", "ID_Parts", idsList[i]).replaceAll(" § \n", "")).replaceAll(" § \n", "") 
+									  +  " - " + DBConector.readDB("Description", "Montagem", "ID_Montagem", DBConector.readDB("Montagem", "Pecas", "ID_Parts", idsList[i]).replaceAll(" § \n", "")).replaceAll(" § \n", "") + "\n"
+									  +  "	 - Descrição: " + DBConector.readDB("Description", "Pecas", "ID_Parts", idsList[i]).replaceAll(" § \n", "") + "\n"
+									  +  "	 - Quantidade: " + DBConector.readDB("Quantity", "Pecas", "ID_Parts", idsList[i]).replaceAll(" § \n", "") + " \n"
+									  +  "--------------------------------------------------------------------------------\n";
+						}
 					}
 				}
-			}
-			
-			if(!orderList.equals("")) {
-				Email.sendReport(emailHeader, emailBody + orderList);
+				
+				if(!orderList.equals("")) {
+					Email.sendReport(emailHeader, emailBody + orderList);
+				}
 			}
 		}
 	}
-
 	
 }

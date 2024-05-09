@@ -79,15 +79,10 @@ public class Login {
 				auxString = DBConector.readDB("*", "Funcionarios", "CPF", textInBoxCPF);
 				String[] toConfig = auxString.split(" § ");
 				
-				Almoxarifado.rdf = toConfig[0];
-				Almoxarifado.name = toConfig[1];
-				Almoxarifado.cpf = cpfFormater(textInBoxCPF);
-				Almoxarifado.type = toConfig[4];
-				
-				if(Almoxarifado.type.equals("1")) {
-					Almoxarifado.userProfile = new Admnistrator(Almoxarifado.rdf);
+				if(toConfig[4].equals("1")) {
+					Almoxarifado.userProfile = new Admnistrator(toConfig[0]);
 				}else {
-					Almoxarifado.userProfile = new Employee(Almoxarifado.rdf);
+					Almoxarifado.userProfile = new Employee(toConfig[0]);
 				}
 				
 				Archiver.writeOnArchive("login", null, null, null);
@@ -309,7 +304,8 @@ public class Login {
 							 g.getFontMetrics().getHeight())) {
 			g.setColor(new Color(235, 245, 178));
 			if(mouseClick) {
-				
+				Almoxarifado.addWorker.SignIn = true;
+				Almoxarifado.state = 8;
 			}
 		}
 		g.drawString("Cadastre-se", secondBox.x  + secondBox.width - (g.getFontMetrics().stringWidth("Cadastre-se") + 15), secondBox.y + secondBox.height + g.getFontMetrics().getHeight());

@@ -126,6 +126,7 @@ public class Admnistrator extends Profile {
 			
 			if(addingWorker) {
 				addingWorker = false;
+				Almoxarifado.addWorker.addedFromAdmnistrator = true;
 				Almoxarifado.state = 8;
 			}
 			

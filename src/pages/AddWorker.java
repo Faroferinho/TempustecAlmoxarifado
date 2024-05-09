@@ -19,6 +19,9 @@ public class AddWorker extends Insertions{
 	
 	BufferedImage checkbox = Almoxarifado.imgManag.getSprite(455, 395, 18, 18);;
 	BufferedImage check = Almoxarifado.imgManag.getSprite(452, 371, 21, 21);
+	
+	boolean addedFromAdmnistrator = false;
+	boolean SignIn = false;
 
 	public AddWorker() {
 		quantity = 2;
@@ -81,10 +84,16 @@ public class AddWorker extends Insertions{
 		DBConector.writeDB(query);
 		
 		Almoxarifado.quantityWorkers++;
-		if(Almoxarifado.userProfile.equals(new Admnistrator(""))) {
+		if(addedFromAdmnistrator) {
 			((Admnistrator)(Almoxarifado.userProfile)).fillMultiArray();
+			addedFromAdmnistrator = false;
 		}
-		Almoxarifado.state = 1;
+		if(SignIn) {
+			Almoxarifado.state = 0;
+			SignIn = false;
+		}else {
+			Almoxarifado.state = 1;
+		}
 	}
 
 	@Override
@@ -119,7 +128,11 @@ public class AddWorker extends Insertions{
 	protected void cancelButtonClick() {
 		int toVerif = JOptionPane.showConfirmDialog(null, "Você gostaria cancelar a ação?", "Confirmar o Cancelamento", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if(toVerif == 0) {
-			Almoxarifado.state = 1;
+			if(Almoxarifado.userProfile.getRdF().equals("")) {
+				Almoxarifado.state = 0;				
+			}else {
+				Almoxarifado.state = 1;
+			}
 		}
 	}
 
