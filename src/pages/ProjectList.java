@@ -78,7 +78,7 @@ public class ProjectList {
 		descriptions.clear();
 		companies.clear();
 		
-		System.out.println("Lista de Montagem do Bando de Dados:\n" + infoFromDB);
+		//System.out.println("Lista de Montagem do Bando de Dados:\n" + infoFromDB);
 		
 		if(infoFromDB != "") {
 			for(int i = 0; i < lines.length; i++) {

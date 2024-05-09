@@ -70,36 +70,37 @@ public class Archiver {
 	}
 
 	public static void logInfo() {
-		LocalDateTime thisMoment = LocalDateTime.now();
-		String auxDate = thisMoment.toString();
-		auxDate = auxDate.substring(0, 19);
-		auxDate = auxDate.replaceAll("T", " ");
-		
-		int lastQuinzena = Integer.parseInt("0" + DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", "").replaceAll("null", ""));
-		
-		if(fortnightVerificator(auxDate)) {
-			String lastValue = "";
-			if(!DBConector.readDB("*", "Quinzena").replaceAll(" § \n", "").equals("")) {
-				lastValue += DBConector.readDB("totalExpanses", "Quinzena", "ID_Fortnight", DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", "")).replaceAll(" § \n", "");
-			}else {
-				lastValue += "0.0";
-			}
+		if(DBConector.getDB().equals("jdbc:mysql://localhost:3306/Tempustec")) {
+			LocalDateTime thisMoment = LocalDateTime.now();
+			String auxDate = thisMoment.toString();
+			auxDate = auxDate.substring(0, 19);
+			auxDate = auxDate.replaceAll("T", " ");
 			
-			String command = genericCommand + "Quinzena(date, totalExpanses) VALUES('";
-			double totalValue = DBConector.totalValueExpended();
-			
-			command += auxDate + "', ";
-			command += totalValue + ")";
-			
-			System.out.println("LogInfo: " + command);
-			DBConector.writeDB(command);
-			
-			DBConector.registerFortnight(auxDate);
-			
-			if(totalValue != Double.parseDouble(lastValue)) {
-				createExpancesReport(Functions.diferenceCurency("" + totalValue, lastValue), lastQuinzena);
-			}else {
-				createCongratulationsReport();
+			int lastQuinzena = Integer.parseInt("0" + DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", "").replaceAll("null", ""));
+	
+			if(fortnightVerificator(auxDate)) {
+				String lastValue = "";
+				if(!DBConector.readDB("*", "Quinzena").replaceAll(" § \n", "").equals("")) {
+					lastValue += DBConector.readDB("totalExpanses", "Quinzena", "ID_Fortnight", DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", "")).replaceAll(" § \n", "");
+				}else {
+					lastValue += "0.0";
+				}
+				
+				String command = genericCommand + "Quinzena(date, totalExpanses) VALUES('";
+				double totalValue = DBConector.totalValueExpended();
+				
+				command += auxDate + "', ";
+				command += totalValue + ")";
+				
+				System.out.println("LogInfo: " + command);
+				DBConector.writeDB(command);
+				
+				DBConector.registerFortnight(auxDate);
+				if(totalValue != Double.parseDouble(lastValue)) {
+					createExpancesReport(Functions.diferenceCurency("" + totalValue, lastValue), lastQuinzena);
+				}else {
+					createCongratulationsReport();
+				}
 			}
 		}
 	}

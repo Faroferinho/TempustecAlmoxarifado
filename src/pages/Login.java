@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import functions.Archiver;
 import functions.DBConector;
+import functions.Functions;
 import main.Almoxarifado;
 import main.UserInterface;
 
@@ -299,8 +300,21 @@ public class Login {
 		g.setFont(new Font("Times New Roman", 0, 20));
 		Almoxarifado.drawStringBorder(g, "CPF:", textBoxX + 15, textBoxY + 44, 1, Color.DARK_GRAY, Color.white);
 		Almoxarifado.drawStringBorder(g, "Senha:", textBoxX + 15, (int) (textBoxY * 1.6) - 3, 1, Color.DARK_GRAY, Color.white);
-		g.setColor(Color.black);
 		
+		g.setFont(new Font("Times New Roman", 0, 14));
+		g.setColor(Color.DARK_GRAY);
+		if(Functions.isOnBox(secondBox.x  + secondBox.width - (g.getFontMetrics().stringWidth("Cadastre-se") + 15), 
+							 secondBox.y + secondBox.height + 5,
+							 g.getFontMetrics().stringWidth("Cadastre-se"), 
+							 g.getFontMetrics().getHeight())) {
+			g.setColor(new Color(235, 245, 178));
+			if(mouseClick) {
+				
+			}
+		}
+		g.drawString("Cadastre-se", secondBox.x  + secondBox.width - (g.getFontMetrics().stringWidth("Cadastre-se") + 15), secondBox.y + secondBox.height + g.getFontMetrics().getHeight());
+		
+		g.setColor(Color.black);		
 		g.setFont(new Font("segoe ui", 0, 16));
 		g.drawString(cpfFormater(textInBoxCPF), textBoxX + 5, textBoxY + textBoxH - (g.getFontMetrics().getHeight()/2) + 49);
 		g.drawString(censoringPassword(textInBoxPW), textBoxX + 5, (int) (textBoxY * 1.6) + textBoxH - (g.getFontMetrics().getHeight()/4));
