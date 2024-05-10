@@ -123,6 +123,14 @@ public abstract class Insertions {
 		}
 	}
 	
+	protected void alterTextBoxSize(Graphics g, int index) {
+		
+		if(g.getFontMetrics().stringWidth(values.get(index)) > (textBoxes.get(index).width - 20)) {
+			textBoxes.get(index).setSize(g.getFontMetrics().stringWidth(values.get(index)) + 20, textBoxes.get(index).height);
+		}
+		
+	}
+	
 	protected abstract void writeTextOnBox();
 	
 	protected abstract void writeQuery();

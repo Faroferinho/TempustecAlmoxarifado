@@ -133,6 +133,8 @@ public class AddAssembly extends Insertions{
 			g.setFont(new Font("segoi ui", 0, 15));
 			g.drawString(values.get(i), textBoxes.get(i).x + 12, textBoxes.get(i).y + g.getFontMetrics().getHeight() + 8);
 			
+			alterTextBoxSize(g, i);
+			
 			g.setColor(Color.white);
 		}
 		
