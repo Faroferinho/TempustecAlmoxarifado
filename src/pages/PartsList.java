@@ -274,7 +274,12 @@ public class PartsList {
 	}
 	
 	public void addPart() {
-		Almoxarifado.state = 6;
+		if(Almoxarifado.quantityAssembly > 0) {
+			Almoxarifado.state = 6;
+		}else {
+			JOptionPane.showMessageDialog(null, "Para Adicionar uma peça é necessário uma Montagem", "Erro - Não Existe Montagem", JOptionPane.ERROR_MESSAGE, null);
+			Almoxarifado.state = 3;
+		}
 	}
 	
 	public void eliminatePart(int index){
