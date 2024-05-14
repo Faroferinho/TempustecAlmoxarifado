@@ -12,10 +12,13 @@ import javax.swing.JOptionPane;
 
 import functions.Archiver;
 import functions.DBConector;
+import functions.Functions;
+import functions.Searcher;
 import main.Almoxarifado;
 import main.UserInterface;
+import functions.BidimensionalList;
 
-public class ProjectList {
+public class ProjectList implements BidimensionalList{
 	
 	static boolean isOnTheRightState = false;
 	
@@ -25,9 +28,10 @@ public class ProjectList {
 	static int boxWidth = 150;
 	static int boxHeight = 200;
 	int initX =  (int) (Almoxarifado.WIDTH/3 - (boxWidth + spaceBetween));
-	int initY = UserInterface.bttnY*2 + UserInterface.boxHeight*2;
+	int initY = UserInterface.bttnY*2 + UserInterface.boxHeight*2 + 30;
 	int boxBorder = 30;
 	
+	String columnsOrder[] = {"IDs", "ISOs", "Descrições", "Empresas"}; 
 	String idsToSplit = DBConector.readDB("ID_Montagem", "montagem");
 	ArrayList<String> ids = new ArrayList<>();
 	String namesToSplit = DBConector.readDB("ISO", "montagem");
@@ -51,8 +55,8 @@ public class ProjectList {
 	private boolean changeState = false;
 	private int changeStateIndex = -1;
 	
-	public static boolean updateProjectList;
-	public static boolean updateProjectListPL;
+	public static boolean updateProjectList = false;
+	public static boolean updateProjectListPL = false;
 	
 	BufferedImage normalTable = Almoxarifado.imgManag.getSprite(300, 180, boxWidth, boxHeight);
 	BufferedImage addItems = Almoxarifado.imgManag.getSprite(150, 180, boxWidth, boxHeight);
@@ -63,6 +67,8 @@ public class ProjectList {
 	int maxTextSize = 125;
 	int auxH = 0;
 	
+	public String orderColumn = "IDs";
+	
 	public ProjectList(){
 		resetInfo();
 		
@@ -70,7 +76,7 @@ public class ProjectList {
 	}
 	
 	private void resetInfo() {
-		String infoFromDB = DBConector.readDB("*", "Montagem");
+		String infoFromDB = DBConector.readDB(Searcher.orderByColumn(orderColumn, "Montagem"));
 		String[] lines = infoFromDB.split("\n");
 		
 		ids.clear();
@@ -95,6 +101,13 @@ public class ProjectList {
 	
 	private void createNewAssembly(){
 		Almoxarifado.state = 7;
+	}
+	
+	@Override
+	public String getColumn(int i) {
+		
+		
+		return columnsOrder[i];
 	}
 	
 	public void scrollPositioner() {
@@ -197,7 +210,29 @@ public class ProjectList {
 	public void render(Graphics g) {
 		g.setColor(Color.white);
 		g.setFont(new Font("segoe ui", 1, 40));
-		g.drawString("Lista de Projetos: ", Almoxarifado.WIDTH/8 - 30, initY - (25) + offsetHeight);
+		g.drawString("Lista de Projetos: ", Almoxarifado.WIDTH/8 - 30, initY - (35) + offsetHeight);
+		
+		for(int i = 0; i < columnsOrder.length; i++) {
+			int positionerX = Almoxarifado.WIDTH/8 - 30 + g.getFontMetrics(new Font("segoe ui", 1, 40)).stringWidth("Lista de Projetos: ") + (90 * (i + 1));
+			
+			g.setColor(Color.orange);
+			g.setFont(new Font("segoe ui", 1, 12));
+			
+			if(i != 0) {
+				positionerX += g.getFontMetrics().stringWidth(columnsOrder[i-1]);
+			}
+			
+			if(Functions.isOnBox(positionerX, initY - (35) + offsetHeight - g.getFontMetrics().getHeight(), g.getFontMetrics().stringWidth(columnsOrder[i]), g.getFontMetrics().getHeight())) {
+				g.setColor(Color.red);
+				if(mouseStatus) {
+					orderColumn = getColumn(i);
+					updateProjectList = true;
+					mouseStatus = false;
+				}
+			}
+			
+			g.drawString(columnsOrder[i], positionerX, initY - (35) + offsetHeight);
+		}
 		
 		int auxX = 0;
 		int auxY = 0;

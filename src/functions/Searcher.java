@@ -15,6 +15,9 @@ public abstract class Searcher {
 		case "Pecas":
 			query += getColumnNameParts(column);
 			break;
+		case "Montagem":
+			query += getColumnNameAssemblies(column);
+			break;
 		}
 		
 		if(direction) {
@@ -82,8 +85,17 @@ public abstract class Searcher {
 		String columnIdentificator = "";
 		
 		switch(column) {
-		case "ID":
-			columnIdentificator = "ID_";
+		case "IDs":
+			columnIdentificator = "ID_Montagem";
+			break;
+		case "ISOs":
+			columnIdentificator = "ISO";
+			break;
+		case "Descrições":
+			columnIdentificator = "Description";
+			break;
+		case "Empresas":
+			columnIdentificator = "Company";
 			break;
 		}
 		
