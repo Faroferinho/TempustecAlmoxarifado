@@ -11,8 +11,9 @@ import functions.DBConector;
 import functions.Functions;
 import main.Almoxarifado;
 import main.UserInterface;
+import functions.BidimensionalList;
 
-public class Admnistrator extends Profile {
+public class Admnistrator extends Profile implements BidimensionalList{
 	
 	protected BufferedImage bttn_listWorkers = Almoxarifado.imgManag.getSprite(475, 60, 165, 60);
 	protected BufferedImage bttn_addWorker = Almoxarifado.imgManag.getSprite(475, 300, 165, 60);
@@ -29,6 +30,7 @@ public class Admnistrator extends Profile {
 	
 	public Admnistrator(String RdF){
 		super(RdF);
+		fillMultiArray();
 	}
 	
 	public void fillMultiArray() {
@@ -57,7 +59,6 @@ public class Admnistrator extends Profile {
 			brokenDownList[i][2] = formatCPF(listCPFs[i-1].replaceAll(" § ", ""));
 			brokenDownList[i][3] = formatType(listType[i-1].replaceAll(" § ", ""));
 		}
-		
 	}
 	
 	private String formatType(String typeNumb) {
@@ -73,6 +74,12 @@ public class Admnistrator extends Profile {
 		}
 		
 		return workerType;
+	}
+	
+	@Override
+	public String getColumn(int i) {
+		System.out.println("Valor da Coluna " + brokenDownList[firstLine][i]);
+		return brokenDownList[firstLine][i];
 	}
 
 	@Override
@@ -200,7 +207,6 @@ public class Admnistrator extends Profile {
 	}
 	
 	private void listWorkers(Graphics g) {
-		
 		int auxX = 80;
 		int auxY = 150;
 		

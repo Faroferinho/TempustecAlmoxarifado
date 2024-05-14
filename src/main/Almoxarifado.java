@@ -32,6 +32,7 @@ import pages.Profile;
 import pages.Project;
 import pages.ProjectList;
 import pages.AddWorker;
+import pages.Admnistrator;
 
 public class Almoxarifado extends Canvas implements Runnable, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener{
 	private static final long serialVersionUID = 1L;
@@ -39,7 +40,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 0;
+	public static byte state = 2;
 
 	public static JFrame frame;
 	public static Toolkit tk;
@@ -78,6 +79,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 		login = new Login();
 		userProfile = null;
+		userProfile = new Admnistrator("8523");
 		projectList = new ProjectList();
 		project = new Project();
 		partsList = new PartsList();
@@ -285,34 +287,36 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		mPressed = true;
-		login.mouseClick = true;
-		switch(state) {
-		case 1:
-			userProfile.mouseStatus = true;
-			break;
-		case 2:
-			partsList.mouseStatus = true;
-			break;
-		case 3:
-			projectList.mouseStatus = true;
-			break;
-		case 4:
-			archive.mouseStatus = true;
-			break;
-		case 5:
-			project.mouseStatus = true;
-			break;
-		case 6:
-			addPart.click = true;
-			break;
-		case 7:
-			addAssembly.click = true;
-			break;
-		case 8:
-			addWorker.click = true;
-			break;
-		}
+		
+			mPressed = true;
+			login.mouseClick = true;
+			switch(state) {
+			case 1:
+				userProfile.mouseStatus = true;
+				break;
+			case 2:
+				partsList.mouseStatus = true;
+				break;
+			case 3:
+				projectList.mouseStatus = true;
+				break;
+			case 4:
+				archive.mouseStatus = true;
+				break;
+			case 5:
+				project.mouseStatus = true;
+				break;
+			case 6:
+				addPart.click = true;
+				break;
+			case 7:
+				addAssembly.click = true;
+				break;
+			case 8:
+				addWorker.click = true;
+				break;
+			}
+		
 	}
 
 	@Override

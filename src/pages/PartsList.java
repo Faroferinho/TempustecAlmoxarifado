@@ -12,11 +12,13 @@ import java.util.Objects;
 import javax.swing.JOptionPane;
 
 import functions.Archiver;
+import functions.BidimensionalList;
 import functions.DBConector;
+import functions.Searcher;
 import main.Almoxarifado;
 import main.UserInterface;
 
-public class PartsList {
+public class PartsList implements BidimensionalList{
 	
 	private boolean isOnTheRightState = false;
 	
@@ -58,6 +60,8 @@ public class PartsList {
 	BufferedImage checkBox = Almoxarifado.imgManag.getSprite(455, 395, 18, 18);
 	
 	public static int auxAddingFromMontagem = 0;
+	
+	public String orderColumn = "ID";
 
 	public PartsList() {
 		finalPartsTable = listBreaker(toSplit);
@@ -237,6 +241,12 @@ public class PartsList {
 		
 		return returnHashMap;
 	}
+
+	@Override
+	public String getColumn(int i) {
+		System.out.println("Valor da Coluna " + finalPartsTable[firstLine][i]);
+		return finalPartsTable[firstLine][i];
+	}
 	
 	private static boolean verifyString(String text) {
 		if(text.equals("null")) {
@@ -318,7 +328,7 @@ public class PartsList {
 	
 	public void tick() {
 		if(wasChanged == true) {
-			toSplit = DBConector.readDB("*", "pecas");
+			toSplit = DBConector.readDB(Searcher.orderByColumn(orderColumn, "Pecas"));
 			finalPartsTable = listBreaker(toSplit);
 			
 			assembliesHM = fillAssembliesName();
@@ -396,6 +406,8 @@ public class PartsList {
 					
 					String auxTextToWrite = (finalPartsTable[i][j]);
 					
+					Color nC = Color.white;
+					
 					if(i > 0 && j == 1) {
 						auxTextToWrite = assembliesHM.get(finalPartsTable[i][j]);
 					}
@@ -405,9 +417,10 @@ public class PartsList {
 					}
 					
 					switch(j) {
-					//Case 0:
+					case 0:
 						//ID
-					
+						maxMouse = g.getFontMetrics().stringWidth(auxTextToWrite);
+						break;
 					case 1:
 						//Montagem
 						auxWidth += (total*4.5)/100;
@@ -460,8 +473,6 @@ public class PartsList {
 					if(j == 7) {
 						auxCheckBox = 15;
 					}
-					
-					Color nC = Color.white;
 						
 					if(i == 0) {
 						nC = Color.orange;
@@ -470,6 +481,18 @@ public class PartsList {
 						}
 					}
 					if(!isEliminating) {
+						if(Almoxarifado.mX > auxWidth && Almoxarifado.mX < auxWidth + maxMouse
+						&& Almoxarifado.mY > auxHeight - 15 - auxCheckBox && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 50 + auxCheckBox 
+						&& i == 0) {
+							nC = new Color(255, 00, 102);
+							
+							if(mouseStatus) {
+								orderColumn = getColumn(j);
+								wasChanged = true;
+								mouseStatus = false;
+							}
+						}
+						
 						if(Almoxarifado.mX > auxWidth - auxCheckBox && Almoxarifado.mX < auxWidth + maxMouse + auxCheckBox
 						&& Almoxarifado.mY > auxHeight - 15 - auxCheckBox && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 50 + auxCheckBox 
 						&& i != 0 && auxHeight > 120 && j != 0) {
@@ -481,7 +504,7 @@ public class PartsList {
 								Almoxarifado.project.updater();
 								mouseStatus = false;
 							}
-								
+							
 						}
 					}else {
 						if(Almoxarifado.mY > auxHeight - 15 && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 30 
@@ -503,9 +526,24 @@ public class PartsList {
 								return;
 							}
 						}
+						
+						if(Almoxarifado.mX > auxWidth - auxCheckBox && Almoxarifado.mX < auxWidth + maxMouse + auxCheckBox
+								&& Almoxarifado.mY > auxHeight - 15 - auxCheckBox && Almoxarifado.mY < auxHeight + (g.getFontMetrics().stringWidth(finalPartsTable[i][j]) / characterLimitPerLine) * 50 + auxCheckBox 
+								&& i == 0) {
+									nC = new Color(255, 00, 102);
+									
+									if(mouseStatus) {
+										System.out.println("Selecionou a coluna " + getColumn(j) + " de Indice " + j);
+									}
+								}
 					}
 					
 					g.setColor(nC);
+					
+					if(i == 0) {
+						g.drawImage(upIndicator, auxWidth + g.getFontMetrics().stringWidth(auxTextToWrite) + 3, auxHeight - (g.getFontMetrics().getHeight()/3) * 2 - 3,null);
+						g.drawImage(downIndicator, auxWidth + g.getFontMetrics().stringWidth(auxTextToWrite) + 3, auxHeight - g.getFontMetrics().getHeight()/3,null);
+					}
 					
 					if(!multipleDescriptionLinesMark) {
 						g.drawString(auxTextToWrite, auxWidth, auxHeight);

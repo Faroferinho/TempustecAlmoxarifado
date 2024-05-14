@@ -17,8 +17,8 @@ public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
 	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempusteste";
-	private static String user = "root";
-	private static String password = "1234";
+	private static String user = "Almoxarifado";
+	private static String password = "Tempustec2023";
 	
 	public DBConector() {
 		
@@ -26,6 +26,43 @@ public class DBConector {
 	
 	public static String getDB() {
 		return urlDBTempustec;
+	}
+	
+	public static String readDB(String query) {
+		String returnData = "";
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			
+			JOptionPane.showMessageDialog(null, "Instale o Driver \"MySQL Connector-J\" e Tente Novamente", 
+			"Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			
+			System.exit(1);
+		}
+		
+		try {
+			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
+			Statement statement = con.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			
+			while(result.next()) {
+				for(int i = 1; i < result.getMetaData().getColumnCount() + 1; i++) {
+
+					returnData += result.getString(i) + " § ";
+
+				}
+				returnData += "\n";
+			}
+			con.close();
+		} catch(SQLException e){
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao Efetuar Ação", "Erro no Java Data Base Conector", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+		
+		return returnData;
 	}
 	
 	public static String readDB(String objective, String table){
