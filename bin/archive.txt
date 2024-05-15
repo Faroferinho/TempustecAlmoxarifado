@@ -1325,3 +1325,22 @@ O Usuário 8523 alterou a peça ID_Parts.17, passou de 5 para u - Horario: 2024-
 
 O Usuário 8523 alterou a peça ID_Parts.17, passou de u para xsa - Horario: 2024-05-15T08:23:01.222116700
 
+O Usuário 8523 alterou a peça ID_Parts.3, passou de 3 para delete - Horario: 2024-05-15T08:26:51.077335900
+
+O Usuário 8523 alterou a peça ID_Parts.1, passou de 1 para cachorro - Horario: 2024-05-15T08:26:57.296415
+
+O Usuário 8523 alterou a peça ID_Parts.17, passou de 6 para 28 - Horario: 2024-05-15T08:27:09.524219400
+
+O Usuário 8523 alterou a peça ID_Parts.76, passou de 26 para 27 - Horario: 2024-05-15T08:27:14.825378200
+
+O Usuário 8523 modou para o projeto 35 - Horario: 2024-05-15T08:37:29.971233100
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-15T09:37:05.109950700
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-15T09:38:28.365504400
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-15T09:38:59.575418700
+

@@ -22,7 +22,7 @@ public class ImageManager {
 			e.printStackTrace();
 		}
 		
-		TempustecIcon = this.getProjectImage("TempustecLogoIcone1");
+		TempustecIcon = getIcon();
 		
 		System.out.println("Carregou ImageManager: " + LocalDateTime.now());
 	}
@@ -40,6 +40,18 @@ public class ImageManager {
 		
 		try {
 			returnImg = ImageIO.read(new File("C:/Program Files/Almoxarifado/res/" + fileName + ".png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return returnImg;
+	}
+	
+	private BufferedImage getIcon() {
+		BufferedImage returnImg = null;
+		
+		try {
+			returnImg = ImageIO.read(new File("C:/Program Files/Almoxarifado/res/Almox-Logo.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

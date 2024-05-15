@@ -352,6 +352,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			addWorker.click = false;
 			break;
 		}
+		
 	}
 
 	@Override
@@ -429,6 +430,10 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 				login.isWriting = true;
 				login.isOnCPF = true;
+			}
+		}else if(state == 2) {
+			if(partsList.isWriting) {
+				partsList.getText(e);
 			}
 		}else if(state == 6) {
 			if(addPart.isWriting == true) {

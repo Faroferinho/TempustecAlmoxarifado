@@ -3,6 +3,8 @@ package pages;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -14,6 +16,7 @@ import javax.swing.JOptionPane;
 import functions.Archiver;
 import functions.BidimensionalList;
 import functions.DBConector;
+import functions.Functions;
 import functions.Searcher;
 import main.Almoxarifado;
 import main.UserInterface;
@@ -61,7 +64,11 @@ public class PartsList implements BidimensionalList{
 	
 	public static int auxAddingFromMontagem = 0;
 	
-	public String orderColumn = "ID";
+	private String orderColumn = "ID";
+	
+	public boolean isWriting = false;
+	private String textToSearch = "";
+	private int indexToWrite = 0;
 
 	public PartsList() {
 		finalPartsTable = listBreaker(toSplit);
@@ -69,7 +76,7 @@ public class PartsList implements BidimensionalList{
 		System.out.println("Carregou Lista de Peças: " + LocalDateTime.now());
 	}
 	
-	public static String getKey(String value) {		
+	private static String getKey(String value) {		
 		for (Entry<String, String> entry : assembliesHM.entrySet()) {
 	        if (Objects.equals(value, entry.getValue())) {
 	            return entry.getKey();
@@ -326,6 +333,33 @@ public class PartsList implements BidimensionalList{
 		thumbAuxY = Y / S;
 	}
 	
+	public void getText(KeyEvent e) {
+		String textInserted = "";
+		
+		textInserted = textToSearch;
+		
+		if(indexToWrite == 0) {
+			if(!((e.getExtendedKeyCode() > -1 && e.getExtendedKeyCode() < 21) || 
+				 (e.getExtendedKeyCode() > 126 && e.getExtendedKeyCode() < 160))) {
+				textInserted += e.getKeyChar();
+			}else {
+				if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE && textInserted.length() > 0) {
+					textInserted = textInserted.substring(0, textInserted.length() - 1);
+				}
+			}
+		}else {
+			textInserted = advancedWriter(textInserted, e);
+		}
+		
+		textToSearch = textInserted;
+	}
+	
+	private String advancedWriter(String text, KeyEvent e) {
+		String toReturn = "";
+		
+		return toReturn;
+	}
+	
 	public void tick() {
 		if(wasChanged == true) {
 			toSplit = DBConector.readDB(Searcher.orderByColumn(orderColumn, "Pecas"));
@@ -342,6 +376,10 @@ public class PartsList implements BidimensionalList{
 			isOnTheRightState = false;
 			thumbAuxY = 0;
 			offsetHeight = 0;
+		}
+		
+		if(isWriting) {
+			
 		}
 		
 		if(isOnTheRightState) {
@@ -389,11 +427,30 @@ public class PartsList implements BidimensionalList{
 	
 	public void render(Graphics g) {
 		
+		g.setColor(Color.white);
+		g.setFont(new Font("segoe ui", 1, 40));
+		g.drawString("Lista de Peças: ", Almoxarifado.WIDTH/8 - 30, 180 + offsetHeight);
+		
+		UserInterface.createTextBox(g, new Rectangle(
+				Almoxarifado.WIDTH/8 + g.getFontMetrics().stringWidth("Lista de Peças: "), 
+				145 + offsetHeight, 
+				Almoxarifado.WIDTH - Almoxarifado.WIDTH/4 - g.getFontMetrics().stringWidth("Lista de Peças: "), 
+				40
+			), 15);
+		if(Functions.isOnBox(Almoxarifado.WIDTH/8 + g.getFontMetrics().stringWidth("Lista de Peças: "), 145 + offsetHeight, 
+			Almoxarifado.WIDTH - Almoxarifado.WIDTH/4 - g.getFontMetrics().stringWidth("Lista de Peças: "), 40)) {
+			isWriting = true;
+		}
+		
+		g.setColor(Color.black);
+		g.setFont(new Font("segoi ui", 0, 20));
+		g.drawString(textToSearch, 12 + Almoxarifado.WIDTH/8 + g.getFontMetrics(new Font("segoe ui", 1, 40)).stringWidth("Lista de Peças: "), 173 + offsetHeight);
+		
 		if(isOnTheRightState) {
 			
 			g.setFont(new Font("segoe ui", 0, 12));
 
-			auxHeight = 125 + offsetHeight;
+			auxHeight = 240 + offsetHeight;
 			auxWidth = 50;
 			descriptionOffsetHeight = 1;
 			

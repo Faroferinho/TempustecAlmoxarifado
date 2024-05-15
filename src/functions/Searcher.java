@@ -2,10 +2,20 @@ package functions;
 
 public abstract class Searcher {
 	
-	private static boolean direction = false;
+	private static boolean direction = true;
 
 	public Searcher() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public static String searchEngine(String match, String coluna, String table) {
+		String query = "SELECT * FROM " + table + " WHERE\n"
+					 + coluna + " LIKE \"" + match + "%\" OR\n"
+		 			 + coluna + " LIKE \"%" + match + "%\" OR\n"
+ 			 		 + coluna + " LIKE \"%" + match + "\"\n"
+ 			 		 + "LIMIT 10";
+		
+		return query;
 	}
 	
 	public static String orderByColumn(String column, String table) {
@@ -32,7 +42,7 @@ public abstract class Searcher {
 			query += " DESC";
 		}
 		
-		System.out.println("Organizar: \n" + query);
+		//System.out.println("Organizar: \n" + query);
 		return query;
 	}
 	
