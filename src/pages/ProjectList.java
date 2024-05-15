@@ -228,10 +228,13 @@ public class ProjectList implements BidimensionalList{
 					orderColumn = getColumn(i);
 					updateProjectList = true;
 					mouseStatus = false;
+					Searcher.alternateDirecion();
 				}
 			}
 			
 			g.drawString(columnsOrder[i], positionerX, initY - (35) + offsetHeight);
+			g.drawImage(upIndicator, positionerX + g.getFontMetrics().stringWidth(columnsOrder[i]) + 3, initY - (50) +  offsetHeight, null);
+			g.drawImage(downIndicator, positionerX + g.getFontMetrics().stringWidth(columnsOrder[i]) + 3,initY - (40) +  offsetHeight, null);
 		}
 		
 		int auxX = 0;

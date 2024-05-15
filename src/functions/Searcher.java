@@ -32,14 +32,22 @@ public abstract class Searcher {
 			query += " DESC";
 		}
 		
+		System.out.println("Organizar: \n" + query);
+		return query;
+	}
+	
+	public static boolean getDirection() {
+		return direction;
+	}
+	
+	public static boolean alternateDirecion() {
 		if(direction) {
 			direction = false;
 		}else {
 			direction = true;
 		}
 		
-		System.out.println("Organizar: \n" + query);
-		return query;
+		return getDirection();
 	}
 	
 	private static String getColumnNameWorkers(String column) {

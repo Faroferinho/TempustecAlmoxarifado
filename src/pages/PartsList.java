@@ -490,6 +490,7 @@ public class PartsList implements BidimensionalList{
 								orderColumn = getColumn(j);
 								wasChanged = true;
 								mouseStatus = false;
+								Searcher.alternateDirecion();
 							}
 						}
 						

@@ -216,10 +216,13 @@ public class Archive implements BidimensionalList{
 					orderColumn = getColumn(i);
 					restart = true;
 					mouseStatus = false;
+					Searcher.alternateDirecion();
 				}
 			}
 			
 			g.drawString(columnsOrder[i], positionerX, 180 + offsetHeight);
+			g.drawImage(upIndicator, positionerX + g.getFontMetrics().stringWidth(columnsOrder[i]) + 3, 165 + offsetHeight, null);
+			g.drawImage(downIndicator, positionerX + g.getFontMetrics().stringWidth(columnsOrder[i]) + 3, 175 + offsetHeight, null);
 		}
 		
 		for(int i = 0; i < names.size(); i++) {

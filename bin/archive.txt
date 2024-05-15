@@ -1295,3 +1295,33 @@ O Usuário 8523 efetuou login - Horario: 2024-05-14T08:44:14.520371800
 
 O Usuário 8523 modou para o projeto 6 - Horario: 2024-05-14T10:20:25.683691200
 
+O Usuário 8523 alterou a peça ID_Parts.3, passou de 0 para 1 - Horario: 2024-05-15T07:53:12.590341600
+
+O Usuário 8523 alterou a peça ID_Parts.1, passou de 0 para 1 - Horario: 2024-05-15T07:53:14.976112300
+
+O Usuário 8523 alterou a peça ID_Parts.80, passou de 0 para 1 - Horario: 2024-05-15T07:53:16.853036300
+
+O Usuário 8523 alterou a peça ID_Parts.76, passou de 0 para 1 - Horario: 2024-05-15T07:53:20.242218800
+
+O Usuário 8523 alterou a peça ID_Parts.3, passou de 3 para Sei lá - Horario: 2024-05-15T07:53:26.911213600
+
+O Usuário 8523 alterou a peça ID_Parts.78, passou de 1 para Fornecedor - Horario: 2024-05-15T07:53:39.919700600
+
+O Usuário 8523 alterou a peça ID_Parts.76, passou de 0 para Curso - Horario: 2024-05-15T07:55:01.184102600
+
+O Usuário 8523 alterou a peça ID_Parts.17, passou de 5 para Sarue - Horario: 2024-05-15T07:55:05.650644200
+
+O Usuário 8523 alterou a peça ID_Parts.17, passou de 5 para Sarue - Horario: 2024-05-15T07:55:10.960229600
+
+O Usuário 8523 alterou a peça ID_Parts.3, passou de 3 para Cleberson - Horario: 2024-05-15T07:55:19.359490300
+
+O Usuário 8523 alterou a peça ID_Parts.76, passou de ---------- para May the good blood guide your way - Horario: 2024-05-15T08:01:32.907105
+
+O Usuário 8523 alterou a peça ID_Parts.1, passou de 1 para Calcificação - Horario: 2024-05-15T08:17:44.997642400
+
+O Usuário 8523 alterou a peça ID_Parts.1, passou de a para A Calcificação da Glandula Pineal é - Horario: 2024-05-15T08:18:11.125389600
+
+O Usuário 8523 alterou a peça ID_Parts.17, passou de 5 para u - Horario: 2024-05-15T08:18:16.524340600
+
+O Usuário 8523 alterou a peça ID_Parts.17, passou de u para xsa - Horario: 2024-05-15T08:23:01.222116700
+
