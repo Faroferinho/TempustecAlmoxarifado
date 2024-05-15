@@ -28,6 +28,8 @@ public class Admnistrator extends Profile implements BidimensionalList{
 	private boolean addingWorker = false;
 	private boolean removingWorker = false;
 	
+	public String orderColumn = "RdF";
+	
 	public Admnistrator(String RdF){
 		super(RdF);
 		fillMultiArray();

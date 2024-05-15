@@ -9,12 +9,14 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import functions.BidimensionalList;
 import functions.DBConector;
 import functions.Functions;
+import functions.Searcher;
 import main.Almoxarifado;
 import main.UserInterface;
 
-public class Archive {
+public class Archive implements BidimensionalList{
 	
 	boolean isOnTheRightState = false;
 	
@@ -35,9 +37,10 @@ public class Archive {
 	public String infoGathered = "";
 	
 	int imgX = 75;
-	int initialImgY = 175;
+	int initialImgY = 225;
 	int auxHeight = 0;
-
+	
+	String columnsOrder[] = {"IDs" , "O.S.", "Datas", "Usuários"};
 	ArrayList<String> ids = new ArrayList<>();
 	ArrayList<String> names = new ArrayList<>();
 	ArrayList<String> images = new ArrayList<>();
@@ -47,6 +50,8 @@ public class Archive {
 		
 	BufferedImage img = Almoxarifado.imgManag.getProjectImage("ArquivoBeta");
 	BufferedImage restoreButton = Almoxarifado.imgManag.getSprite(475, 540, 165, 60);
+	
+	public String orderColumn = "IDs";
 
 	public Archive() {
 		System.out.println("Carregou Arquivo: " + LocalDateTime.now());
@@ -110,7 +115,7 @@ public class Archive {
 				System.out.println("thumbHeight: " + thumbHeight);
 				
 				infoGathered = "";
-				infoGathered = DBConector.readDB("*", "Arquivo");
+				infoGathered = DBConector.readDB(Searcher.orderByColumn(orderColumn, "Arquivo"));
 				Almoxarifado.frame.setTitle("Almoxarifado - Lista de Projetos Arquivados");
 				
 				infoGathered = infoGathered.replace("\n", "");
@@ -193,7 +198,29 @@ public class Archive {
 	public void render(Graphics g) {
 		g.setColor(Color.white);
 		g.setFont(new Font("segoi ui", 1, 40));
-		g.drawString("Projetos Arquivados: ", 100, 150 + offsetHeight);
+		g.drawString("Projetos Arquivados: ", 100, 180 + offsetHeight);
+		
+		int positionerX = 200 + g.getFontMetrics().stringWidth("Projetos Arquivados: ");
+		for(int i = 0; i < columnsOrder.length; i++) {
+			
+			g.setColor(Color.orange);
+			g.setFont(new Font("segoe ui", 1, 12));
+			
+			if(i != 0) {
+				positionerX += g.getFontMetrics().stringWidth(columnsOrder[i - 1]) + 80;
+			}
+			
+			if(Functions.isOnBox(positionerX, 180 + offsetHeight - g.getFontMetrics().getHeight(), g.getFontMetrics().stringWidth(columnsOrder[i]), g.getFontMetrics().getHeight())) {
+				g.setColor(new Color(255, 00, 102));
+				if(mouseStatus) {
+					orderColumn = getColumn(i);
+					restart = true;
+					mouseStatus = false;
+				}
+			}
+			
+			g.drawString(columnsOrder[i], positionerX, 180 + offsetHeight);
+		}
 		
 		for(int i = 0; i < names.size(); i++) {
 			g.setColor(Color.white);
@@ -232,6 +259,11 @@ public class Archive {
 			g.fillRect(Almoxarifado.WIDTH - (36 + 21), UserInterface.bttnY + UserInterface.boxHeight + 20 - (int) (thumbAuxY), thumbWidth, thumbHeight);
 		}
 		
+	}
+
+	@Override
+	public String getColumn(int i) {
+		return columnsOrder[i];
 	}
 		
 }

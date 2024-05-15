@@ -23,7 +23,7 @@ public class PartsList implements BidimensionalList{
 	private boolean isOnTheRightState = false;
 	
 	public String toSplit = DBConector.readDB("*", "pecas");
-	public static String finalPartsTable[][] = new String[Almoxarifado.quantityParts+1][8];
+	public static String finalPartsTable[][] = new String[Almoxarifado.quantityParts + 1][8];
 	static HashMap<String, String> assembliesHM = fillAssembliesName();
 	static String[] assembliesID;
 	static String[] assembliesSO;

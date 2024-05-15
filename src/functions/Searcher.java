@@ -12,11 +12,17 @@ public abstract class Searcher {
 		String query = "SELECT * FROM " + table + " Order By ";
 		
 		switch(table) {
+		case "Funcionarios":
+			query += getColumnNameWorkers(column);
+			break;
 		case "Pecas":
 			query += getColumnNameParts(column);
 			break;
 		case "Montagem":
 			query += getColumnNameAssemblies(column);
+			break;
+		case "Arquivo":
+			query += getColumnNameArchive(column);
 			break;
 		}
 		
@@ -41,8 +47,16 @@ public abstract class Searcher {
 		
 		switch(column) {
 		case "RdF":
+		case "CPF":
 			columnIdentificator = column;
 			break;
+		case "Nome":
+			columnIdentificator = "Name";
+			break;
+		case "Tipo":
+			columnIdentificator = "Type";
+			break;
+			
 		}
 		
 		return columnIdentificator;
@@ -88,7 +102,7 @@ public abstract class Searcher {
 		case "IDs":
 			columnIdentificator = "ID_Montagem";
 			break;
-		case "ISOs":
+		case "O.S.":
 			columnIdentificator = "ISO";
 			break;
 		case "Descrições":
@@ -106,8 +120,20 @@ public abstract class Searcher {
 		String columnIdentificator = "";
 		
 		switch(column) {
-		case "ID":
-			columnIdentificator = "ID_";
+		case "IDs":
+			columnIdentificator = "ID_Arquivo";
+			break;
+		case "O.S.":
+			columnIdentificator = "ISO";
+			break;
+		case "Quantidades":
+			columnIdentificator = "";
+			break;
+		case "Datas":
+			columnIdentificator = "Archive_Moment";
+			break;
+		case "Usuários":
+			columnIdentificator = "Archiver_RdF";
 			break;
 		}
 		

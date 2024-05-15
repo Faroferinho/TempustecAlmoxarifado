@@ -31,7 +31,7 @@ public class ProjectList implements BidimensionalList{
 	int initY = UserInterface.bttnY*2 + UserInterface.boxHeight*2 + 30;
 	int boxBorder = 30;
 	
-	String columnsOrder[] = {"IDs", "ISOs", "Descrições", "Empresas"}; 
+	String columnsOrder[] = {"IDs", "O.S.", "Descrições", "Empresas"}; 
 	String idsToSplit = DBConector.readDB("ID_Montagem", "montagem");
 	ArrayList<String> ids = new ArrayList<>();
 	String namesToSplit = DBConector.readDB("ISO", "montagem");
@@ -223,7 +223,7 @@ public class ProjectList implements BidimensionalList{
 			}
 			
 			if(Functions.isOnBox(positionerX, initY - (35) + offsetHeight - g.getFontMetrics().getHeight(), g.getFontMetrics().stringWidth(columnsOrder[i]), g.getFontMetrics().getHeight())) {
-				g.setColor(Color.red);
+				g.setColor(new Color(255, 00, 102));
 				if(mouseStatus) {
 					orderColumn = getColumn(i);
 					updateProjectList = true;
