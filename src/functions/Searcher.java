@@ -5,7 +5,6 @@ public abstract class Searcher {
 	private static boolean direction = true;
 	private static boolean isOrderingValid = false;
 	private static String validColumn = "";
-	private static String validTable = "";
 
 	public Searcher() {
 		// TODO Auto-generated constructor stub
@@ -29,11 +28,18 @@ public abstract class Searcher {
 			actualColumn += getColumnNameArchive(column);
 			break;
 		}
-					 
-		query += actualColumn + " LIKE \"" + match + "%\" OR\n"
-			   + actualColumn + " LIKE \"%" + match + "%\" OR\n"
- 			   + actualColumn + " LIKE \"%" + match + "\"\n"
- 			   + "ORDER BY " + actualColumn;
+			
+		if(!isOrderingValid) {
+			query += actualColumn + " LIKE \"" + match + "%\" OR\n"
+				   + actualColumn + " LIKE \"%" + match + "%\" OR\n"
+				   + actualColumn + " LIKE \"%" + match + "\"\n"
+				   + "ORDER BY " + actualColumn;
+		}else {
+			query += validColumn + " LIKE \"" + match + "%\" OR\n"
+				   + validColumn + " LIKE \"%" + match + "%\" OR\n"
+				   + validColumn + " LIKE \"%" + match + "\"\n"
+				   + "ORDER BY " + validColumn;
+		}
 		
 		if(direction) {
 			query += " ASC";
@@ -69,6 +75,8 @@ public abstract class Searcher {
 		}else {
 			query += " DESC";
 		}
+		
+		getValidValues(column, table);
 		
 		//System.out.println("Organizar: \n" + query);
 		return query;
@@ -186,111 +194,70 @@ public abstract class Searcher {
 		return columnIdentificator;
 	}
 	
-	private static void getValidValues(String column, String table) {
+	private static boolean getValidValues(String column, String table) {
 		
 		isOrderingValid = false;
 		validColumn = "";
-		validTable = "";
 		
 		switch(table) {
 		case "Funcionarios":
 			
 			switch(column) {
-			case "Name":
-				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
-				break;				
-			case "CPF":
-				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
-				break;				
+			case "Nome":			
+			case "CPF":			
 			case "RdF":
 				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
-				break;				
+				validColumn = getColumnNameWorkers(column);
+				break;	
 			}
 			
 			break;
 		case "Pecas":
 			
 			switch(column) {
-			case "Description":
+			case "Descrição":
+			case "Quantidade":
+			case "Preço":
+			case "Data do Pedido":
+			case "Fornecedor":
 				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
-				break;
-			case "Quantity":
-				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
-				break;
-			case "Price":
-				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
-				break;
-			case "Creation_Date":
-				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
-				break;
-			case "Supplier":
-				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
+				validColumn = getColumnNameParts(column);
 				break;
 			}
 			
 			break;
 		case "Montagem":
 			switch(column) {
-			case "ISO":
+			case "O.S.":
+			case "Descrições":
+			case "Empresas":
 				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
-				break;
-			case "Description":
-				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
-				break;
-			case "Company":
-				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
+				validColumn = getColumnNameAssemblies(column);
 				break;
 			}
 			break;
 		case "Arquivo":
 			
 			switch(column) {
-			case "ID_Arquivo":
+			
+			case "O.S.":
+			case "Datas":
+			case "Usuários":
 				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
-				break;
-			case "ISO":
-				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
-				break;
-			case "Archive_Moment":
-				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
-				break;
-			case "Archiver_RdF":
-				isOrderingValid = true;
-				validColumn = column;
-				validTable = table;
+				validColumn = getColumnNameArchive(column);
 				break;
 			}
 			
 			break;
 		}
+		
+		return isOrderingValid;
+	}
+	
+	public static void resetValues() {
+		direction = true;
+		isOrderingValid = false;
+		validColumn = "";
 	}
 
 }
