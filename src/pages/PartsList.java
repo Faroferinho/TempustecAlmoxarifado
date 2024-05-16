@@ -69,6 +69,11 @@ public class PartsList implements BidimensionalList{
 	public boolean isWriting = false;
 	private String textToSearch = "";
 	private int indexToWrite = 0;
+	BufferedImage searchIcon = Almoxarifado.imgManag.getSprite(450, 2, 24, 24);
+	BufferedImage bipartitionLine = Almoxarifado.imgManag.getSprite(442, 0, 3, 35);
+	
+	boolean blink = false;
+	int blinkAux = 0;
 
 	public PartsList() {
 		finalPartsTable = listBreaker(toSplit);
@@ -88,7 +93,7 @@ public class PartsList implements BidimensionalList{
 	
 	private String[][] listBreaker(String toSplit){
 		String linesToBreakdown[] = toSplit.split("\n");
-		String returnString[][] = new String[Almoxarifado.quantityParts+1][8];
+		String returnString[][] = new String[linesToBreakdown.length + 1][8];
 		
 		returnString[0][0] = "ID";
 		returnString[0][1] = "Montagem";
@@ -98,9 +103,21 @@ public class PartsList implements BidimensionalList{
 		returnString[0][5] = "Data do Pedido";
 		returnString[0][6] = "Fornecedor";
 		returnString[0][7] = "Status";
-		
-		for(int i = 0; i < Almoxarifado.quantityParts; i++) {
-			returnString[i + 1] = linesToBreakdown[i].split(" § ");
+		if(!toSplit.equals("")) {
+			for(int i = 0; i < linesToBreakdown.length; i++) {
+				returnString[i + 1] = linesToBreakdown[i].split(" § ");
+			}
+		}else {
+			returnString = new String[1][8];
+			
+			returnString[0][0] = "ID";
+			returnString[0][1] = "Montagem";
+			returnString[0][2] = "Descrição";
+			returnString[0][3] = "Quantidade";
+			returnString[0][4] = "Preço";
+			returnString[0][5] = "Data do Pedido";
+			returnString[0][6] = "Fornecedor";
+			returnString[0][7] = "Status";
 		}
 		return returnString;
 	}
@@ -351,6 +368,11 @@ public class PartsList implements BidimensionalList{
 			textInserted = advancedWriter(textInserted, e);
 		}
 		
+		wasChanged = true;
+		if(textInserted.equals("")) {
+			
+		}
+		
 		textToSearch = textInserted;
 	}
 	
@@ -362,7 +384,13 @@ public class PartsList implements BidimensionalList{
 	
 	public void tick() {
 		if(wasChanged == true) {
-			toSplit = DBConector.readDB(Searcher.orderByColumn(orderColumn, "Pecas"));
+			if(!isWriting) {
+				toSplit = DBConector.readDB(Searcher.orderByColumn(orderColumn, "Pecas"));
+			}else {
+				if(!textToSearch.equals("")) {
+					toSplit = DBConector.readDB(Searcher.searchEngine(textToSearch, orderColumn, "Pecas"));
+				}
+			}
 			finalPartsTable = listBreaker(toSplit);
 			
 			assembliesHM = fillAssembliesName();
@@ -437,14 +465,34 @@ public class PartsList implements BidimensionalList{
 				Almoxarifado.WIDTH - Almoxarifado.WIDTH/4 - g.getFontMetrics().stringWidth("Lista de Peças: "), 
 				40
 			), 15);
-		if(Functions.isOnBox(Almoxarifado.WIDTH/8 + g.getFontMetrics().stringWidth("Lista de Peças: "), 145 + offsetHeight, 
-			Almoxarifado.WIDTH - Almoxarifado.WIDTH/4 - g.getFontMetrics().stringWidth("Lista de Peças: "), 40)) {
-			isWriting = true;
+		g.drawImage(searchIcon, Almoxarifado.WIDTH/8 + Almoxarifado.WIDTH - Almoxarifado.WIDTH/4 - 36, 154 + offsetHeight, null);
+		g.drawImage(bipartitionLine, Almoxarifado.WIDTH/8 + Almoxarifado.WIDTH - Almoxarifado.WIDTH/4 - 50, 148 + offsetHeight, null);
+				
+		if(mouseStatus) {
+			if(Functions.isOnBox(Almoxarifado.WIDTH/8 + g.getFontMetrics().stringWidth("Lista de Peças: "), 145 + offsetHeight, 
+				Almoxarifado.WIDTH - Almoxarifado.WIDTH/4 - g.getFontMetrics().stringWidth("Lista de Peças: "), 40)) {
+				isWriting = true;
+			}else {
+				isWriting = false;
+				blinkAux = 0;
+			}
+		}
+		
+		blinkAux++;
+		if(blinkAux % 24 == 0) {
+			if(blink) {
+				blink = false;
+			}else {
+				blink = true;
+			}
 		}
 		
 		g.setColor(Color.black);
 		g.setFont(new Font("segoi ui", 0, 20));
 		g.drawString(textToSearch, 12 + Almoxarifado.WIDTH/8 + g.getFontMetrics(new Font("segoe ui", 1, 40)).stringWidth("Lista de Peças: "), 173 + offsetHeight);
+		if(isWriting && blink) {
+			g.fillRect(12 + Almoxarifado.WIDTH/8 + g.getFontMetrics(new Font("segoe ui", 1, 40)).stringWidth("Lista de Peças: ") + g.getFontMetrics().stringWidth(textToSearch), 150 + offsetHeight, 1, 30);
+		}
 		
 		if(isOnTheRightState) {
 			

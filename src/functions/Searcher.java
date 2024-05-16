@@ -8,12 +8,37 @@ public abstract class Searcher {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static String searchEngine(String match, String coluna, String table) {
-		String query = "SELECT * FROM " + table + " WHERE\n"
-					 + coluna + " LIKE \"" + match + "%\" OR\n"
-		 			 + coluna + " LIKE \"%" + match + "%\" OR\n"
- 			 		 + coluna + " LIKE \"%" + match + "\"\n"
- 			 		 + "LIMIT 10";
+	public static String searchEngine(String match, String column, String table) {
+		String query = "SELECT * FROM " + table + " WHERE\n";
+		String actualColumn = "";
+		
+		switch(table) {
+		case "Funcionarios":
+			actualColumn += getColumnNameWorkers(column);
+			break;
+		case "Pecas":
+			actualColumn += getColumnNameParts(column);
+			break;
+		case "Montagem":
+			actualColumn += getColumnNameAssemblies(column);
+			break;
+		case "Arquivo":
+			actualColumn += getColumnNameArchive(column);
+			break;
+		}
+					 
+		query += actualColumn + " LIKE \"" + match + "%\" OR\n"
+			   + actualColumn + " LIKE \"%" + match + "%\" OR\n"
+ 			   + actualColumn + " LIKE \"%" + match + "\"\n"
+ 			   + "ORDER BY " + actualColumn;
+		
+		if(direction) {
+			query += " ASC";
+		}else {
+			query += " DESC";
+		}
+				
+		//System.out.println("Query: \n" + query);
 		
 		return query;
 	}
