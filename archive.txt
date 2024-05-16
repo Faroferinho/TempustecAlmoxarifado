@@ -1344,3 +1344,5 @@ O Usuário 8523 efetuou login - Horario: 2024-05-15T09:38:28.365504400
 --------------------------------------------------------------------------------------
 O Usuário 8523 efetuou login - Horario: 2024-05-15T09:38:59.575418700
 
+O Usuário 8523 alterou a peça ID_Parts.796, passou de 0 para 1 - Horario: 2024-05-16T09:02:22.150944
+

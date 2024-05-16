@@ -472,8 +472,11 @@ public class PartsList implements BidimensionalList{
 			if(Functions.isOnBox(Almoxarifado.WIDTH/8 + g.getFontMetrics().stringWidth("Lista de Peças: "), 145 + offsetHeight, 
 				Almoxarifado.WIDTH - Almoxarifado.WIDTH/4 - g.getFontMetrics().stringWidth("Lista de Peças: "), 40)) {
 				isWriting = true;
+				orderColumn = getColumn(2);
 			}else {
 				isWriting = false;
+				orderColumn = getColumn(0);
+				wasChanged = true;
 				blinkAux = 0;
 			}
 		}

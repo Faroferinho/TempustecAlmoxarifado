@@ -38,7 +38,7 @@ public abstract class Searcher {
 			query += " DESC";
 		}
 				
-		//System.out.println("Query: \n" + query);
+		System.out.println("Query: \n" + query);
 		
 		return query;
 	}
