@@ -3,6 +3,9 @@ package functions;
 public abstract class Searcher {
 	
 	private static boolean direction = true;
+	private static boolean isOrderingValid = false;
+	private static String validColumn = "";
+	private static String validTable = "";
 
 	public Searcher() {
 		// TODO Auto-generated constructor stub
@@ -181,6 +184,113 @@ public abstract class Searcher {
 		}
 		
 		return columnIdentificator;
+	}
+	
+	private static void getValidValues(String column, String table) {
+		
+		isOrderingValid = false;
+		validColumn = "";
+		validTable = "";
+		
+		switch(table) {
+		case "Funcionarios":
+			
+			switch(column) {
+			case "Name":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;				
+			case "CPF":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;				
+			case "RdF":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;				
+			}
+			
+			break;
+		case "Pecas":
+			
+			switch(column) {
+			case "Description":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;
+			case "Quantity":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;
+			case "Price":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;
+			case "Creation_Date":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;
+			case "Supplier":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;
+			}
+			
+			break;
+		case "Montagem":
+			switch(column) {
+			case "ISO":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;
+			case "Description":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;
+			case "Company":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;
+			}
+			break;
+		case "Arquivo":
+			
+			switch(column) {
+			case "ID_Arquivo":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;
+			case "ISO":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;
+			case "Archive_Moment":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;
+			case "Archiver_RdF":
+				isOrderingValid = true;
+				validColumn = column;
+				validTable = table;
+				break;
+			}
+			
+			break;
+		}
 	}
 
 }

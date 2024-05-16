@@ -67,6 +67,7 @@ public class PartsList implements BidimensionalList{
 	private String orderColumn = "ID";
 	
 	public boolean isWriting = false;
+	public boolean isSearching = false;
 	private String textToSearch = "";
 	private int indexToWrite = 0;
 	BufferedImage searchIcon = Almoxarifado.imgManag.getSprite(450, 2, 24, 24);
@@ -268,7 +269,7 @@ public class PartsList implements BidimensionalList{
 
 	@Override
 	public String getColumn(int i) {
-		System.out.println("Valor da Coluna " + finalPartsTable[firstLine][i]);
+		//System.out.println("Valor da Coluna " + finalPartsTable[firstLine][i]);
 		return finalPartsTable[firstLine][i];
 	}
 	
@@ -368,12 +369,17 @@ public class PartsList implements BidimensionalList{
 			textInserted = advancedWriter(textInserted, e);
 		}
 		
+		isSearching = true;
 		wasChanged = true;
-		if(textInserted.equals("")) {
-			
-		}
 		
 		textToSearch = textInserted;
+		
+		if(textToSearch.equals("")) {
+			orderColumn = getColumn(0);
+			isSearching = false;
+		}else {
+			orderColumn = getColumn(2);
+		}
 	}
 	
 	private String advancedWriter(String text, KeyEvent e) {
@@ -384,7 +390,7 @@ public class PartsList implements BidimensionalList{
 	
 	public void tick() {
 		if(wasChanged == true) {
-			if(!isWriting) {
+			if(!isSearching) {
 				toSplit = DBConector.readDB(Searcher.orderByColumn(orderColumn, "Pecas"));
 			}else {
 				if(!textToSearch.equals("")) {
@@ -475,8 +481,6 @@ public class PartsList implements BidimensionalList{
 				orderColumn = getColumn(2);
 			}else {
 				isWriting = false;
-				orderColumn = getColumn(0);
-				wasChanged = true;
 				blinkAux = 0;
 			}
 		}
