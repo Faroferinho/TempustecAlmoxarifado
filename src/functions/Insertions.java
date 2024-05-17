@@ -50,16 +50,21 @@ public abstract class Insertions {
 		if(selected > -1) {
 			textInserted = values.get(selected);
 			
+			positionCursor(textInserted, e);
+			
 			if(writerIndex == 0) {
-				if(!((e.getExtendedKeyCode() > -1 && e.getExtendedKeyCode() < 21) || 
+				if(!((e.getExtendedKeyCode() > -1 && e.getExtendedKeyCode() < 21) ||
+					 (e.getExtendedKeyCode() > 36 && e.getExtendedKeyCode() < 41) ||
 					 (e.getExtendedKeyCode() > 126 && e.getExtendedKeyCode() < 160))) {
 					textInserted += e.getKeyChar();
 				}else {
+					
 					if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE && textInserted.length() > 0) {
 						textInserted = textInserted.substring(0, textInserted.length() - 1);
 					}
 					
 					if(e.getKeyCode() == KeyEvent.VK_TAB) {
+						recomendation = "";
 						selected++;
 						if(selected > values.size() - 1) {
 							selected = 0;
@@ -76,32 +81,49 @@ public abstract class Insertions {
 		showRecomendations();
 	}
 	
-	public String advancedWriter(String originalText, KeyEvent e) {
-		String toReturn = originalText.substring(0, originalText.length() - writerIndex);
-		
+	private void positionCursor(String text,KeyEvent e) {
 		switch(e.getKeyCode()) {
-		case 37:
-			writerIndex++;
-			
-			if(writerIndex < originalText.length()) {
-				writerIndex = originalText.length();
+		case KeyEvent.VK_LEFT:
+			// Esquerda
+			if(writerIndex < (text.length())) {
+				writerIndex++;
 			}
-			
 			break;
-		case 38:
+		case KeyEvent.VK_UP:
+			// Cima
+			writerIndex = text.length();
 			break;
-		case 39:
-			writerIndex--;
-			
+		case KeyEvent.VK_RIGHT:
+			// Direita
 			if(writerIndex > 0) {
-				writerIndex = 0;
+				writerIndex--;
 			}
-			
 			break;
-		case 40:
+		case KeyEvent.VK_DOWN:
+			// Baixo
+			writerIndex = 0;
 			break;
 		}
+		System.out.println("writerIndex vale " + writerIndex);
+	}
+	
+	public String advancedWriter(String originalText, KeyEvent e) {
+		String firstHalf = originalText.substring(0, originalText.length() - writerIndex);
+		String secondHalf = originalText.substring(originalText.length() - writerIndex, originalText.length());
+		String toReturn = "";
 		
+		if(!((e.getExtendedKeyCode() > -1  && e.getExtendedKeyCode() < 21) ||
+			 (e.getExtendedKeyCode() > 36  && e.getExtendedKeyCode() < 41) ||
+			 (e.getExtendedKeyCode() > 126 && e.getExtendedKeyCode() < 160))) {
+			firstHalf += e.getKeyChar();
+		}else if(e.getKeyCode() == e.VK_BACK_SPACE) {
+			firstHalf = originalText.substring(0, originalText.length() - writerIndex - 1);
+		}else if(e.getKeyCode() == e.VK_DELETE) {
+			secondHalf = originalText.substring(originalText.length() - writerIndex + 1, originalText.length());
+			writerIndex--;
+		}
+		
+		toReturn = firstHalf + secondHalf;
 		return toReturn;
 	}
 	
@@ -119,7 +141,7 @@ public abstract class Insertions {
 		
 		g.setColor(Color.black);
 		if(blink && selected != -1) {
-			g.fillRect((int)(textBoxes.get(selected).getX()) + 12 + g.getFontMetrics().stringWidth(values.get(selected)), (int)(textBoxes.get(selected).getY()) + 9, 1, 24);
+			g.fillRect((int)(textBoxes.get(selected).getX()) + 12 + g.getFontMetrics().stringWidth(values.get(selected).substring(0, values.get(selected).length() - writerIndex)), (int)(textBoxes.get(selected).getY()) + 9, 1, 24);
 		}
 	}
 	

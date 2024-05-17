@@ -40,7 +40,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 2;
+	public static byte state = 6;
 
 	public static JFrame frame;
 	public static Toolkit tk;
@@ -422,7 +422,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
-		//System.out.println("O Caractere " + e.getKeyChar() + " tem como código " + e.getExtendedKeyCode());
+		System.out.println("O Caractere " + e.getKeyChar() + " tem como código " + e.getExtendedKeyCode());
 		
 		if(state == 0) {
 			if(login.isWriting) {
