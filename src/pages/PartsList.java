@@ -377,8 +377,6 @@ public class PartsList implements BidimensionalList{
 		if(textToSearch.equals("")) {
 			orderColumn = getColumn(0);
 			isSearching = false;
-		}else {
-			orderColumn = getColumn(2);
 		}
 	}
 	
@@ -394,6 +392,7 @@ public class PartsList implements BidimensionalList{
 				toSplit = DBConector.readDB(Searcher.orderByColumn(orderColumn, "Pecas"));
 			}else {
 				if(!textToSearch.equals("")) {
+					System.out.println("O Valor de OrderColumn é " + orderColumn);
 					toSplit = DBConector.readDB(Searcher.searchEngine(textToSearch, orderColumn, "Pecas"));
 				}
 			}
@@ -478,7 +477,6 @@ public class PartsList implements BidimensionalList{
 			if(Functions.isOnBox(Almoxarifado.WIDTH/8 + g.getFontMetrics().stringWidth("Lista de Peças: "), 145 + offsetHeight, 
 				Almoxarifado.WIDTH - Almoxarifado.WIDTH/4 - g.getFontMetrics().stringWidth("Lista de Peças: "), 40)) {
 				isWriting = true;
-				orderColumn = getColumn(2);
 			}else {
 				isWriting = false;
 				blinkAux = 0;

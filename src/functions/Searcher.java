@@ -3,7 +3,6 @@ package functions;
 public abstract class Searcher {
 	
 	private static boolean direction = true;
-	private static boolean isOrderingValid = false;
 	private static String validColumn = "";
 
 	public Searcher() {
@@ -29,16 +28,16 @@ public abstract class Searcher {
 			break;
 		}
 			
-		if(!isOrderingValid) {
+		if(getValidValues(column, table)) {
+			query += validColumn + " LIKE \"" + match + "%\" OR\n"
+				   + validColumn + " LIKE \"%" + match + "%\" OR\n"
+				   + validColumn + " LIKE \"%" + match + "\"\n"
+				   + "ORDER BY " + actualColumn;
+		}else {
 			query += actualColumn + " LIKE \"" + match + "%\" OR\n"
 				   + actualColumn + " LIKE \"%" + match + "%\" OR\n"
 				   + actualColumn + " LIKE \"%" + match + "\"\n"
 				   + "ORDER BY " + actualColumn;
-		}else {
-			query += validColumn + " LIKE \"" + match + "%\" OR\n"
-				   + validColumn + " LIKE \"%" + match + "%\" OR\n"
-				   + validColumn + " LIKE \"%" + match + "\"\n"
-				   + "ORDER BY " + validColumn;
 		}
 		
 		if(direction) {
@@ -46,9 +45,13 @@ public abstract class Searcher {
 		}else {
 			query += " DESC";
 		}
-				
+		/*
+		System.out.println("--------------------------------------------------------");
+		System.out.println("Valor de validColumn: " + validColumn);
+		System.out.println("Valor de actualColumn: " + actualColumn);
 		System.out.println("Query: \n" + query);
-		
+		System.out.println("--------------------------------------------------------");
+		*/
 		return query;
 	}
 	
@@ -196,67 +199,43 @@ public abstract class Searcher {
 	
 	private static boolean getValidValues(String column, String table) {
 		
-		isOrderingValid = false;
+		boolean needAuxiliarColumn = false;
 		validColumn = "";
 		
-		switch(table) {
-		case "Funcionarios":
-			
-			switch(column) {
-			case "Nome":			
-			case "CPF":			
-			case "RdF":
-				isOrderingValid = true;
-				validColumn = getColumnNameWorkers(column);
-				break;	
-			}
-			
-			break;
-		case "Pecas":
-			
-			switch(column) {
-			case "Descrição":
-			case "Quantidade":
-			case "Preço":
-			case "Data do Pedido":
-			case "Fornecedor":
-				isOrderingValid = true;
-				validColumn = getColumnNameParts(column);
-				break;
-			}
-			
-			break;
-		case "Montagem":
-			switch(column) {
-			case "O.S.":
-			case "Descrições":
-			case "Empresas":
-				isOrderingValid = true;
-				validColumn = getColumnNameAssemblies(column);
+		switch(table.toLowerCase()) {
+		case "pecas":
+			switch(column.toLowerCase()) {
+			case "status":
+				//direction = true;
+			case "id":
+				needAuxiliarColumn = true;
+				validColumn = "Description";
 				break;
 			}
 			break;
-		case "Arquivo":
-			
-			switch(column) {
-			
-			case "O.S.":
-			case "Datas":
-			case "Usuários":
-				isOrderingValid = true;
-				validColumn = getColumnNameArchive(column);
+		case "arquivo":
+		case "montagem":
+			switch(column.toLowerCase()) {
+			case "id":
+				needAuxiliarColumn = true;
+				validColumn = "ISO";
 				break;
 			}
-			
 			break;
 		}
 		
-		return isOrderingValid;
+		System.out.println("----------------------------------------------------");
+		System.out.println("column: " + column);
+		System.out.println("table: " + table);
+		System.out.println("validColumn: " + validColumn);
+		System.out.println("retorna: " + needAuxiliarColumn);
+		System.out.println("----------------------------------------------------");
+		
+		return needAuxiliarColumn;
 	}
 	
 	public static void resetValues() {
 		direction = true;
-		isOrderingValid = false;
 		validColumn = "";
 	}
 

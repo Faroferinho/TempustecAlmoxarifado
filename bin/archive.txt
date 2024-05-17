@@ -1412,3 +1412,108 @@ O Usuário 8523 efetuou login - Horario: 2024-05-16T11:44:38.727663200
 --------------------------------------------------------------------------------------
 O Usuário 8523 efetuou login - Horario: 2024-05-16T11:48:46.386722500
 
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-17T07:06:55.206166400
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-17T07:07:51.758570900
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-17T07:40:37.063104900
+
+O Usuário 8523 alterou a peça ID_Parts.798, passou de 1 Peça para 1 Unidade - Horario: 2024-05-17T07:42:42.935910900
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-17T07:51:26.907648400
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-17T07:53:11.963829200
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-17T07:57:38.282016
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-17T07:58:35.043733400
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-17T07:58:54.508527600
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-17T08:00:26.727212400
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-17T08:05:13.025729300
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-17T08:06:21.868041800
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-17T08:07:35.508229300
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-05-17T08:08:21.204284800
+
+O Usuário 8523 alterou a peça ID_Parts.807, passou de 1 para 24 - Horario: 2024-05-17T08:41:12.375726200
+
+O Usuário 8523 alterou a peça ID_Parts.807, passou de ---------- para Cilindro Pneumático - CP965DB 40 - 80 - Horario: 2024-05-17T08:41:43.061340800
+
+O Usuário 8523 alterou a peça ID_Parts.807, passou de 0 para 4 Peças - Horario: 2024-05-17T08:41:50.979840500
+
+O Usuário 8523 alterou a peça ID_Parts.810, passou de 1 para 24 - Horario: 2024-05-17T08:45:19.571070800
+
+O Usuário 8523 alterou a peça ID_Parts.810, passou de ---------- para Patins - KRH15 - FL - N - 20 - Horario: 2024-05-17T08:46:07.136738700
+
+O Usuário 8523 alterou a peça ID_Parts.806, passou de Patins - KRH2 - VL - N - 20 para Patins - KRH20 - VL - N - 20 - Horario: 2024-05-17T08:46:22.380332700
+
+O Usuário 8523 alterou a peça ID_Parts.810, passou de 0 para 4 Peças - Horario: 2024-05-17T08:46:36.163661600
+
+O Usuário 8523 alterou a peça ID_Parts.805, passou de 0 para 1 - Horario: 2024-05-17T08:57:37.208776900
+
+O Usuário 8523 alterou a peça ID_Parts.806, passou de 0 para 1 - Horario: 2024-05-17T08:57:37.582818800
+
+O Usuário 8523 alterou a peça ID_Parts.807, passou de 0 para 1 - Horario: 2024-05-17T08:57:38.524827
+
+O Usuário 8523 alterou a peça ID_Parts.808, passou de 0 para 1 - Horario: 2024-05-17T08:57:38.977520400
+
+O Usuário 8523 alterou a peça ID_Parts.809, passou de 0 para 1 - Horario: 2024-05-17T08:57:39.471616300
+
+O Usuário 8523 alterou a peça ID_Parts.810, passou de 0 para 1 - Horario: 2024-05-17T08:57:39.981094400
+
+O Usuário 8523 alterou a peça ID_Parts.811, passou de 0 para 1 - Horario: 2024-05-17T08:57:40.478071
+
+O Usuário 8523 alterou a peça ID_Parts.805, passou de 1 para 0 - Horario: 2024-05-17T08:59:58.661442900
+
+O Usuário 8523 alterou a peça ID_Parts.806, passou de 1 para 0 - Horario: 2024-05-17T08:59:59.145570700
+
+O Usuário 8523 alterou a peça ID_Parts.807, passou de 1 para 0 - Horario: 2024-05-17T08:59:59.866064300
+
+O Usuário 8523 alterou a peça ID_Parts.808, passou de 1 para 0 - Horario: 2024-05-17T09:00:00.412136400
+
+O Usuário 8523 alterou a peça ID_Parts.809, passou de 1 para 0 - Horario: 2024-05-17T09:00:00.991995700
+
+O Usuário 8523 alterou a peça ID_Parts.810, passou de 1 para 0 - Horario: 2024-05-17T09:00:01.478908800
+
+O Usuário 8523 alterou a peça ID_Parts.811, passou de 1 para 0 - Horario: 2024-05-17T09:00:02.044273
+
+O Usuário 8523 alterou a peça ID_Parts.797, passou de 1 para 0 - Horario: 2024-05-17T09:00:03.278798700
+
+O Usuário 8523 alterou a peça ID_Parts.797, passou de 0 para 1 - Horario: 2024-05-17T09:00:05.378311700
+
+O Usuário 8523 alterou a peça ID_Parts.797, passou de 2 para 2 Unidades - Horario: 2024-05-17T09:00:35.991659600
+
+O Usuário 8523 modou para o projeto 24 - Horario: 2024-05-17T09:01:08.737614800
+
+O Usuário 8523 alterou o Projeto de ID = 24, passou de --------------------- para Célula de Teste  - Horario: 2024-05-17T09:01:42.584330400
+
+O Usuário 8523 alterou o Projeto de ID = 24, passou de Célula de Teste  para Célula de Teste Funcional e Ajuste de Roçadeira - Horario: 2024-05-17T09:03:23.764979100
+
+O Usuário 8523 alterou O Projeto de ID = 24, passou de 0 para Husqvarna - Horario: 2024-05-17T09:04:15.230569
+
+O Usuário 8523 alterou a peça ID_Parts.125, passou de  2 Peças para 2 Peças - Horario: 2024-05-17T09:34:59.511564700
+
+O Usuário 8523 modou para o projeto 25 - Horario: 2024-05-17T09:35:49.499212200
+
+O Usuário 8523 alterou o Projeto de ID = 25, passou de ---------- para Aterramento Linha Fogões 4 - Horario: 2024-05-17T09:36:40.778178400
+
+O Usuário 8523 alterou o Projeto de ID = 25, passou de 2911 para OS 2911 - Horario: 2024-05-17T09:36:45.464446800
+
