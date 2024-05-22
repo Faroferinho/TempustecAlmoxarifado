@@ -116,15 +116,19 @@ public abstract class Insertions {
 			 (e.getExtendedKeyCode() > 36  && e.getExtendedKeyCode() < 41) ||
 			 (e.getExtendedKeyCode() > 126 && e.getExtendedKeyCode() < 160))) {
 			firstHalf += e.getKeyChar();
-		}else if(e.getKeyCode() == e.VK_BACK_SPACE) {
+		}else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
 			firstHalf = originalText.substring(0, originalText.length() - writerIndex - 1);
-		}else if(e.getKeyCode() == e.VK_DELETE) {
+		}else if(e.getKeyCode() == KeyEvent.VK_DELETE) {
 			secondHalf = originalText.substring(originalText.length() - writerIndex + 1, originalText.length());
 			writerIndex--;
 		}
 		
 		toReturn = firstHalf + secondHalf;
 		return toReturn;
+	}
+	
+	protected void clearIndex() {
+		writerIndex = 0;
 	}
 	
 	protected void drawCursor(Graphics g) {

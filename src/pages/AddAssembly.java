@@ -43,9 +43,9 @@ public class AddAssembly extends Insertions{
 				if(Functions.isOnBox(textBoxes.get(i))) {
 					System.out.println("Ciclou na caixa de texto " + i);
 					selected = i;
-					isWriting = true;
-					
+					isWriting = true;					
 					recomendation = "";
+					clearIndex();
 				}
 			}
 		}
