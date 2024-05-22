@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import main.Almoxarifado;
 
 public class Functions {
@@ -173,6 +175,8 @@ public class Functions {
 	}
 	
 	public static void generatePurchaseInquery() {
+		
+		
 		if(DBConector.getDB().equals("jdbc:mysql://localhost:3306/Tempustec")) {
 			if(Almoxarifado.state != 0) {
 				if(!Almoxarifado.userProfile.getRdF().equals("")) {
@@ -201,11 +205,20 @@ public class Functions {
 					}
 					
 					if(!orderList.equals("")) {
+						int confirm = JOptionPane.showConfirmDialog(null, "Deseja enviar o requisito de compra de peças?", "Enviar Email?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
+						
+						if(confirm != 0) {
+							return;
+						}
 						Email.sendReport(emailHeader, emailBody + orderList);
 					}
 				}
 			}
 		}
+	}
+
+	public static boolean isOnBox(double x, double y, double width, double height) {
+		return isOnBox((int)(x), (int)(y), (int)(width), (int)(height));
 	}
 	
 }

@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import main.Almoxarifado;
 
 public abstract class Insertions {
@@ -128,7 +130,33 @@ public abstract class Insertions {
 	}
 	
 	protected void clearIndex() {
-		writerIndex = 0;
+		if(selected != -1) {
+			if(values.get(selected).isEmpty()) {
+				writerIndex = 0;				
+			}
+		}
+	}
+	
+	protected void setIndex(Graphics g) {
+		if(selected != -1) {
+			
+			if(click) {
+				for(int i = 1; i < values.get(selected).length(); i++) {
+					
+					if(Functions.isOnBox(textBoxes.get(selected).getX() + g.getFontMetrics().stringWidth(values.get(selected).substring(0, i - 1)) + 12,
+						textBoxes.get(selected).getY(),
+						g.getFontMetrics().charWidth(values.get(selected).charAt(i-1)),
+						textBoxes.get(selected).getHeight()
+					)) {
+						writerIndex = values.get(selected).length() - i;
+						System.out.println("writerIndex - " + writerIndex);
+					}
+				
+				}
+			
+			}
+		
+		}
 	}
 	
 	protected void drawCursor(Graphics g) {

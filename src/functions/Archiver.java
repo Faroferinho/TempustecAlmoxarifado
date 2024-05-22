@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import javax.swing.JOptionPane;
+
 import main.Almoxarifado;
 
 public class Archiver {
@@ -70,6 +72,8 @@ public class Archiver {
 	}
 
 	public static void logInfo() {
+		
+		
 		if(DBConector.getDB().equals("jdbc:mysql://localhost:3306/Tempustec")) {
 			LocalDateTime thisMoment = LocalDateTime.now();
 			String auxDate = thisMoment.toString();
@@ -79,6 +83,11 @@ public class Archiver {
 			int lastQuinzena = Integer.parseInt("0" + DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", "").replaceAll("null", ""));
 	
 			if(fortnightVerificator(auxDate)) {
+				int confirm = JOptionPane.showConfirmDialog(null, "Deseja enviar o relatório Quinzenal?", "Enviar Email?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
+				if(confirm != 0) {
+					return;
+				}
+				
 				String lastValue = "";
 				if(!DBConector.readDB("*", "Quinzena").replaceAll(" § \n", "").equals("")) {
 					lastValue += DBConector.readDB("totalExpanses", "Quinzena", "ID_Fortnight", DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", "")).replaceAll(" § \n", "");
@@ -172,6 +181,7 @@ public class Archiver {
 	}
 	
 	private static void createCongratulationsReport() {
+				
 		String message = "";
 		String date;
 		

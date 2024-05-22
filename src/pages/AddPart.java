@@ -54,7 +54,7 @@ public class AddPart extends Insertions {
 		if(click) {
 			for(int i = 0; i < quantity; i++) {
 				if(Functions.isOnBox(textBoxes.get(i))) {
-					System.out.println("Ciclou na caixa de texto " + i);
+					//System.out.println("Ciclou na caixa de texto " + i);
 					selected = i;
 					isWriting = true;					
 					recomendation = "";
@@ -86,6 +86,10 @@ public class AddPart extends Insertions {
 		qntt = qntt.replaceAll("\"", "''").replaceAll("[§\r\n]", "");
 		price = PartsList.formatNumb(price);
 		sppr = sppr.replaceAll("\"", "''").replaceAll("[§\r\n]", "");
+		
+		if(price.isEmpty()) {
+			price = "" + genericNumeral;
+		}
 		
 		queryInsert += id + "\", \"" + desc + "\", \"" + qntt + "\", " + price + ", NOW(), \"" + sppr + "\", 0);";
 		
@@ -235,6 +239,8 @@ public class AddPart extends Insertions {
 			
 			g.setColor(Color.white);
 		}
+		
+		setIndex(g);
 		
 		if(hasRecomendation && selected != -1) {	
 			Rectangle newRectangle = new Rectangle((int)(textBoxes.get(selected).getX()), (int)(textBoxes.get(selected).getY() + textBoxes.get(selected).getHeight()), 
