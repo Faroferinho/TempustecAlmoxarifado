@@ -18,14 +18,14 @@ public class Email {
 	private static final String password = "jakh cqvx ublh tlzt";
 	
 	//Os Emails vão ser separados com um ', '
-	private static String recipients = "conrado.perini.fracacio@gmail.com  ";
+	private static String recipients = "conrado.perini.fracacio@gmail.com";
 
 	public Email() {
 		
 	}
 	
 	public static void sendReport(String header, String body) {
-		//recipients += ",rosangela@tempustec.ind.br, valdir@tempustec.ind.br";
+		recipients += ",rosangela@tempustec.ind.br, valdir@tempustec.ind.br";
 		Properties configs = new Properties();
 		
 		configs.put("mail.smtp.host", "smtp.gmail.com");

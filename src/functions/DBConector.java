@@ -16,7 +16,7 @@ import main.Almoxarifado;
 public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
-	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempusteste";
+	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempustec";
 	private static String user = "Almoxarifado";
 	private static String password = "Tempustec2023";
 	
@@ -374,7 +374,7 @@ public class DBConector {
 				
 				quantities.add(quantity);
 			}
-			
+			System.out.println("================================================================");
 			for(int i = 0; i < prices.size(); i++) {
 				BigDecimal firstValue = new BigDecimal("0" + prices.get(i).replaceAll("[^0-9]", ""));
 				BigDecimal lastValue = new BigDecimal("0" + quantities.get(i).replaceAll("[^0-9]", ""));

@@ -7,8 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import main.Almoxarifado;
 
 public abstract class Insertions {

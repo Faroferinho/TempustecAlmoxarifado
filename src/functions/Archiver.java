@@ -3,6 +3,7 @@ package functions;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
@@ -96,7 +97,7 @@ public class Archiver {
 				}
 				
 				String command = genericCommand + "Quinzena(date, totalExpanses) VALUES('";
-				double totalValue = DBConector.totalValueExpended();
+				BigDecimal totalValue = new BigDecimal(DBConector.totalValueExpended());
 				
 				command += auxDate + "', ";
 				command += totalValue + ")";
@@ -105,7 +106,7 @@ public class Archiver {
 				DBConector.writeDB(command);
 				
 				DBConector.registerFortnight(auxDate);
-				if(totalValue != Double.parseDouble(lastValue)) {
+				if(totalValue.compareTo(new BigDecimal(lastValue)) != 0) {
 					createExpancesReport(Functions.diferenceCurency("" + totalValue, lastValue), lastQuinzena);
 				}else {
 					createCongratulationsReport();
