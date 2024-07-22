@@ -1532,3 +1532,14 @@ O Usuário 8523 efetuou login - Horario: 2024-05-22T09:55:01.631686400
 --------------------------------------------------------------------------------------
 O Usuário 8523 efetuou login - Horario: 2024-05-22T10:04:43.614390
 
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-22T11:11:05.680679100
+
+O Usuário 8523 modou para o projeto 1 - Horario: 2024-07-22T11:11:08.974957
+
+O Usuário 8523 alterou a peça ID_Parts.1247, passou de 0 para 1 - Horario: 2024-07-22T11:43:01.074591900
+
+O Usuário 8523 alterou a peça ID_Parts.1246, passou de 0 para 1 - Horario: 2024-07-22T11:43:01.932610600
+
+O Usuário 8523 alterou a peça ID_Parts.1248, passou de 0 para 1 - Horario: 2024-07-22T11:44:11.187651800
+
