@@ -121,8 +121,8 @@ public class Functions {
 		return returnValue;
 	}
 	
-	public static double sumCurency(String v1, String v2) {
-		double returnValue = 0;
+	public static BigDecimal sumCurency(String v1, String v2) {
+		BigDecimal returnValue = new BigDecimal(0);
 		
 		if(emptyString(v1.replaceAll("[^0-9]", ""))) {
 			v1 = "0";
@@ -132,9 +132,7 @@ public class Functions {
 		
 		BigDecimal firstValue = new BigDecimal(v1);
 		BigDecimal secondValue = new BigDecimal(v2);
-		BigDecimal sumResult = firstValue.add(secondValue);
-		
-		returnValue += sumResult.doubleValue();
+		returnValue = firstValue.add(secondValue);
 		
 		return returnValue;
 	}

@@ -25,7 +25,8 @@ public class Email {
 	}
 	
 	public static void sendReport(String header, String body) {
-		recipients += ",rosangela@tempustec.ind.br, valdir@tempustec.ind.br";
+		//TODO: restaurar essa Linha
+		//recipients += ",rosangela@tempustec.ind.br,valdir@tempustec.ind.br";
 		Properties configs = new Properties();
 		
 		configs.put("mail.smtp.host", "smtp.gmail.com");

@@ -113,7 +113,7 @@ public class Project {
 		rawPartsList += DBConector.readDB("*", "pecas", "montagem", "" + ID);
 		separetedList = toArrayList(rawPartsList);
 		
-		price = DBConector.getAssemblyValue("" + ID);
+		price = DBConector.getAssemblyValue("" + ID).doubleValue();
 		
 		DBConector.writeDB("Montagem", "cost", "" + price, "ID_Montagem", "" + ID);
 		

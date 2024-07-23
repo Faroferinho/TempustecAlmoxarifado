@@ -16,7 +16,7 @@ import main.Almoxarifado;
 public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
-	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempustec";
+	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempusteste";
 	private static String user = "Almoxarifado";
 	private static String password = "Tempustec2023";
 	
@@ -301,9 +301,7 @@ public class DBConector {
 	}
 	
 	public static void registerFortnight(String date) {
-		String mainBody = "INSERT INTO HISTORICO_CUSTO(Date, Assembly, Cost) VALUES(";
-		ArrayList<String> assemblyIDs = new ArrayList<>();
-		String dateIndex = readDB("ID_Fortnight", "Quinzena", "Date", "'" + date + "'").replaceAll(" § \n", "");
+		//TODO - Criar metodo para registar a dierença entre o valor atual e o total registrado
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -316,31 +314,22 @@ public class DBConector {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
 			Statement statement = con.createStatement();
 			
-			assemblyIDs = Functions.listToArrayList(readDB("ID_Montagem", "Montagem").split(" § \n"));
 			
-			for(int i = 0; i < Almoxarifado.quantityAssembly; i++) {
-				String query = mainBody + dateIndex + ", ";
-				query += assemblyIDs.get(i).replaceAll(" § \n", "") + ", ";
-				query += getAssemblyValue(assemblyIDs.get(i).replaceAll(" § \n", "")) + ")";
-				
-				System.out.println("register Values: " + query);
-				
-				statement.executeUpdate(query);
-			}
-			
+						
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static double getAssemblyValue(String ID) {
+	public static BigDecimal getAssemblyValue(String ID) {
 		String priceQuery = "SELECT price FROM Pecas WHERE Montagem = " + ID;
 		String quantityQuery = "SELECT quantity FROM Pecas WHERE Montagem = " + ID;
 		
 		ArrayList<String> prices = new ArrayList<>();
 		ArrayList<String> quantities = new ArrayList<>();
 		
-		double finalValue = 0;
+		BigDecimal finalValue = new BigDecimal(0);
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -374,16 +363,19 @@ public class DBConector {
 				
 				quantities.add(quantity);
 			}
-			System.out.println("================================================================");
+			
+			 System.out.println("================================================================");
+			 System.out.println("Montagem: " + readDB("SELECT ISO FROM Montagem WHERE ID_Montagem = " + ID).replaceAll(" § \n", ""));
+			 
 			for(int i = 0; i < prices.size(); i++) {
-				BigDecimal firstValue = new BigDecimal("0" + prices.get(i).replaceAll("[^0-9]", ""));
-				BigDecimal lastValue = new BigDecimal("0" + quantities.get(i).replaceAll("[^0-9]", ""));
+				BigDecimal firstValue = new BigDecimal("0" + prices.get(i).replaceAll("[^0-9.]", ""));
+				BigDecimal lastValue = new BigDecimal("0" + quantities.get(i).replaceAll("[^0-9.]", ""));
 				
-				System.out.println(firstValue.toString() + " * " + lastValue.toString() + " = " + firstValue.multiply(lastValue).doubleValue());
+				System.out.println("	" + firstValue.toString() + " * " + lastValue.toString() + " = " + firstValue.multiply(lastValue).doubleValue());
 				
-				finalValue += firstValue.multiply(lastValue).doubleValue();
+				finalValue = finalValue.add(firstValue.multiply(lastValue));
 			}
-			System.out.println("");
+			System.out.println("Total - " + finalValue);
 			
 			con.close();
 		} catch (SQLException e) {
@@ -394,11 +386,11 @@ public class DBConector {
 		return finalValue;
 	}
 	
-	public static double totalValueExpended() {
-		double returnValue = 0.0;
+	public static BigDecimal totalValueExpended() {
+		BigDecimal returnValue = new BigDecimal(0.0);
 		String IDsQuery = "SELECT ID_Montagem FROM Montagem";
 		ArrayList<String> identifiers = new ArrayList<>(); 
-		ArrayList<Double> prices = new ArrayList<>();
+		ArrayList<BigDecimal> prices = new ArrayList<>();
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -423,14 +415,15 @@ public class DBConector {
 			}
 			
 			for(int inc = 0; inc < identifiers.size(); inc++) {
-				statement.executeUpdate("UPDATE Montagem SET cost = " + prices.get(inc) + "WHERE ID_Montagem = " + identifiers.get(inc));
-				System.out.println("Montagem " + identifiers.get(inc) + " foi atualizada :D");
+				//System.out.println("UPDATE Montagem SET cost = " + prices.get(inc) + " WHERE ID_Montagem = " + identifiers.get(inc));
+				statement.executeUpdate("UPDATE Montagem SET cost = " + prices.get(inc) + " WHERE ID_Montagem = " + identifiers.get(inc));
+				//System.out.println("O custo da Montagem " + identifiers.get(inc) + " foi atualizado para " + prices.get(inc) + " :D");
 			}
 			
 			rslt = statement.executeQuery("SELECT cost FROM Arquivo");
 			while(rslt.next()) {
 				returnValue = Functions.sumCurency("" + returnValue, "" + rslt.getString(1));
-				System.out.println("returnValue recebe " + rslt.getString(1));
+				//System.out.println("returnValue recebe " + rslt.getString(1));
 			}
 			
 			
@@ -440,6 +433,40 @@ public class DBConector {
 		
 		return returnValue;
 	}
+	
+	public static BigDecimal getRegisteredValues() {
+		BigDecimal registeredValuesSum = new BigDecimal(0);
+		String query = "SELECT TotalExpanses FROM Quinzena";
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}		
+		
+		try {
+			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
+			Statement statement = con.createStatement();
+			
+			ResultSet rslt = statement.executeQuery(query);
+			
+			while(rslt.next()) {
+				registeredValuesSum = registeredValuesSum.add(new BigDecimal(rslt.getString(1)));
+			}
+			
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return registeredValuesSum;
+	}
+	/*
+	public static BigDecimal getRegisteredValues(int fortnight) {
+		
+	}*/
+	
+	
 	
 	public static int counterOfElements(String table) {
 		int returnCounter = 0;
@@ -516,7 +543,6 @@ public class DBConector {
 		
 		return max;
 	}
-
 	
 	public void backupDB() {
 		

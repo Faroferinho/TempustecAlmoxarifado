@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -73,9 +74,7 @@ public class Archiver {
 	}
 
 	public static void logInfo() {
-		
-		
-		if(DBConector.getDB().equals("jdbc:mysql://localhost:3306/Tempustec")) {
+		if(DBConector.getDB().equals("jdbc:mysql://localhost:3306/Tempusteste")) {
 			LocalDateTime thisMoment = LocalDateTime.now();
 			String auxDate = thisMoment.toString();
 			auxDate = auxDate.substring(0, 19);
@@ -84,32 +83,24 @@ public class Archiver {
 			int lastQuinzena = Integer.parseInt("0" + DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", "").replaceAll("null", ""));
 	
 			if(fortnightVerificator(auxDate)) {
-				int confirm = JOptionPane.showConfirmDialog(null, "Deseja enviar o relatório Quinzenal?", "Enviar Email?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null);
-				if(confirm != 0) {
+				BigDecimal currentExpenses = DBConector.totalValueExpended();
+				BigDecimal registredExpenses = DBConector.getRegisteredValues();
+				
+				System.out.println("\n");
+				System.out.println("Gasto total - " + currentExpenses.toString());
+				System.out.println("Gasto registrado - " + registredExpenses.toString());
+				System.out.println("\n");
+				
+				if(currentExpenses.compareTo(registredExpenses) > 0) {
+					//System.out.println("A quantidade registrada atual é maior que a anterior\n");
+					int confirmValue = JOptionPane.showConfirmDialog(null, "Confirma o Envio de Relatório?", "", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+					
+					if(confirmValue != 0) {
+						return;
+					}
+					createExpancesReport();
+				}else {
 					return;
-				}
-				
-				String lastValue = "";
-				if(!DBConector.readDB("*", "Quinzena").replaceAll(" § \n", "").equals("")) {
-					lastValue += DBConector.readDB("totalExpanses", "Quinzena", "ID_Fortnight", DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", "")).replaceAll(" § \n", "");
-				}else {
-					lastValue += "0.0";
-				}
-				
-				String command = genericCommand + "Quinzena(date, totalExpanses) VALUES('";
-				BigDecimal totalValue = new BigDecimal(DBConector.totalValueExpended());
-				
-				command += auxDate + "', ";
-				command += totalValue + ")";
-				
-				System.out.println("LogInfo: " + command);
-				DBConector.writeDB(command);
-				
-				DBConector.registerFortnight(auxDate);
-				if(totalValue.compareTo(new BigDecimal(lastValue)) != 0) {
-					createExpancesReport(Functions.diferenceCurency("" + totalValue, lastValue), lastQuinzena);
-				}else {
-					createCongratulationsReport();
 				}
 			}
 		}
@@ -136,65 +127,50 @@ public class Archiver {
 		return false;
 	}
 	
-	private static void createExpancesReport(double difCost, int lastEntry) {
-			String message = "";
-			String emailDate;
-			
-			LocalDateTime ldt = LocalDateTime.now();
-			
-			String currIDs[] = DBConector.readDB("ID_Montagem", "Montagem").split(" § \n");
-			
-			emailDate = "" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear() + " - " + ldt.getHour() + ":" + ldt.getMinute() + ":" + ldt.getSecond();
-			
-			message += emailDate + "\n";
-			message += "	" + Functions.randomGreetingsGen() + "\n";
-			message += "	O Relatório destá quinzena Registrou um total gasto Total de " + difCost + ", segue o valor gasto com as montagens: \n";
-			message += "========================================================================================================================\n";
-			
-			for(int i = 0; i < currIDs.length; i++) {
-				double difPrices = 0;
-				if(currIDs[i].equals(DBConector.readDB("Assembly", "Historico_Custo", "Assembly", currIDs[i] + " && Date = " + lastEntry).replaceAll(" § \n", ""))) {
-					difPrices = Functions.diferenceCurency(
-							DBConector.readDB("Cost", "Montagem", "ID_Montagem", currIDs[i]).replaceAll(" § \n", ""), 
-							DBConector.readDB("Cost", "Historico_Custo", "Assembly", currIDs[i]+ " && Date = " + lastEntry).replaceAll(" § \n", ""));
-				}else {
-					difPrices = Double.parseDouble(DBConector.readDB("cost", "Montagem", "ID_Montagem", currIDs[i]).replaceAll(" § \n", ""));
-				}
-				
-				System.out.println("Archiver.difPrices: " + difPrices);
-				
-				if(difPrices != 0) {
-					message += "	ID: " + currIDs[i] + "\n";
-					message += "	 - Descrição: " + DBConector.readDB("description", "Montagem", "ID_Montagem", currIDs[i]).replaceAll(" § ", "");
-					message += "	 - Empresa: " + DBConector.readDB("company", "Montagem", "ID_Montagem", currIDs[i]).replaceAll(" § ", "");
-					message += "	 - Quantidade: " + DBConector.counterOfElements("pecas", "Montagem = " + currIDs[i]) + "\n";
-					message += "	 - Valor: " + difPrices + "\n";
-					message += "========================================================================================================================\n";
-				}
-			}
-			
-			message += "		Tenha um Bom Resto do seu Dia!\n";
-			message += "								- Almoxarifado";
-			
-			System.out.println(message);
-			
-			Email.sendReport("Relatório Quinzenal - " + emailDate, message);
-	}
-	
-	private static void createCongratulationsReport() {
-				
-		String message = "";
-		String date;
+	private static void createExpancesReport() {
+		String header = "Relatório Quinzenal - ";
+		String body = "";
 		
 		LocalDateTime ldt = LocalDateTime.now();
 		
-		date = "" + ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear() + " - " + ldt.getHour() + ":" + ldt.getMinute() + ":" + ldt.getSecond();
+		String date = ldt.getDayOfMonth() + "/" + ldt.getMonthValue() + "/" + ldt.getYear() + " - " + ldt.getHour() + ":" + ldt.getMinute() + ":" + ldt.getSecond();
 		
-		message += date + "\n";
-		message += "	Os gastos essa Quinzena foram exatamente 0, Parabens a todos os envolvidos 😀🥳\n";
-		message += "														- Almoxarifado.";
+		ArrayList<String> ids = Functions.listToArrayList(DBConector.readDB("SELECT ID_Montagem FROM Montagem").split(" § \n"));
 		
-		Email.sendReport("Relatório Quinzenal - " + date, message);
+		header += date;
+		body += date + "\n	" + Functions.randomGreetingsGen() + "\n\n	O Relatório destá quinzena Registrou um total gasto de " + DBConector.totalValueExpended() + ", segue o valor gasto com as montagens:\n";
+		body += "	=========================================================================================================\n";
+		
+		for(int i = 0; i < ids.size(); i++) {
+			BigDecimal currAssemblyValue;
+			BigDecimal lastAssemblyValue;
+			
+			String currValue = DBConector.readDB( "SELECT cost FROM Montagem WHERE ID_Montagem = " + ids.get(i) ).replaceAll(" § \n", "");
+			String lastValue = DBConector.readDB( "SELECT cost FROM Historico_Custo WHERE Assembly = " + ids.get(i) ).replaceAll(" § \n", "");
+			
+			currAssemblyValue = new BigDecimal( "0" + currValue );
+			lastAssemblyValue = new BigDecimal( "0" + lastValue );
+						
+			if(currAssemblyValue.compareTo(lastAssemblyValue) > 0) {
+				body += "	- O.S.: " + DBConector.readDB("SELECT ISO FROM Montagem WHERE ID_Montagem = " + ids.get(i)).replaceAll(" § ", "");
+				body += "		- Descrição: " + DBConector.readDB("SELECT Description FROM Montagem WHERE ID_Montagem = " + ids.get(i)).replaceAll(" § ", "");
+				body += "		- Empresa: " + DBConector.readDB("SELECT Company FROM Montagem WHERE ID_Montagem = " + ids.get(i)).replaceAll(" § ", "");
+				body += "		- Quantidade de Peças: " + DBConector.counterOfElements("Pecas", "Montagem = " + ids.get(i));
+				body += "		- Valor total: " + DBConector.readDB("SELECT cost FROM Montagem WHERE ID_Montagem = " + ids.get(i)).replaceAll(" § ", "");
+				
+				if(i == ids.size() -1) {
+					body += "	=========================================================================================================\n";
+				}else {
+					body += "	---------------------------------------------------------------------------------------------------------\n";					
+				}
+			}
+		}
+		
+		body += "		Tenha um bom dia!"
+			 +  "				- Almoxarifado";
+		
+		System.out.println("\n\n\n\n" + header + "\n" + body);
+		//Email.sendReport(header, body);
 	}
-
+	
 }
