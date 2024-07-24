@@ -1731,3 +1731,53 @@ O Usuário 8523 alterou a peça ID_Parts.3, passou de 0 para 3 - Horario: 2024-0
 
 O Usuário 8523 alterou a peça ID_Parts.3, passou de 0.00 para 3 - Horario: 2024-07-23T15:46:47.857748600
 
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-23T16:10:22.644105400
+
+O Usuário 8523 modou para o projeto 7 - Horario: 2024-07-23T16:10:25.657265300
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-23T16:11:02.030415700
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-23T16:14:34.809239400
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-24T09:03:37.351630300
+
+O Usuário 8523 alterou a peça ID_Parts.82, passou de 37 para 32 - Horario: 2024-07-24T09:04:38.030026800
+
+O Usuário 8523 alterou a peça ID_Parts.81, passou de 37 para 7 - Horario: 2024-07-24T09:04:50.157535800
+
+O Usuário 8523 alterou a peça ID_Parts.84, passou de 31 para 35 - Horario: 2024-07-24T09:04:55.876502500
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-24T09:25:54.268185100
+
+O Usuário 8523 alterou a peça ID_Parts.85, passou de 36 para 26 - Horario: 2024-07-24T09:26:00.109305500
+
+O Usuário 8523 alterou a peça ID_Parts.86, passou de 31 para 28 - Horario: 2024-07-24T09:26:03.876937500
+
+O Usuário 8523 alterou a peça ID_Parts.86, passou de 2 para 5 - Horario: 2024-07-24T09:26:07.386048800
+
+O Usuário 8523 alterou a peça ID_Parts.85, passou de h para AHAHAHAHAHAHAHAHAAHAHAHAHAHAHHAHAHAHAHAHAHHAAH - Horario: 2024-07-24T09:26:14.291999400
+
+O Usuário 8523 alterou a peça ID_Parts.85, passou de AHAHAHAHAHAHAHAHAAHAHAHAHAHAHHAHAHAHAHAHAHHAAH para AHHAHAHAHAHAHAHAHAHAHAHAHAHAHHA - Horario: 2024-07-24T09:26:22.660744200
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-24T09:29:55.688103800
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-24T09:34:15.677581400
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-24T09:35:16.510914600
+
+O Usuário 8523 removeu o ID_Parts de ID 1264 - Horario: 2024-07-24T09:35:45.381089700
+
+O Usuário 8523 removeu o ID_Parts de ID 1266 - Horario: 2024-07-24T09:36:39.757978700
+
+O Usuário 8523 alterou a peça ID_Parts.1265, passou de 0.00 para 1 - Horario: 2024-07-24T09:36:42.411439200
+
+O Usuário 8523 removeu o ID_Parts de ID 1265 - Horario: 2024-07-24T09:36:45.829794900
+

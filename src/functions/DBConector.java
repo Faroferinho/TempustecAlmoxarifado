@@ -16,7 +16,7 @@ import main.Almoxarifado;
 public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
-	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempusteste";
+	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempustec";
 	private static String user = "Almoxarifado";
 	private static String password = "Tempustec2023";
 	
@@ -300,8 +300,18 @@ public class DBConector {
 		}
 	}
 	
-	public static void registerFortnight(String date) {
+	public static void registerFortnight() {
 		//TODO - Criar metodo para registar a dierença entre o valor atual e o total registrado
+		String createFortnight = "INSERT INTO Quinzena (date, totalExpanses) VALUES (\"";
+		String createRegister = "INSERT INTO Historico_Custo (date, Assembly, Cost) VALUES (";
+		
+		String currentDate = LocalDateTime.now().toString();
+		
+		ArrayList<String> currentIDs = Functions.listToArrayList(readDB("SELECT ID_Montagem FROM Montagem").split(" § \n"));
+		
+		currentDate = currentDate.substring(0, 19).replaceAll("T", " ");
+		
+		createFortnight += currentDate + "\", " + getRegisteredValues().toString() + ");";
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -314,8 +324,17 @@ public class DBConector {
 			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
 			Statement statement = con.createStatement();
 			
+			//System.out.println("Create Fortnight - " + createFortnight);
+			statement.executeUpdate(createFortnight);
 			
-						
+			createRegister += readDB("SELECT MAX(ID_Fortnight) FROM Quinzena").replaceAll(" § \n", "") + ", ";
+			
+			for(int i = 0; i < currentIDs.size(); i++) {
+				//System.out.println("--------------------------------------------------------");
+				//System.out.println("Registro: " + createRegister + currentIDs.get(i) + ", " + getAssemblyValue(currentIDs.get(i)) + ");");
+				statement.executeUpdate(createRegister + currentIDs.get(i) + ", " + getAssemblyValue(currentIDs.get(i)) + ");");
+			}
+			
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -363,19 +382,18 @@ public class DBConector {
 				
 				quantities.add(quantity);
 			}
+			//System.out.println("================================================================");
+			//System.out.println("Montagem: " + readDB("SELECT ISO FROM Montagem WHERE ID_Montagem = " + ID).replaceAll(" § \n", ""));
 			
-			 System.out.println("================================================================");
-			 System.out.println("Montagem: " + readDB("SELECT ISO FROM Montagem WHERE ID_Montagem = " + ID).replaceAll(" § \n", ""));
-			 
 			for(int i = 0; i < prices.size(); i++) {
 				BigDecimal firstValue = new BigDecimal("0" + prices.get(i).replaceAll("[^0-9.]", ""));
 				BigDecimal lastValue = new BigDecimal("0" + quantities.get(i).replaceAll("[^0-9.]", ""));
 				
-				System.out.println("	" + firstValue.toString() + " * " + lastValue.toString() + " = " + firstValue.multiply(lastValue).doubleValue());
+				//System.out.println("	" + firstValue.toString() + " * " + lastValue.toString() + " = " + firstValue.multiply(lastValue).doubleValue());
 				
 				finalValue = finalValue.add(firstValue.multiply(lastValue));
 			}
-			System.out.println("Total - " + finalValue);
+			//System.out.println("Total - " + finalValue);
 			
 			con.close();
 		} catch (SQLException e) {
@@ -461,13 +479,35 @@ public class DBConector {
 		
 		return registeredValuesSum;
 	}
-	/*
-	public static BigDecimal getRegisteredValues(int fortnight) {
+	
+	public static BigDecimal getRegisteredValues(int fortnightID) {
+		BigDecimal registeredValuesSum = new BigDecimal(0);
+		String query = "SELECT TotalExpanses FROM Quinzena WHERE ID_Fortnight = " + fortnightID;
 		
-	}*/
-	
-	
-	
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}		
+		
+		try {
+			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
+			Statement statement = con.createStatement();
+			
+			ResultSet rslt = statement.executeQuery(query);
+			
+			while(rslt.next()) {
+				registeredValuesSum = registeredValuesSum.add(new BigDecimal(rslt.getString(1)));
+			}
+			
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return registeredValuesSum;
+	}
+		
 	public static int counterOfElements(String table) {
 		int returnCounter = 0;
 		String query = "SELECT COUNT(*) FROM " + table;

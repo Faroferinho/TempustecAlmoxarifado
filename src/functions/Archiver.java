@@ -80,8 +80,6 @@ public class Archiver {
 			auxDate = auxDate.substring(0, 19);
 			auxDate = auxDate.replaceAll("T", " ");
 			
-			int lastQuinzena = Integer.parseInt("0" + DBConector.readDB("MAX(ID_Fortnight)", "Quinzena").replaceAll(" § \n", "").replaceAll("null", ""));
-	
 			if(fortnightVerificator(auxDate)) {
 				BigDecimal currentExpenses = DBConector.totalValueExpended();
 				BigDecimal registredExpenses = DBConector.getRegisteredValues();
@@ -99,6 +97,7 @@ public class Archiver {
 						return;
 					}
 					createExpancesReport();
+					DBConector.registerFortnight();
 				}else {
 					return;
 				}
@@ -141,6 +140,8 @@ public class Archiver {
 		body += date + "\n	" + Functions.randomGreetingsGen() + "\n\n	O Relatório destá quinzena Registrou um total gasto de " + DBConector.totalValueExpended() + ", segue o valor gasto com as montagens:\n";
 		body += "	=========================================================================================================\n";
 		
+		//System.out.println("----------------------------------------------------------------------------------");
+		
 		for(int i = 0; i < ids.size(); i++) {
 			BigDecimal currAssemblyValue;
 			BigDecimal lastAssemblyValue;
@@ -150,12 +151,18 @@ public class Archiver {
 			
 			currAssemblyValue = new BigDecimal( "0" + currValue );
 			lastAssemblyValue = new BigDecimal( "0" + lastValue );
-						
-			if(currAssemblyValue.compareTo(lastAssemblyValue) > 0) {
+			
+			/*
+			* System.out.println("Valor Atual - " + currAssemblyValue.toString());
+			* System.out.println("Valor Anterior - " + lastAssemblyValue.toString());
+			* System.out.println("----------------------------------------------------------------------------------");
+			*/
+					
+			if(currAssemblyValue.compareTo(lastAssemblyValue) != 0) {
 				body += "	- O.S.: " + DBConector.readDB("SELECT ISO FROM Montagem WHERE ID_Montagem = " + ids.get(i)).replaceAll(" § ", "");
 				body += "		- Descrição: " + DBConector.readDB("SELECT Description FROM Montagem WHERE ID_Montagem = " + ids.get(i)).replaceAll(" § ", "");
 				body += "		- Empresa: " + DBConector.readDB("SELECT Company FROM Montagem WHERE ID_Montagem = " + ids.get(i)).replaceAll(" § ", "");
-				body += "		- Quantidade de Peças: " + DBConector.counterOfElements("Pecas", "Montagem = " + ids.get(i));
+				body += "		- Quantidade de Peças: " + DBConector.counterOfElements("Pecas", "Montagem = " + ids.get(i)) + "\n";
 				body += "		- Valor total: " + DBConector.readDB("SELECT cost FROM Montagem WHERE ID_Montagem = " + ids.get(i)).replaceAll(" § ", "");
 				
 				if(i == ids.size() -1) {
@@ -166,7 +173,7 @@ public class Archiver {
 			}
 		}
 		
-		body += "		Tenha um bom dia!"
+		body += "		Tenha um bom dia!\n"
 			 +  "				- Almoxarifado";
 		
 		System.out.println("\n\n\n\n" + header + "\n" + body);
