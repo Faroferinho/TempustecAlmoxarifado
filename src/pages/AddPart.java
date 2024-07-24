@@ -76,6 +76,7 @@ public class AddPart extends Insertions {
 		String sppr = values.get(4);
 		
 		if(verifyValues(values.get(0))) {
+			System.out.println("SELECT ID_Montagem FROM Montagem WHERE ISO LIKE '%" + values.get(0) + "%'");
 			id = DBConector.readDB("ID_Montagem", "Montagem WHERE ISO LIKE '%" + values.get(0) + "%'").replaceAll(" § \n", "");
 		}else {
 			JOptionPane.showMessageDialog(null, "Verifique a OS da Montagem", "Erro ao adicionar a montagem", JOptionPane.ERROR_MESSAGE);
@@ -141,6 +142,10 @@ public class AddPart extends Insertions {
 
 	@Override
 	protected void okButtonClick() {
+		if(values.toString().equals("[, , , , ]")) {
+			return;
+		}
+		
 		for(int i = 0; i < quantity; i++) {
 			if(values.get(i).equals("")) {
 				fillDefaultValues();
