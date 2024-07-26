@@ -73,34 +73,34 @@ public class Archiver {
 		}
 	}
 
-	public static void logInfo() {
-		if(DBConector.getDB().equals("jdbc:mysql://localhost:3306/Tempusteste")) {
-			LocalDateTime thisMoment = LocalDateTime.now();
-			String auxDate = thisMoment.toString();
-			auxDate = auxDate.substring(0, 19);
-			auxDate = auxDate.replaceAll("T", " ");
+	public static void logInfo() {		
+		//JOptionPane.showMessageDialog(null, "Total da Montagem - " + DBConector.totalValueExpended());
+		
+		LocalDateTime thisMoment = LocalDateTime.now();
+		String auxDate = thisMoment.toString();
+		auxDate = auxDate.substring(0, 19);
+		auxDate = auxDate.replaceAll("T", " ");
+		
+		if(fortnightVerificator(auxDate)) {
+			BigDecimal currentExpenses = DBConector.totalValueExpended();
+			BigDecimal registredExpenses = DBConector.getRegisteredValues();
 			
-			if(fortnightVerificator(auxDate)) {
-				BigDecimal currentExpenses = DBConector.totalValueExpended();
-				BigDecimal registredExpenses = DBConector.getRegisteredValues();
+			System.out.println("\n");
+			System.out.println("Gasto total - " + currentExpenses.toString());
+			System.out.println("Gasto registrado - " + registredExpenses.toString());
+			System.out.println("\n");
+			
+			if(currentExpenses.compareTo(registredExpenses) > 0) {
+				//System.out.println("A quantidade registrada atual é maior que a anterior\n");
+				int confirmValue = JOptionPane.showConfirmDialog(null, "Confirma o Envio de Relatório?", "", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
 				
-				System.out.println("\n");
-				System.out.println("Gasto total - " + currentExpenses.toString());
-				System.out.println("Gasto registrado - " + registredExpenses.toString());
-				System.out.println("\n");
-				
-				if(currentExpenses.compareTo(registredExpenses) > 0) {
-					//System.out.println("A quantidade registrada atual é maior que a anterior\n");
-					int confirmValue = JOptionPane.showConfirmDialog(null, "Confirma o Envio de Relatório?", "", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
-					
-					if(confirmValue != 0) {
-						return;
-					}
-					createExpancesReport();
-					DBConector.registerFortnight();
-				}else {
+				if(confirmValue != 0) {
 					return;
 				}
+				createExpancesReport();
+				DBConector.registerFortnight();
+			}else {
+				return;
 			}
 		}
 	}
@@ -138,46 +138,66 @@ public class Archiver {
 		
 		header += date;
 		body += date + "\n	" + Functions.randomGreetingsGen() + "\n\n	O Relatório destá quinzena Registrou um total gasto de " + DBConector.totalValueExpended() + ", segue o valor gasto com as montagens:\n";
-		body += "	=========================================================================================================\n";
+		body += "	============================================================\n";
 		
-		//System.out.println("----------------------------------------------------------------------------------");
+		System.out.println("----------------------------------------------------------------------------------");
 		
 		for(int i = 0; i < ids.size(); i++) {
 			BigDecimal currAssemblyValue;
 			BigDecimal lastAssemblyValue;
 			
 			String currValue = DBConector.readDB( "SELECT cost FROM Montagem WHERE ID_Montagem = " + ids.get(i) ).replaceAll(" § \n", "");
-			String lastValue = DBConector.readDB( "SELECT cost FROM Historico_Custo WHERE Assembly = " + ids.get(i) ).replaceAll(" § \n", "");
+			String lastValue = DBConector.readDB( "SELECT cost FROM Historico_Custo WHERE Assembly = " + ids.get(i)  + " ORDER BY Date DESC LIMIT 1").replaceAll(" § \n", "");
+			
+			/*
+			 * System.out.println("ID - " + ids.get(i));
+			 * System.out.println("	Valor Atual - " + currValue);
+			 * System.out.println("	Valor Anterior - " + lastValue);
+			 * System.out.println("----------------------------------------------------------------------------------");
+			 */
 			
 			currAssemblyValue = new BigDecimal( "0" + currValue );
 			lastAssemblyValue = new BigDecimal( "0" + lastValue );
 			
 			/*
-			* System.out.println("Valor Atual - " + currAssemblyValue.toString());
-			* System.out.println("Valor Anterior - " + lastAssemblyValue.toString());
-			* System.out.println("----------------------------------------------------------------------------------");
-			*/
+			 * System.out.println("Valor Atual - " + currAssemblyValue.toString());
+			 * System.out.println("Valor Anterior - " + lastAssemblyValue.toString());
+			 * System.out.println("----------------------------------------------------------------------------------");
+			 */
 					
 			if(currAssemblyValue.compareTo(lastAssemblyValue) != 0) {
+				
+				if(i != 0) {
+					body += "	---------------------------------------------------------------------------------------------------------\n";
+				}
+				
 				body += "	- O.S.: " + DBConector.readDB("SELECT ISO FROM Montagem WHERE ID_Montagem = " + ids.get(i)).replaceAll(" § ", "");
 				body += "		- Descrição: " + DBConector.readDB("SELECT Description FROM Montagem WHERE ID_Montagem = " + ids.get(i)).replaceAll(" § ", "");
 				body += "		- Empresa: " + DBConector.readDB("SELECT Company FROM Montagem WHERE ID_Montagem = " + ids.get(i)).replaceAll(" § ", "");
 				body += "		- Quantidade de Peças: " + DBConector.counterOfElements("Pecas", "Montagem = " + ids.get(i)) + "\n";
-				body += "		- Valor total: " + DBConector.readDB("SELECT cost FROM Montagem WHERE ID_Montagem = " + ids.get(i)).replaceAll(" § ", "");
+				body += "		- Custo: \n";
+				body += "			- Valor Anterior: " + lastAssemblyValue.toString() + "\n";
+				body += "			- Valor Atual: " + currAssemblyValue.toString() + "\n";
+				body += "			- Diferença: " + currAssemblyValue.subtract(lastAssemblyValue);
 				
-				if(i == ids.size() -1) {
-					body += "	=========================================================================================================\n";
+				if(currAssemblyValue.compareTo(lastAssemblyValue) > 0) {
+					body += "\n";
 				}else {
-					body += "	---------------------------------------------------------------------------------------------------------\n";					
+					body += "*\n";
 				}
+				
+				System.out.println("i - " + i + "\nids.size() = " + ids.size());
+				
 			}
 		}
+		
+		body += "	============================================================\n";
 		
 		body += "		Tenha um bom dia!\n"
 			 +  "				- Almoxarifado";
 		
 		System.out.println("\n\n\n\n" + header + "\n" + body);
-		//Email.sendReport(header, body);
+		Email.sendReport(header, body);
 	}
 	
 }

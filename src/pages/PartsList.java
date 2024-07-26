@@ -698,7 +698,7 @@ public class PartsList implements BidimensionalList{
 					
 				}
 				auxWidth = 50;
-				auxHeight += 30*descriptionOffsetHeight;
+				auxHeight += 50*descriptionOffsetHeight;
 				descriptionOffsetHeight = 1;
 			}
 

@@ -25,8 +25,9 @@ public class Email {
 	}
 	
 	public static void sendReport(String header, String body) {
-		//TODO: restaurar essa Linha
-		//recipients += ",rosangela@tempustec.ind.br,valdir@tempustec.ind.br";
+		if(DBConector.getDB().equals("jdbc:mysql://localhost:3306/Tempustec")) {
+			recipients += ",rosangela@tempustec.ind.br,valdir@tempustec.ind.br";
+		}
 		Properties configs = new Properties();
 		
 		configs.put("mail.smtp.host", "smtp.gmail.com");

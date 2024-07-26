@@ -1855,3 +1855,164 @@ O Usuário 8523 efetuou login - Horario: 2024-07-24T10:20:29.783823700
 --------------------------------------------------------------------------------------
 O Usuário 8523 efetuou login - Horario: 2024-07-24T10:25:45.945424100
 
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-24T10:26:29.728121
+
+O Usuário 8523 removeu o ID_Parts de ID 102 - Horario: 2024-07-24T10:26:38.689757300
+
+O Usuário 8523 removeu o ID_Parts de ID 101 - Horario: 2024-07-24T10:26:40.530079700
+
+O Usuário 8523 removeu o ID_Parts de ID 100 - Horario: 2024-07-24T10:26:42.452665100
+
+O Usuário 8523 removeu o ID_Parts de ID 99 - Horario: 2024-07-24T10:26:44.735470800
+
+O Usuário 8523 removeu o ID_Parts de ID 98 - Horario: 2024-07-24T10:26:46.779065400
+
+O Usuário 8523 removeu o ID_Parts de ID 97 - Horario: 2024-07-24T10:26:49.676118200
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-24T10:44:46.107355200
+
+O Usuário 8523 alterou a peça ID_Parts.1270, passou de 1 para 24 - Horario: 2024-07-24T10:44:57.027821
+
+O Usuário 8523 alterou a peça ID_Parts.1270, passou de ---------- para Parafuso M8 x 16 - Horario: 2024-07-24T10:45:05.913832
+
+O Usuário 8523 alterou a peça ID_Parts.1270, passou de 0 para 20 Unidades - Horario: 2024-07-24T10:45:13.805512700
+
+O Usuário 8523 alterou a peça ID_Parts.1270, passou de 0.00 para 0.4930 - Horario: 2024-07-24T10:45:26.569454500
+
+O Usuário 8523 alterou a peça ID_Parts.1270, passou de ---------- para Bogas Parafusos - Horario: 2024-07-24T10:45:36.118707800
+
+O Usuário 8523 alterou a peça ID_Parts.1270, passou de 0 para 1 - Horario: 2024-07-24T10:45:37.223329100
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-24T10:47:48.115726400
+
+O Usuário 8523 alterou a peça ID_Parts.760, passou de Alcool Saveiro para Alcool Saveiro 27 Litros - Horario: 2024-07-24T10:48:29.456873700
+
+O Usuário 8523 alterou a peça ID_Parts.760, passou de 27 Litros para 1 Carga - Horario: 2024-07-24T10:48:34.310506500
+
+O Usuário 8523 alterou a peça ID_Parts.879, passou de Alcool Saveiro Cinza para Alcool Saveiro Cinza 19,40 Litros - Horario: 2024-07-24T10:48:52.848413800
+
+O Usuário 8523 alterou a peça ID_Parts.879, passou de 19,40 Litros para 1 Carga - Horario: 2024-07-24T10:48:56.020653500
+
+O Usuário 8523 alterou a peça ID_Parts.977, passou de Combustivel Saveiro Cinza para Combustivel Saveiro Cinza - Horario: 2024-07-24T10:49:12.327870100
+
+O Usuário 8523 alterou a peça ID_Parts.977, passou de 19,40 Litros para 1 Carga - Horario: 2024-07-24T10:49:20.603414900
+
+O Usuário 8523 alterou a peça ID_Parts.481, passou de 5 Litros para 1 Caixa - Horario: 2024-07-24T10:50:01.099869500
+
+O Usuário 8523 alterou a peça ID_Parts.481, passou de Thiner  para Thiner 5 Litros - Horario: 2024-07-24T10:50:21.734615
+
+O Usuário 8523 alterou a peça ID_Parts.7, passou de Thiner para Thiner 5 Litros - Horario: 2024-07-24T10:50:41.273804900
+
+O Usuário 8523 alterou a peça ID_Parts.7, passou de 5 Litros para 1 Caixa - Horario: 2024-07-24T10:50:47.348985500
+
+O Usuário 8523 alterou a peça ID_Parts.762, passou de 5 Litros para 1 Caixa - Horario: 2024-07-24T10:50:59.035925100
+
+O Usuário 8523 alterou a peça ID_Parts.762, passou de Thinner para Thiner 5 Litros - Horario: 2024-07-24T10:51:06.476422100
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-24T10:55:13.338140
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-24T11:00:15.329956500
+
+O Usuário 8523 alterou a peça ID_Parts.8, passou de 0.00 para 1 - Horario: 2024-07-24T11:00:38.283465300
+
+O Usuário 8523 alterou a peça ID_Parts.8, passou de 1.00 para 0 - Horario: 2024-07-24T11:00:40.423672700
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-25T10:46:53.680467800
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-25T13:08:16.426369400
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-25T13:08:49.496950200
+
+O Usuário 8523 alterou a peça ID_Parts.1271, passou de 2 para 2 Peças - Horario: 2024-07-25T13:12:06.081128900
+
+O Usuário 8523 alterou a peça ID_Parts.1273, passou de 5 para 5 Unidades - Horario: 2024-07-25T13:12:10.157106300
+
+O Usuário 8523 alterou a peça ID_Parts.1271, passou de 0 para 1 - Horario: 2024-07-25T13:12:13.401552900
+
+O Usuário 8523 alterou a peça ID_Parts.1272, passou de 0 para 1 - Horario: 2024-07-25T13:12:13.919519100
+
+O Usuário 8523 alterou a peça ID_Parts.1273, passou de 0 para 1 - Horario: 2024-07-25T13:12:14.457801
+
+O Usuário 8523 alterou a peça ID_Parts.1274, passou de 0 para 1 - Horario: 2024-07-25T13:14:36.068554300
+
+O Usuário 8523 alterou a peça ID_Parts.1275, passou de 0 para 1 - Horario: 2024-07-25T13:14:36.883959
+
+O Usuário 8523 alterou a peça ID_Parts.1276, passou de 0 para 1 - Horario: 2024-07-25T13:15:52.942861700
+
+O Usuário 8523 alterou a peça ID_Parts.1277, passou de 0 para 1 - Horario: 2024-07-25T13:20:51.077283500
+
+O Usuário 8523 alterou a peça ID_Parts.1278, passou de 0 para 1 - Horario: 2024-07-25T13:20:51.639125100
+
+O Usuário 8523 alterou a peça ID_Parts.1279, passou de 0 para 1 - Horario: 2024-07-25T13:20:52.381464400
+
+O Usuário 8523 alterou a peça ID_Parts.1280, passou de 0 para 1 - Horario: 2024-07-25T13:20:53.021035900
+
+O Usuário 8523 alterou a peça ID_Parts.1281, passou de 0 para 1 - Horario: 2024-07-25T13:21:43.973629500
+
+O Usuário 8523 alterou a peça ID_Parts.1282, passou de 0 para 1 - Horario: 2024-07-25T13:23:28.278341300
+
+O Usuário 8523 alterou a peça ID_Parts.1283, passou de 0 para 1 - Horario: 2024-07-25T13:24:11.918001500
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-26T07:23:30.623356500
+
+O Usuário 8523 alterou a peça ID_Parts.1284, passou de 2 para 2 Unidades - Horario: 2024-07-26T07:24:56.226561700
+
+O Usuário 8523 alterou a peça ID_Parts.1279, passou de 12 para 12 Peças - Horario: 2024-07-26T07:26:01.545433800
+
+O Usuário 8523 alterou a peça ID_Parts.1284, passou de 0 para 1 - Horario: 2024-07-26T07:26:05.282966200
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-26T08:52:19.567000300
+
+O Usuário 8523 alterou a peça ID_Parts.17, passou de 0.00 para 200 - Horario: 2024-07-26T08:52:25.417570900
+
+O Usuário 8523 alterou a peça ID_Parts.3, passou de 3.00 para 1 - Horario: 2024-07-26T08:52:29.193709600
+
+O Usuário 8523 alterou a peça ID_Parts.3, passou de 1.00 para 1 - Horario: 2024-07-26T08:52:32.710321300
+
+O Usuário 8523 alterou a peça ID_Parts.3, passou de 1.00 para 1 - Horario: 2024-07-26T08:52:35.941503300
+
+O Usuário 8523 alterou a peça ID_Parts.3, passou de 1.00 para 3 - Horario: 2024-07-26T08:52:38.341771500
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-26T08:54:48.422234400
+
+O Usuário 8523 alterou a peça ID_Parts.88, passou de 0.00 para 15 - Horario: 2024-07-26T08:55:04.378829200
+
+O Usuário 8523 alterou a peça ID_Parts.87, passou de 0.00 para 1 - Horario: 2024-07-26T08:55:09.522786600
+
+O Usuário 8523 alterou a peça ID_Parts.90, passou de 0.00 para 200 - Horario: 2024-07-26T08:55:14.615186400
+
+O Usuário 8523 alterou a peça ID_Parts.77, passou de 0.00 para 111111111 - Horario: 2024-07-26T08:55:23.598308600
+
+O Usuário 8523 alterou a peça ID_Parts.77, passou de 0.00 para 11111 - Horario: 2024-07-26T08:55:37.350374300
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-26T11:13:28.458190300
+
+O Usuário 8523 alterou a peça ID_Parts.1285, passou de 0 para 1 - Horario: 2024-07-26T11:14:20.905591100
+
+O Usuário 8523 alterou a peça ID_Parts.1285, passou de 1 para 0 - Horario: 2024-07-26T11:14:21.418737500
+
+O Usuário 8523 alterou a peça ID_Parts.1285, passou de 0 para 1 - Horario: 2024-07-26T11:14:22.079565100
+
+O Usuário 8523 alterou a peça ID_Parts.1285, passou de 1 para 1 Rolo - Horario: 2024-07-26T11:14:27.371505900
+
+O Usuário 8523 alterou a peça ID_Parts.1274, passou de 1 para 1 Chapa - Horario: 2024-07-26T11:14:35.201570800
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-07-26T11:29:40.720043400
+
+O Usuário 8523 alterou a peça ID_Parts.1286, passou de 4 para 4 Pacotes - Horario: 2024-07-26T11:31:09.458485600
+
+O Usuário 8523 alterou a peça ID_Parts.1286, passou de 0 para 1 - Horario: 2024-07-26T11:31:10.830891100
+

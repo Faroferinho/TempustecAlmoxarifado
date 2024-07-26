@@ -302,42 +302,24 @@ public class DBConector {
 	
 	public static void registerFortnight() {
 		//TODO - Criar metodo para registar a dierença entre o valor atual e o total registrado
-		String createFortnight = "INSERT INTO Quinzena (date, totalExpanses) VALUES (\"";
-		String createRegister = "INSERT INTO Historico_Custo (date, Assembly, Cost) VALUES (";
-		
-		String currentDate = LocalDateTime.now().toString();
-		
-		ArrayList<String> currentIDs = Functions.listToArrayList(readDB("SELECT ID_Montagem FROM Montagem").split(" § \n"));
-		
-		currentDate = currentDate.substring(0, 19).replaceAll("T", " ");
-		
-		createFortnight += currentDate + "\", " + getRegisteredValues().toString() + ");";
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		
-		try {
-			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
-			Statement statement = con.createStatement();
+		ArrayList<String> IdsFromMontagem = Functions.listToArrayList(readDB("SELECT DISTINCT ID_Montagem FROM Montagem").split(" § \n"));
+		String insertQuinzena = "INSERT INTO Quinzena (Date, TotalExpanses) VALUES (NOW(), ";
+		String instertHistoricoCusto = "INSERT INTO Historico_Custo(Date, Assembly, Cost) VALUES(";
+				
+		for(int i = 0; i < IdsFromMontagem.size(); i++) {
+			String mostRecentCost = "SELECT Cost FROM Historico_Custo WHERE EXISTS(SELECT * FROM Historico_Custo WHERE Assembly = " + IdsFromMontagem.get(i);
+			mostRecentCost += ") and Assembly = " + IdsFromMontagem.get(i);
+			mostRecentCost += " ORDER BY DATE DESC LIMIT 1";
 			
-			//System.out.println("Create Fortnight - " + createFortnight);
-			statement.executeUpdate(createFortnight);
+			String custo = DBConector.readDB(mostRecentCost).replaceAll(" § \n", "");
 			
-			createRegister += readDB("SELECT MAX(ID_Fortnight) FROM Quinzena").replaceAll(" § \n", "") + ", ";
-			
-			for(int i = 0; i < currentIDs.size(); i++) {
-				//System.out.println("--------------------------------------------------------");
-				//System.out.println("Registro: " + createRegister + currentIDs.get(i) + ", " + getAssemblyValue(currentIDs.get(i)) + ");");
-				statement.executeUpdate(createRegister + currentIDs.get(i) + ", " + getAssemblyValue(currentIDs.get(i)) + ");");
+			if(custo.equals("")) {
+				//Preenche o valor atual
+				System.out.println((i + 1) + " - Essa montagem é nova e não existe");						
+			}else {
+				//Preeche a diferença do valor atual para o anterior
+				System.out.println((i + 1) + " - A Montagem " + IdsFromMontagem.get(i) + " custa " + custo);
 			}
-			
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 	}
 	
