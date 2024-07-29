@@ -145,6 +145,8 @@ public class DBConector {
 	
 	public static void writeDB(String objective) {
 		
+		System.out.println("Query - " + objective);
+		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -303,22 +305,49 @@ public class DBConector {
 	public static void registerFortnight() {
 		//TODO - Criar metodo para registar a dierença entre o valor atual e o total registrado
 		ArrayList<String> IdsFromMontagem = Functions.listToArrayList(readDB("SELECT DISTINCT ID_Montagem FROM Montagem").split(" § \n"));
-		String insertQuinzena = "INSERT INTO Quinzena (Date, TotalExpanses) VALUES (NOW(), ";
-		String instertHistoricoCusto = "INSERT INTO Historico_Custo(Date, Assembly, Cost) VALUES(";
+		String insertQuinzena = "INSERT INTO Quinzena (Date, TotalExpanses) VALUES (NOW(), " + totalValueExpended().subtract(readExpansesFromHistory()) + ")";
+		String instertHistoricoCusto = "INSERT INTO Historico_Custo(Date, Assembly, Cost) VALUES( ";
+		
+		writeDB(insertQuinzena);
+		instertHistoricoCusto += readDB("SELECT MAX(ID_Fortnight) FROM Quinzena").replaceAll(" § \n", "") + ", ";
 				
 		for(int i = 0; i < IdsFromMontagem.size(); i++) {
 			String mostRecentCost = "SELECT Cost FROM Historico_Custo WHERE EXISTS(SELECT * FROM Historico_Custo WHERE Assembly = " + IdsFromMontagem.get(i);
 			mostRecentCost += ") and Assembly = " + IdsFromMontagem.get(i);
 			mostRecentCost += " ORDER BY DATE DESC LIMIT 1";
 			
-			String custo = DBConector.readDB(mostRecentCost).replaceAll(" § \n", "");
+			String custo = readDB("SELECT Cost FROM Historico_Custo WHERE ASSEMBLY = " + IdsFromMontagem.get(i));
 			
 			if(custo.equals("")) {
 				//Preenche o valor atual
-				System.out.println((i + 1) + " - Essa montagem é nova e não existe");						
+				System.out.println((i + 1) + " - Essa montagem é nova e não existe no Histórico");
+				System.out.println("	Inicio: " + instertHistoricoCusto);
+				System.out.println("	ID: " + IdsFromMontagem.get(i));
+				System.out.println("	Valor dessa Montagem: " + getAssemblyValue(IdsFromMontagem.get(i)));
+				System.out.println("	Query: " + instertHistoricoCusto + IdsFromMontagem.get(i) + ", " + getAssemblyValue(IdsFromMontagem.get(i)) + ")" + "\n\n\n");
+				
+				writeDB(instertHistoricoCusto + IdsFromMontagem.get(i) + ", " + getAssemblyValue(IdsFromMontagem.get(i)) + ")");
 			}else {
 				//Preeche a diferença do valor atual para o anterior
-				System.out.println((i + 1) + " - A Montagem " + IdsFromMontagem.get(i) + " custa " + custo);
+				
+				BigDecimal sumInHistory = new BigDecimal("0");
+				BigDecimal writeValue = getAssemblyValue(IdsFromMontagem.get(i));
+				String valuesRegistered[] = custo.split(" § \n");
+				
+				for(int j = 0; j < valuesRegistered.length; j++) {
+					sumInHistory = sumInHistory.add(new BigDecimal(valuesRegistered[j]));
+				}
+				
+				writeValue = writeValue.subtract(sumInHistory);
+				
+				System.out.println((i + 1) + " - A Montagem " + IdsFromMontagem.get(i) + " custa " + writeValue.toString());
+				System.out.println("	Valor a ser escrito (diferença do valor atual pelo registrado): " + writeValue.toString());
+				System.out.println("	Valor no Registro: " + sumInHistory.toString());
+				System.out.println("	Query: \"" + 
+										instertHistoricoCusto + IdsFromMontagem.get(i) + ", " + writeValue.toString() + ")"
+										+ "\"\n\n\n");
+				
+				writeDB(instertHistoricoCusto + IdsFromMontagem.get(i) + ", " + writeValue.toString() + ")");
 			}
 		}
 	}
@@ -387,54 +416,20 @@ public class DBConector {
 	}
 	
 	public static BigDecimal totalValueExpended() {
-		BigDecimal returnValue = new BigDecimal(0.0);
-		String IDsQuery = "SELECT ID_Montagem FROM Montagem";
-		ArrayList<String> identifiers = new ArrayList<>(); 
-		ArrayList<BigDecimal> prices = new ArrayList<>();
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			Connection con = DriverManager.getConnection(urlDBTempustec, user, password);
-			Statement statement = con.createStatement();
-			ResultSet rslt = statement.executeQuery(IDsQuery);
-			
-			int i = 0;
-			
-			while(rslt.next()) {
-				identifiers.add(rslt.getString(1));
+		BigDecimal returnValue = new BigDecimal("0");
+		ArrayList<String> IdsList = Functions.listToArrayList(readDB("SELECT ID_Montagem FROM Montagem").split(" § \n"));
 				
-				prices.add(getAssemblyValue(rslt.getString(1)));
-				returnValue = Functions.sumCurency("" + returnValue, "" + prices.get(i));
-
-				i++;
-			}
-			
-			for(int inc = 0; inc < identifiers.size(); inc++) {
-				//System.out.println("UPDATE Montagem SET cost = " + prices.get(inc) + " WHERE ID_Montagem = " + identifiers.get(inc));
-				statement.executeUpdate("UPDATE Montagem SET cost = " + prices.get(inc) + " WHERE ID_Montagem = " + identifiers.get(inc));
-				//System.out.println("O custo da Montagem " + identifiers.get(inc) + " foi atualizado para " + prices.get(inc) + " :D");
-			}
-			
-			rslt = statement.executeQuery("SELECT cost FROM Arquivo");
-			while(rslt.next()) {
-				returnValue = Functions.sumCurency("" + returnValue, "" + rslt.getString(1));
-				//System.out.println("returnValue recebe " + rslt.getString(1));
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
+		for(int i = 0; i < IdsList.size(); i++) {
+			System.out.print("returnValue: " + returnValue.toString() + " + " + getAssemblyValue(IdsList.get(i)) + " = ");
+			returnValue = returnValue.add(getAssemblyValue(IdsList.get(i)));
+			System.out.println(returnValue.toString());
 		}
 		
+		System.out.println("Valor Final: " + returnValue.toString() + "\n\n");
 		return returnValue;
 	}
 	
-	public static BigDecimal getRegisteredValues() {
+	public static BigDecimal readExpansesFromHistory() {
 		BigDecimal registeredValuesSum = new BigDecimal(0);
 		String query = "SELECT TotalExpanses FROM Quinzena";
 		
@@ -462,7 +457,7 @@ public class DBConector {
 		return registeredValuesSum;
 	}
 	
-	public static BigDecimal getRegisteredValues(int fortnightID) {
+	public static BigDecimal readExpansesFromHistory(int fortnightID) {
 		BigDecimal registeredValuesSum = new BigDecimal(0);
 		String query = "SELECT TotalExpanses FROM Quinzena WHERE ID_Fortnight = " + fortnightID;
 		

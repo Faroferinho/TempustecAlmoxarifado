@@ -83,7 +83,7 @@ public class Archiver {
 		
 		if(fortnightVerificator(auxDate)) {
 			BigDecimal currentExpenses = DBConector.totalValueExpended();
-			BigDecimal registredExpenses = DBConector.getRegisteredValues();
+			BigDecimal registredExpenses = DBConector.readExpansesFromHistory();
 			
 			System.out.println("\n");
 			System.out.println("Gasto total - " + currentExpenses.toString());
