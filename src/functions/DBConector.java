@@ -16,7 +16,7 @@ import main.Almoxarifado;
 public class DBConector {
 	
 	//Poderia trocar o user pelo perfil do usuário em um futuro distante;
-	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempustec";
+	private static String urlDBTempustec = "jdbc:mysql://localhost:3306/Tempusteste";
 	private static String user = "Almoxarifado";
 	private static String password = "Tempustec2023";
 	
@@ -312,10 +312,6 @@ public class DBConector {
 		instertHistoricoCusto += readDB("SELECT MAX(ID_Fortnight) FROM Quinzena").replaceAll(" § \n", "") + ", ";
 				
 		for(int i = 0; i < IdsFromMontagem.size(); i++) {
-			String mostRecentCost = "SELECT Cost FROM Historico_Custo WHERE EXISTS(SELECT * FROM Historico_Custo WHERE Assembly = " + IdsFromMontagem.get(i);
-			mostRecentCost += ") and Assembly = " + IdsFromMontagem.get(i);
-			mostRecentCost += " ORDER BY DATE DESC LIMIT 1";
-			
 			String custo = readDB("SELECT Cost FROM Historico_Custo WHERE ASSEMBLY = " + IdsFromMontagem.get(i));
 			
 			if(custo.equals("")) {

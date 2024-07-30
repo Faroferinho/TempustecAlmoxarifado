@@ -172,7 +172,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			addWorker.tick();
 			break;
 		default:
-			state = 0;	
+			state = 0;
 		}
 		
 		if(state != 0) {

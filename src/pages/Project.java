@@ -534,6 +534,9 @@ public class Project {
 			&& Almoxarifado.mY < positionerY + auxTextHeight + g.getFontMetrics().getHeight() + offsetHeight + add.getHeight()) {
 				if(Almoxarifado.mX > (Almoxarifado.WIDTH/3) - (add.getWidth()/2) && Almoxarifado.mX < (Almoxarifado.WIDTH/3) + (add.getWidth()/2)) {
 					PartsList.auxAddingFromMontagem = ID;
+					
+					Almoxarifado.addPart.setDefaultValue(ID);
+					
 					Almoxarifado.partsList.addPart();
 					PartsList.auxAddingFromMontagem = 0;
 					updateProject = true;

@@ -39,6 +39,8 @@ public abstract class Insertions {
 	
 	protected int middleScreenX = (Almoxarifado.WIDTH)/2;
 
+	private int autoFillID = 0;
+
 	public Insertions() {
 		// TODO Auto-generated constructor stub
 	}
@@ -139,6 +141,7 @@ public abstract class Insertions {
 		if(selected != -1) {
 			
 			if(click) {
+				
 				for(int i = 1; i < values.get(selected).length(); i++) {
 					
 					if(Functions.isOnBox(textBoxes.get(selected).getX() + g.getFontMetrics().stringWidth(values.get(selected).substring(0, i - 1)) + 12,
@@ -181,6 +184,21 @@ public abstract class Insertions {
 			textBoxes.get(index).setSize(g.getFontMetrics().stringWidth(values.get(index)) + 20, textBoxes.get(index).height);
 		}
 		
+	}
+	
+	public int getDefaultValue() {
+		return autoFillID;
+	}
+	
+	public void setDefaultValue(int newID) {
+		autoFillID = newID;
+	}
+	
+	protected void clearAllValues() {
+		for(int i = 0; i < quantity; i++) {
+			values.set(i, "");
+		}
+		selected = -1;
 	}
 	
 	protected abstract void writeTextOnBox();

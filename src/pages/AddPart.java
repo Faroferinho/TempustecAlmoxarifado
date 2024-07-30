@@ -52,11 +52,12 @@ public class AddPart extends Insertions {
 	@Override
 	protected void writeTextOnBox() {
 		if(click) {
+					
 			for(int i = 0; i < quantity; i++) {
 				if(Functions.isOnBox(textBoxes.get(i))) {
 					//System.out.println("Ciclou na caixa de texto " + i);
 					selected = i;
-					isWriting = true;					
+					isWriting = true;
 					recomendation = "";
 					clearIndex();
 				}
@@ -100,6 +101,11 @@ public class AddPart extends Insertions {
 		
 		Almoxarifado.quantityParts++;
 		Functions.partsToOrder += DBConector.readDB("MAX(ID_Parts)", "Pecas");
+	}
+	
+	public void clearAllBoxes() {
+		clearAllValues();
+		selected = -1;
 	}
 
 	protected boolean verifyValues(String text) {
@@ -154,9 +160,7 @@ public class AddPart extends Insertions {
 		
 		writeQuery();
 		
-		for(int i = 0; i < quantity; i++) {
-			values.set(i, "");
-		}
+		clearAllValues();
 		
 		PartsList.wasChanged = true;
 		Almoxarifado.state = 2;
@@ -208,18 +212,23 @@ public class AddPart extends Insertions {
 	}
 	
 	@Override
-	public void tick() {				
+	public void tick() {
 		if(isWriting && selected == -1) {
 			selected = 0;
 		}
-				
+		
 		writeTextOnBox();
 		
 		if(click) {
 			if(Functions.isOnBox(((Almoxarifado.WIDTH / 3) - okImage.getWidth() / 2), 600, 165, 60)) {
+				setDefaultValue(0);
 				okButtonClick();
+				selected = 0;
 			}else if(Functions.isOnBox(((Almoxarifado.WIDTH / 3) * 2 - okImage.getWidth() / 2), 600, 165, 60)) {
+				clearAllValues();
+				setDefaultValue(0);
 				cancelButtonClick();
+				selected = 0;
 			}
 		}
 	}
