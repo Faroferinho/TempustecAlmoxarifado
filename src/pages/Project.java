@@ -535,7 +535,7 @@ public class Project {
 				if(Almoxarifado.mX > (Almoxarifado.WIDTH/3) - (add.getWidth()/2) && Almoxarifado.mX < (Almoxarifado.WIDTH/3) + (add.getWidth()/2)) {
 					PartsList.auxAddingFromMontagem = ID;
 					
-					Almoxarifado.addPart.setDefaultValue(ID);
+					Almoxarifado.addPart.setAutoFillID(ID);
 					
 					Almoxarifado.partsList.addPart();
 					PartsList.auxAddingFromMontagem = 0;

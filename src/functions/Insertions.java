@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import main.Almoxarifado;
 
 public abstract class Insertions {
@@ -78,8 +80,14 @@ public abstract class Insertions {
 				textInserted = advancedWriter(textInserted, e);
 			}
 		}
-		
-		values.set(selected, textInserted.replaceAll("\"", "''"));
+		JOptionPane.showMessageDialog(null, "");
+		if(getAutoFillID() == 0) {
+			values.set(selected, textInserted.replaceAll("\"", "''"));
+		}else {
+			if(selected != 0) {
+				values.set(selected, textInserted.replaceAll("\"", "''"));
+			}
+		}
 		showRecomendations();
 	}
 	
@@ -179,18 +187,16 @@ public abstract class Insertions {
 	}
 	
 	protected void alterTextBoxSize(Graphics g, int index) {
-		
 		if(g.getFontMetrics().stringWidth(values.get(index)) > (textBoxes.get(index).width - 20)) {
 			textBoxes.get(index).setSize(g.getFontMetrics().stringWidth(values.get(index)) + 20, textBoxes.get(index).height);
 		}
-		
 	}
 	
-	public int getDefaultValue() {
+	public int getAutoFillID() {
 		return autoFillID;
 	}
 	
-	public void setDefaultValue(int newID) {
+	public void setAutoFillID(int newID) {
 		autoFillID = newID;
 	}
 	
@@ -199,6 +205,7 @@ public abstract class Insertions {
 			values.set(i, "");
 		}
 		selected = -1;
+		setAutoFillID(0);
 	}
 	
 	protected abstract void writeTextOnBox();

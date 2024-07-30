@@ -52,7 +52,7 @@ public class AddPart extends Insertions {
 	@Override
 	protected void writeTextOnBox() {
 		if(click) {
-					
+						
 			for(int i = 0; i < quantity; i++) {
 				if(Functions.isOnBox(textBoxes.get(i))) {
 					//System.out.println("Ciclou na caixa de texto " + i);
@@ -221,12 +221,12 @@ public class AddPart extends Insertions {
 		
 		if(click) {
 			if(Functions.isOnBox(((Almoxarifado.WIDTH / 3) - okImage.getWidth() / 2), 600, 165, 60)) {
-				setDefaultValue(0);
+				setAutoFillID(0);
 				okButtonClick();
 				selected = 0;
 			}else if(Functions.isOnBox(((Almoxarifado.WIDTH / 3) * 2 - okImage.getWidth() / 2), 600, 165, 60)) {
 				clearAllValues();
-				setDefaultValue(0);
+				setAutoFillID(0);
 				cancelButtonClick();
 				selected = 0;
 			}
@@ -264,7 +264,7 @@ public class AddPart extends Insertions {
 			g.drawString(recomendation, (int)(textBoxes.get(selected).getX() + 5), (int)(textBoxes.get(selected).getY() + textBoxes.get(selected).getHeight() + g.getFontMetrics().getHeight() + 5));
 			
 			if(click) {
-				if(Functions.isOnBox(newRectangle)) {
+				if(Functions.isOnBox(newRectangle) && getAutoFillID() == 0) {
 					System.out.println("Clicou na área");
 					values.set(selected, recomendation);
 				}else {
