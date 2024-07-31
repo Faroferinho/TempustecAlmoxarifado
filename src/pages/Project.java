@@ -533,12 +533,8 @@ public class Project {
 			if(Almoxarifado.mY > positionerY + auxTextHeight + g.getFontMetrics().getHeight() + offsetHeight
 			&& Almoxarifado.mY < positionerY + auxTextHeight + g.getFontMetrics().getHeight() + offsetHeight + add.getHeight()) {
 				if(Almoxarifado.mX > (Almoxarifado.WIDTH/3) - (add.getWidth()/2) && Almoxarifado.mX < (Almoxarifado.WIDTH/3) + (add.getWidth()/2)) {
-					PartsList.auxAddingFromMontagem = ID;
-					
-					Almoxarifado.addPart.setAutoFillID(ID);
-					
+					Almoxarifado.addPart.setIdInsertionValue(ID);
 					Almoxarifado.partsList.addPart();
-					PartsList.auxAddingFromMontagem = 0;
 					updateProject = true;
 					mouseStatus = false;
 				}

@@ -62,8 +62,6 @@ public class PartsList implements BidimensionalList{
 	BufferedImage check = Almoxarifado.imgManag.getSprite(452, 371, 21, 21);
 	BufferedImage checkBox = Almoxarifado.imgManag.getSprite(455, 395, 18, 18);
 	
-	public static int auxAddingFromMontagem = 0;
-	
 	private String orderColumn = "ID";
 	
 	public boolean isWriting = false;

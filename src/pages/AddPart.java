@@ -52,12 +52,14 @@ public class AddPart extends Insertions {
 	@Override
 	protected void writeTextOnBox() {
 		if(click) {
-						
 			for(int i = 0; i < quantity; i++) {
 				if(Functions.isOnBox(textBoxes.get(i))) {
 					//System.out.println("Ciclou na caixa de texto " + i);
 					selected = i;
 					isWriting = true;
+					if(getIdInsertionValue() != 0 && i == 0) {
+						isWriting = false;
+					}
 					recomendation = "";
 					clearIndex();
 				}
@@ -106,7 +108,6 @@ public class AddPart extends Insertions {
 	public void clearAllBoxes() {
 		clearAllValues();
 		selected = -1;
-		setAutoFillID(0);
 	}
 
 	protected boolean verifyValues(String text) {
@@ -218,18 +219,19 @@ public class AddPart extends Insertions {
 			selected = 0;
 		}
 		
+		if(getIdInsertionValue() != 0) {
+			values.set(0, DBConector.readDB("SELECT ISO FROM Montagem WHERE ID_Montagem = " + getIdInsertionValue()).replaceAll(" § \n", ""));
+		}
+		
 		writeTextOnBox();
 		
 		if(click) {
 			if(Functions.isOnBox(((Almoxarifado.WIDTH / 3) - okImage.getWidth() / 2), 600, 165, 60)) {
-				setAutoFillID(0);
+				selected = -1;
 				okButtonClick();
-				selected = 0;
-			}else if(Functions.isOnBox(((Almoxarifado.WIDTH / 3) * 2 - okImage.getWidth() / 2), 600, 165, 60)) {
+			}else if(Functions.isOnBox(((Almoxarifado.WIDTH / 3) * 2 - cancelImage.getWidth() / 2), 600, 165, 60)) {
 				clearAllValues();
-				setAutoFillID(0);
 				cancelButtonClick();
-				selected = 0;
 			}
 		}
 	}
@@ -265,7 +267,7 @@ public class AddPart extends Insertions {
 			g.drawString(recomendation, (int)(textBoxes.get(selected).getX() + 5), (int)(textBoxes.get(selected).getY() + textBoxes.get(selected).getHeight() + g.getFontMetrics().getHeight() + 5));
 			
 			if(click) {
-				if(Functions.isOnBox(newRectangle) && getAutoFillID() == 0) {
+				if(Functions.isOnBox(newRectangle)) {
 					System.out.println("Clicou na área");
 					values.set(selected, recomendation);
 				}else {

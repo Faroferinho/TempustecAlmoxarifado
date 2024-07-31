@@ -7,8 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import main.Almoxarifado;
 
 public abstract class Insertions {
@@ -40,8 +38,8 @@ public abstract class Insertions {
 	protected String recomendation = "";
 	
 	protected int middleScreenX = (Almoxarifado.WIDTH)/2;
-
-	private int autoFillID = 0;
+	
+	private int idInsertionValue = 0;
 
 	public Insertions() {
 		// TODO Auto-generated constructor stub
@@ -80,14 +78,7 @@ public abstract class Insertions {
 				textInserted = advancedWriter(textInserted, e);
 			}
 		}
-		if(getAutoFillID() != 0) {
-			JOptionPane.showMessageDialog(null, "Valor de autoFill" + getAutoFillID());
-			values.set(selected, textInserted.replaceAll("\"", "''"));
-		}else {
-			if(selected != 0) {
-				values.set(selected, textInserted.replaceAll("\"", "''"));
-			}
-		}
+		values.set(selected, textInserted.replaceAll("\"", "''"));
 		showRecomendations();
 	}
 	
@@ -192,20 +183,21 @@ public abstract class Insertions {
 		}
 	}
 	
-	public int getAutoFillID() {
-		return autoFillID;
-	}
-	
-	public void setAutoFillID(int newID) {
-		autoFillID = newID;
-	}
-	
 	protected void clearAllValues() {
 		for(int i = 0; i < quantity; i++) {
 			values.set(i, "");
 		}
 		selected = -1;
-		setAutoFillID(0);
+		setIdInsertionValue(0);
+		isWriting = false;
+	}
+	
+	public int getIdInsertionValue() {
+		return idInsertionValue;
+	}
+	
+	public void setIdInsertionValue(int AssemblyID) {
+		idInsertionValue = AssemblyID;
 	}
 	
 	protected abstract void writeTextOnBox();
