@@ -141,6 +141,16 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	}
 	
 	public static void setState(int changeState) {
+		login.mouseClick = false;
+		userProfile.mouseStatus = false;
+		partsList.mouseStatus = false;
+		projectList.mouseStatus = false;
+		archive.mouseStatus = false;
+		project.mouseStatus = false;
+		addPart.click = false;
+		addAssembly.click = false;
+		addWorker.click = false;
+		
 		state = (byte) changeState;
 	}
 	

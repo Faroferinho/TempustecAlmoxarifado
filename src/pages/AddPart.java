@@ -80,7 +80,7 @@ public class AddPart extends Insertions {
 		
 		if(verifyValues(values.get(0))) {
 			System.out.println("SELECT ID_Montagem FROM Montagem WHERE ISO LIKE '%" + values.get(0) + "%'");
-			id = DBConector.readDB("ID_Montagem", "Montagem WHERE ISO LIKE '%" + values.get(0) + "%'").replaceAll(" § \n", "");
+			id = DBConector.readDB("ID_Montagem", "Montagem WHERE ISO LIKE '%" + values.get(0) + "%' LIMIT 1").replaceAll(" § \n", "");
 		}else {
 			JOptionPane.showMessageDialog(null, "Verifique a OS da Montagem", "Erro ao adicionar a montagem", JOptionPane.ERROR_MESSAGE);
 			return;
