@@ -106,6 +106,7 @@ public class AddPart extends Insertions {
 	public void clearAllBoxes() {
 		clearAllValues();
 		selected = -1;
+		setAutoFillID(0);
 	}
 
 	protected boolean verifyValues(String text) {

@@ -80,8 +80,8 @@ public abstract class Insertions {
 				textInserted = advancedWriter(textInserted, e);
 			}
 		}
-		JOptionPane.showMessageDialog(null, "");
-		if(getAutoFillID() == 0) {
+		if(getAutoFillID() != 0) {
+			JOptionPane.showMessageDialog(null, "Valor de autoFill" + getAutoFillID());
 			values.set(selected, textInserted.replaceAll("\"", "''"));
 		}else {
 			if(selected != 0) {

@@ -93,23 +93,26 @@ public class UserInterface {
 	}
 	
 	public void checkMouse() {
-		Almoxarifado.addPart.clearAllBoxes();
-		
 		switch(setFunction(Almoxarifado.mX, Almoxarifado.mY)) {
 		case 1:
 			Almoxarifado.state = 1;
+			Almoxarifado.addPart.clearAllBoxes();
 			break;
 		case 2:
 			Almoxarifado.state = 2;
+			Almoxarifado.addPart.clearAllBoxes();
 			break;
 		case 3:
 			Almoxarifado.state = 3;
+			Almoxarifado.addPart.clearAllBoxes();
 			break;
 		case 4:
 			Almoxarifado.state = 4;
+			Almoxarifado.addPart.clearAllBoxes();
 			break;
 		case 5:
 			Functions.generatePurchaseInquery();
+			Almoxarifado.addPart.clearAllBoxes();
 			System.exit(0);
 			break;
 		}
