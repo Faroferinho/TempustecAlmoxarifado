@@ -308,10 +308,10 @@ public class PartsList implements BidimensionalList{
 	
 	public void addPart() {
 		if(Almoxarifado.quantityAssembly > 0) {
-			Almoxarifado.state = 6;
+			Almoxarifado.setState(6);
 		}else {
 			JOptionPane.showMessageDialog(null, "Para Adicionar uma peça é necessário uma Montagem", "Erro - Não Existe Montagem", JOptionPane.ERROR_MESSAGE, null);
-			Almoxarifado.state = 3;
+			Almoxarifado.setState(3);
 		}
 	}
 	
@@ -400,7 +400,7 @@ public class PartsList implements BidimensionalList{
 						
 			wasChanged = false;
 		}
-		if(Almoxarifado.state == 2) {
+		if(Almoxarifado.getState() == 2) {
 			isOnTheRightState = true;
 			Almoxarifado.frame.setTitle("Almoxarifado - Lista de Peças");
 		}else {

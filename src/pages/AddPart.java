@@ -165,14 +165,14 @@ public class AddPart extends Insertions {
 		clearAllValues();
 		
 		PartsList.wasChanged = true;
-		Almoxarifado.state = 2;
+		Almoxarifado.setState(2);
 	}
 
 	@Override
 	protected void cancelButtonClick() {
 		int toVerif = JOptionPane.showConfirmDialog(null, "Você gostaria cancelar a ação?", "Confirmar o Cancelamento", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if(toVerif == 0) {
-			Almoxarifado.state = 2;
+			Almoxarifado.setState(2);
 		}
 	}
 	

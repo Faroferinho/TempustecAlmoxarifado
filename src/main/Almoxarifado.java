@@ -40,7 +40,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
-	public static byte state = 0;
+	private static byte state = 0;
 
 	public static JFrame frame;
 	public static Toolkit tk;
@@ -134,6 +134,14 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		this.addKeyListener(this);
 		this.setFocusTraversalKeysEnabled(false);
 		System.out.println("Carregou Almoxarifado: " + LocalDateTime.now());
+	}
+	
+	public static int getState() {
+		return state;
+	}
+	
+	public static void setState(int changeState) {
+		state = (byte) changeState;
 	}
 	
 	public void tick() {

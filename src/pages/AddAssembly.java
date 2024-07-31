@@ -62,7 +62,7 @@ public class AddAssembly extends Insertions{
 		DBConector.writeDB(queryInsert);
 
 		ProjectList.updateProjectList = true;
-		Almoxarifado.state = 3;
+		Almoxarifado.setState(3);
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class AddAssembly extends Insertions{
 	protected void cancelButtonClick() {
 		int toVerif = JOptionPane.showConfirmDialog(null, "Você gostaria cancelar a ação?", "Confirmar o Cancelamento", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if(toVerif == 0) {
-			Almoxarifado.state = 3;
+			Almoxarifado.setState(3);
 		}
 	}
 

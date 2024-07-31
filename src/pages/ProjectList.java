@@ -100,7 +100,7 @@ public class ProjectList implements BidimensionalList{
 	}
 	
 	private void createNewAssembly(){
-		Almoxarifado.state = 7;
+		Almoxarifado.setState(7);
 	}
 	
 	@Override
@@ -123,7 +123,7 @@ public class ProjectList implements BidimensionalList{
 	}
 	
 	public void tick() {
-		if(Almoxarifado.state == 3) {
+		if(Almoxarifado.getState() == 3) {
 			isOnTheRightState = true;
 			Almoxarifado.frame.setTitle("Almoxarifado - Lista de Projetos");
 		}else {
@@ -177,7 +177,7 @@ public class ProjectList implements BidimensionalList{
 						Project.ID = Integer.parseInt(ids.get(changeStateIndex));
 						Project.updateProject = true;
 						Archiver.writeOnArchive("mudarPag", "" + Project.ID, "", "");
-						Almoxarifado.state = 5;
+						Almoxarifado.setState(5);
 					}else {
 						mouseStatus = false;
 						changeState = false;

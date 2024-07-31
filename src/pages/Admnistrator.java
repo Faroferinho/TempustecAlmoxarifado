@@ -136,13 +136,13 @@ public class Admnistrator extends Profile implements BidimensionalList{
 			if(addingWorker) {
 				addingWorker = false;
 				Almoxarifado.addWorker.addedFromAdmnistrator = true;
-				Almoxarifado.state = 8;
+				Almoxarifado.setState(8);
 			}
 			
 		}else {
 			if(addingWorker) {
 				addingWorker = false;
-				Almoxarifado.state = 8;
+				Almoxarifado.setState(8);
 			}
 		}
 

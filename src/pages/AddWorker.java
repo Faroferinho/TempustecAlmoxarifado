@@ -89,10 +89,10 @@ public class AddWorker extends Insertions{
 			addedFromAdmnistrator = false;
 		}
 		if(SignIn) {
-			Almoxarifado.state = 0;
+			Almoxarifado.setState(0);
 			SignIn = false;
 		}else {
-			Almoxarifado.state = 1;
+			Almoxarifado.setState(1);
 		}
 	}
 
@@ -129,9 +129,9 @@ public class AddWorker extends Insertions{
 		int toVerif = JOptionPane.showConfirmDialog(null, "Você gostaria cancelar a ação?", "Confirmar o Cancelamento", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		if(toVerif == 0) {
 			if(Almoxarifado.userProfile.getRdF().equals("")) {
-				Almoxarifado.state = 0;				
+				Almoxarifado.setState(0);				
 			}else {
-				Almoxarifado.state = 1;
+				Almoxarifado.setState(1);
 			}
 		}
 	}

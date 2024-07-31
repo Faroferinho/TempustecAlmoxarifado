@@ -86,7 +86,7 @@ public class Login {
 				}
 				
 				Archiver.writeOnArchive("login", null, null, null);
-				Almoxarifado.state = 1;
+				Almoxarifado.setState(1);
 				return;
 			}
 		}
@@ -235,7 +235,7 @@ public class Login {
 	public void tick() {
 		Almoxarifado.frame.setTitle("Almoxarifado - Login");
 		
-		if(Almoxarifado.state == 0) {
+		if(Almoxarifado.getState() == 0) {
 			isOnTheRightState = true;
 		}else {
 			isOnTheRightState = false;
@@ -305,7 +305,7 @@ public class Login {
 			g.setColor(new Color(235, 245, 178));
 			if(mouseClick) {
 				Almoxarifado.addWorker.SignIn = true;
-				Almoxarifado.state = 8;
+				Almoxarifado.setState(8);
 			}
 		}
 		g.drawString("Cadastre-se", secondBox.x  + secondBox.width - (g.getFontMetrics().stringWidth("Cadastre-se") + 15), secondBox.y + secondBox.height + g.getFontMetrics().getHeight());

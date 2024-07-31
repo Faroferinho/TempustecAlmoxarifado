@@ -135,7 +135,7 @@ public class Project {
 	}
 	
 	public void tick() {
-		if(Almoxarifado.state == 5) {
+		if(Almoxarifado.getState() == 5) {
 			isOnTheRightState = true;
 		}else {
 			isOnTheRightState = false;
@@ -291,7 +291,7 @@ public class Project {
 				Almoxarifado.quantityParts = DBConector.counterOfElements("Pecas");
 				
 				isArchiving = false;
-				Almoxarifado.state = 3;
+				Almoxarifado.setState(3);
 			}
 			
 			if(mouseStatus) {

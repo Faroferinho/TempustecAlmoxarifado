@@ -174,7 +174,7 @@ public class Functions {
 	
 	public static void generatePurchaseInquery() {
 		if(DBConector.getDB().equals("jdbc:mysql://localhost:3306/Tempustec")) {
-			if(Almoxarifado.state != 0) {
+			if(Almoxarifado.getState() != 0) {
 				if(!Almoxarifado.userProfile.getRdF().equals("")) {
 					String date = "";
 					String emailHeader = "Pedido de Peça, ";

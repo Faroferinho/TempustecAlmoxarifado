@@ -95,19 +95,19 @@ public class UserInterface {
 	public void checkMouse() {
 		switch(setFunction(Almoxarifado.mX, Almoxarifado.mY)) {
 		case 1:
-			Almoxarifado.state = 1;
+			Almoxarifado.setState(1);
 			Almoxarifado.addPart.clearAllBoxes();
 			break;
 		case 2:
-			Almoxarifado.state = 2;
+			Almoxarifado.setState(2);
 			Almoxarifado.addPart.clearAllBoxes();
 			break;
 		case 3:
-			Almoxarifado.state = 3;
+			Almoxarifado.setState(3);
 			Almoxarifado.addPart.clearAllBoxes();
 			break;
 		case 4:
-			Almoxarifado.state = 4;
+			Almoxarifado.setState(4);
 			Almoxarifado.addPart.clearAllBoxes();
 			break;
 		case 5:
@@ -157,7 +157,7 @@ public class UserInterface {
 		g.drawImage(bttnArchive, bttnX[3], bttnY, null);
 		g.drawImage(bttnExit, bttnX[4], bttnY, null);
 		
-		switch(Almoxarifado.state) {
+		switch(Almoxarifado.getState()) {
 		case 1:
 		case 8:
 			g.drawImage(bttnProfileActivated, bttnX[0], bttnY, null);

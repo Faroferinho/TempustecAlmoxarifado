@@ -101,7 +101,7 @@ public class Archive implements BidimensionalList{
 	
 	public void tick() {
 		
-		if(Almoxarifado.state == 4) {
+		if(Almoxarifado.getState() == 4) {
 			isOnTheRightState =  true;
 		}else {
 			isOnTheRightState =  false;
