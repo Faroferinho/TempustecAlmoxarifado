@@ -35,20 +35,28 @@ import pages.AddWorker;
 import pages.Admnistrator;
 
 public class Almoxarifado extends Canvas implements Runnable, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener{
+	//Inicialização das Variaveis escenciais para o usuário interagir com o sistema;
 	private static final long serialVersionUID = 1L;
 	
 	public static int WIDTH;
 	public static int HEIGHT;
 	
 	private static byte state = 0;
-
+	
+	public static int mX;
+	public static int mY;
+	public static boolean mPressed = false;
+	
+	//Iniciar classes importantes para o sistema.
 	public static JFrame frame;
 	public static Toolkit tk;
-	public static Login login;
+	public static ImageManager imgManag;
+	
+	//Paginas do Sistema
 	public static UserInterface ui;
 	public static Profile userProfile;
+	public static Login login;
 	public static PartsList partsList;
-	public static ImageManager imgManag;
 	public static ProjectList projectList;
 	public static Project project;
 	public static Archive archive;
@@ -56,27 +64,26 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static AddAssembly addAssembly;
 	public static AddWorker addWorker;
 	
+	//Criação de Multiplas Threads
 	public static Thread mainThread;
 	public static Thread fortnightVerificatorThread;
 	
-	public static int mX;
-	public static int mY;
-	public static boolean mPressed = false;
-	
+	//Variáveis que armazenam a quantidade de entradas das tabelas.
 	public static int quantityWorkers = 0;
 	public static int quantityParts = 0;
 	public static int quantityAssembly = 0;
 	public static int quantityArchives = 0;
 	public static int quantityArchiveParts = 0;
 	
-	
+	//Thread Principal:
 	public static void main(String args[]) {
-		
 		Almoxarifado almox = new Almoxarifado();
 		
+		//Instanciando as classes que são escenciais para as páginas funcionarem.
 		imgManag = new ImageManager("Spritesheet");
 		ui = new UserInterface();
 		
+		//Instanciando as Páginas
 		login = new Login();
 		userProfile = null;
 		userProfile = new Admnistrator("8523");
@@ -88,6 +95,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		addAssembly = new AddAssembly();
 		addWorker = new AddWorker();
 		
+		//Instanciando e Administrando a janela.
 		frame = new JFrame();
 		
 		frame.add(almox);
@@ -97,10 +105,10 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
 		frame.setIconImage(imgManag.TempustecIcon);
 		System.out.println("Carregou Tela: " + LocalDateTime.now());
 		
+		//Faz a contagem inicial da quantidade de Peças.
 		quantityWorkers = DBConector.counterOfElements("funcionarios");
 		quantityParts = DBConector.counterOfElements("pecas");
 		quantityAssembly = DBConector.counterOfElements("Montagem");
@@ -108,6 +116,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		quantityArchiveParts = DBConector.counterOfElements("Arquivo_Pecas");
 		System.out.println("Carregou Quantidades: " + LocalDateTime.now());
 		
+		//Dá inicio as ambas threads.
 		mainThread = new Thread(almox);
 		fortnightVerificatorThread = new Thread() {
 			public void run(){
@@ -122,6 +131,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	}
 	
 	public Almoxarifado() {
+		//Instancia e configura a janela usando os dados do computador.
 		tk = Toolkit.getDefaultToolkit();
 		
 		WIDTH = tk.getScreenSize().width;
@@ -136,6 +146,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		System.out.println("Carregou Almoxarifado: " + LocalDateTime.now());
 	}
 	
+	//Encapsulamento da variável State.
 	public static int getState() {
 		return state;
 	}
@@ -154,8 +165,13 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		state = (byte) changeState;
 	}
 	
+	/**
+	 * Função para Cotrolar e a lógica do Sistema,
+	 * Adicionando e controlando os estados das
+	 * variaveis do programa com base no state.
+	 */
 	public void tick() {
-		
+		//Verifica se alguém fechou o sistema, se entrar ele gera o inquerito de pedido.
 		if(!frame.isShowing()) {
 			Functions.generatePurchaseInquery();
 			System.exit(0);
@@ -198,6 +214,12 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		}
 	}
 	
+	/**
+	 * Uma função que desenha uma tela padrão para trabalhar
+	 * nos padroes do sistema.
+	 * 
+	 * @param g é a classe de desenho da tela.
+	 */
 	public void backgroundRender(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -224,8 +246,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 		
 		
-		//Basicamente desenho o esqueleto da UI;
-		
+		//Controlo quando vai ser desenhado cada pagina.		
 		backgroundRender(g);
 		
 		ui.clearBox(g);
