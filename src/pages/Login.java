@@ -18,19 +18,21 @@ import main.Almoxarifado;
 import main.UserInterface;
 
 public class Login {
+	//Instancia as variaveis de controle e interação do usuário.	
 	boolean isOnTheRightState = false;
 	
 	public boolean mouseClick = false;
 	
-	BufferedImage tempustecLogo = Almoxarifado.imgManag.getProjectImage("TempustecIconeLogo");
-	
+	//Instancia as variáveis de apresentar imagem.
 	int imgWidth = 222;
 	int imgHeight = 190;
 	int imgX = (Almoxarifado.WIDTH/2) - (imgWidth/2);
 	int imgY = 30;
 	
+	BufferedImage tempustecLogo = Almoxarifado.imgManag.getProjectImage("TempustecIconeLogo");
 	Image tempustec = tempustecLogo.getScaledInstance(imgWidth, imgHeight, 16);
 	
+	//Instancia as variáveis dos campos de texto.
 	int textBoxX = Almoxarifado.WIDTH/4;
 	int textBoxY = Almoxarifado.HEIGHT/5*2;
 	int textBoxW = Almoxarifado.WIDTH/2;
@@ -39,10 +41,12 @@ public class Login {
 	Rectangle firstBox = new Rectangle(textBoxX, textBoxY + 48, textBoxW, textBoxH);
 	Rectangle secondBox = new Rectangle(textBoxX, (int) (textBoxY * 1.6), textBoxW, textBoxH);
 	
+	//Instancia a imagem e posição do botão de login.
 	BufferedImage loginBttn = Almoxarifado.imgManag.getSprite(0, 0, 215, 60);
 	int bttnX = (Almoxarifado.WIDTH/2) - (loginBttn.getWidth()/2);
 	int bttnY = Almoxarifado.HEIGHT/16*13;
 	
+	//Instancia as variáveis de controle das caixas de texto. 
 	String textInBoxCPF = "";
 	String textInBoxPW = "";
 	public boolean isOnCPF = false;
@@ -60,21 +64,30 @@ public class Login {
 	private int cursorAuxPositioner = 0;
 	private int cursorIndex = 0;
 	
+	/**
+	 * Construtor da pagina de Login.
+	 */
 	public Login() {
 		System.out.println("Carregou Login: " + LocalDateTime.now());
 	}
 	
+	/**
+	 * Método que verifica se é uma conta ou senha validos 
+	 * e posteriormente define o perfil do usuário com base 
+	 * no tipo após o login.
+	 */
 	private void submitForm() {
-		
+		// Pega os dados dos funcionarios do banco de dados.
 		String rawRegisters = DBConector.readDB("CPF", "Funcionarios");
 		String rawPasswords = DBConector.readDB("password", "Funcionarios");
 		
 		String[] registers = rawRegisters.split(" § \n");
 		String[] passwords = rawPasswords.split(" § \n");
 		
+		// Verifica o valor da montagem está na lista de ambos a conta e senha.
 		for(int i = 0; i < registers.length; i++) {
 			if(textInBoxCPF.equals(registers[i]) && textInBoxPW.equals(passwords[i])) {
-				
+				// Coloca os dados do banco de dados na pagina adequada e muda o estado para login.
 				String auxString = "";
 				auxString = DBConector.readDB("*", "Funcionarios", "CPF", textInBoxCPF);
 				String[] toConfig = auxString.split(" § ");
@@ -95,6 +108,14 @@ public class Login {
 		
 	}
 	
+	/**
+	 * Metodo de formatar o CPF para que o dado em sí 
+	 * não seja formatado para o banco de dados, apenas 
+	 * quando exibido.
+	 * 
+	 * @param CPF - O CPF em forma de texto para ser formatado
+	 * @return CPF formatado na norma XXX.XXX.XXX-XX.
+	 */
 	private String cpfFormater(String CPF) {
 		String toReturn = "";
 		
@@ -130,6 +151,13 @@ public class Login {
 		return toReturn;
 	}
 	
+	/**
+	 * Basicamente transforma a String da senha em uma 
+	 * sequencia de asteristicos.
+	 * 
+	 * @param pw - Senha a ser formatada
+	 * @return Conjunto de asteristicos do tamanho da senha real.
+	 */
 	private String censoringPassword(String pw) {
 		String returnString = "";
 		
@@ -140,6 +168,13 @@ public class Login {
 		return returnString;
 	}
 	
+	/**
+	 * Adiciona o texto inserido do usuario as caixas de texto.
+	 * 
+	 * @param text - texto original.
+	 * @param toAdd - texto a ser adicionado.
+	 * @return O texto original intercalado com o texto novo.
+	 */
 	private String writer(String text, String toAdd) {
 		String toReturn = "";
 		
@@ -166,6 +201,13 @@ public class Login {
 		return toReturn;
 	}
 	
+	/**
+	 * Metodo para gerar o texto novo inserido pelo usuário,
+	 * algumas teclas geram um comportamento especial, como 
+	 * alterar a posição do cursor.
+	 * 
+	 * @param e - Evento do teclado pressionado.
+	 */
 	public void writingOnCanvas(KeyEvent e) {
 		if(isOnCPF) {
 			if((e.getKeyCode() > 47 && e.getKeyCode() < 58) || (e.getKeyCode() > 95 && e.getKeyCode() < 106)) {
@@ -232,6 +274,13 @@ public class Login {
 		
 	}
 	
+	/**
+	 * Verifica se o estado é valido e então aguarda pelo usuário
+	 * interagir com o sistema. Com os campos preenchidos ele efetua
+	 * o login e verifica se está ou não valido as creedenciais do 
+	 * usuário. Após a validação o sistema muda para o perfil do 
+	 * usuário.
+	 */
 	public void tick() {
 		Almoxarifado.frame.setTitle("Almoxarifado - Login");
 		
@@ -273,7 +322,12 @@ public class Login {
 		}
 	}
 
-	
+	/**
+	 * Desenha a tela de login e as caixas de texto, junto com o texto 
+	 * que os acompanha.
+	 * 
+	 * @param g - Metodo de desenho da janela.
+	 */
 	public void render(Graphics g) {
 		g.fillRect(0, 0, Almoxarifado.WIDTH, Almoxarifado.HEIGHT);
 		g.setColor(new Color(126, 126, 126));

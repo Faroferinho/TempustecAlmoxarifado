@@ -22,7 +22,7 @@ import main.Almoxarifado;
 import main.UserInterface;
 
 public class PartsList implements BidimensionalList{
-	
+	//Instancia as variaveis de controle e de conteudo.
 	private boolean isOnTheRightState = false;
 	
 	public String toSplit = DBConector.readDB("*", "pecas");
@@ -42,17 +42,17 @@ public class PartsList implements BidimensionalList{
 	private double thumbAuxY = 0;
 	public boolean isDragging = false;
 	
-	
-	public boolean mouseStatus = false;
-	
-	static boolean wasChanged = true;
-	
 	int total = Almoxarifado.WIDTH - 50*2;
 	int characterLimitPerLine = (int) ((total*28)/100);;
 	boolean multipleDescriptionLinesMark = false;
 	int auxHeight = 125 + offsetHeight;
 	int auxWidth = 50;		
 	int descriptionOffsetHeight = 1;
+	
+	//Instancia as variáveis de interação com o usuário.
+	public boolean mouseStatus = false;
+	
+	static boolean wasChanged = true;
 	
 	boolean isEliminating = false;
 	int indexToEliminate = -1;
@@ -74,13 +74,24 @@ public class PartsList implements BidimensionalList{
 	boolean blink = false;
 	int blinkAux = 0;
 
+	/**
+	 * Cria a lista de Peças para ser desenhada posteriormente.
+	 */
 	public PartsList() {
 		finalPartsTable = listBreaker(toSplit);
 		
 		System.out.println("Carregou Lista de Peças: " + LocalDateTime.now());
 	}
 	
-	private static String getKey(String value) {		
+	/**
+	 * Pega a primeira chave de uma HashMap dentro do 
+	 * assembliesHM HashMap que bate com o conteudo no 
+	 * parametro.
+	 * 
+	 * @param value - Texto qualquer que possa estar na assembliesHM.
+	 * @return Valor da primeira chave encontrada com esse conteudo.
+	 */
+	private static String getKey(String value) {
 		for (Entry<String, String> entry : assembliesHM.entrySet()) {
 	        if (Objects.equals(value, entry.getValue())) {
 	            return entry.getKey();
@@ -90,6 +101,16 @@ public class PartsList implements BidimensionalList{
 		return "";
 	}
 	
+	/**
+	 * Função que pega uma String e transforma ela na 
+	 * matiz para ser desenhada. Essa pega a variável 
+	 * e separa ela em linhas e então colunas, separando 
+	 * as linhas pelo conjunto de caracteres "\n" e as 
+	 * colunas pelo conjunto de caracteres " § ".
+	 * 
+	 * @param toSplit - Lista de informações do banco de dados.
+	 * @return Matriz bidimensional com os dados separados em linhas e colunas.
+	 */
 	private String[][] listBreaker(String toSplit){
 		String linesToBreakdown[] = toSplit.split("\n");
 		String returnString[][] = new String[linesToBreakdown.length + 1][8];
@@ -121,6 +142,14 @@ public class PartsList implements BidimensionalList{
 		return returnString;
 	}
 	
+	/**
+	 * Função que altera os dados da lista de peças usando 
+	 * o index e a column, assim achando o ID e a Coluna 
+	 * respectivamente
+	 * 
+	 * @param index - Alinhamento horizontal da matrix.
+	 * @param column - Alinhamento vertical da matrix.
+	 */
 	public static void changePart(String index, int column) {
 		String columnName =  "";
 		String auxString = "";
@@ -234,6 +263,11 @@ public class PartsList implements BidimensionalList{
 		wasChanged = true;
 	}
 	
+	/**
+	 * 
+	 * @param text
+	 * @return
+	 */
 	static String formatNumb(String text) {
 		String toReturn = "";
 		
@@ -248,6 +282,12 @@ public class PartsList implements BidimensionalList{
 		return toReturn;
 	}
 	
+	/**
+	 * Preenche o Hashmap contendo os valores da lista de Montagens 
+	 * com os ids e OS.
+	 * 
+	 * @return HashMap com Ids e as Ordens de Serviços das montagens.
+	 */
 	public static HashMap<String, String> fillAssembliesName() {
 		HashMap<String, String> returnHashMap = new HashMap<>();
 		
@@ -271,6 +311,13 @@ public class PartsList implements BidimensionalList{
 		return finalPartsTable[firstLine][i];
 	}
 	
+	/**
+	 * Verifica se o valor da String não é valido, respondendo a 
+	 * variável de acordo.
+	 * @param text - String para ser verificada.
+	 * @return true se o valor for igual a null, 
+	 * 		   false caso contrario.
+	 */
 	private static boolean verifyString(String text) {
 		if(text.equals("null")) {
 			return true;
@@ -279,6 +326,12 @@ public class PartsList implements BidimensionalList{
 		}
 	}
 	
+	/**
+	 * Valores genericos para serem inseridos ao adicionar texto.
+	 * @deprecated Use o metodo fillDefaultValues.
+	 * @param index - Colunas da tabela do banco de dados.
+	 * @return - String generica adequada para a tabela de peças.
+	 */
 	private static String autoFill(int index) {
 		String toReturn = "";
 		
@@ -299,6 +352,14 @@ public class PartsList implements BidimensionalList{
 		return toReturn;
 	}
 
+	/**
+	 * Modifica o texto para que ele seja compativel com o 
+	 * metodo {@link functions.DBConector#writeDB(String)}, 
+	 * substituindo as aspas duplas por duas aspas simples.
+	 * 
+	 * @param text - Texto para ser formatado.
+	 * @return texto formatado.
+	 */
 	private static String correctQuotation(String text) {
 		text = text.replaceAll("\"", "''");
 		

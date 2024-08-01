@@ -54,8 +54,8 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	
 	//Paginas do Sistema
 	public static UserInterface ui;
-	public static Profile userProfile;
 	public static Login login;
+	public static Profile userProfile;
 	public static PartsList partsList;
 	public static ProjectList projectList;
 	public static Project project;

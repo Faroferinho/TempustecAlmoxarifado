@@ -34,7 +34,7 @@ public abstract class Profile {
 	/**
 	 * Interface que pega os valores do banco de dados de registro, nome e CPF do usuário.
 	 * 
-	 * @param RdF
+	 * @param RdF - Id do funcionario.
 	 */
 	public Profile(String RdF) {
 		rdf = RdF;

@@ -7,6 +7,12 @@ import main.UserInterface;
 
 public class Employee extends Profile{
 	
+	/**
+	 * Atribui os valores do banco de dados com 
+	 * as variáveis do funcionario.
+	 * 
+	 * @param RdF - ID do Funcionario.
+	 */
 	public Employee(String RdF){
 		super(RdF);
 	}
