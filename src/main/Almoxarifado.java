@@ -177,6 +177,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			System.exit(0);
 		}
 		
+		//Controla a lógica da pagina.
 		switch(state) {
 		case 0:
 			login.tick();
@@ -231,6 +232,10 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		g.fillRoundRect(23, 23, WIDTH-46, HEIGHT-46, 10, 10);
 	}
 	
+	/**
+	 * A função que desenha o sistema.
+	 * 
+	 */
 	public void render() {
 		// Eu crio uma BufferStrategy, ou seja, guardo memória para poder mostrar a prox. imagem;
 		BufferStrategy bs = this.getBufferStrategy();
@@ -280,6 +285,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			break;
 		}
 		
+		//desenha a interface de usuário comum de todas as paginas em qualquer pagina exceto pelo login.
 		if(state != 0) {
 			ui.limitScrollToWorkspaceArea(g);
 			ui.render(g);
@@ -288,6 +294,18 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		bs.show();
 	}
 	
+	/**
+	 * Desenha texto com borda em volta dele.
+	 * Sempre define a cor como a cor do texto.
+	 * 
+	 * @param 	g - Graficos de Desenho da Janela.
+	 * @param	text - O Texto a ser desenhado.
+	 * @param	x - Altura inicial do Texto.
+	 * @param	y - Largura inicial do Texto.
+	 * @param	borderThickness - Grossura da borda.
+	 * @param 	borderColor - Cor da borda.
+	 * @param	textColor - Cor do Texto.
+	 */
 	public static void drawStringBorder(Graphics g, String text, int x, int y, int borderThickness, Color borderColor, Color textColor) {
 		g.setColor(borderColor);
 		
