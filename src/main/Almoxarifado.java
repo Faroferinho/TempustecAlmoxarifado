@@ -300,8 +300,8 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	 * 
 	 * @param 	g - Graficos de Desenho da Janela.
 	 * @param	text - O Texto a ser desenhado.
-	 * @param	x - Altura inicial do Texto.
-	 * @param	y - Largura inicial do Texto.
+	 * @param	x - Largura inicial do Texto.
+	 * @param	y - Altura inicial do Texto.
 	 * @param	borderThickness - Grossura da borda.
 	 * @param 	borderColor - Cor da borda.
 	 * @param	textColor - Cor do Texto.
@@ -324,6 +324,8 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 	}
 
+	//Abaixo seguem as funções das interfaçes.
+	
 	@Override
 	public void run() {
 		while(true) {

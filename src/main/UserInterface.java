@@ -10,6 +10,7 @@ import functions.Functions;
 
 public class UserInterface {
 	
+	//Posicionamento inicial e tamanho dos botões de controle 
 	public static int bttnX[] = new int[5];
 	public static int bttnY = 30;
 	
@@ -17,6 +18,7 @@ public class UserInterface {
 	public static int boxWidthSmall = 165;
 	public static int boxHeight = 60;
 	
+	//Imagem dos botões
 	public BufferedImage bttnProfile;
 	public BufferedImage bttnParts;
 	public BufferedImage bttnAssembly;
@@ -27,10 +29,16 @@ public class UserInterface {
 	public BufferedImage bttnAssemblyActivated;
 	public BufferedImage bttnArchiveActivated;
 	
+	//Velocidade e configuração de altura para o scroll das paginas.
 	public static int spd = 24;
 	
 	public static int maximunHeight = Almoxarifado.HEIGHT - (bttnY + boxHeight + 12) - 40;
 
+	/**
+	 * Classe que organiza a logica e o desenho das montagens em uma classe,
+	 * contendo as imagens dos botões, os posicionamentos e as funções de interação
+	 * usuário com o sistema.
+	 */
 	public UserInterface() {
 		bttnX[0] = ( Almoxarifado.WIDTH / (bttnX.length + 1)) -      (boxWidthBig / 2);
 		bttnX[1] = ((Almoxarifado.WIDTH / (bttnX.length + 1)) * 2) - (boxWidthBig / 2);
@@ -52,6 +60,11 @@ public class UserInterface {
 		System.out.println("Carregou UserInterface: " + LocalDateTime.now());
 	}
 	
+	/**
+	 * Função que desenha por cima da imagem atual para definir a área em que os botões vão ser desenhados e delimita a área do trabalho das páginas.
+	 * 
+	 * @param g - Mecanismo de desenho na pagina.
+	 */
 	public void clearBox(Graphics g) {
 		g.setColor(Color.orange);
 		g.fillRoundRect(30, bttnY + boxHeight + 12, Almoxarifado.WIDTH - 30*2, Almoxarifado.HEIGHT - (bttnY + boxHeight + 12 + 30), 11, 11);
@@ -60,6 +73,11 @@ public class UserInterface {
 		g.fillRect(36, bttnY + boxHeight + 18, Almoxarifado.WIDTH - 36*2, Almoxarifado.HEIGHT - (bttnY + boxHeight + 12 + 30 + 12));
 	}
 	
+	/**
+	 * Desenha a área de trabalho para as paginas poderem desenhar na tela.
+	 * 
+	 * @param g - Mecanismo de desenho na pagina.
+	 */
 	public void limitScrollToWorkspaceArea(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(35, 0, Almoxarifado.WIDTH - 35*2, 10);
@@ -78,7 +96,16 @@ public class UserInterface {
 		g.fillRect(35, Almoxarifado.HEIGHT - 36, Almoxarifado.WIDTH - 35*2, 6);
 	}
 	
-	public int setFunction(int mx, int my){
+	/**
+	 * Função que verifica se o mouse do usuário está dentro dos
+	 * botões da interface de usuário. Verificando inicialmente a
+	 * posição X e posteriormente a posição Y. 
+	 * 
+	 * @param mx - Ponto na largura.
+	 * @param my - Ponto na altura.
+	 * @return Qual botão foi pressionado. Por padrão retorna -1, caso contrario retorna o valor do botão pressionado.
+	 */
+	private int setFunction(int mx, int my){
 		
 		if(my > bttnY && my < bttnY + boxHeight) {
 			for(int i = 0; i < 5; i++) {
@@ -92,6 +119,9 @@ public class UserInterface {
 		
 	}
 	
+	/**
+	 * Define qual pagina está ativa no momento atraves do state usando o mouse X e Y.
+	 */
 	public void checkMouse() {
 		switch(setFunction(Almoxarifado.mX, Almoxarifado.mY)) {
 		case 1:
@@ -118,6 +148,16 @@ public class UserInterface {
 		}
 	}
 	
+	/**
+	 * Função para verificar se o ponto em questão está em um dos 
+	 * botões maiores. Se o ponto está por cima de um botão, cria 
+	 * uma mascara transparente por cima do botão para indicar 
+	 * que é clicavel.
+	 * 
+	 * @param g - Mecanismo de desenho da Janela.
+	 * @param pX - Ponto inicial do botão no eixo X.
+	 * @param pY - Ponto inicial do botão no eixo Y.
+	 */
 	public static void isOnBigButton(Graphics g, int pX, int pY) {
 		if(Almoxarifado.mX > pX && Almoxarifado.mX < pX + boxWidthBig) {
 			if(Almoxarifado.mY > pY && Almoxarifado.mY < pY + boxHeight) {
@@ -127,6 +167,16 @@ public class UserInterface {
 		}
 	}
 	
+	/**
+	 * Função para verificar se o ponto em questão está em um dos 
+	 * botões menores. Se o ponto está por cima de um botão, cria 
+	 * uma mascara transparente por cima do botão para indicar 
+	 * que é clicavel.
+	 * 
+	 * @param g
+	 * @param pX
+	 * @param pY
+	 */
 	public static void isOnSmallButton(Graphics g, int pX, int pY) {
 		if(Almoxarifado.mX > pX && Almoxarifado.mX < pX + boxWidthSmall) {
 			if(Almoxarifado.mY > pY && Almoxarifado.mY < pY + boxHeight) {
@@ -136,6 +186,14 @@ public class UserInterface {
 		}
 	}
 	
+	/**
+	 * Função que desenha um campo de texto para serem inseridos os campos
+	 * dos dados de inserção.
+	 * 
+	 * @param g - Mecanismo de desenho na janela.
+	 * @param r - retangulo com as dimensões definidas.
+	 * @param roundness - curvatura do retangulo arredondado.
+	 */
 	public static void createTextBox(Graphics g, Rectangle r, int roundness) {
 		g.setColor(Color.white);
 		g.fillRoundRect(r.x, r.y, r.width, r.height, roundness, roundness);
@@ -143,6 +201,10 @@ public class UserInterface {
 		g.drawRoundRect(r.x, r.y, r.width, r.height, roundness, roundness);
 	}
 
+	/**
+	 * Função que checa quando você clicar e valida as açãos da 
+	 * interface de usuário.
+	 */
 	public void tick() {
 		if(Almoxarifado.mPressed) {
 			checkMouse();
@@ -150,6 +212,11 @@ public class UserInterface {
 		}
 	}
 	
+	/**
+	 * Função que desenha os botões e desenha qual estado está ativo no momento.
+	 * 
+	 * @param g - Mecanismo de desenho da janela.
+	 */
 	public void render(Graphics g) {
 		g.drawImage(bttnProfile, bttnX[0], bttnY, null);
 		g.drawImage(bttnParts, bttnX[1], bttnY, null);
