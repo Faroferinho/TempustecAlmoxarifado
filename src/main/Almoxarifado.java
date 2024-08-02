@@ -41,8 +41,55 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int WIDTH;
 	public static int HEIGHT;
 	
+	/**
+	 * State é o que controla qual pagina o sistema está
+	 */
 	private static byte state = 0;
-	private static byte loginState = 0;
+	
+	/**
+	 * Estado em que o a pagina ativa é a pagina de login. Seu valor é 0 
+	 */
+	public static final byte loginState = 0;
+
+	/**
+	 * Estado em que o a pagina ativa é a pagina do Perfil do Usuário. Seu valor é 1 
+	 */
+	public static final byte profileState = 1;
+
+	/**
+	 * Estado em que o a pagina ativa é a pagina da Lista de Peças. Seu valor é 2 
+	 */
+	public static final byte partsListState = 2;
+
+	/**
+	 * Estado em que o a pagina ativa é a pagina da Lista de Montagens. Seu valor é 3 
+	 */
+	public static final byte assemblyListState = 3;
+
+	/**
+	 * Estado em que o a pagina ativa é a pagina de Arquivo de Montagem. Seu valor é 4 
+	 */
+	public static final byte archiveState = 4;
+
+	/**
+	 * Estado em que o a pagina ativa é a pagina do Perfil da Montagem. Seu valor é 5 
+	 */
+	public static final byte assemblyState = 5;
+
+	/**
+	 * Estado em que o a pagina ativa é a pagina de Adição de Peças. Seu valor é 6 
+	 */
+	public static final byte addPartState = 6;
+
+	/**
+	 * Estado em que o a pagina ativa é a pagina de Adição de Montagem. Seu valor é 7 
+	 */
+	public static final byte addAssemblyState = 7;
+
+	/**
+	 * Estado em que o a pagina ativa é a pagina de Adição de Funcionario. Seu Valor é 8
+	 */
+	public static final byte addWorkerState = 8;
 	
 	public static int mX;
 	public static int mY;
@@ -180,31 +227,31 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 		//Controla a lógica da pagina.
 		switch(state) {
-		case 0:
+		case loginState:
 			login.tick();
 			break;
-		case 1:
+		case profileState:
 			userProfile.tick();
 			break;
-		case 2:
+		case partsListState:
 			partsList.tick();
 			break;
-		case 3:
+		case assemblyListState:
 			projectList.tick();
 			break;
-		case 4:
+		case archiveState:
 			archive.tick();
 			break;
-		case 5:
+		case assemblyState:
 			project.tick();
 			break;
-		case 6:
+		case addPartState:
 			addPart.tick();
 			break;
-		case 7:
+		case addAssemblyState:
 			addAssembly.tick();
 			break;
-		case 8:
+		case addWorkerState:
 			addWorker.tick();
 			break;
 		default:
@@ -257,31 +304,31 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 		ui.clearBox(g);
 		switch(state) {
-		case 0:
+		case loginState:
 			login.render(g);
 			break;
-		case 1:
+		case profileState:
 			userProfile.render(g);
 			break;
-		case 2: 
+		case partsListState: 
 			partsList.render(g);
 			break;
-		case 3:
+		case assemblyListState:
 			projectList.render(g);
 			break;
-		case 4:
+		case archiveState:
 			archive.render(g);
 			break;
-		case 5:
+		case assemblyState:
 			project.render(g);
 			break;
-		case 6:
+		case addPartState:
 			addPart.render(g);
 			break;
-		case 7:
+		case addAssemblyState:
 			addAssembly.render(g);
 			break;
-		case 8:
+		case addWorkerState:
 			addWorker.render(g);
 			break;
 		}
@@ -351,28 +398,28 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 			mPressed = true;
 			login.mouseClick = true;
 			switch(state) {
-			case 1:
+			case profileState:
 				userProfile.mouseStatus = true;
 				break;
-			case 2:
+			case partsListState:
 				partsList.mouseStatus = true;
 				break;
-			case 3:
+			case assemblyListState:
 				projectList.mouseStatus = true;
 				break;
-			case 4:
+			case archiveState:
 				archive.mouseStatus = true;
 				break;
-			case 5:
+			case assemblyState:
 				project.mouseStatus = true;
 				break;
-			case 6:
+			case addPartState:
 				addPart.click = true;
 				break;
-			case 7:
+			case addAssemblyState:
 				addAssembly.click = true;
 				break;
-			case 8:
+			case addWorkerState:
 				addWorker.click = true;
 				break;
 			}
@@ -384,31 +431,31 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		mPressed = false;
 		
 		switch(state) {
-		case 0:
+		case loginState:
 			login.mouseClick = false;
 			break;
-		case 1:
+		case profileState:
 			userProfile.mouseStatus = false;
 			break;
-		case 2:
+		case partsListState:
 			partsList.mouseStatus = false;
 			break;
-		case 3:
+		case assemblyListState:
 			projectList.mouseStatus = false;
 			break;
-		case 4:
+		case archiveState:
 			archive.mouseStatus = false;
 			break;
-		case 5:
+		case assemblyState:
 			project.mouseStatus = false;
 			break;
-		case 6:
+		case addPartState:
 			addPart.click = false;
 			break;
-		case 7:
+		case addAssemblyState:
 			addAssembly.click = false;
 			break;
-		case 8:
+		case addWorkerState:
 			addWorker.click = false;
 			break;
 		}
@@ -457,19 +504,19 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		switch(state) {
-		case 1:
+		case profileState:
 			
 			break;
-		case 2:
+		case partsListState:
 			PartsList.scroll = e.getUnitsToScroll();
 			break;
-		case 3:
+		case assemblyListState:
 			ProjectList.scroll = e.getUnitsToScroll();
 			break;
-		case 4:
+		case archiveState:
 			Archive.scroll = e.getUnitsToScroll();
 			break;
-		case 5:
+		case assemblyState:
 			Project.scroll = e.getUnitsToScroll();
 			break;
 		}
@@ -484,30 +531,30 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 		
 		System.out.println("O Caractere " + e.getKeyChar() + " tem como código " + e.getExtendedKeyCode());
 		
-		if(state == 0) {
+		if(state == loginState) {
 			if(login.isWriting) {
 				login.writingOnCanvas(e);
 			}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 				login.isWriting = true;
 				login.isOnCPF = true;
 			}
-		}else if(state == 2) {
+		}else if(state == partsListState) {
 			if(partsList.isWriting) {
 				partsList.getText(e);
 			}
-		}else if(state == 6) {
+		}else if(state == addPartState) {
 			if(addPart.isWriting == true) {
 				addPart.writer(e);
 			}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 				addPart.isWriting = true;				
 			}
-		}else if(state == 7) {
+		}else if(state == addAssemblyState) {
 			if(addAssembly.isWriting == true) {
 				addAssembly.writer(e);
 			}else if(e.getKeyCode() == KeyEvent.VK_TAB) {
 				addAssembly.isWriting = true;				
 			}
-		}else if(state == 8) {
+		}else if(state == addWorkerState) {
 			if(addWorker.isWriting == true) {
 				addWorker.writer(e);
 			}else if(e.getKeyCode() == KeyEvent.VK_TAB) {

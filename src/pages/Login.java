@@ -284,7 +284,7 @@ public class Login {
 	public void tick() {
 		Almoxarifado.frame.setTitle("Almoxarifado - Login");
 		
-		if(Almoxarifado.getState() == 0) {
+		if(Almoxarifado.getState() == Almoxarifado.loginState) {
 			isOnTheRightState = true;
 		}else {
 			isOnTheRightState = false;

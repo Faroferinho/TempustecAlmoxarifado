@@ -2348,3 +2348,17 @@ O Usuário 8523 alterou O Projeto de ID = 25, passou de ---------- para Electrol
 
 O Usuário 8523 modou para o projeto 1 - Horario: 2024-08-02T08:20:20.300733500
 
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-08-02T14:23:13.735911300
+
+O Usuário 8523 modou para o projeto 2 - Horario: 2024-08-02T14:23:19.679706300
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-08-02T15:04:31.834154
+
+O Usuário 8523 modou para o projeto 5 - Horario: 2024-08-02T15:04:40.419837500
+
+O Usuário 8523 alterou a peça ID_Parts.1323, passou de 0 para 1 - Horario: 2024-08-02T15:06:12.324105600
+
+O Usuário 8523 alterou a peça ID_Parts.1324, passou de 0 para 1 - Horario: 2024-08-02T15:06:12.724728800
+

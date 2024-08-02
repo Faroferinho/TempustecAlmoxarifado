@@ -499,7 +499,7 @@ public class PartsList implements BidimensionalList{
 						
 			wasChanged = false;
 		}
-		if(Almoxarifado.getState() == 2) {
+		if(Almoxarifado.getState() == Almoxarifado.partsListState) {
 			isOnTheRightState = true;
 			Almoxarifado.frame.setTitle("Almoxarifado - Lista de Peças");
 		}else {

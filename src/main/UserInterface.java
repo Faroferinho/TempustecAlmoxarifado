@@ -225,20 +225,20 @@ public class UserInterface {
 		g.drawImage(bttnExit, bttnX[4], bttnY, null);
 		
 		switch(Almoxarifado.getState()) {
-		case 1:
-		case 8:
+		case Almoxarifado.profileState:
+		case Almoxarifado.addWorkerState:
 			g.drawImage(bttnProfileActivated, bttnX[0], bttnY, null);
 			break;
-		case 2:
-		case 6:
+		case Almoxarifado.partsListState:
+		case Almoxarifado.addPartState:
 			g.drawImage(bttnPartsActivated, bttnX[1], bttnY, null);
 			break;
-		case 3:
-		case 5:
-		case 7:
+		case Almoxarifado.assemblyListState:
+		case Almoxarifado.assemblyState:
+		case Almoxarifado.addAssemblyState:
 			g.drawImage(bttnAssemblyActivated, bttnX[2], bttnY, null);
 			break;
-		case 4:
+		case Almoxarifado.archiveState:
 			g.drawImage(bttnArchiveActivated, bttnX[3], bttnY, null);
 			break;
 		}

@@ -155,10 +155,10 @@ public class Project {
 	}
 	
 	/**
-	 * 
+	 * Verifica e Ativa as funções desejadas pelo usuário na página de Montagens, 
 	 */
 	public void tick() {
-		if(Almoxarifado.getState() == 5) {
+		if(Almoxarifado.getState() == Almoxarifado.assemblyState) {
 			isOnTheRightState = true;
 		}else {
 			isOnTheRightState = false;

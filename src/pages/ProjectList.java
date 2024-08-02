@@ -144,7 +144,7 @@ public class ProjectList implements BidimensionalList{
 	 * do usuário com o sistema, a validade da adição de montagens. 
 	 */
 	public void tick() {
-		if(Almoxarifado.getState() == 3) {
+		if(Almoxarifado.getState() == Almoxarifado.assemblyListState) {
 			isOnTheRightState = true;
 			Almoxarifado.frame.setTitle("Almoxarifado - Lista de Projetos");
 		}else {
