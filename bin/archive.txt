@@ -2328,3 +2328,23 @@ O Usuário 8523 efetuou login - Horario: 2024-07-31T15:37:24.727446900
 --------------------------------------------------------------------------------------
 O Usuário 8523 efetuou login - Horario: 2024-08-01T09:27:29.260171600
 
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-08-02T08:18:00.170292800
+
+--------------------------------------------------------------------------------------
+O Usuário 8523 efetuou login - Horario: 2024-08-02T08:18:39.998166600
+
+O Usuário 8523 modou para o projeto 26 - Horario: 2024-08-02T08:18:48.788245200
+
+O Usuário 8523 alterou O Projeto de ID = 26, passou de ---------- para Sistema de Leitura de Posição do Eixo - Horario: 2024-08-02T08:19:26.612447900
+
+O Usuário 8523 alterou O Projeto de ID = 26, passou de ---------- para Tecumseh - Horario: 2024-08-02T08:19:35.140229300
+
+O Usuário 8523 alterou o Projeto de ID = 26, passou de ---------- para Sistema de Leitura de Posição do Eixo - Horario: 2024-08-02T08:19:46.433016
+
+O Usuário 8523 modou para o projeto 25 - Horario: 2024-08-02T08:19:57.474557900
+
+O Usuário 8523 alterou O Projeto de ID = 25, passou de ---------- para Electrolux - Horario: 2024-08-02T08:20:03.721897700
+
+O Usuário 8523 modou para o projeto 1 - Horario: 2024-08-02T08:20:20.300733500
+

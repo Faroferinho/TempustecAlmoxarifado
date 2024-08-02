@@ -15,27 +15,29 @@ import main.Almoxarifado;
 import main.UserInterface;
 
 public class Project {
-	
+	//Dados da Montagem.
 	static int ID = 1;
 	static String name = "";
 	static String description = "";
 	static String company = "";
 	static String imgAdress = "";
 	
+	static double price = 0.0;
+	
 	private String rawPartsList = "";
 	private ArrayList<String> separetedList = new ArrayList<>();
 	
+	//Adiciona as imagens, como a imagem da montagem, de editar informações
 	BufferedImage img;
-	BufferedImage editProfile = Almoxarifado.imgManag.getSprite(475, 60*3, 165, 60);
-	BufferedImage archiveProfile = Almoxarifado.imgManag.getSprite(475, 60*4, 165, 60);
-	BufferedImage isEditingProfile = Almoxarifado.imgManag.getSprite(165, 510, 165, 60);
+	BufferedImage editAssembly = Almoxarifado.imgManag.getSprite(475, 60*3, 165, 60);
+	BufferedImage archiveAssembly = Almoxarifado.imgManag.getSprite(475, 60*4, 165, 60);
+	BufferedImage isEditingAssembly = Almoxarifado.imgManag.getSprite(165, 510, 165, 60);
 	BufferedImage add = Almoxarifado.imgManag.getSprite(475, 60*6, 165, 60);
 	BufferedImage remove = Almoxarifado.imgManag.getSprite(475, 60*8, 165, 60);
 	BufferedImage check = Almoxarifado.imgManag.getSprite(452, 371, 21, 21);
 	BufferedImage checkBox = Almoxarifado.imgManag.getSprite(455, 395, 18, 18);
 	
-	static double price = 0.0;
-	
+	//Instanciando variaveis de manipulação do usuário.
 	public static boolean updateProject = true;
 	private boolean isOnTheRightState = false;
 
@@ -588,12 +590,12 @@ public class Project {
 			
 			
 			if(!isEditing) {
-				g.drawImage(editProfile, Almoxarifado.WIDTH - 128 - 100, imgY + offsetHeight, null);
+				g.drawImage(editAssembly, Almoxarifado.WIDTH - 128 - 100, imgY + offsetHeight, null);
 			}else {
-				g.drawImage(isEditingProfile, Almoxarifado.WIDTH - 128 - 100, imgY + offsetHeight, null);
+				g.drawImage(isEditingAssembly, Almoxarifado.WIDTH - 128 - 100, imgY + offsetHeight, null);
 			}
 			
-			g.drawImage(archiveProfile, Almoxarifado.WIDTH - 128 - 100, imgY + 64 + (img.getHeight() - 64*2) + offsetHeight, null);
+			g.drawImage(archiveAssembly, Almoxarifado.WIDTH - 128 - 100, imgY + 64 + (img.getHeight() - 64*2) + offsetHeight, null);
 			
 			UserInterface.isOnSmallButton(g, Almoxarifado.WIDTH - 128 - 100, imgY + offsetHeight);
 			UserInterface.isOnSmallButton(g, Almoxarifado.WIDTH - 128 - 100, imgY + 64 + (img.getHeight() - 64*2) + offsetHeight);

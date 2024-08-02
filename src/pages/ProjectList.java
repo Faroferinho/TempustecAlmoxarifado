@@ -19,7 +19,7 @@ import main.UserInterface;
 import functions.BidimensionalList;
 
 public class ProjectList implements BidimensionalList{
-	
+	// Instanciando as variaveis de controle e posicionamento de Imagem.
 	static boolean isOnTheRightState = false;
 	
 	static int imgX;
@@ -30,28 +30,7 @@ public class ProjectList implements BidimensionalList{
 	int initX =  (int) (Almoxarifado.WIDTH/3 - (boxWidth + spaceBetween));
 	int initY = UserInterface.bttnY*2 + UserInterface.boxHeight*2 + 30;
 	int boxBorder = 30;
-	
-	String columnsOrder[] = {"IDs", "O.S.", "Descrições", "Empresas"}; 
-	String idsToSplit = DBConector.readDB("ID_Montagem", "montagem");
-	ArrayList<String> ids = new ArrayList<>();
-	String namesToSplit = DBConector.readDB("ISO", "montagem");
-	ArrayList<String> names = new ArrayList<>();
-	String descriptionsToSplit = DBConector.readDB("description", "montagem");
-	ArrayList<String> descriptions = new ArrayList<>();
-	String companiesToSplit = DBConector.readDB("Company", "montagem");
-	ArrayList<String> companies = new ArrayList<>();
-	
-	public static int scroll;
-	public int offsetHeight;
-	public int maximumHeight = 0;
-	public boolean mouseStatus = false;
-	
-	private boolean toggleScrollBar = false;
-	private int thumbWidth = 18;
-	public int thumbHeight = 0;
-	private double thumbAuxY = 0;
-	public boolean isDragging = false;
-	
+
 	private boolean changeState = false;
 	private int changeStateIndex = -1;
 	
@@ -67,14 +46,47 @@ public class ProjectList implements BidimensionalList{
 	int maxTextSize = 125;
 	int auxH = 0;
 	
-	public String orderColumn = "IDs";
+	public String orderColumn = "IDs";	
 	
+	// Instanciando as Listas de informações para a Listagem de dados.
+	String columnsOrder[] = {"IDs", "O.S.", "Descrições", "Empresas"}; 
+	String idsToSplit = DBConector.readDB("ID_Montagem", "montagem");
+	ArrayList<String> ids = new ArrayList<>();
+	String namesToSplit = DBConector.readDB("ISO", "montagem");
+	ArrayList<String> names = new ArrayList<>();
+	String descriptionsToSplit = DBConector.readDB("description", "montagem");
+	ArrayList<String> descriptions = new ArrayList<>();
+	String companiesToSplit = DBConector.readDB("Company", "montagem");
+	ArrayList<String> companies = new ArrayList<>();
+	
+	//Iniciando as variáveis de manipulação de dados com o mouse.
+	public static int scroll;
+	public int offsetHeight;
+	public int maximumHeight = 0;
+	public boolean mouseStatus = false;
+	
+	private boolean toggleScrollBar = false;
+	private int thumbWidth = 18;
+	public int thumbHeight = 0;
+	private double thumbAuxY = 0;
+	public boolean isDragging = false;
+	
+	/**
+	 * O Contrutor dessa classe preeche os dados da listagem 
+	 * de Montagem.
+	 */
 	public ProjectList(){
 		resetInfo();
 		
 		System.out.println("Carregou Lista de Projetos: " + LocalDateTime.now());
 	}
 	
+	/**
+	 * Esse metodo pega os dados da montagem e ordena os 
+	 * dados do banco de dados nas devidas listas de 
+	 * informações (IDs, Ordens de Serviço, Descrições e 
+	 * Empresas).
+	 */
 	private void resetInfo() {
 		String infoFromDB = DBConector.readDB(Searcher.orderByColumn(orderColumn, "Montagem"));
 		String[] lines = infoFromDB.split("\n");
@@ -99,17 +111,21 @@ public class ProjectList implements BidimensionalList{
 		
 	}
 	
+	/**
+	 * Metodo que altera o estado do sistema para addAssemblies.
+	 */
 	private void createNewAssembly(){
 		Almoxarifado.setState(7);
 	}
 	
 	@Override
 	public String getColumn(int i) {
-		
-		
 		return columnsOrder[i];
 	}
 	
+	/**
+	 * Posicionador do Scroll do mouse.
+	 */
 	public void scrollPositioner() {
 		if(offsetHeight < maximumHeight * -1) {
 			offsetHeight = maximumHeight * -1;
@@ -122,6 +138,11 @@ public class ProjectList implements BidimensionalList{
 		thumbAuxY = Y / S;
 	}
 	
+	/**
+	 * Metodo que organiza a lógica do sistema, validando a 
+	 * necessidade de atualizar os dados dos projetos, a interação 
+	 * do usuário com o sistema, a validade da adição de montagens. 
+	 */
 	public void tick() {
 		if(Almoxarifado.getState() == 3) {
 			isOnTheRightState = true;
@@ -207,6 +228,12 @@ public class ProjectList implements BidimensionalList{
 		}
 	}
 	
+	/**
+	 * Desenha a lista de peças, os botões e o scroll do mouse na 
+	 * tela.
+	 * 
+	 * @param g - Mecanismo que desenha os dados na janela
+	 */
 	public void render(Graphics g) {
 		g.setColor(Color.white);
 		g.setFont(new Font("segoe ui", 1, 40));

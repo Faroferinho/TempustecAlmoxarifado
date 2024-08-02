@@ -367,6 +367,12 @@ public class PartsList implements BidimensionalList{
 		
 	}
 	
+	/**
+	 * Verifica se a lista de montagens está positiva e maior 
+	 * que zero. No caso de sim o State é alterado para 
+	 * addPeças, caso contrário o state muda para a pagina de 
+	 * lista de montagem. 
+	 */
 	public void addPart() {
 		if(Almoxarifado.quantityAssembly > 0) {
 			Almoxarifado.setState(6);
@@ -376,6 +382,12 @@ public class PartsList implements BidimensionalList{
 		}
 	}
 	
+	/**
+	 * Verifica se o usuário confirma o removimento da peça em 
+	 * questão, caso negativo o metodo retorna, caso contrario 
+	 * o sistema remove da lista de pecas as peças com esse valor.
+	 * @param index - ID da peça para ser removida.
+	 */
 	public void eliminatePart(int index){
 		int confirmation = JOptionPane.showConfirmDialog(null, "Você tem *CERTEZA* que você deseja deletar essa peça?", "Confirma a Eliminação", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 		
@@ -397,7 +409,10 @@ public class PartsList implements BidimensionalList{
 		
 		wasChanged = true;
 	}
-		
+	
+	/**
+	 * Posiciona o Scroll.
+	 */
 	public void scrollPositioner() {
 		if(offsetHeight < PartsList.maximumHeight * -1) {
 			offsetHeight = PartsList.maximumHeight * -1;
@@ -410,6 +425,14 @@ public class PartsList implements BidimensionalList{
 		thumbAuxY = Y / S;
 	}
 	
+	/**
+	 * Pega o texto para efetuar a pesquisa por uma peça em 
+	 * especifico, adicionando caractere por caractere para 
+	 * criar o texto que será usado para efetuar a consulta 
+	 * do banco de dados.
+	 * 
+	 * @param e - Evento de pressionar uma tecla do teclado.
+	 */
 	public void getText(KeyEvent e) {
 		String textInserted = "";
 		
@@ -439,12 +462,27 @@ public class PartsList implements BidimensionalList{
 		}
 	}
 	
+	/**
+	 * Tecnica de texto avançada, basicamente vai concatenar o 
+	 * valor da string antiga de 0 até o indice, e posteriormente 
+	 * concatena também com o restante do texto.
+	 * 
+	 * @param text
+	 * @param e
+	 * @return
+	 */
 	private String advancedWriter(String text, KeyEvent e) {
 		String toReturn = "";
 		
 		return toReturn;
 	}
 	
+	/**
+	 * Lógica dessa página, verifica o valor para ser ordenado, 
+	 * atualiza o valor da lista de peças, preenche o valor da 
+	 * lista de montagens, controla o scroll do mouse e verifica 
+	 * se é necessario fazer a atualização das listas.
+	 */
 	public void tick() {
 		if(wasChanged == true) {
 			if(!isSearching) {
@@ -468,10 +506,6 @@ public class PartsList implements BidimensionalList{
 			isOnTheRightState = false;
 			thumbAuxY = 0;
 			offsetHeight = 0;
-		}
-		
-		if(isWriting) {
-			
 		}
 		
 		if(isOnTheRightState) {
@@ -517,6 +551,11 @@ public class PartsList implements BidimensionalList{
 		}
 	}
 	
+	/**
+	 * Desenha a lista de montagens, a área de pesquisa e os botões.
+	 * 
+	 * @param g - Mecanismo de desenho na Janela.
+	 */
 	public void render(Graphics g) {
 		
 		g.setColor(Color.white);
