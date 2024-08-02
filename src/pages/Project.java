@@ -37,7 +37,7 @@ public class Project {
 	BufferedImage check = Almoxarifado.imgManag.getSprite(452, 371, 21, 21);
 	BufferedImage checkBox = Almoxarifado.imgManag.getSprite(455, 395, 18, 18);
 	
-	//Instanciando variaveis de manipulação do usuário.
+	//Instanciando variaveis de manipulação do usuário.'
 	public static boolean updateProject = true;
 	private boolean isOnTheRightState = false;
 
@@ -53,11 +53,14 @@ public class Project {
 	private double thumbAuxY = 0;
 	public boolean isDragging = false;
 	
-	int imgX = UserInterface.bttnX[0] + 50;
-	int imgY = Almoxarifado.HEIGHT - UserInterface.maximunHeight - 20;
-	
 	boolean isEditing = false;
 	boolean isArchiving = false;
+	
+	boolean isEliminating = false;
+			
+	//Variáveis de Posicionamento e Aparencias.
+	int imgX = UserInterface.bttnX[0] + 50;
+	int imgY = Almoxarifado.HEIGHT - UserInterface.maximunHeight - 20;
 	
 	int nameSize = 0;
 	int descriptionSize = 0;
@@ -65,9 +68,6 @@ public class Project {
 	boolean isOverName = false;
 	boolean isOverDescription = false;
 	boolean isOverCompany = false;
-	
-	boolean isEliminating = false;
-	
 	int positionerX = 52;
 	int positionerY = imgY + 224;
 	int auxTextWidth = 0;
@@ -79,17 +79,32 @@ public class Project {
 	int maxTextSize = (int) (((total*40)/100) - ((total*5.5)/100));
 	int auxH = 0;
 	
+	/**
+	 * Classe da pagina do projeto em sí, contendo uma lista 
+	 * de peças, atributos da montagem e a imagem da montagem.
+	 */
 	public Project() {
 		System.out.println("Carregou Pagina de Projeto: " + LocalDateTime.now());
 	}
 	
+	/**
+	 * Checagem da caixa de dialogo, retorna positivo por padrão, 
+	 * porém se o resultado da String for igual a vazio ou nulo, 
+	 * retorna falso.
+	 * 
+	 * @param toVerif - String para ser verificada a sua validade.
+	 * @return falso se tiver conteudo (diferente de "", "null" e " "), caso contrario true.
+	 */
 	private boolean checkDialog(String toVerif) {
 		if(toVerif.equals("") || toVerif.equals("null") || toVerif.equals(" ")) {
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
+	/**
+	 * Metodo de atualizar a lista de Montagens.
+	 */
 	public void updater() {
 		String brokenApartInfo[];
 		String aux = DBConector.readDB("*", "montagem", "ID_Montagem", "" + ID);
@@ -101,7 +116,7 @@ public class Project {
 		company = brokenApartInfo[3];
 		imgAdress = brokenApartInfo[4];
 		
-		if(checkDialog(imgAdress)) {
+		if(!checkDialog(imgAdress)) {
 			imgAdress = "ProjetoBetaImg";
 		}
 		
@@ -124,6 +139,9 @@ public class Project {
 		PartsList.assembliesHM = PartsList.fillAssembliesName();
 	}
 	
+	/**
+	 * 
+	 */
 	public void scrollPositioner() {
 		if(offsetHeight < (maximumHeight * -1)) {			
 			offsetHeight = maximumHeight * -1;
@@ -136,6 +154,9 @@ public class Project {
 		thumbAuxY = Y / S;
 	}
 	
+	/**
+	 * 
+	 */
 	public void tick() {
 		if(Almoxarifado.getState() == 5) {
 			isOnTheRightState = true;
@@ -220,7 +241,7 @@ public class Project {
 						String newName = "";
 						newName += JOptionPane.showInputDialog(null, "Insira um novo nome", "Atualizar dados da Montagem", JOptionPane.PLAIN_MESSAGE);
 						
-						if(checkDialog(newName)) {
+						if(!checkDialog(newName)) {
 							
 							JOptionPane.showInternalMessageDialog(null, "Erro ao Atualizar nome", "Erro", JOptionPane.ERROR_MESSAGE);
 							mouseStatus = false;							
@@ -241,7 +262,7 @@ public class Project {
 						String newDescription = "";
 						
 						newDescription += JOptionPane.showInputDialog(null, "Insira uma nova descrição", "Atualizar dados da Montagem", JOptionPane.PLAIN_MESSAGE);
-						if(checkDialog(newDescription)) {
+						if(!checkDialog(newDescription)) {
 							
 							JOptionPane.showInternalMessageDialog(null, "Erro ao Atualizar a Descrição", "Erro", JOptionPane.ERROR_MESSAGE);
 							mouseStatus = false;							
@@ -258,7 +279,7 @@ public class Project {
 					}else if(isOverCompany) {
 						String newCompany = "";
 						newCompany += JOptionPane.showInputDialog(null, "Insira o novo nome da Empresa", "Atualizar dados da Montagem", JOptionPane.PLAIN_MESSAGE);
-						if(checkDialog(newCompany)) {
+						if(!checkDialog(newCompany)) {
 							JOptionPane.showInternalMessageDialog(null, "Erro ao Atualizar o Nome da Empresa", "Erro", JOptionPane.ERROR_MESSAGE);
 							mouseStatus = false;
 							

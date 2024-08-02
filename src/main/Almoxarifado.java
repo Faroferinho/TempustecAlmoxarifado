@@ -42,6 +42,7 @@ public class Almoxarifado extends Canvas implements Runnable, MouseListener, Mou
 	public static int HEIGHT;
 	
 	private static byte state = 0;
+	private static byte loginState = 0;
 	
 	public static int mX;
 	public static int mY;
